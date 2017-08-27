@@ -1,0 +1,53 @@
+<div class="container">
+    <div class="row">
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    <h3 id="align-title">Liberacion de Actividades Académicas</h3>
+    <% breadcrumb :actividad_academica, @periodo_actividad %>
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Periodo: </b><%= @periodo_actividad.periodo %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Docentes: </b></div>
+			<div class="col-xs-6 col-m-2"><b>Fecha: </b></div>
+        </div>
+        <div class="row">
+            <% @periodo_actividad.lib_actividad_docentes.each do |lda| %>
+                <div class="col-xs-6 col-sm-5">
+                    <% @doc = Docente.find(lda.docente_id) %>
+                    <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                    <% if lda.fecha != nil %>                    
+                        <%= lda.fecha.strftime("%d/%m/%Y")  %>
+                    <% end %>
+                </div>
+				<% aux = true %>
+				<% lda.lib_doc_act_criterios.each do |crit| %>
+					<% if crit.valor.blank? %>
+						<% aux = false %>
+					<% end %>
+				<% end %>
+			
+				<% if aux != false %>
+					<div class="col-xs-6 col-sm-3">
+						<%= form_tag(periodo_actividad_academica_path, method: 'get') do %>
+							<%= hidden_field_tag :format, "pdf"%>
+							<%= hidden_field_tag "liberacion_actividad", @periodo_actividad.id %>
+							<%= hidden_field_tag "liberacion_docente", lda.id %>
+							<%= hidden_field_tag "docente_id", lda.docente_id %>
+							<%= submit_tag "Generar liberacion",  :class => 'btn btn-success', :formtarget => '_blank' %>
+						<% end %>
+					</div>
+				<% else %>
+					<div class="col-xs-6 col-sm-4" style="color: red;"><p>No ha sido evaluado ese docente!</p></div>
+				<% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

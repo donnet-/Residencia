@@ -1,0 +1,84 @@
+<!--format: "pdf", numero: 34-->
+<div class="container">
+    <div id="marco">
+        <%= nested_form_for @tipoActividad, validate: true do |tipoActividad | %>
+            <div class="row">
+                <%= tipoActividad.label :Tipo_actividad, :class => 'col-md-2' %>
+                <div class="col-md-4">
+                    <% if @tipoActividad.nombreTipoAct == nil %>
+                        <%= tipoActividad.text_field :nombreTipoAct, :class => 'form-control', validate: true %>
+                    <% else %>
+                        <%= tipoActividad.text_field :nombreTipoAct, :class => 'form-control', disabled: true, validate: true %>
+                    <% end %>
+                </div>
+				<%= tipoActividad.label :Status, :class => 'col-md-2' %>
+                <div class="col-md-4">
+                	<%= tipoActividad.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]), {}, :class => 'form-control', validate: true %>
+                </div>
+            </div>
+        
+             <div class="row">
+                <div class="col-md-3"> <%= tipoActividad.label :Seleccionar_evidencias %>: </div>
+			</div>
+        	 <div class="row" style="padding: 5px;">
+            	<%= tipoActividad.collection_check_boxes :cat_evidencia_ids, CatEvidencia.all, :id, :nombreEvidencia do |ev| %>
+                	<div class="col-md-4"> <%= ev.check_box %> <%= ev.label %><br></div>
+                <% end %>
+            </div>
+        
+            <div class="row">
+                <div class="col-md-3"> <%= tipoActividad.label :Seleccionar_participaciones %>: </div>
+			</div>
+            <div class="row" style="padding: 5px;">
+            	<%= tipoActividad.collection_check_boxes :cat_tipo_participacion_ids, CatTipoParticipacion.all, :id, :participacion do |pa| %>
+                	<div class="col-md-3" style="padding-right: 0px;"><%= pa.check_box %> <%= pa.label %><br></div>
+                <% end %>
+            </div>
+        
+		
+        	<div class="row">
+                <div class="col-md-3" style="padding-right:0px;"> <%= tipoActividad.label :Requiere_generación_de_oficio_? %></div>
+                <div class="col-md-1"><%= tipoActividad.radio_button :requiereOficio, 'Si', :onclick => "agregarDatos('si_oficio')" %> SI </div>
+                <div class="col-md-1"><%= tipoActividad.radio_button :requiereOficio, 'No', :onclick => "agregarDatos('no_oficio')" %> NO </div>
+            </div> 
+		
+			<% if @tipoActividad.requiereOficio == 'Si' %>
+				<div id="datos_oficio" style="display: block;">
+					<div class="row">
+						<div class="col-md-3"><%= tipoActividad.label :Cabecera %></div>
+						<% if tipoActividad.object.cabecera.file != nil %>
+							<div class="col-md-4"><%= tipoActividad.object.cabecera.file.filename %> <%= link_to @tipoActividad.cabecera_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver Imagen"></span><% end %></div>
+							<div class="col-md-5"><%= tipoActividad.file_field :cabecera, :class => 'form-control', accept: "image/jpeg, image/jpg, image/gif, image/png" %></div>
+						<% else %>
+							<div class="col-md-5"><%= tipoActividad.file_field :cabecera, :class => 'form-control', accept: "image/jpeg, image/jpg, image/gif, image/png" %></div>
+					   <% end %>
+					</div>
+					<div class="row">
+						<div class="col-md-3"><%= tipoActividad.label :Texto_sugerido_para_oficio %>: </div>
+						<div class="col-md-9"><%= tipoActividad.text_area :textoSugerido, :class => 'form-control' %> </div>
+					</div>
+				</div>
+			<% else %>
+				<div id="datos_oficio" style="display: none;">
+					<div class="row">
+						<div class="col-md-3"><%= tipoActividad.label :Cabecera %></div>
+						<% if tipoActividad.object.cabecera.file != nil %>
+							<div class="col-md-4"><%= tipoActividad.object.cabecera.file.filename %> <%= link_to @tipoActividad.cabecera_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver Imagen"></span><% end %></div>
+							<div class="col-md-5"><%= tipoActividad.file_field :cabecera, :class => 'form-control', accept: "image/jpeg, image/jpg, image/gif, image/png" %></div>
+						<% else %>
+							<div class="col-md-5"><%= tipoActividad.file_field :cabecera, :class => 'form-control' , accept: "image/jpeg, image/jpg, image/gif, image/png"%></div>
+					   <% end %>
+					</div>
+					<div class="row">
+						<div class="col-md-3"><%= tipoActividad.label :Texto_sugerido_para_oficio %>: </div>
+						<div class="col-md-9"><%= tipoActividad.text_area :textoSugerido, :class => 'form-control' %> </div>
+					</div>
+				</div>
+			<% end %>
+            <div class="row" id="btn-cancelar">
+                <div class="col-md-6" align="right"><%= tipoActividad.submit :Guardar, :class => 'btn btn-success' %></div>   
+        <% end %>
+                <div class="col-md-4"> <%= button_to "Cancelar", cat_tipo_actividades_path, :class => 'btn btn-warning', :method => :get %> </div>
+            </div>
+    </div>
+</div>

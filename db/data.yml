@@ -1,0 +1,9111 @@
+
+---
+cat_departamentos:
+  columns:
+  - id
+  - nombreDpto
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  - encargado
+  records: 
+  - - 1
+    - Departamento de Sistemas y Computacion
+    - Activo
+    - 
+    - '2017-03-05 18:05:24.057151'
+    - '2017-05-02 00:15:38.677133'
+    - Dra Marisol altamirano cabrera
+  - - 2
+    - Departamento de Química
+    - Activo
+    - 
+    - '2017-03-05 18:05:51.903461'
+    - '2017-03-05 18:05:51.903461'
+    - 
+  - - 3
+    - Departamento de Eléctrica
+    - Activo
+    - 
+    - '2017-03-05 18:06:18.434563'
+    - '2017-03-05 18:06:18.434563'
+    - 
+  - - 4
+    - Departamento de Electrónica
+    - Activo
+    - 
+    - '2017-03-06 10:32:22.727486'
+    - '2017-03-06 10:32:22.727486'
+    - 
+  - - 5
+    - Departamento Gestión empresarial
+    - Activo
+    - 
+    - '2017-03-06 10:33:33.260334'
+    - '2017-03-06 10:33:33.260334'
+    - 
+  - - 6
+    - Departamento de Licencitura en Administración
+    - Activo
+    - 
+    - '2017-03-09 18:19:43.277346'
+    - '2017-03-09 18:19:43.277346'
+    - 
+  - - 8
+    - Departamento de ingeniaría Civil
+    - Activo
+    - 
+    - '2017-06-19 05:49:01.433959'
+    - '2017-06-19 05:49:01.433959'
+    - M A Carlos Fuentes
+  - - 9
+    - Departamento admin
+    - Activo
+    - 
+    - '2017-06-19 20:34:23.908191'
+    - '2017-06-19 20:34:23.908191'
+    - L.I Adminisración
+
+---
+cat_especialidades:
+  columns:
+  - id
+  - nombreEsp
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  - alias
+  records: 
+  - - 1
+    - Ingenieria en Sistemas Computacionales
+    - Activo
+    - 
+    - '2017-03-09 19:06:41.698295'
+    - '2017-05-07 23:57:20.837844'
+    - ISC
+  - - 2
+    - Ingenieria Civil
+    - Activo
+    - 
+    - '2017-03-09 19:07:34.829396'
+    - '2017-05-07 23:56:33.295734'
+    - IC
+  - - 3
+    - Ingeniería en Quimica
+    - Activo
+    - 
+    - '2017-08-15 01:55:51.035516'
+    - '2017-08-15 01:55:51.035516'
+    - IQ
+
+---
+cat_evidencias:
+  columns:
+  - id
+  - nombreEvidencia
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - PDF Evidencia de cumplimiento
+    - Activo
+    - 
+    - '2017-03-07 10:32:32.883907'
+    - '2017-03-07 10:32:32.883907'
+  - - 2
+    - Oficio de Comision
+    - Activo
+    - 
+    - '2017-03-09 19:11:41.263715'
+    - '2017-03-09 19:11:41.263715'
+  - - 3
+    - Oficio de Cumplimiento/Constancia
+    - Activo
+    - 
+    - '2017-03-09 19:16:59.089854'
+    - '2017-03-09 19:29:47.518747'
+  - - 4
+    - Oficio de Informe
+    - Activo
+    - 
+    - '2017-03-09 19:19:15.728787'
+    - '2017-03-09 19:19:15.728787'
+  - - 5
+    - Oficio de Nombramiento
+    - Activo
+    - 
+    - '2017-03-09 19:19:56.890746'
+    - '2017-03-09 19:19:56.890746'
+  - - 6
+    - Oficio No Incoveniente
+    - Activo
+    - 
+    - '2017-03-09 19:21:33.760163'
+    - '2017-03-09 19:21:33.760163'
+  - - 7
+    - PDF Itinerario
+    - Activo
+    - 
+    - '2017-03-09 19:22:00.852492'
+    - '2017-03-09 19:22:00.852492'
+  - - 8
+    - Instrumentacion
+    - Activo
+    - 
+    - '2017-03-09 19:22:33.642843'
+    - '2017-03-09 19:22:33.642843'
+  - - 9
+    - Oficio de Liberacion
+    - Activo
+    - 
+    - '2017-03-09 19:23:02.127357'
+    - '2017-03-09 19:23:02.127357'
+  - - 10
+    - Oficio de Aceptacion
+    - Activo
+    - 
+    - '2017-03-09 19:23:29.613760'
+    - '2017-03-09 19:23:29.613760'
+  - - 11
+    - Oficio de evaluacion
+    - Activo
+    - 
+    - '2017-08-15 17:01:10.926408'
+    - '2017-08-15 17:01:10.926408'
+
+---
+requisito_evidencias:
+  columns:
+  - id
+  - nombreRequisito
+  - estado
+  - cat_evidencia_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Instrumentacion Didactica
+    - 
+    - 6
+    - '2017-03-09 19:21:33.777725'
+    - '2017-03-09 19:21:33.777725'
+  - - 2
+    - Temario
+    - 
+    - 6
+    - '2017-03-09 19:21:33.791254'
+    - '2017-03-09 19:21:33.791254'
+  - - 3
+    - Lista Estudiantes (Sin Adeudo)
+    - 
+    - 6
+    - '2017-03-09 19:21:33.802692'
+    - '2017-03-09 19:21:33.802692'
+  - - 4
+    - Estudiantes con Seguro Social
+    - 
+    - 6
+    - '2017-03-09 19:21:33.822384'
+    - '2017-03-09 19:21:33.822384'
+
+---
+cat_tipo_actividades:
+  columns:
+  - id
+  - nombreTipoAct
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  - textoSugerido
+  - cabecera
+  - requiereOficio
+  records: 
+  - - 2
+    - Actualizacion
+    - Activo
+    - 
+    - '2017-03-09 19:47:34.584459'
+    - '2017-03-09 07:28:29.530134'
+    - Para dar continuidad a los objetivos y metas del Plan Institucional de Desarrollo
+      y el Programa Operativo Anual, en lo referente al Programa Formación y Actualización
+      Docente y Profesional, me permito informarle que ha sido COMISIONAD* para participar
+      en el tipoActividad? para la nombreActividad? modulo?, el  cual se llevará a
+      cabo del duracionCurso?, de horario?, en el lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 3
+    - Actividad Complementaria
+    - Activo
+    - 
+    - '2017-03-09 19:48:02.240591'
+    - '2017-03-09 11:44:22.014086'
+    - ''
+    - 
+    - 'No'
+  - - 4
+    - Concurso o Evento
+    - Activo
+    - 
+    - '2017-03-09 19:48:33.433703'
+    - '2017-03-09 07:30:27.499747'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 5
+    - Congreso
+    - Activo
+    - 
+    - '2017-03-09 19:48:59.663566'
+    - '2017-08-14 07:29:47.441910'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 6
+    - Viaje de Practicas
+    - Activo
+    - 
+    - '2017-03-09 19:49:23.481561'
+    - '2017-08-14 07:27:31.252796'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 8
+    - Aplicador CENEVAL
+    - Activo
+    - 
+    - '2017-03-09 19:50:15.375109'
+    - '2017-08-14 07:32:17.004856'
+    - "Sabiendo de su disposición para participar en las actividades que se desarrollan
+      en nuestra institución, me permito comunicar a usted que he tenido a bien comisionarl*
+      para que finja como: \r\ntipoParticipacion? DEL EXAMEN CENEVAL PARA NUEVO INGRESO
+      año?\r\nEl día fechaInicio* del año en curso, en un horario de horario? horas;
+      fecha en que se realizará dicho examen en este plantel. Así mismo asistir a
+      la capacitación el día fechaCapacitacion?  de los corrientes en lugarCapacitacion?
+      \ en un horario de horarioCapacitacion? hrs.\r\nAgradeciendo su colaboración
+      y puntualidad, aprovecho la ocasión para enviarle un cordial saludo."
+    - header_federal_ito-sist.png
+    - Si
+  - - 9
+    - Tutoria
+    - Activo
+    - 
+    - '2017-03-09 19:50:40.053269'
+    - '2017-08-14 19:32:30.695968'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 10
+    - Asesoria
+    - Activo
+    - 
+    - '2017-03-09 19:51:13.483300'
+    - '2017-08-14 07:33:17.791190'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 11
+    - Publicacion Articulo
+    - Activo
+    - 
+    - '2017-03-09 19:51:40.051015'
+    - '2017-08-14 07:33:33.262971'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 14
+    - Diplomado
+    - Activo
+    - 
+    - '2017-03-28 22:03:56.221822'
+    - '2017-08-14 07:34:30.824519'
+    - Para dar continuidad a los objetivos y metas del Plan Institucional de Desarrollo
+      y el Programa Operativo Anual, en lo referente al Programa Formación y Actualización
+      Docente y Profesional, me permito informarle que ha sido COMISIONAD* para participar
+      en el tipoActividad? para la nombreActividad? modulo?, el  cual se llevará a
+      cabo del duracionCurso?, de horario?, en el lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 15
+    - Evaluador
+    - Activo
+    - 
+    - '2017-03-30 09:42:06.190981'
+    - '2017-08-14 07:34:49.257404'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 16
+    - Actividades Acádemicas
+    - Activo
+    - 
+    - '2017-04-04 21:20:34.204889'
+    - '2017-08-14 07:35:06.571597'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 20
+    - Examen profesional
+    - Activo
+    - 
+    - '2017-08-14 02:55:07.624699'
+    - '2017-08-13 10:28:03.435564'
+    - ''
+    - 
+    - 'No'
+  - - 21
+    - Ponencias
+    - Activo
+    - 
+    - '2017-02-07 15:33:53.915063'
+    - '2017-08-14 07:35:21.503155'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 22
+    - Reunion de trabajo
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - header_federal_ito-sist.png
+    - Si
+  - - 25
+    - Actividad nueva
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Por este medio se le infoma que ha sido comisionad* para tipoActividad? nombreActividad?
+      que se llevara acabo del duracionCurso? en lugar?.
+    - header_federal_ito-sist.png
+    - Si
+
+---
+cat_tipo_examen_proyectos:
+  columns:
+  - id
+  - nombreTipoP
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Residencia Profesional
+    - Activo
+    - 
+    - '2017-03-09 19:55:34.258263'
+    - '2017-03-09 19:55:34.258263'
+  - - 2
+    - Proyecto de Investigacion y/o Desarrollo Tecnologico
+    - Activo
+    - 
+    - '2017-03-09 19:56:02.731370'
+    - '2017-03-09 19:56:02.731370'
+  - - 3
+    - Proyecto Integrador
+    - Activo
+    - 
+    - '2017-03-09 19:56:26.703457'
+    - '2017-03-09 19:56:26.703457'
+  - - 4
+    - Proyecto Productivo
+    - Activo
+    - 
+    - '2017-03-09 19:56:56.280272'
+    - '2017-03-09 19:56:56.280272'
+  - - 5
+    - Proyecto de Innovacion Tecnologica
+    - Activo
+    - 
+    - '2017-03-09 19:57:25.080181'
+    - '2017-03-09 19:57:25.080181'
+  - - 6
+    - Proyecto de Emprendedurismo
+    - Activo
+    - 
+    - '2017-03-09 19:57:56.436263'
+    - '2017-03-09 19:57:56.436263'
+  - - 7
+    - Proyecto Integral de Educacion Dual
+    - Activo
+    - 
+    - '2017-03-09 19:58:42.508118'
+    - '2017-03-09 19:58:42.508118'
+  - - 8
+    - Estancia
+    - Activo
+    - 
+    - '2017-03-09 19:59:11.675839'
+    - '2017-03-09 19:59:11.675839'
+  - - 9
+    - Tesis
+    - Activo
+    - 
+    - '2017-03-09 19:59:39.266358'
+    - '2017-03-09 19:59:39.266358'
+  - - 10
+    - Tesina
+    - Activo
+    - 
+    - '2017-03-09 20:00:06.101633'
+    - '2017-03-09 20:00:06.101633'
+
+---
+cat_tipo_participaciones:
+  columns:
+  - id
+  - participacion
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Expositor
+    - Activo
+    - 
+    - '2017-03-07 10:43:47.819560'
+    - '2017-03-07 10:43:47.819560'
+  - - 2
+    - Participante
+    - Activo
+    - 
+    - '2017-03-09 19:25:05.016986'
+    - '2017-03-09 19:25:05.016986'
+  - - 3
+    - Jurado
+    - Activo
+    - 
+    - '2017-03-09 19:27:05.074421'
+    - '2017-03-09 19:27:05.074421'
+  - - 4
+    - Líder
+    - Activo
+    - 
+    - '2017-03-12 19:19:01.848604'
+    - '2017-03-12 19:19:01.848604'
+  - - 5
+    - Organizador
+    - Activo
+    - 
+    - '2017-03-12 19:19:41.322461'
+    - '2017-03-12 19:19:41.322461'
+  - - 6
+    - Asesor interno
+    - Activo
+    - 
+    - '2017-03-12 19:20:10.748151'
+    - '2017-03-12 19:20:10.748151'
+  - - 7
+    - Revisor 1
+    - Activo
+    - 
+    - '2017-03-12 19:20:44.429200'
+    - '2017-03-12 19:20:44.429200'
+  - - 8
+    - Revisor 2
+    - Activo
+    - 
+    - '2017-03-12 19:21:44.051175'
+    - '2017-03-12 19:21:44.051175'
+  - - 9
+    - Revisor 3
+    - Activo
+    - 
+    - '2017-03-12 19:22:11.487176'
+    - '2017-03-12 19:22:11.487176'
+  - - 10
+    - Presidente
+    - Activo
+    - 
+    - '2017-03-12 19:22:56.946619'
+    - '2017-03-12 19:22:56.946619'
+  - - 11
+    - Asesor de Viajes
+    - Activo
+    - 
+    - '2017-03-23 08:08:56.025361'
+    - '2017-03-23 08:08:56.025361'
+  - - 12
+    - Responsable de Actividad Complementaria
+    - Activo
+    - 
+    - '2017-04-13 10:08:26.378020'
+    - '2017-04-13 10:08:26.378020'
+  - - 13
+    - Secretario
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 14
+    - Vocal uno
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 15
+    - Vocal dos
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 16
+    - Coordinador CENEVAL
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 17
+    - Aplicador CENEVAL
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 18
+    - Reunión de trabajo
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 19
+    - Instructor
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 20
+    - Asesor
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 21
+    - Colaborador
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 22
+    - Tutor
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 23
+    - Coordinador de tutoria
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 24
+    - Autor
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 25
+    - Ponente
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+cat_tipo_puestos:
+  columns:
+  - id
+  - nombrePuesto
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  - alterno
+  records: 
+  - - 1
+    - Jefe del Departamento de Sistemas y Computacion
+    - Activo
+    - 
+    - '2017-03-09 19:31:59.629925'
+    - '2017-08-14 07:35:21.503155'
+    - Jefa del Departamento de Sistemas
+  - - 2
+    - Jefe de Proyecto de Docencia
+    - Activo
+    - 
+    - '2017-03-09 19:33:07.163137'
+    - '2017-08-14 07:35:21.503155'
+    - Jefa de Proyecto de Docencia
+  - - 3
+    - Presidente de Academia
+    - Activo
+    - 
+    - '2017-05-11 08:35:58.600901'
+    - '2017-08-14 07:35:21.503155'
+    - Presidenta de Academia
+  - - 4
+    - Jefe de la Oficina de Vinculación de Sistemas
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Jefa de la Oficina de Vinculación de Sistemas
+  - - 5
+    - Jefe de la Oficina de Investgacion
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Jefa de la Oficina de Investgacion
+  - - 6
+    - Secretario de academia
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Secretaria de academia
+
+---
+cat_viaticos:
+  columns:
+  - id
+  - nombreViatico
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 2
+    - Gastos de Combustible
+    - Activo
+    - 
+    - '2017-03-09 20:04:56.828890'
+    - '2017-03-09 20:04:56.828890'
+  - - 3
+    - Viáticos
+    - Activo
+    - 
+    - '2017-03-09 20:05:25.501377'
+    - '2017-03-09 20:05:25.501377'
+  - - 4
+    - Pasaje de Autobús
+    - Activo
+    - 
+    - '2017-03-09 20:05:52.766477'
+    - '2017-03-09 20:05:52.766477'
+  - - 5
+    - Boleto de Avion
+    - Activo
+    - 
+    - '2017-03-09 20:06:18.267704'
+    - '2017-03-09 20:06:18.267704'
+  - - 6
+    - Gastos de Traslado
+    - Activo
+    - 
+    - '2017-03-09 20:06:54.066106'
+    - '2017-03-09 20:06:54.066106'
+  - - 7
+    - Gastos de Peaje
+    - Activo
+    - 
+    - '2017-03-09 20:07:25.138580'
+    - '2017-03-09 20:07:25.138580'
+
+---
+cat_plan_cursos:
+  columns:
+  - id
+  - descripcion
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - ISC-2010
+    - Activo
+    - 
+    - '2017-03-07 11:15:21.520996'
+    - '2017-03-07 11:15:21.520996'
+
+---
+docentes:
+  columns:
+  - id
+  - curp
+  - rfc
+  - clavePresupuestal
+  - nombreD
+  - apPaterno
+  - apMaterno
+  - genero
+  - email
+  - cat_departamento_id
+  - tipoDocente
+  - usuario_id
+  - estado
+  - created_at
+  - updated_at
+  - rol
+  - pdfCurriculum
+  - contacto
+  - tipoCurriculum
+  - numCurriculum
+  - sni
+  - sniEvidencia
+  - prodep
+  - prodepEvidencia
+  records: 
+  - - 1
+    - MEPM930116MOCNRN00
+    - MEPM800825569
+    - ''
+    - Mayte
+    - Mejia
+    - Palacios
+    - F
+    - mayte.mejia@gmail.com
+    - 1
+    - De Base
+    - 3
+    - Activo
+    - '2017-03-10 09:34:49.169982'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - Curriculum.pdf
+    - '9511124356'
+    - CONACYT
+    - '02'
+    - 'No'
+    - 
+    - Si
+    - 
+  - - 2
+    - PECJ850901MOCNRN00
+    - ''
+    - ''
+    - Juan
+    - Perez
+    - Curz
+    - F
+    - juan.perez@gmail.com
+    - 4
+    - De Base
+    - 
+    - Activo
+    - '2017-04-05 10:47:47.124324'
+    - '2017-04-05 10:47:47.124324'
+    - docente
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 3
+    - SIMD700510MOCNRN00
+    - SIMD810825669
+    - ''
+    - Dalia
+    - Silva
+    - Martinez
+    - F
+    - daliasilvamartinez@gmail.com
+    - 1
+    - De Base
+    - 8
+    - Activo
+    - '2017-05-08 19:07:24.769435'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - Framework.pdf
+    - '9512345678'
+    - CONACYT
+    - '03'
+    - 
+    - 
+    - 
+    - 
+  - - 4
+    - HEBA830511HOCNRN00
+    - HEBA810835668
+    - ''
+    - Antonio
+    - Hernandez
+    - Blas
+    - F
+    - antoniohdz@gmail.com
+    - 1
+    - De Base
+    - 
+    - Activo
+    - '2017-05-08 22:15:58.058883'
+    - '2017-05-09 09:43:00.322284'
+    - docente
+    - Curriculum.pdf
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 5
+    - SABM650302MOCNRN00
+    - SABM810825666
+    - ''
+    - Martin
+    - Sanchez
+    - Balbuena
+    - F
+    - martinsan@gmail.com
+    - 1
+    - De Base
+    - 11
+    - Activo
+    - '2017-05-09 11:57:06.216947'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9511234567'
+    - CONACYT
+    - '23'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 6
+    - HEAA750111MOCRBN01
+    - HEAA750111QQ6
+    - 1456E3813 00710245
+    - Anayansi Cristina
+    - Hernandez
+    - Abrego
+    - F
+    - anayansi.ito@gmail.com
+    - 1
+    - De Base
+    - 14
+    - Activo
+    - '2017-05-11 08:42:38.701383'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9515690697'
+    - PREDOP
+    - '623'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 7
+    - SAAG000304MOCNRN00
+    - SAAG000304QQ6
+    - ''
+    - Melissa
+    - Sandoval
+    - Alvarez
+    - F
+    - melissa_sand@gmail.com
+    - 1
+    - Honorario
+    - 16
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - Curriculum.pdf
+    - '9510335467'
+    - CONACYT
+    - '01'
+    - 'No'
+    - 
+    - Si
+    - 
+  - - 8
+    - MEPM940116MOCJLY02
+    - XAXX010101000
+    - ''
+    - Marisol
+    - Altamirano
+    - Cabrera
+    - F
+    - marisol@gmail.com
+    - 1
+    - De Base
+    - 2
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9511234588'
+    - CONACYT
+    - '00'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 9
+    - MEPA900701MOCJLY00
+    - XAXX010101111
+    - ''
+    - 'Maricela '
+    - Mendez
+    - Pacheco
+    - F
+    - marisolmorales@gmail.com
+    - 1
+    - De Base
+    - 20
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9511234589'
+    - CONACYT
+    - '04'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 10
+    - SAAA930814MOCNRN01
+    - XAXX010100000
+    - ''
+    - Idarth
+    - Matadamas
+    - Ortiz
+    - F
+    - idarthmatadamas@gmail.com
+    - 1
+    - De Base
+    - 2
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9511234599'
+    - CONACYT
+    - '05'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 11
+    - MAOC841019HOCTRL04
+    - MAOC841019D41
+    - ''
+    - Claudio Idarh
+    - Matadamas
+    - Ortiíz
+    - F
+    - madomor@gmail.com
+    - 1
+    - De Base
+    - 2
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9512345672'
+    - CONACYT
+    - '987'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 12
+    - BEQC870120MOCNCL05
+    - BEQC870120PH6
+    - ''
+    - Clarible
+    - Benitez
+    - Quecha
+    - F
+    - ing_claribel@gmail.com
+    - 1
+    - De Base
+    - 2
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - Curriculum.pdf
+    - '9657898021'
+    - CONACYT
+    - '76'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 14
+    - COLR651103HOCRMG01
+    - COLR651103U33
+    - ''
+    - Rogelio Noé
+    - Limón
+    - Cordero
+    - F
+    - rogelio_limon@gmail.com
+    - 1
+    - De Base
+    - 2
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9321456787'
+    - CONACYT
+    - '43'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 15
+    - SAAM960314MOCNRL02
+    - SAAM960314JZ2
+    - ''
+    - Paola de los Michelle
+    - Sanchez
+    - Armengol
+    - F
+    - paola_sanchezAr@gmail.com
+    - 1
+    - De Base
+    - 2
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - Curriculum.pdf
+    - '9512345467'
+    - CONACYT
+    - '980'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 17
+    - MEPK920101MOCJLR05
+    - MEPK920101RU6
+    - ''
+    - Karina
+    - Mejía
+    - Palacios
+    - F
+    - mmejiaps@gmail.com
+    - 1
+    - De Base
+    - 
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - 
+    - '9511725298'
+    - CONACYT
+    - '07'
+    - 'No'
+    - 
+    - 'No'
+    - 
+  - - 18
+    - MEPJ990708HOCJLV03
+    - MEPJ9907082W3
+    - ''
+    - 'Javier'
+    - Mejía
+    - Palacios
+    - F
+    - maytemejia@live.com.mx
+    - 1
+    - De Base
+    - 
+    - Activo
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - docente
+    - cumplimiento_dalia.pdf
+    - '9516754321'
+    - PROMEP
+    - 08
+    - 'No'
+    - 
+    - 'No'
+    - 
+
+---
+grado_estudios:
+  columns:
+  - id
+  - nombreGrado
+  - cat_tipo_grado_estudio_id
+  - institucion
+  - pdfEvidencia
+  - docente_id
+  - created_at
+  - updated_at
+  - abrev
+  records: 
+  - - 1
+    - Licenciatura en informatica
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - Curriculum.pdf
+    - 1
+    - '2017-05-07 16:51:53.342955'
+    - '2017-05-21 19:38:18.495952'
+    - LI
+  - - 2
+    - Licenciatura en informatica
+    - 1
+    - Instituto Tecnologico de Oaxaca
+    - Informatica-Tics.pdf
+    - 7
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - LI
+  - - 3
+    - Licenciatura en Informática
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - 
+    - 6
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - LI
+  - - 4
+    - Maestría en Ciencias Computacionales
+    - 2
+    - Universidad Autónoma de Guadalajra
+    - 
+    - 6
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - MCC
+  - - 5
+    - Licenciatura en informática
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - 
+    - 8
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - LI
+  - - 6
+    - Licenciatura en informática
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - 
+    - 9
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - LI
+  - - 7
+    - Licenciatura en informática
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - 
+    - 10
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - LI
+  - - 8
+    - Licenciatura en informatica
+    - 1
+    - Instituto Tecnologico de Oaxaca
+    - 
+    - 11
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - L.I
+  - - 9
+    - Ingeniería en sistemas computacionales
+    - 2
+    - Instituto Tecnológico de Monterrey
+    - 2.14.MVC.pdf
+    - 12
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - I.S.C
+  - - 11
+    - Ciencias de la computación
+    - 3
+    - Universidad Nacional de México
+    - 
+    - 14
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - DCC
+  - - 12
+    - Ciencias de la Educación
+    - 2
+    - Instituto Ibarborou Oaxaca
+    - a12v13n1.pdf
+    - 15
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - M.C.E
+  - - 14
+    - Licenciatura en informática
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - 
+    - 17
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - L.I
+  - - 15
+    - Licenciatura en informática
+    - 1
+    - Instituto Tecnológico de Oaxaca
+    - Curriculum.pdf
+    - 18
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - L.I
+
+---
+puestos:
+  columns:
+  - id
+  - fechaInicio
+  - fechaTermino
+  - pdfNombramiento
+  - cat_tipo_puesto_id
+  - docente_id
+  - estado
+  - usuario_id
+  - created_at
+  - updated_at
+  records: 
+  - - 5
+    - '2017-05-01'
+    - '2017-06-01'
+    - Curriculum.pdf
+    - 2
+    - 6
+    - Activo
+    - 
+    - '2017-05-14 12:08:02.357421'
+    - '2017-05-14 12:36:54.002595'
+  - - 12
+    - '2017-06-12'
+    - '2017-08-28'
+    - 
+    - 3
+    - 1
+    - Activo
+    - 
+    - '2017-05-16 12:05:41.793322'
+    - '2017-05-16 12:05:41.793322'
+  - - 13
+    - '2017-08-28'
+    - '2017-12-15'
+    - 
+    - 1
+    - 6
+    - Activo
+    - 
+    - '2017-05-16 21:07:32.542659'
+    - '2017-05-16 21:07:32.542659'
+  - - 14
+    - '2017-06-29'
+    - '2017-12-31'
+    - 
+    - 5
+    - 3
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 15
+    - '2017-08-07'
+    - '2017-12-15'
+    - Carta-de-Aceptacion.pdf
+    - 4
+    - 9
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+empresas:
+  columns:
+  - id
+  - rfcEmpresa
+  - nombreE
+  - pdfConvenio
+  - email
+  - contacto
+  - telefono
+  - estado
+  - calle
+  - colonia
+  - numInterior
+  - numExterior
+  - estadoEmp
+  - usuario_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - CBI981002976
+    - Computacion Byte Integral S.A de C.V
+    - Curriculum.pdf
+    - servicio@byte.com.mx
+    - Ing. Arturo Eduardo Macías Campos
+    - '6144139800'
+    - Chihuahua
+    - José María Mari
+    - Santo Niño
+    - '2509'
+    - '0'
+    - Activo
+    - 
+    - '2017-03-22 10:11:16.151742'
+    - '2017-03-22 10:11:16.151742'
+  - - 2
+    - SRE930318551
+    - AVC Ingenieria Especializada
+    - Curriculum.pdf
+    - avcingespecializada@gmail.com
+    - Salvador Allende Garcia
+    - '5147359'
+    - Oaaxaca
+    - Manuel Bravo
+    - Centro
+    - "#414-A"
+    - ''
+    - Activo
+    - 
+    - '2017-04-04 18:37:37.653053'
+    - '2017-04-04 18:37:37.653053'
+  - - 3
+    - SPE9802097G6
+    - Centro Interdiciplinario de Investigacion para el desarrollo Integral Regional
+      Unidad Oaxaca CIIDIR
+    - 04-UserAuth-II.pdf
+    - ciidiroaxaca@ipn.mx
+    - Dr Salvador Isidro Belmonte Jimenez
+    - '9515170610'
+    - Oaaxaca
+    - Hornos
+    - Noche buena
+    - '1003'
+    - ''
+    - Activo
+    - 
+    - '2017-04-04 18:48:37.633998'
+    - '2017-04-04 18:48:37.633998'
+  - - 4
+    - EAM980622K13
+    - Euro Estudios S A de C V
+    - 04-UserAuth-II.pdf
+    - direccion@euroestudios.com.mx
+    - Ing Fernando Isunza Mohedano
+    - '5552508760'
+    - Aguascalientes
+    - Gauss
+    - Nueva Anzures Delegacion Miguel Hidalgo
+    - '202'
+    - '9'
+    - Activo
+    - 
+    - '2017-04-04 19:12:15.400431'
+    - '2017-08-14 07:35:21.503155'
+  - - 5
+    - TNM130122G21
+    - Departamento de Sistemas y Computacion Instituto Tecnologico de Oaxaca
+    - Convenio-Colectivo.pdf
+    - tec_oax@itoaxaca.edu.mx
+    - " DRA.MARISOL ALTAMIRANO CABRERA"
+    - 951 501 50 16
+    - Oaaxaca
+    - Avenida Ing Victor Bravo Ahuja
+    - Centro Oaxaca
+    - '0'
+    - '125'
+    - Activo
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+actividad_docentes:
+  columns:
+  - id
+  - docente_id
+  - cat_tipo_participacion_id
+  - actividad_id
+  - usuario_id
+  - estado
+  - created_at
+  - updated_at
+  records: 
+  - - 10
+    - 1
+    - 2
+    - 10
+    - 
+    - 
+    - '2017-03-28 22:05:32.123041'
+    - '2017-03-28 22:05:32.123041'
+  - - 11
+    - 1
+    - 11
+    - 11
+    - 
+    - 
+    - '2017-03-30 08:07:21.456214'
+    - '2017-03-30 08:07:21.456214'
+  - - 12
+    - 1
+    - 2
+    - 12
+    - 
+    - 
+    - '2017-03-30 08:52:46.572687'
+    - '2017-04-05 08:36:37.079610'
+  - - 13
+    - 1
+    - 3
+    - 13
+    - 
+    - 
+    - '2017-03-30 09:44:20.655703'
+    - '2017-03-30 09:44:20.655703'
+  - - 15
+    - 1
+    - 2
+    - 15
+    - 
+    - 
+    - '2017-04-04 21:31:29.188734'
+    - '2017-04-04 21:31:29.188734'
+  - - 19
+    - 2
+    - 2
+    - 18
+    - 
+    - 
+    - '2017-05-04 11:50:38.427630'
+    - '2017-05-04 11:50:38.427630'
+  - - 23
+    - 2
+    - 11
+    - 22
+    - 
+    - 
+    - '2017-05-17 10:31:10.445827'
+    - '2017-05-17 10:31:10.445827'
+  - - 24
+    - 3
+    - 3
+    - 23
+    - 
+    - 
+    - '2017-05-18 09:28:21.690721'
+    - '2017-05-18 09:28:21.690721'
+  - - 25
+    - 2
+    - 1
+    - 24
+    - 
+    - 
+    - '2017-05-18 09:30:38.101579'
+    - '2017-05-18 09:30:38.101579'
+  - - 26
+    - 2
+    - 1
+    - 25
+    - 
+    - 
+    - '2017-05-18 09:31:14.331426'
+    - '2017-05-18 09:31:14.331426'
+  - - 27
+    - 6
+    - 8
+    - 25
+    - 
+    - 
+    - '2017-05-18 09:39:13.851449'
+    - '2017-05-18 09:39:13.851449'
+  - - 28
+    - 5
+    - 2
+    - 25
+    - 
+    - 
+    - '2017-05-18 09:39:13.866203'
+    - '2017-05-18 09:39:13.866203'
+  - - 30
+    - 2
+    - 2
+    - 26
+    - 
+    - 
+    - '2017-06-03 03:09:12.439752'
+    - '2017-06-03 03:09:12.439752'
+  - - 31
+    - 5
+    - 2
+    - 26
+    - 
+    - 
+    - '2017-06-03 15:17:41.673696'
+    - '2017-06-03 15:17:41.673696'
+  - - 32
+    - 4
+    - 2
+    - 26
+    - 
+    - 
+    - '2017-06-03 15:23:50.035964'
+    - '2017-06-03 15:23:50.035964'
+  - - 33
+    - 3
+    - 2
+    - 27
+    - 
+    - 
+    - '2017-06-05 10:57:03.427224'
+    - '2017-06-05 10:57:03.427224'
+  - - 34
+    - 2
+    - 2
+    - 27
+    - 
+    - 
+    - '2017-06-06 11:47:16.322721'
+    - '2017-06-06 11:47:16.322721'
+  - - 36
+    - 4
+    - 2
+    - 29
+    - 
+    - 
+    - '2017-06-07 05:39:05.367614'
+    - '2017-06-07 05:39:05.367614'
+  - - 37
+    - 3
+    - 2
+    - 10
+    - 
+    - 
+    - '2017-06-10 02:21:39.642106'
+    - '2017-06-10 02:21:39.642106'
+  - - 44
+    - 5
+    - 2
+    - 29
+    - 
+    - 
+    - '2017-06-13 02:17:07.724720'
+    - '2017-06-13 02:17:07.724720'
+  - - 45
+    - 6
+    - 2
+    - 29
+    - 
+    - 
+    - '2017-06-13 15:03:04.736470'
+    - '2017-06-13 15:03:04.736470'
+  - - 48
+    - 3
+    - 2
+    - 31
+    - 
+    - 
+    - '2017-06-15 06:47:27.402534'
+    - '2017-06-15 06:47:27.402534'
+  - - 49
+    - 3
+    - 11
+    - 32
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 51
+    - 3
+    - 2
+    - 34
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 52
+    - 6
+    - 11
+    - 35
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 53
+    - 2
+    - 2
+    - 36
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 55
+    - 2
+    - 2
+    - 38
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 56
+    - 3
+    - 2
+    - 39
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 57
+    - 3
+    - 10
+    - 40
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 58
+    - 1
+    - 11
+    - 41
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 61
+    - 3
+    - 18
+    - 44
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 63
+    - 3
+    - 12
+    - 46
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 64
+    - 3
+    - 8
+    - 47
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 65
+    - 3
+    - 17
+    - 48
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 66
+    - 3
+    - 18
+    - 49
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 67
+    - 3
+    - 17
+    - 50
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 68
+    - 3
+    - 13
+    - 51
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 69
+    - 3
+    - 14
+    - 52
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 70
+    - 3
+    - 16
+    - 53
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 71
+    - 3
+    - 2
+    - 54
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 72
+    - 3
+    - 17
+    - 55
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 73
+    - 3
+    - 11
+    - 56
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 74
+    - 3
+    - 11
+    - 57
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 80
+    - 3
+    - 5
+    - 61
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 82
+    - 3
+    - 2
+    - 63
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 84
+    - 3
+    - 11
+    - 65
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 85
+    - 3
+    - 24
+    - 66
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 87
+    - 3
+    - 13
+    - 68
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 88
+    - 3
+    - 2
+    - 69
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 89
+    - 3
+    - 22
+    - 70
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 92
+    - 3
+    - 13
+    - 72
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 93
+    - 5
+    - 13
+    - 72
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 94
+    - 2
+    - 13
+    - 72
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 95
+    - 9
+    - 13
+    - 72
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 96
+    - 2
+    - 2
+    - 73
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 97
+    - 3
+    - 12
+    - 74
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 98
+    - 3
+    - 2
+    - 75
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 100
+    - 3
+    - 2
+    - 77
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 101
+    - 3
+    - 2
+    - 78
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+grupo_act_complementarias:
+  columns:
+  - id
+  - actividad_complementaria_id
+  - numControl
+  - estado
+  - usuario_id
+  - created_at
+  - updated_at
+  - apPaterno
+  - apMaterno
+  - nombre
+  records: 
+  - - 2
+    - 1
+    - 11789021
+    - 
+    - 
+    - '2017-03-29 22:09:49.020179'
+    - '2017-03-29 22:09:49.020179'
+    - Flores
+    - Perez
+    - Juan
+  - - 3
+    - 1
+    - 12160001
+    - 
+    - 
+    - '2017-03-29 22:13:02.192424'
+    - '2017-03-29 22:13:02.192424'
+    - 
+    - 
+    - Luis Alberto
+  - - 4
+    - 1
+    - 11161033
+    - 
+    - 
+    - '2017-03-29 22:13:02.308781'
+    - '2017-03-29 22:13:02.308781'
+    - 
+    - 
+    - Mayté
+
+---
+act_individual_docentes:
+  columns:
+  - id
+  - pdfEvidencia
+  - actividad_docente_id
+  - estado
+  - usuario_id
+  - created_at
+  - updated_at
+  - cat_evidencia_id
+  records: 
+  - - 1
+    - Curriculum.pdf
+    - 2
+    - 
+    - 
+    - '2017-03-13 23:41:47.945502'
+    - '2017-03-13 23:41:47.945502'
+    - 3
+  - - 2
+    - 
+    - 2
+    - 
+    - 
+    - '2017-03-13 23:46:21.035161'
+    - '2017-03-13 23:46:21.035161'
+    - 2
+  - - 3
+    - Curriculum.pdf
+    - 16
+    - 
+    - 
+    - '2017-04-05 08:43:01.679766'
+    - '2017-04-05 08:43:01.679766'
+    - 5
+  - - 4
+    - 2.14.MVC.pdf
+    - 17
+    - 
+    - 
+    - '2017-05-02 12:12:32.439211'
+    - '2017-05-02 12:12:32.439211'
+    - 4
+  - - 5
+    - robles-ferrer-ponencia-hispalinux-2002.pdf
+    - 11
+    - 
+    - 
+    - '2017-05-02 13:00:19.939380'
+    - '2017-05-02 13:00:19.939380'
+    - 7
+  - - 6
+    - 4-Intranet.pdf
+    - 17
+    - 
+    - 
+    - '2017-05-02 21:39:42.279108'
+    - '2017-05-02 21:39:42.279108'
+    - 3
+  - - 7
+    - capitulo1.pdf
+    - 15
+    - 
+    - 
+    - '2017-05-02 22:53:07.395139'
+    - '2017-05-02 22:53:07.395139'
+    - 3
+  - - 8
+    - robles-ferrer-ponencia-hispalinux-2002.pdf
+    - 26
+    - 
+    - 
+    - '2017-05-18 11:25:23.368482'
+    - '2017-05-18 11:25:23.368482'
+    - 3
+  - - 9
+    - Curriculum.pdf
+    - 13
+    - 
+    - 
+    - '2017-06-05 04:58:17.128919'
+    - '2017-06-05 04:58:17.128919'
+    - 1
+  - - 10
+    - Framework.pdf
+    - 13
+    - 
+    - 
+    - '2017-06-05 05:00:44.176383'
+    - '2017-06-05 05:00:44.176383'
+    - 2
+  - - 11
+    - Proyecto_-_Ramiro_Robles_V..pdf
+    - 7
+    - 
+    - 
+    - '2017-06-15 06:25:05.782543'
+    - '2017-06-15 06:25:05.782543'
+    - 2
+  - - 12
+    - oficio_comison_dalia.pdf
+    - 20
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+  - - 13
+    - cumplimiento_daia.pdf
+    - 20
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 3
+  - - 14
+    - comision_de_no_se_que.pdf
+    - 24
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 1
+  - - 15
+    - cumplimiento_daia.pdf
+    - 24
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+  - - 16
+    - oficio_comison_dalia.pdf
+    - 37
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+  - - 17
+    - cumplimiento_dalia.pdf
+    - 37
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 3
+  - - 18
+    - oficio_comison_dalia.pdf
+    - 72
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+  - - 19
+    - cumplimiento_dalia.pdf
+    - 72
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 1
+  - - 20
+    - Proyecto_-_Ramiro_Robles_V..pdf
+    - 69
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+  - - 21
+    - capitulo1.pdf
+    - 51
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+  - - 22
+    - capitulo2.pdf
+    - 51
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 3
+  - - 23
+    - 2.14.MVC.pdf
+    - 51
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 4
+  - - 24
+    - 4-Intranet.pdf
+    - 64
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 3
+  - - 25
+    - robles-ferrer-ponencia-hispalinux-2002.pdf
+    - 64
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - 2
+
+---
+actividad_evidencias:
+  columns:
+  - id
+  - cat_evidencia_id
+  - pdfEvidencia
+  - fechaActualizacion
+  - actividad_id
+  - estado
+  - usuario_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 3
+    - Curriculum.pdf
+    - '2017-05-18'
+    - 25
+    - 
+    - 
+    - '2017-05-18 09:35:05.685567'
+    - '2017-05-18 09:35:05.685567'
+  - - 2
+    - 2
+    - Servidores_UOC_es__1_.pdf
+    - 
+    - 25
+    - 
+    - 
+    - '2017-05-18 09:36:42.999641'
+    - '2017-05-18 09:36:42.999641'
+  - - 3
+    - 2
+    - Proyecto_-_Ramiro_Robles_V..pdf
+    - 
+    - 48
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+proyecto_estudiantes:
+  columns:
+  - id
+  - numControl
+  - proyecto_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 11161067
+    - 2
+    - '2017-03-22 19:50:45.298388'
+    - '2017-03-22 19:50:45.298388'
+  - - 2
+    - 11161067
+    - 3
+    - '2017-03-22 20:24:29.526404'
+    - '2017-03-22 20:24:29.526404'
+  - - 3
+    - 
+    - 4
+    - '2017-03-30 09:52:13.465791'
+    - '2017-03-30 09:52:13.465791'
+  - - 4
+    - 12121231
+    - 4
+    - '2017-03-30 09:52:13.474671'
+    - '2017-03-30 09:52:13.474671'
+  - - 5
+    - 11131033
+    - 5
+    - '2017-05-02 08:56:26.718264'
+    - '2017-05-02 08:56:26.718264'
+  - - 6
+    - 11161067
+    - 5
+    - '2017-05-02 08:56:26.730710'
+    - '2017-05-02 08:56:26.730710'
+  - - 7
+    - 11348900
+    - 5
+    - '2017-05-02 08:56:26.739786'
+    - '2017-05-02 08:56:26.739786'
+  - - 9
+    - 11161024
+    - 5
+    - '2017-05-23 04:47:22.383158'
+    - '2017-05-23 04:47:22.383158'
+  - - 10
+    - 11348900
+    - 6
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 11
+    - 12190001
+    - 7
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 12
+    - 11161043
+    - 8
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+  - - 13
+    - 11161093
+    - 9
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+reuniones:
+  columns:
+  - id
+  - numActa
+  - fecha
+  - pdfActa
+  - usuario_id
+  - estado
+  - created_at
+  - updated_at
+  - hora
+  records: 
+  - - 4
+    - '05'
+    - '2017-07-18'
+    - Digital-U.pdf
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - '10:00'
+  - - 5
+    - '06'
+    - '2017-07-27'
+    - 
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - '13:00'
+  - - 25
+    - '07'
+    - '2017-08-14'
+    - Framework.pdf
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - '11:00'
+  - - 27
+    - 08
+    - '2017-08-08'
+    - 
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - '07:00'
+
+---
+examen_profesionales:
+  columns:
+  - id
+  - hora
+  - fecha
+  - cat_tipo_examen_proyecto_id
+  - actividad_id
+  - estado
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - '11:00'
+    - '2017-06-21'
+    - 
+    - 40
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+egresados:
+  columns:
+  - id
+  - numControl
+  - opcion
+  - cat_plan_curso_id
+  - examen_profesional_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 11131033
+    - Titulación integral
+    - 1
+    - 1
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+
+---
+visitas:
+  columns:
+  - id
+  - asunto
+  - actividad_id
+  - created_at
+  - updated_at
+  - estado
+  - objetivo
+  - actividades
+  records: 
+  - - 1
+    - Visita a empresas
+    - 11
+    - '2017-03-30 08:14:59.328089'
+    - '2017-05-13 12:16:48.745977'
+    - Guanajuato
+    - 
+    - 
+  - - 4
+    - Viaje de estudio
+    - 32
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Oaxaca
+    - Conocer la gravedad en la luna.
+    - "Tomar medidas de la gravedad en la tierra y en la luna.\r\nHacer comparaciones
+      y sacar conclusiones."
+  - - 5
+    - Viaje de estudio
+    - 41
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Puebla
+    - Obtener conocimientos sobre la cultura en publa
+    - "Conocer las diferentes plantas que rodean la plaza de armas.\r\nConocer su
+      arquitectura de estilo español, rodeada de soportales y con una gran variedad
+      de árboles que se combinan con la arquitectura del paisaje."
+  - - 6
+    - Viaje de estudio
+    - 49
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Aguascalientes
+    - NO SE
+    - MENOS
+  - - 7
+    - Viaje de estudio
+    - 65
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - Aguascalientes
+    - conjocer monte alban
+    - 'conocer monte alban '
+
+---
+viaje_itinerario_empresas:
+  columns:
+  - id
+  - fecha
+  - hora
+  - visita_id
+  - created_at
+  - updated_at
+  - curpEmpresa
+  records: 
+  - - 2
+    - '2017-01-12'
+    - '07:00'
+    - 1
+    - '2017-03-30 09:31:50.257988'
+    - '2017-03-30 09:31:50.257988'
+    - " CBI981002976 Computacion Byte Integral S.A de C.V"
+  - - 3
+    - '2017-05-12'
+    - '09:00'
+    - 1
+    - '2017-04-04 20:16:08.170830'
+    - '2017-04-04 20:16:08.170830'
+    - " SRE930318551 AVC Ingenieria Especializada"
+  - - 4
+    - '2017-10-04'
+    - '10:00'
+    - 1
+    - '2017-04-04 20:36:57.914858'
+    - '2017-04-04 20:36:57.914858'
+    - " EAM980622K13 Euro Estudios S A de C V"
+  - - 6
+    - '2017-06-17'
+    - '07:00'
+    - 4
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - " CBI981002976 Computacion Byte Integral S.A de C.V"
+  - - 7
+    - '2017-06-29'
+    - '07:00'
+    - 5
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - CBI981002976
+  - - 8
+    - '2017-07-11'
+    - '18:00'
+    - 6
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - SPE9802097G6
+
+---
+estudiantes:
+  columns:
+  - id
+  - curpEstudiante
+  - numControl
+  - nombre
+  - apPaterno
+  - apMaterno
+  - genero
+  - email
+  - cat_especialidad_id
+  - usuario_id
+  - tipo_estudiante
+  - estado
+  - created_at
+  - updated_at
+  - rol
+  - email_adicional
+  - contacto
+  records: 
+  - - 1
+    - PEMA930112MOCNRN00
+    - 11161067
+    - Angeles
+    - Perez
+    - Montes
+    - F
+    - angeles.perez@gmail.com
+    - 1
+    - 4
+    - 
+    - 
+    - '2017-08-14 07:35:21.503155'
+    - '2017-08-14 07:35:21.503155'
+    - estudiante
+    - angeles.perz@gmail.com
+    - '9512348654'
+  - - 6
+    - MAVS930623HOHSDR05
+    - 11161024
+    - SANTIAGO
+    - MARISCAL
+    - VELASQUEZ
+    - M
+    - santiago@hotmail.com
+    - 1
+    - 
+    - 
+    - 
+    - '2017-05-16 09:22:18.480362'
+    - '2017-05-16 09:22:18.480362'
+    - estudiante
+    - antonio@gmail.com
+    - 
+  - - 7
+    - RERL960401HOCNRN00
+    - 12190001
+    - Francisco
+    - Reyes
+    - Rios
+    - M
+    - luisalberto@gmail.com
+    - 1
+    - 
+    - 
+    - 
+    - '2017-05-16 09:36:19.785646'
+    - '2017-05-16 09:36:19.785646'
+    - estudiante
+    - luis_alberto@gmail.com
+    - 
+  - - 8
+    - MEPM970502MOCNRN00
+    - 11131033
+    - Rosa
+    - Mendez
+    - Palacios
+    - F
+    - maypalm@gmail.com
+    - 1
+    - 
+    - 
+    - 
+    - '2017-05-16 09:36:19.897709'
+    - '2017-05-16 09:36:19.897709'
+    - estudiante
+    - maypal@gmail.com
+    - 
+  - - 9
+    - HESC980603HOCNRN00
+    - 11348900
+    - Pedro
+    - Hernandez
+    - " Sosa"
+    - F
+    - carlsolp@gmail.com
+    - 1
+    - 19
+    - 
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - estudiante
+    - carlsol@gmail.com
+    - '9512315632'
+  - - 10
+    - MEPM930116MOCJLY00
+    - 11161033
+    - Mayté
+    - Mejía
+    - Palacios
+    - F
+    - mayteookami@gmail.com
+    - 1
+    - 
+    - 
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - estudiante
+    - maytemejia3@hotmail.com
+    - '9513659299'
+  - - 11
+    - FORD930814MOCNRN00
+    - 11161093
+    - Daniela
+    - Flores
+    - Rodrigez
+    - F
+    - daniela_flores@hotmail.com
+    - 1
+    - 18
+    - 
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - estudiante
+    - daniela_rodriguez@hotmail.com
+    - '9513245679'
+  - - 12
+    - JOSK930512HOCNSV01
+    - 11161043
+    - Kevin Uriel
+    - Jose
+    - Santiago
+    - M
+    - kevin_josa@gmail.com
+    - 1
+    - 
+    - 
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - estudiante
+    - uriela_santiago@gmail.com
+    - '9513245009'
+
+---
+curso_materia_estudiantes:
+  columns:
+  - id
+  - curso_materia_id
+  - numControl
+  - nombre
+  - apellidoPaterno
+  - apellidoMaterno
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 4
+    - 12160001
+    - Luis Alberto
+    - Reyes
+    - Rios
+    - '2017-03-29 22:58:00.476723'
+    - '2017-03-29 22:58:00.476723'
+  - - 2
+    - 4
+    - 11161033
+    - Mayté
+    - Mejía
+    - Palacios
+    - '2017-03-29 22:58:00.553585'
+    - '2017-03-29 22:58:00.553585'
+  - - 3
+    - 4
+    - 11328900
+    - " Carlos"
+    - Hernandez
+    - " Solis"
+    - '2017-03-29 22:58:00.635085'
+    - '2017-03-29 22:58:00.635085'
+
+---
+viaje_grupos:
+  columns:
+  - id
+  - curso_materia_id
+  - actividad_id
+  - estado
+  - usuario_id
+  - created_at
+  - updated_at
+  records: 
+  - - 8
+    - 22
+    - 32
+    - 
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+servicio_sociales:
+  columns:
+  - id
+  - calificacion
+  - fechaInicio
+  - fechaTermino
+  - horas
+  - estudiante_id
+  - estado
+  - pdfLiberacion
+  - observaciones
+  - created_at
+  - updated_at
+  - nombreE
+  - pdfPresentacion
+  - pdfAceptacion
+  records: 
+  - - 1
+    - 90
+    - '2017-04-04'
+    - '2017-06-06'
+    - 480
+    - 1
+    - Finalizado
+    - CARTA_practicas.pdf
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - Departamento de Sistemas y Computacion Instituto Tecnologico de Oaxaca
+    - ar11.pdf
+    - Carta-de-Aceptacion.pdf
+  - - 2
+    - 0
+    - '2017-07-08'
+    - '2017-12-15'
+    - 0
+    - 11
+    - En proceso
+    - 
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - Departamento de Sistemas y Computacion Instituto Tecnologico de Oaxaca
+    - 
+    - 
+  - - 3
+    - 0
+    - '2017-08-14'
+    - '2018-01-12'
+    - 0
+    - 9
+    - En proceso
+    - 
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - AVC Ingenieria Especializada
+    - 
+    - 
+
+---
+anexos:
+  columns:
+  - id
+  - pdfAnexo
+  - fechaAnexo
+  - proyecto_id
+  - reunion_id
+  - estado
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Curriculum.pdf
+    - '2017-03-22'
+    - 3
+    - 1
+    - 
+    - '2017-03-22 20:30:47.329202'
+    - '2017-03-22 20:30:47.329202'
+  - - 2
+    - 40424039.PDF
+    - '2017-04-25'
+    - 3
+    - 2
+    - 
+    - '2017-04-25 20:42:53.485178'
+    - '2017-04-25 20:42:53.485178'
+  - - 3
+    - 2.14.MVC.pdf
+    - '0007-11-27'
+    - 5
+    - 3
+    - 
+    - '2017-05-21 10:20:44.231063'
+    - '2017-05-24 20:32:21.286583'
+  - - 5
+    - Curriculum.pdf
+    - '2017-07-20'
+    - 7
+    - 4
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 7
+    - 
+    - '2017-08-08'
+    - 7
+    - 25
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+modulo_diplomados:
+  columns:
+  - id
+  - nombreModulo
+  - fechaInicio
+  - fechaTermino
+  - duracion
+  - actividad_id
+  - created_at
+  - updated_at
+  records: 
+  - - 2
+    - Modulo I
+    - '2017-03-21'
+    - '2017-04-26'
+    - 120 horas
+    - 10
+    - '2017-03-29 11:44:04.204048'
+    - '2017-03-29 11:44:04.204048'
+  - - 3
+    - Modulo II
+    - '2017-05-01'
+    - '2017-06-02'
+    - 120 horas
+    - 10
+    - '2017-03-29 12:23:11.113258'
+    - '2017-03-29 12:23:11.113258'
+  - - 4
+    - Modulo III
+    - '2017-06-12'
+    - '2017-07-24'
+    - 100 horas
+    - 10
+    - '2017-03-29 19:50:38.112994'
+    - '2017-03-29 19:50:38.112994'
+  - - 5
+    - Modulo IV
+    - '2017-05-22'
+    - '2017-05-25'
+    - 100 horas
+    - 10
+    - '2017-05-22 12:08:27.984214'
+    - '2017-05-22 12:08:27.984214'
+
+---
+actividad_docentes_modulo_diplomados:
+  columns:
+  - actividad_docente_id
+  - modulo_diplomado_id
+  records: 
+  - - 10
+    - 5
+  - - 10
+    - 2
+  - - 37
+    - 2
+
+---
+configuraciones:
+  columns:
+  - id
+  - tipo
+  - contenido
+  - imagen
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Jefe de Sistemas y Computacion
+    - MC Marisol Altamirano Cabrera
+    - 
+    - '2017-04-25 11:54:59.330608'
+    - '2017-04-25 11:54:59.330608'
+  - - 2
+    - Director del Instituto Tecnologico de Oaxaca
+    - D.R. Juan Cruz Nieto
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 3
+    - Lema
+    - Año del Centenario de la Promulgación de la Constitución Politica de los Estados
+      Unidos Mexicanos
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 6
+    - Logo SEP
+    - ''
+    - sep.jpg
+    - '2017-04-25 12:09:58.256919'
+    - '2017-04-25 12:09:58.256919'
+  - - 7
+    - Mexico
+    - ''
+    - mexico.png
+    - '2017-04-25 12:12:05.319113'
+    - '2017-04-25 12:12:05.319113'
+  - - 8
+    - Logo ITO
+    - ''
+    - LogoITO.png
+    - '2017-04-25 12:13:10.218524'
+    - '2017-04-25 12:13:10.218524'
+  - - 9
+    - Cabecera Documentos
+    - ''
+    - header_federal_ito.png
+    - '2017-04-25 20:57:30.885606'
+    - '2017-04-25 20:57:30.885606'
+  - - 10
+    - Division de Estudios
+    - M.E. Gabriela Aguilar Ortiz
+    - 
+    - '2017-04-26 07:58:35.039070'
+    - '2017-04-26 07:58:35.039070'
+  - - 11
+    - Logo cab-dpto-sist
+    - ''
+    - header_federal_ito-sist.png
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 13
+    - Jefe Dpto GTV
+    - M.F.E.P. Germán Maldonado Velasco
+    - 
+    - '2017-05-22 09:07:04.681259'
+    - '2017-05-22 09:07:04.681259'
+  - - 14
+    - Logo Doc GTV
+    - ''
+    - header_federal_ito-gest.png
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 15
+    - Subdirector academico
+    - M.A. Eduardo Castañon Olguin
+    - 
+    - '2017-05-23 12:14:16.975652'
+    - '2017-05-23 12:14:16.975652'
+
+---
+cat_evidencias_tipo_actividades:
+  columns:
+  - cat_tipo_actividad_id
+  - cat_evidencia_id
+  records: 
+  - - 2
+    - 2
+  - - 2
+    - 3
+  - - 3
+    - 3
+  - - 3
+    - 4
+  - - 4
+    - 3
+  - - 4
+    - 2
+  - - 5
+    - 2
+  - - 5
+    - 3
+  - - 5
+    - 4
+  - - 6
+    - 2
+  - - 6
+    - 6
+  - - 6
+    - 7
+  - - 8
+    - 3
+  - - 8
+    - 9
+  - - 9
+    - 3
+  - - 10
+    - 2
+  - - 10
+    - 9
+  - - 11
+    - 3
+  - - 14
+    - 2
+  - - 14
+    - 3
+  - - 15
+    - 1
+  - - 15
+    - 2
+  - - 16
+    - 1
+  - - 16
+    - 5
+  - - 20
+    - 2
+  - - 20
+    - 3
+  - - 21
+    - 4
+  - - 21
+    - 10
+  - - 22
+    - 1
+  - - 22
+    - 2
+  - - 25
+    - 11
+
+---
+cat_tipo_actividades_participaciones:
+  columns:
+  - cat_tipo_actividad_id
+  - cat_tipo_participacion_id
+  records: 
+  - - 2
+    - 2
+  - - 2
+    - 19
+  - - 3
+    - 12
+  - - 4
+    - 2
+  - - 4
+    - 5
+  - - 4
+    - 21
+  - - 5
+    - 5
+  - - 5
+    - 21
+  - - 5
+    - 25
+  - - 6
+    - 11
+  - - 8
+    - 16
+  - - 8
+    - 17
+  - - 9
+    - 22
+  - - 9
+    - 23
+  - - 10
+    - 20
+  - - 11
+    - 24
+  - - 14
+    - 1
+  - - 14
+    - 2
+  - - 15
+    - 3
+  - - 16
+    - 2
+  - - 20
+    - 13
+  - - 20
+    - 14
+  - - 20
+    - 15
+  - - 20
+    - 10
+  - - 21
+    - 25
+  - - 22
+    - 2
+  - - 25
+    - 2
+
+---
+actividades_cat_viaticos:
+  columns:
+  - cat_viatico_id
+  - actividad_id
+  records: 
+  - - 2
+    - 34
+  - - 2
+    - 38
+  - - 2
+    - 39
+  - - 3
+    - 27
+  - - 3
+    - 12
+  - - 3
+    - 32
+  - - 3
+    - 34
+  - - 3
+    - 36
+  - - 3
+    - 38
+  - - 3
+    - 41
+  - - 3
+    - 50
+  - - 3
+    - 51
+  - - 4
+    - 27
+  - - 4
+    - 12
+  - - 4
+    - 41
+  - - 4
+    - 49
+  - - 4
+    - 50
+  - - 4
+    - 51
+  - - 4
+    - 53
+
+---
+usuarios:
+  columns:
+  - id
+  - rol
+  - email
+  - encrypted_password
+  - reset_password_token
+  - reset_password_sent_at
+  - remember_created_at
+  - sign_in_count
+  - current_sign_in_at
+  - last_sign_in_at
+  - current_sign_in_ip
+  - last_sign_in_ip
+  - created_at
+  - updated_at
+  - curp
+  - rfc
+  - numControl
+  records: 
+  - - 2
+    - admin
+    - angeles-mcr@hotmail.com
+    - "$2a$11$Hw5I9DAKokGh4d6CeY3KwOcharE9oS0oHdsmB8Iny6elVFmOaorU."
+    - 790b87ba85a82d82f644833f7c9a7d610bdfb8073dc7d1ee7cf0e7c6115ad23a
+    - '2017-05-16 09:36:19.974399'    
+    - 
+    - 615
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 10.168.65.65
+    - 10.168.65.65
+    - '2017-03-05 16:20:50.807426'
+    - '2017-05-16 09:36:19.974399'    
+    - 
+    - 
+    - 
+  - - 3
+    - docente
+    - mayte.mejia@gmail.com
+    - "$2a$11$Xohbb3RrXcQPvXD3bsEMJOzzIceEOYwgDEZsMZJtOLf36XKg.UUIe"
+    - 
+    - 
+    - 
+    - 121
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 127.0.0.1
+    - 192.168.15.51
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - MEPM930116MOCNRN00
+    - MEPM800825569
+    - 
+  - - 4
+    - estudiante
+    - angeles.perez@gmail.com
+    - "$2a$11$bM28CsK4Og.QYaY7GANm/O6Xh76/F.ZxXsmwYqipzjVUShAXebyZS"
+    - 
+    - 
+    - 
+    - 20
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 10.168.65.65
+    - 127.0.0.1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 
+    - 
+    - 
+  - - 5
+    - docente
+    - juan.perez@gmail.com
+    - "$2a$11$X3XOjK3yoxdaAS5Bt9AzzO1MjNO4w0hZ/9sCvdTEdb2ROloGqhkC."
+    - 
+    - 
+    - 
+    - 12
+    - '2017-05-21 19:25:21.353902'
+    - '2017-05-18 11:07:57.516645'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2017-04-05 10:38:11.786552'
+    - '2017-05-21 19:25:21.358810'
+    - 
+    - 
+    - 
+  - - 8
+    - docente
+    - daliasilvamartinez@gmail.com
+    - "$2a$11$cO.xqvrBt4ZTrYK2JNIXh..tHxZECZAaupG5h3GoX/uH/I0LT8NXi"
+    - 
+    - 
+    - 
+    - 107
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 192.168.15.51
+    - 192.168.15.51
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - SIMD700510MOCNRN00
+    - SIMD810825669
+    - 
+  - - 9
+    - docente
+    - antoniohdz@gmail.com
+    - "$2a$11$T5/VpdCLPsQWVOpcVugO8elUQEee1h8P2qlVftn41bljhx1wr5iz."
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-09 09:31:25.608266'
+    - '2017-05-09 09:31:25.608266'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2017-05-09 09:31:25.532992'
+    - '2017-05-09 09:31:25.612244'
+    - HEBA830511HOCNRN00
+    - HEBA810835668
+    - 
+  - - 11
+    - docente
+    - martinsan@gmail.com
+    - "$2a$11$BRdUD2Pg7hUuJEOLMlB4zu5qrE32arS73nFEqMX0yxl8X7ldHKwvG"
+    - 
+    - 
+    - 
+    - 3
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 127.0.0.1
+    - 192.168.15.53
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - SABM650302MOCNRN00
+    - SABM810825666
+    - 
+  - - 12
+    - estudiante
+    - carlsol@gmail.com
+    - "$2a$11$uXm54AfP7H2PmfJRksX/a.XuzYSch5eDw35IpII0z68TiI08Csd9C"
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-09 12:23:40.387917'
+    - '2017-05-09 12:23:40.387917'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2017-05-09 12:23:40.284078'
+    - '2017-05-09 12:23:40.392379'
+    - HESC980603MOCNRN00
+    - 
+    - 11348900
+  - - 13
+    - estudiante
+    - mayteookami@gmail.com
+    - "$2a$11$ZQ3gUawuY9a4wu1MK7OkhuzxF9cCr2eaBMRlO.43jVEdcev9Ryk.e"
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - MEPM930116MOCJLY00
+    - 
+    - 11161033
+  - - 14
+    - docente
+    - anayansi.ito@gmail.com
+    - "$2a$11$51D9MktUSoW927GorcW0SOG3CU2i3xFwRhW0CZF.6X1z6YucaCTaW"
+    - 
+    - 
+    - 
+    - 8
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 10.168.65.65
+    - 192.168.15.54
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - HEAA750111MOCRBN01
+    - HEAA750111QQ6
+    - 
+  - - 15
+    - docente
+    - madomor@gmail.com
+    - "$2a$11$CQHI3KkWptM19Y6dYXe6UeLvY2fX1KqB5bUmkoe6cwpM7OzPkV88W"
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 127.0.0.1
+    - 127.0.0.1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - MAOC841019HOCTRL04
+    - MAOC841019D41
+    - 
+  - - 16
+    - docente
+    - melissa_sand@gmail.com
+    - "$2a$11$kkVppsmhKQ8GdXONKr/PVeaYRZAPSQHMc/clYCJ6yGy7.CbzPGXbe"
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 192.168.15.56
+    - 192.168.15.56
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - SAAG000304MOCNRN00
+    - SAAG000304QQ6
+    - 
+  - - 17
+    - estudiante
+    - kevin_josa@gmail.com
+    - "$2a$11$HK3qY.rHAXDUpHqOJcb3X.dfV.08917zpKgvkbSnAvYWvh4.FjZoK"
+    - 
+    - 
+    - 
+    - 3
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 192.168.15.51
+    - 192.168.15.51
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - JOSK930512HOCNSV01
+    - 
+    - 11161043
+  - - 18
+    - estudiante
+    - daniela_flores@hotmail.com
+    - "$2a$11$b.IlBtx1O.WkNt8dBCJf.enVTocu9NyOzYAUOFONJfEO1CTtMgZWu"
+    - 
+    - 
+    - 
+    - 2
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 10.168.65.65
+    - 10.168.65.65
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - FORD930814MOCNRN00
+    - 
+    - 11161093
+  - - 19
+    - estudiante
+    - carlsolp@gmail.com
+    - "$2a$11$Hr0nvS3WDFMTz9gjkSyu..1PgUFfGzYpzoPI2DR7dYBCTXALDkU6C"
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 10.168.65.65
+    - 10.168.65.65
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - HESC980603HOCNRN00
+    - 
+    - 11348900
+  - - 20
+    - docente
+    - marisolmorales@gmail.com
+    - "$2a$11$uKODVlVPCDC5qwZFjSoxpesEBWMZEqyP0DI8BGiGKQZUMe9RZicZy"
+    - 
+    - 
+    - 
+    - 3
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 10.168.65.65
+    - 127.0.0.1
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - MEPA900701MOCJLY00
+    - XAXX010101111
+    - 
+
+---
+oficio_reuniones:
+  columns:
+  - id
+  - numOficio
+  - anio
+  - fechaG
+  - destinatario
+  - jefeDivision
+  - reunion_id
+  - created_at
+  - updated_at
+  - numControl
+  - proyecto
+  records: 
+  - - 1
+    - 1
+    - '2017'
+    - '2017-05-21'
+    - 
+    - 
+    - 
+    - '2017-05-21 13:38:34.541903'
+    - '2017-05-21 13:38:34.541903'
+    - 
+    - 
+  - - 2
+    - 3
+    - '2017'
+    - 
+    - 
+    - 
+    - 3
+    - '2017-05-21 17:09:47.922280'
+    - '2017-06-10 12:44:10.396534'
+    - 11131033
+    - 
+
+---
+cat_tipo_grado_estudios:
+  columns:
+  - id
+  - nombreTipoGrado
+  - estado
+  - user_id
+  - created_at
+  - updated_at
+  - aliasEsp
+  records: 
+  - - 1
+    - Licenciatura
+    - Activo
+    - 
+    - '2017-03-09 19:53:31.195786'
+    - '2017-03-09 19:53:31.195786'
+    - 
+  - - 2
+    - Maestria
+    - Activo
+    - 
+    - '2017-03-09 19:53:57.470445'
+    - '2017-03-09 19:53:57.470445'
+    - 
+  - - 3
+    - Doctorado
+    - Activo
+    - 
+    - '2017-03-09 19:54:22.804351'
+    - '2017-05-21 18:27:54.722917'
+    - 
+  - - 4
+    - Post Doctorado
+    - Activo
+    - 
+    - '2017-03-09 19:54:45.072735'
+    - '2017-03-09 19:54:45.072735'
+    - 
+
+---
+oficio_servicios:
+  columns:
+  - id
+  - numOficio
+  - anio
+  - servicio_social_id
+  - created_at
+  - updated_at
+  - fecha
+  - tipoActividad
+  records: 
+  - - 2
+    - 1
+    - '2017'
+    - 1
+    - '2017-05-22 09:23:11.406836'
+    - '2017-05-22 20:57:29.990310'
+    - '2017-06-06'
+    - 
+
+---
+oficios:
+  columns:
+  - id
+  - numero
+  - anio
+  - created_at
+  - updated_at
+  - actividad_docente_id
+  - actividad_id
+  - fecha
+  - participacion
+  - firma
+  - lema
+  - recibe
+  - cuota
+  - motivo
+  - lugar
+  - nacionall
+  - nivelAp
+  - tipoZona
+  - tipoAnDe
+  - destinatario
+  - jefe
+  - pPartida
+  - pLlegada
+  - claseServ
+  - importe
+  - categoria
+  - sueldo
+  - modulo
+  - docente
+  - fechaPosterior
+  - zona
+  - importeViat
+  - descripcion
+  - jefeDivision
+  - reunion_id
+  - proyecto_id
+  - numControl
+  - anexo_id
+  - servicio_social_id
+  - fechaLibS
+  records: 
+  - - 45
+    - 3
+    - '2017'
+    - '2017-05-17 08:23:25.135360'
+    - '2017-05-17 08:33:11.654122'
+    - 11
+    - 11
+    - '2017-05-17'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 2015, Año del Generalisimo José María Morelos y Pavon
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 50
+    - 7
+    - '2017'
+    - '2017-05-30 04:32:14.634532'
+    - '2017-06-06 04:44:23.827255'
+    - 10
+    - 10
+    - '2017-05-29'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 2
+    - 1
+    - '2017-06-14'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 65
+    - 68
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 33
+    - 27
+    - '2017-06-24'
+    - 
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - ''
+    - 
+    - false
+    - " "
+    - " "
+    - Anticipados
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 66
+    - 10
+    - '2017'
+    - '2017-06-06 03:38:46.558099'
+    - '2017-06-06 03:44:14.525704'
+    - 13
+    - 13
+    - '2017-06-05'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 1
+    - '2017-05-14'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 68
+    - 74
+    - '2017'
+    - '2017-06-07 02:36:57.560369'
+    - '2017-06-09 03:07:22.350624'
+    - 26
+    - 25
+    - '2017-05-01'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 2
+    - '2017-05-12'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 69
+    - 73
+    - '2017'
+    - '2017-06-07 02:44:49.909764'
+    - '2017-06-07 02:44:49.909764'
+    - 27
+    - 25
+    - '2017-05-01'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 6
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 72
+    - 82
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 12
+    - 12
+    - '2017-03-31'
+    - 
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - OAXACA-MEXICO-VERACRUZ
+    - VERACRUZ-MEXICO-OAXACA
+    - TRANSPORTE TERRESTRE
+    - 2400
+    - 
+    - 
+    - 
+    - 1
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 73
+    - 85
+    - '2017'
+    - '2017-06-10 04:34:13.822477'
+    - '2017-06-10 04:34:13.822477'
+    - 37
+    - 10
+    - '2017-06-09'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 2
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 81
+    - 11
+    - '2017'
+    - '2017-06-13 15:04:28.610586'
+    - '2017-06-13 15:04:28.610586'
+    - 36
+    - 29
+    - '2017-06-13'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 4
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 85
+    - 13
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 34
+    - 27
+    - '2017-06-18'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 2
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 86
+    - 14
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 56
+    - 39
+    - '2017-06-19'
+    - DOCENTE
+    - DR JuanCruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 87
+    - 15
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 
+    - 
+    - '2017-06-22'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - MC Marisol Altamirano Cabrera
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - M.E. Gabriela Aguilar Ortiz
+    - 4
+    - 7
+    - 12190001
+    - 5
+    - 
+    - 
+  - - 89
+    - 17
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 63
+    - 46
+    - '2017-07-10'
+    - DOCENTE
+    - D.R. Juan Cruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 90
+    - 18
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 64
+    - 47
+    - '2017-07-10'
+    - DOCENTE
+    - D.R. Juan Cruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 93
+    - 33
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 89
+    - 70
+    - '2017-07-07'
+    - DOCENTE
+    - D.R. Juan Cruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 102
+    - 16
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 
+    - 
+    - '2017-08-08'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - MC Marisol Altamirano Cabrera
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - M.E. Gabriela Aguilar Ortiz
+    - 25
+    - 7
+    - 12190001
+    - 7
+    - 
+    - 
+  - - 103
+    - 1
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 
+    - 
+    - '2017-05-03'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - actividades administrativas
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 1
+    - '2017-08-10'
+  - - 106
+    - 86
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 96
+    - 73
+    - '2017-08-08'
+    - 
+    - D.R. Juan Cruz Nieto
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 2
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 107
+    - 22
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 98
+    - 75
+    - '2017-08-08'
+    - DOCENTE
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 108
+    - 9
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 88
+    - 69
+    - '2017-08-08'
+    - DOCENTE
+    - HEAA750111MOCRBN01
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 109
+    - 28
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 67
+    - 50
+    - '2017-08-08'
+    - 
+    - M.A. Eduardo Castañon Olguin
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 110
+    - 2
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 71
+    - 54
+    - '2017-08-14'
+    - DOCENTE
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 112
+    - 4
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 113
+    - 27
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 82
+    - 63
+    - '2017-08-08'
+    - DOCENTE
+    - HEAA750111MOCRBN01
+    - Año del Centenario de la Promulgación de la Constitución Politica de los Estados
+      Unidos Mexicanos
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 115
+    - 5
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 101
+    - 78
+    - '2017-08-08'
+    - DOCENTE
+    - HEAA750111MOCRBN01
+    - Año del Centenario de la Promulgación de la Constitución Politica de los Estados
+      Unidos Mexicanos
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+  - - 117
+    - 6
+    - '2017'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - 100
+    - 77
+    - '2017-08-08'
+    - DOCENTE
+    - Mayté Mejia Palacios
+    - Año del Centenario de la Promulgación de la Constitución Politica de los Estados
+      Unidos Mexicanos
+    - 
+    - 
+    - 
+    - 
+    - false
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 3
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+    - 
+
+---
+oficio_liberacion_academicas:
+  columns:
+  - id
+  - fecha
+  - docente_id
+  - periodo
+  - asistencia
+  - participacion
+  - asesoriaTitulacion
+  - propuesta
+  - sinodales
+  - partiEvento
+  - contribucion
+  - desarrollo
+  - propuestaBanco
+  - asesoriaAcad
+  - tutoria
+  - particComision
+  - otro
+  - otros
+  - cumplio
+  - jefeDpto
+  - presidAcad
+  - created_at
+  - updated_at
+  - reunion_id
+  records: 
+  - - 1
+    - '2017-06-10'
+    - 1
+    - FEB-JUN/2017
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - na
+    - s
+    - s
+    - na
+    - s
+    - ''
+    - na
+    - s
+    - MC Marisol Altamirano Cabrera
+    - Mayte Mejia Palacios
+    - '2017-06-11 04:52:05.364091'
+    - '2017-06-11 05:45:48.138548'
+    - 3
+  - - 2
+    - '2017-06-11'
+    - 2
+    - FEBRERO-JUNIO/2017
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - n
+    - s
+    - s
+    - s
+    - ''
+    - na
+    - s
+    - MC Marisol Altamirano Cabrera
+    - Mayte Mejia Palacios
+    - '2017-06-11 05:53:48.896877'
+    - '2017-06-11 05:53:48.896877'
+    - 
+
+---
+liberacion_cursos:
+  columns:
+  - id
+  - periodo
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - FEBRERO-JUNIO/2017
+    - '2017-06-11 08:05:08.872611'
+    - '2017-06-11 08:05:08.872611'
+
+---
+liberacio_docente_cursos:
+  columns:
+  - id
+  - liberacion_curso_id
+  - docente_id
+  - fecha
+  - dosificacion
+  - instrumentacion
+  - cumplimiento
+  - calificacion
+  - reporteFinal
+  - apoyo
+  - liberacion
+  - jefeAcad
+  - subdirector
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 1
+    - 1
+    - '2017-06-11'
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - 
+    - 
+    - '2017-06-11 08:05:08.925306'
+    - '2017-06-11 08:05:08.925306'
+  - - 2
+    - 1
+    - 2
+    - '2017-06-11'
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - 
+    - 
+    - '2017-06-11 08:05:08.944266'
+    - '2017-06-11 08:05:08.944266'
+  - - 3
+    - 1
+    - 3
+    - '2017-06-11'
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - 
+    - 
+    - '2017-06-11 08:05:08.954828'
+    - '2017-06-11 08:05:08.954828'
+  - - 4
+    - 1
+    - 4
+    - '2017-06-11'
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - 
+    - 
+    - '2017-06-11 08:05:08.967914'
+    - '2017-06-11 08:05:08.967914'
+  - - 5
+    - 1
+    - 5
+    - '2017-06-11'
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - 
+    - 
+    - '2017-06-11 08:05:08.982190'
+    - '2017-06-11 08:05:08.982190'
+  - - 6
+    - 1
+    - 6
+    - '2017-06-11'
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - s
+    - 
+    - 
+    - '2017-06-11 08:05:08.995808'
+    - '2017-06-11 08:05:08.995808'
+
+---
+periodo_liberacion_cursos:
+  columns:
+  - id
+  - periodo
+  - created_at
+  - updated_at
+  - notaAbajo
+  - cabeceraPeriodo
+  records: 
+  - - 7
+    - FEBRERO-JUNIO/2017
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+    - "Nota:\r\nEl punto 3 no aplica en el caso de docentes que no impartan materias
+      de los nuevos programas de estudio con enfoque en competencias.\r\nEl punto
+      7 no aplicará en el caso de Docentes con nombramiento por horas, indicar N/A.\r\nSi
+      el docente cumplió con el 100% de los puntos del 1 al 7 aplicacables en su caso,
+      se otorga la liberación de actividades.\r\nLo anterior, según lo establecido
+      en el Reglamento Interior de Trabajo del Personal Docente."
+    - periodo_curso_cabecera_docente.png
+
+---
+lib_doc_criterios:
+  columns:
+  - id
+  - lib_curso_docente_id
+  - criterio_id
+  - respuesta
+  - created_at
+  - updated_at
+  records: 
+  - - 259
+    - 40
+    - 1
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 260
+    - 40
+    - 2
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 261
+    - 40
+    - 3
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 262
+    - 40
+    - 4
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 263
+    - 40
+    - 5
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 264
+    - 40
+    - 6
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 265
+    - 40
+    - 7
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 266
+    - 41
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 267
+    - 41
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 268
+    - 41
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 269
+    - 41
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 270
+    - 41
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 271
+    - 41
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 272
+    - 41
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 273
+    - 42
+    - 1
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 274
+    - 42
+    - 2
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 275
+    - 42
+    - 3
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 276
+    - 42
+    - 4
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 277
+    - 42
+    - 5
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 278
+    - 42
+    - 6
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 279
+    - 42
+    - 7
+    - s
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 280
+    - 43
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 281
+    - 43
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 282
+    - 43
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 283
+    - 43
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 284
+    - 43
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 285
+    - 43
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 286
+    - 43
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 287
+    - 44
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 288
+    - 44
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 289
+    - 44
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 290
+    - 44
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 291
+    - 44
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 292
+    - 44
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 293
+    - 44
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 294
+    - 45
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 295
+    - 45
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 296
+    - 45
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 297
+    - 45
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 298
+    - 45
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 299
+    - 45
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 300
+    - 45
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 301
+    - 46
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 302
+    - 46
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 303
+    - 46
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 304
+    - 46
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 305
+    - 46
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 306
+    - 46
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 307
+    - 46
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 308
+    - 47
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 309
+    - 47
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 310
+    - 47
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 311
+    - 47
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 312
+    - 47
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 313
+    - 47
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 314
+    - 47
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 315
+    - 48
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 316
+    - 48
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 317
+    - 48
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 318
+    - 48
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 319
+    - 48
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 320
+    - 48
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 321
+    - 48
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 322
+    - 49
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 323
+    - 49
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 324
+    - 49
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 325
+    - 49
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 326
+    - 49
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 327
+    - 49
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 328
+    - 49
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 329
+    - 50
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 330
+    - 50
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 331
+    - 50
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 332
+    - 50
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 333
+    - 50
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 334
+    - 50
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 335
+    - 50
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 336
+    - 51
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 337
+    - 51
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 338
+    - 51
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 339
+    - 51
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 340
+    - 51
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 341
+    - 51
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 342
+    - 51
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 343
+    - 52
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 344
+    - 52
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 345
+    - 52
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 346
+    - 52
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 347
+    - 52
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 348
+    - 52
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 349
+    - 52
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 350
+    - 53
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 351
+    - 53
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 352
+    - 53
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 353
+    - 53
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 354
+    - 53
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 355
+    - 53
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 356
+    - 53
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 357
+    - 54
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 358
+    - 54
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 359
+    - 54
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 360
+    - 54
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 361
+    - 54
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 362
+    - 54
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 363
+    - 54
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 364
+    - 55
+    - 1
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 365
+    - 55
+    - 2
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 366
+    - 55
+    - 3
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 367
+    - 55
+    - 4
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 368
+    - 55
+    - 5
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 369
+    - 55
+    - 6
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 370
+    - 55
+    - 7
+    - ''
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+cat_criterio_evaluacion_docentes:
+  columns:
+  - id
+  - numero
+  - criterio
+  - estado
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 1
+    - La elaboración y entrega de la dosificación de  la planeación del curso y avance
+      programático de las materias impartidas (TecNM-AC-PO-003-01)
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 2
+    - 2
+    - La elaboración  y entrega Reporte de Practicas (TecNM-AC-PO-003-02)
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 3
+    - 3
+    - La Instrumentación Didáctica para la formación y desarrollo de competencias
+      profesionales (SNEST-AC-PO-003-01)
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 4
+    - 4
+    - Cumplimiento del 100% del contenido de los programas de estudio
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 5
+    - 5
+    - La entrega en tiempo y forma de calificaciones parciales y finales
+    - Activo
+    - '2017-06-14 20:21:23.112144'
+    - '2017-06-14 20:21:23.112144'
+  - - 6
+    - 6
+    - La entrega en tiempo y forma del reporte final (TecNM-AC-PO-003-03)
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 7
+    - 7
+    - La entrega del informe de los proyectos individuales/ Horas de apoyo a la docencia
+      del programa de trabajo académico realizados en horas de apoyo a la docencia.
+      (Cumplimiento de las actividades declaradas como apoyo a la docencia).
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+cat_criterio_academias:
+  columns:
+  - id
+  - numero
+  - criterio
+  - estado
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 1
+    - Asistencia a reuniones convocadas
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 2
+    - 2
+    - Participación en programas de formación y actualización docente
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 3
+    - 3
+    - Asesorías en procesos de titulación integral encomendadas
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 4
+    - 4
+    - Propuestas de mejoras en la operación de programas y proyectos académicos
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 5
+    - 5
+    - Sinodales en protocolos de titulación
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 6
+    - 6
+    - Participación en eventos de la academia
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 7
+    - 7
+    - Contribución con propuestas de mejoras en los planes y programas de estudio
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 8
+    - 8
+    - Desarrollo de materiales de apoyo didáctico
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 9
+    - 9
+    - Propuestas para bancos de proyectos
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 10
+    - 10
+    - Asesorías académicas
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 11
+    - 11
+    - Tutoría
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 12
+    - 12
+    - Participación en comisiones académicas (equivalencias, Salida Lateral, traslado,
+      proyecto integrador, acreditaciones, certificaciones, diseño especialidades,
+      proyectos integradores, etc.)
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 13
+    - 13
+    - 'Otros (especificar):'
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 14
+    - 14
+    - "¿Cumplió con las actividades académicas encomendads al 100%?"
+    - Activo
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+periodo_actividad_academicas:
+  columns:
+  - id
+  - periodo
+  - created_at
+  - updated_at
+  records: 
+  - - 5
+    - FEBRERO-JUNIO/2017
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+lib_actividad_docentes:
+  columns:
+  - id
+  - periodo_actividad_academica_id
+  - docente_id
+  - fecha
+  - created_at
+  - updated_at
+  records: 
+  - - 28
+    - 5
+    - 1
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 29
+    - 5
+    - 2
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 30
+    - 5
+    - 3
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 31
+    - 5
+    - 4
+    - '2017-08-07'
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 32
+    - 5
+    - 5
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 33
+    - 5
+    - 6
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 34
+    - 5
+    - 7
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 35
+    - 5
+    - 8
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 36
+    - 5
+    - 9
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 37
+    - 5
+    - 10
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 38
+    - 5
+    - 11
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 39
+    - 5
+    - 12
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 40
+    - 5
+    - 14
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 41
+    - 5
+    - 15
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 43
+    - 5
+    - 17
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+  - - 44
+    - 5
+    - 18
+    - 
+    - '2017-05-16 09:36:19.974399'
+    - '2017-05-16 09:36:19.974399'
+
+---
+lib_doc_act_criterios:
+  columns:
+  - id
+  - lib_actividad_docente_id
+  - criterio_id
+  - valor
+  - created_at
+  - updated_at
+  records: 
+  - - 295
+    - 28
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 296
+    - 28
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 297
+    - 28
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 298
+    - 28
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 299
+    - 28
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 300
+    - 28
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 301
+    - 28
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 302
+    - 28
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 303
+    - 28
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 304
+    - 28
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 305
+    - 28
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 306
+    - 28
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 307
+    - 28
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 308
+    - 28
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 309
+    - 29
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 310
+    - 29
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 311
+    - 29
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 312
+    - 29
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 313
+    - 29
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 314
+    - 29
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 315
+    - 29
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 316
+    - 29
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 317
+    - 29
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 318
+    - 29
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 319
+    - 29
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 320
+    - 29
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 321
+    - 29
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 322
+    - 29
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 323
+    - 30
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 324
+    - 30
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 325
+    - 30
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 326
+    - 30
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 327
+    - 30
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 328
+    - 30
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 329
+    - 30
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 330
+    - 30
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 331
+    - 30
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 332
+    - 30
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 333
+    - 30
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 334
+    - 30
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 335
+    - 30
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 336
+    - 30
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 337
+    - 31
+    - 1
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 338
+    - 31
+    - 2
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 339
+    - 31
+    - 3
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 340
+    - 31
+    - 4
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 341
+    - 31
+    - 5
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 342
+    - 31
+    - 6
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 343
+    - 31
+    - 7
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 344
+    - 31
+    - 8
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 345
+    - 31
+    - 9
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 346
+    - 31
+    - 10
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 347
+    - 31
+    - 11
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 348
+    - 31
+    - 12
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 349
+    - 31
+    - 13
+    - n
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 350
+    - 31
+    - 14
+    - s
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 351
+    - 32
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 352
+    - 32
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 353
+    - 32
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 354
+    - 32
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 355
+    - 32
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 356
+    - 32
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 357
+    - 32
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 358
+    - 32
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 359
+    - 32
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 360
+    - 32
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 361
+    - 32
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 362
+    - 32
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 363
+    - 32
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 364
+    - 32
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 365
+    - 33
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 366
+    - 33
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 367
+    - 33
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 368
+    - 33
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 369
+    - 33
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 370
+    - 33
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 371
+    - 33
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 372
+    - 33
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 373
+    - 33
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 374
+    - 33
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 375
+    - 33
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 376
+    - 33
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 377
+    - 33
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 378
+    - 33
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 379
+    - 34
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 380
+    - 34
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 381
+    - 34
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 382
+    - 34
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 383
+    - 34
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 384
+    - 34
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 385
+    - 34
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 386
+    - 34
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 387
+    - 34
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 388
+    - 34
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 389
+    - 34
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 390
+    - 34
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 391
+    - 34
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 392
+    - 34
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 393
+    - 35
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 394
+    - 35
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 395
+    - 35
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 396
+    - 35
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 397
+    - 35
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 398
+    - 35
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 399
+    - 35
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 400
+    - 35
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 401
+    - 35
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 402
+    - 35
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 403
+    - 35
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 404
+    - 35
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 405
+    - 35
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 406
+    - 35
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 407
+    - 36
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 408
+    - 36
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 409
+    - 36
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 410
+    - 36
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 411
+    - 36
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 412
+    - 36
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 413
+    - 36
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 414
+    - 36
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 415
+    - 36
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 416
+    - 36
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 417
+    - 36
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 418
+    - 36
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 419
+    - 36
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 420
+    - 36
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 421
+    - 37
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 422
+    - 37
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 423
+    - 37
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 424
+    - 37
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 425
+    - 37
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 426
+    - 37
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 427
+    - 37
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 428
+    - 37
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 429
+    - 37
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 430
+    - 37
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 431
+    - 37
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 432
+    - 37
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 433
+    - 37
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 434
+    - 37
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 435
+    - 38
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 436
+    - 38
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 437
+    - 38
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 438
+    - 38
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 439
+    - 38
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 440
+    - 38
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 441
+    - 38
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 442
+    - 38
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 443
+    - 38
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 444
+    - 38
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 445
+    - 38
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 446
+    - 38
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 447
+    - 38
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 448
+    - 38
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 449
+    - 39
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 450
+    - 39
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 451
+    - 39
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 452
+    - 39
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 453
+    - 39
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 454
+    - 39
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 455
+    - 39
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 456
+    - 39
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 457
+    - 39
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 458
+    - 39
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 459
+    - 39
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 460
+    - 39
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 461
+    - 39
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 462
+    - 39
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 463
+    - 40
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 464
+    - 40
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 465
+    - 40
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 466
+    - 40
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 467
+    - 40
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 468
+    - 40
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 469
+    - 40
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 470
+    - 40
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 471
+    - 40
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 472
+    - 40
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 473
+    - 40
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 474
+    - 40
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 475
+    - 40
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 476
+    - 40
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 477
+    - 41
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 478
+    - 41
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 479
+    - 41
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 480
+    - 41
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 481
+    - 41
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 482
+    - 41
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 483
+    - 41
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 484
+    - 41
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 485
+    - 41
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 486
+    - 41
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 487
+    - 41
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 488
+    - 41
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 489
+    - 41
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 490
+    - 41
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 505
+    - 43
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 506
+    - 43
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 507
+    - 43
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 508
+    - 43
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 509
+    - 43
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 510
+    - 43
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 511
+    - 43
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 512
+    - 43
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 513
+    - 43
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 514
+    - 43
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 515
+    - 43
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 516
+    - 43
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 517
+    - 43
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 518
+    - 43
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 519
+    - 44
+    - 1
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 520
+    - 44
+    - 2
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 521
+    - 44
+    - 3
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 522
+    - 44
+    - 4
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 523
+    - 44
+    - 5
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 524
+    - 44
+    - 6
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 525
+    - 44
+    - 7
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 526
+    - 44
+    - 8
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 527
+    - 44
+    - 9
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 528
+    - 44
+    - 10
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 529
+    - 44
+    - 11
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 530
+    - 44
+    - 12
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 531
+    - 44
+    - 13
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 532
+    - 44
+    - 14
+    - ''
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+proy_inv_documentos:
+  columns:
+  - id
+  - descripcion
+  - documento
+  - proyecto_investigacion_id
+  - created_at
+  - updated_at
+  - fechaPublicacion
+  records: 
+  - - 4
+    - Oficio de registro
+    - capitulo1.pdf
+    - 6
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2016-09-26'
+  - - 5
+    - Oficio invitacion
+    - capitulo2.pdf
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-06-30'
+  - - 6
+    - Oficio de comision
+    - Proyecto_-_Ramiro_Robles_V..pdf
+    - 8
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-09-11'
+
+---
+cat_materias:
+  columns:
+  - id
+  - claveMateria
+  - nombreMat
+  - credito
+  - temario
+  - estado
+  - cat_plan_curso_id
+  - user_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - ACD2010
+    - Desarrollo Sustentable
+    - 2-3-5
+    - Curriculum.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - ACD2012
+    - Tenologias emergentes
+    - 2-3-5
+    - Curriculum.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 3
+    - AED1314
+    - Taller de Base de Datos
+    - 1-3-4
+    - Curriculum.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - ACD2456
+    - Cálculo Diferencial
+    - 2-3-5
+    - 2.14.MVC.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 5
+    - AFC4567
+    - Programacion Orientada a Objetos
+    - 2-3-5
+    - capitulo2.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 6
+    - AGE5678
+    - Topicos avanzados de programacion
+    - 3-3-6
+    - Framework.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 7
+    - ERG5780
+    - Fundamentos de Sistemas operativos
+    - 1-3-4
+    - 1674792014930161130.pdf
+    - Activo
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+archivo_docentes:
+  columns:
+  - id
+  - tipoArchivo
+  - etiqueta
+  - archivoPdf
+  - docente_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - sni
+    - ''
+    - 
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - sni
+    - ''
+    - "#<ActionDispatch::Http::UploadedFile:0x84d76b10>"
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+archivo_prodep_docentes:
+  columns:
+  - id
+  - tipoArchivo
+  - etiqueta
+  - archivoPdf
+  - docente_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - prodep
+    - Nombramiento
+    - Framework.pdf
+    - 1
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+proyectos:
+  columns:
+  - id
+  - numProyecto
+  - nombreProyecto
+  - status
+  - asesorExterno
+  - cat_tipo_examen_proyecto_id
+  - usuario_id
+  - created_at
+  - updated_at
+  - fechaInicio
+  - fechaTermino
+  - descripcion
+  - periodo
+  - rfcEmpresa
+  records: 
+  - - 7
+    - AD022017
+    - Aplicacion movil para android II
+    - Finalizado
+    - Juan Perez
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-02-01'
+    - '2017-06-17'
+    - ''
+    - FEBRERO-JUNIO/2017
+    - EAM980622K13
+  - - 8
+    - JVAD2017
+    - Desarrollo de un sistema web para el control de ventas en una farmacia
+    - En proceso
+    - Francisco Cruz Olivares
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-08-28'
+    - '2017-12-15'
+    - ''
+    - FEBRERO-JUNIO/2017
+    - SRE930318551
+  - - 9
+    - FJ052017
+    - Sistema de venta de boletos de autobus
+    - Finalizado
+    - Lic. Susana Ramírez Fernández
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-02-01'
+    - '2017-06-02'
+    - Sistema de venta de boletos de autobus
+    - FEBRERO-JUNIO/2017
+    - SPE9802097G6
+
+---
+proyecto_inv_estudiantes:
+  columns:
+  - id
+  - proyecto_investigacion_id
+  - numControl
+  - created_at
+  - updated_at
+  records: 
+  - - 3
+    - 6
+    - 11131033
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - 7
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 5
+    - 8
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+proyecto_docentes:
+  columns:
+  - id
+  - proyecto_id
+  - docente_id
+  - cat_tipo_participacion_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 6
+    - 3
+    - '6'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - 7
+    - 6
+    - '6'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 3
+    - 6
+    - 2
+    - '7'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - 7
+    - 3
+    - '7'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 5
+    - 8
+    - 5
+    - '6'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 6
+    - 9
+    - 3
+    - '6'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+archivo_periodos:
+  columns:
+  - id
+  - descripcion
+  - archivo
+  - periodo_curs_materia_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - instrumentacion
+    - cumplimiento_daia.pdf
+    - 6
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+oficio_vinculaciones:
+  columns:
+  - id
+  - numOficio
+  - anio
+  - fecha
+  - proyecto_id
+  - proyecto_docente_id
+  - proyecto_estudiante_id
+  - lema
+  - plan_estudio_id
+  - jefeDpto
+  - jefeVinculacion
+  - subAcademico
+  - created_at
+  - updated_at
+  - fechaLiberacion
+  records: 
+  - - 6
+    - 1
+    - '2017'
+    - '2017-06-24'
+    - 7
+    - 2
+    - 12190001
+    - Año del Centenario de la Promulgación de la Constitución Politica de los Estados
+      Unidos Mexicanos
+    - 
+    - ANAYANSI CRISTINA HERNANDEZ ABREGO
+    - 
+    - M.A. Eduardo Castañon Olguin
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-08-18'
+  - - 9
+    - 7
+    - '2017'
+    - '2017-06-24'
+    - 7
+    - 4
+    - 12190001
+    - Año del Centenario de la Promulgación de la Constitución Politica de los Estados
+      Unidos Mexicanos
+    - 1
+    - 
+    - 
+    - M.A. Eduardo Castañon Olguin
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 
+
+---
+proyecto_docente_evidencias:
+  columns:
+  - id
+  - proyecto_docente_id
+  - etiqueta
+  - pdfEvidencia
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 2
+    - Comision
+    - Framework.pdf
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - 4
+    - Comision
+    - comision_de_no_se_que.pdf
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 3
+    - 4
+    - Liberacion
+    - comision_de_no_se_que.pdf
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - 4
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 5
+    - 4
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 6
+    - 5
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 7
+    - 6
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+proy_inv_docentes:
+  columns:
+  - id
+  - proyecto_investigacion_id
+  - docente_id
+  - cat_tipo_participacion_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - 6
+    - 8
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - 6
+    - 11
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 3
+    - 6
+    - 14
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - 7
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 5
+    - 7
+    - 11
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 6
+    - 7
+    - 4
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 7
+    - 8
+    - 6
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 8
+    - 8
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 9
+    - 8
+    - 5
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+periodos:
+  columns:
+  - id
+  - periodo
+  - fechaInicio
+  - fechaTermino
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - FEB-JUN/2017
+    - '2017-01-30'
+    - '2017-06-30'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - AGOS-DIC/2017
+    - '2017-07-27'
+    - '2017-12-23'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+periodo_curs_materias:
+  columns:
+  - id
+  - periodo
+  - docente_id
+  - zipEstadisitica
+  - created_at
+  - updated_at
+  - estadistica
+  records: 
+  - - 4
+    - FEB-JUN/2017
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - true
+  - - 5
+    - FEB-JUN/2017
+    - 5
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - false
+  - - 6
+    - AGOS-DIC/2017
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - false
+  - - 7
+    - FEB-JUN/2017
+    - 6
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - false
+  - - 8
+    - FEB-JUN/2017
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - true
+  - - 9
+    - AGOS-DIC/2017
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - false
+
+---
+curso_materias:
+  columns:
+  - id
+  - nombreGrupo
+  - aula
+  - docente_id
+  - cat_materia_id
+  - usuario_id
+  - created_at
+  - updated_at
+  - periodo_curs_materia_id
+  - total
+  records: 
+  - - 17
+    - ISA
+    - I4
+    - 
+    - 1
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 4
+    - 45
+  - - 18
+    - ISD
+    - I3
+    - 
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 5
+    - 32
+  - - 19
+    - ISB
+    - I4
+    - 
+    - 4
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 5
+    - 22
+  - - 20
+    - ISB
+    - I7
+    - 
+    - 5
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 4
+    - 20
+  - - 21
+    - ISA
+    - I3
+    - 
+    - 2
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 6
+    - 43
+  - - 22
+    - ISE
+    - I6
+    - 
+    - 5
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 6
+    - 23
+  - - 23
+    - ISC
+    - I12
+    - 
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 7
+    - 30
+  - - 24
+    - ISF
+    - I10
+    - 
+    - 3
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 7
+    - 25
+  - - 25
+    - ISC
+    - I10
+    - 
+    - 5
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 7
+    - 35
+  - - 26
+    - ISF
+    - I11
+    - 
+    - 5
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 7
+    - 24
+  - - 27
+    - ISA
+    - I13
+    - 
+    - 2
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 8
+    - 16
+  - - 28
+    - ISA
+    - I12
+    - 
+    - 4
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 9
+    - 45
+
+---
+materia_evidencias:
+  columns:
+  - id
+  - etiqueta
+  - archivo
+  - periodo_curs_materia_id
+  - cat_materia_id
+  - created_at
+  - updated_at
+  records: 
+  - - 2
+    - Instrumentación
+    - comision_de_no_se_que.pdf
+    - 6
+    - 2
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+curso_evidencias:
+  columns:
+  - id
+  - etiqueta
+  - archivo
+  - curso_materia_id
+  - periodo_curs_materia_id
+  - created_at
+  - updated_at
+  records: 
+  - - 3
+    - Lista de estudiantes
+    - cumplimiento_dalia.pdf
+    - 21
+    - 6
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - Lista de estudiantes
+    - oficio_comison_dalia.pdf
+    - 22
+    - 6
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+estadisticas:
+  columns:
+  - id
+  - carrera
+  - ordinaria
+  - complementaria
+  - especial
+  - desertores
+  - reprobados
+  - curso_materia_id
+  - periodo_curs_materia_id
+  - created_at
+  - updated_at
+  records: 
+  - - 3
+    - ISC
+    - 10
+    - 12
+    - 5
+    - 2
+    - 3
+    - 18
+    - 5
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - ISC
+    - 5
+    - 5
+    - 5
+    - 5
+    - 2
+    - 19
+    - 5
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 5
+    - ISC
+    - 20
+    - 0
+    - 0
+    - 0
+    - 0
+    - 20
+    - 4
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 6
+    - ISC
+    - 10
+    - 20
+    - 5
+    - 8
+    - 2
+    - 17
+    - 4
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 7
+    - ISC
+    - 8
+    - 4
+    - 1
+    - 15
+    - 1
+    - 23
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 8
+    - ISC
+    - 5
+    - 8
+    - 1
+    - 10
+    - 1
+    - 24
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 9
+    - ISC
+    - 6
+    - 10
+    - 4
+    - 12
+    - 3
+    - 25
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 10
+    - ISC
+    - 5
+    - 5
+    - 5
+    - 5
+    - 4
+    - 26
+    - 7
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 13
+    - ISC
+    - 6
+    - 1
+    - 1
+    - 3
+    - 5
+    - 27
+    - 8
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 14
+    - ISC
+    - 10
+    - 5
+    - 3
+    - 23
+    - 2
+    - 21
+    - 6
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+proyecto_investigaciones:
+  columns:
+  - id
+  - numProyecto
+  - nombreProy
+  - cat_tipo_examen_proyecto_id
+  - created_at
+  - updated_at
+  - asesorExterno
+  - fechaInicio
+  - fechaTermino
+  - status
+  records: 
+  - - 6
+    - 01-AD201
+    - Desarrollo de un prototipo para invernadero
+    - '2'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 9
+    - '2016-09-19'
+    - '2017-10-31'
+    - En proceso
+  - - 7
+    - Ad.09-ADL
+    - Investigación para el desarrollo de un brazo robótico en la industria
+    - '2'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 5
+    - '2017-02-06'
+    - '2017-06-30'
+    - Terminado
+  - - 8
+    - AD-2017-03
+    - Investigación para la implementación de una Red Neuronal
+    - '2'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - 8
+    - '2017-09-04'
+    - '2018-08-31'
+    - En proceso
+
+---
+actividades:
+  columns:
+  - id
+  - nombreActividad
+  - tipoComision
+  - tipoEvidencia
+  - cat_tipo_actividad_id
+  - fechaInicio
+  - fechaTermino
+  - descripcion
+  - usuario_id
+  - created_at
+  - updated_at
+  - lugar
+  - proyecto_id
+  - hora
+  - tipoexamen
+  records: 
+  - - 10
+    - Docencia
+    - Sin Viaticos
+    - Individual
+    - 14
+    - '2017-03-01'
+    - '2017-06-01'
+    - Para dar continuidad a los objetivos y metas del Plan Institucional de Desarrollo
+      y el Programa Operativo Anual, en lo referente al Programa Formación y Actualización
+      Docente y Profesional, me permito informarle que ha sido COMISIONAD* para participar
+      en el tipoActividad? para la nombreActividad? modulo?, el  cual se llevará a
+      cabo del duracionCurso?, de 9:00 a 13:00 hrs, en el lugar?.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ''
+    - ''
+    - ''
+    - Titulación Integral
+  - - 11
+    - Visita a empresas en Guadalajara
+    - Con Viaticos
+    - Individual
+    - 6
+    - '2017-04-03'
+    - '2017-05-08'
+    - ''
+    - 
+    - '2017-03-30 08:07:21.442516'
+    - '2017-03-30 08:07:21.442516'
+    - 
+    - 
+    - 
+    - 
+  - - 12
+    - Congreso Iberoamericano 2017
+    - Con Viaticos
+    - Individual
+    - 5
+    - '2017-04-03'
+    - '2017-04-10'
+    - ASISTIR AL ... CONGRESO IBEROAMERICANO 2017 QUE SE REALIZAŔÁ EN ... EL CUAL
+      SE LLEVARÁ A CABO DEL 01 DE MAYO AL 10 DE MAYO DEL AÑO EN CURSO  EN LAS INSTALACIONES
+      DEL INSTITUTO TECNOLÓGICO DE VERACRUZ .
+    - 
+    - '2017-03-30 08:52:46.563794'
+    - '2017-06-07 18:40:13.836972'
+    - Instituto Tecnológico de Veracruz
+    - 
+    - 
+    - 
+  - - 13
+    - Muestra cientifica
+    - Con Viaticos
+    - Individual
+    - 15
+    - '2017-03-30'
+    - '2017-03-30'
+    - jurado del evento
+    - 
+    - '2017-03-30 09:44:20.646961'
+    - '2017-03-30 09:44:20.646961'
+    - 
+    - 
+    - 
+    - 
+  - - 15
+    - Concurso de Robotica 2017
+    - Sin Viaticos
+    - Individual
+    - 11
+    - '2017-04-11'
+    - '2017-04-11'
+    - ''
+    - 
+    - '2017-04-04 21:31:29.178773'
+    - '2017-04-04 22:18:40.650880'
+    - 
+    - 
+    - 
+    - 
+  - - 23
+    - concurso prototipo tecnologico
+    - Sin Viaticos
+    - Individual
+    - 15
+    - '2017-05-22'
+    - '2017-05-26'
+    - asistir como evañluadsor
+    - 
+    - '2017-05-18 09:28:21.677443'
+    - '2017-05-18 09:28:21.677443'
+    - 
+    - 
+    - 
+    - 
+  - - 24
+    - concurso prototipo 2
+    - Sin Viaticos
+    - Individual/Grupo
+    - 8
+    - '2017-05-02'
+    - '2017-05-04'
+    - ''
+    - 
+    - '2017-05-18 09:30:38.086577'
+    - '2017-05-18 09:30:38.086577'
+    - 
+    - 
+    - 
+    - 
+  - - 25
+    - concurso prototipo 22
+    - Sin Viaticos
+    - Individual/Grupo
+    - 8
+    - '2017-05-02'
+    - '2017-05-04'
+    - ''
+    - 
+    - '2017-05-18 09:31:14.320166'
+    - '2017-05-18 09:31:14.320166'
+    - 
+    - 
+    - 
+    - 
+  - - 27
+    - Formación de Gestores de la innovación
+    - Con Viaticos
+    - Individual
+    - 14
+    - '2017-08-07'
+    - '2017-08-11'
+    - Que se realizará en el marco estrategico de fortalecimiento del ecosistema de
+      innovación (PEFEI) por el tecnológico nacional de méxico
+    - 
+    - '2017-06-05 10:57:03.410285'
+    - '2017-06-05 10:57:03.410285'
+    - Instituto Tecnológico de Veracruz
+    - 
+    - 
+    - 
+  - - 29
+    - Congreso Administrando III
+    - Sin Viaticos
+    - Individual
+    - 5
+    - '2017-06-10'
+    - '2017-06-12'
+    - ASISTIR AL CONGRESO "ADMINISTRANDO III" QUE SE REALIZAŔÁ EN EL MARCO DEL PLAN
+      DE ESTRATEGICO DE FORTALECIMIENTO DEL ECOSISTEMA DE INNOVACIÓN (PEFEI) POR EL
+      TECNOLÓGICO NACIONAL DE MÉXICO EL CUAL SE LLEVARÁ A CABO DEL 12 AL 16 DE JUNIO
+      DEL AÑO EN CURSO 2017 EN LAS INSTALACIONES DE INSTITUTO TECNOLÓGICO DE OAXACA.
+    - 
+    - '2017-06-07 05:39:05.353623'
+    - '2017-06-15 06:40:09.379285'
+    - Instituto Tecnológico de Oaxaca
+    - 
+    - 
+    - 
+  - - 31
+    - alalalalalalalalala
+    - Sin Viaticos
+    - Individual
+    - 4
+    - '2017-06-12'
+    - '2017-06-15'
+    - ASISTIR AL ...  QUE SE REALIZAŔÁ EN ... EL CUAL SE LLEVARÁ A CABO DEL  AL  DE
+      undefined DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ito
+    - 
+    - 
+    - 
+  - - 32
+    - Viaje a la Luna
+    - Con Viaticos
+    - Individual
+    - 6
+    - '2017-06-15'
+    - '2017-06-17'
+    - ASISTIR AL VIAJE A LA LUNA  QUE SE REALIZARÁ EN OAXACA EL CUAL SE LLEVARÁ ACABO
+      DEL 15 AL 17 DE JUNIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE INSTITUTO TECNOLÓGICO
+      DE OAXACA.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Oaxaca
+    - 
+    - 
+    - 
+  - - 34
+    - 'Compilando el kernel '
+    - Con Viaticos
+    - Individual
+    - 5
+    - '2017-06-13'
+    - '2017-06-14'
+    - ASISTIR AL ...  QUE SE REALIZAŔÁ EN ... EL CUAL SE LLEVARÁ A CABO DEL  AL  DE
+      undefined DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - instituto tecnológico de oaxaca
+    - 
+    - 
+    - 
+  - - 35
+    - aaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    - Sin Viaticos
+    - Individual
+    - 16
+    - '2017-06-07'
+    - '2017-06-08'
+    - ASISTIR AL ...  QUE SE REALIZAŔÁ EN ... EL CUAL SE LLEVARÁ A CABO DEL  AL  DE
+      undefined DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - aaaaaaaaaaaaaaaaaaaaaaaa
+    - 
+    - 
+    - 
+  - - 36
+    - lalalalalalala
+    - Con Viaticos
+    - Individual
+    - 4
+    - '2017-06-08'
+    - '2017-06-20'
+    - ASISTIR AL ...  QUE SE REALIZAŔÁ EN ... EL CUAL SE LLEVARÁ A CABO DEL  AL  DE
+      undefined DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - instituto tecnológico de oaxaca
+    - 
+    - 
+    - 
+  - - 38
+    - mamamamamama
+    - Con Viaticos
+    - Individual
+    - 4
+    - '2017-06-06'
+    - '2017-06-12'
+    - ASISTIR AL ...  QUE SE REALIZAŔÁ EN ... EL CUAL SE LLEVARÁ A CABO DEL  AL  DE
+      undefined DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - itoaxaca
+    - 
+    - 
+    - 
+  - - 39
+    - kkkkkuhiuhuyhiuhihbi
+    - Con Viaticos
+    - Individual
+    - 5
+    - '2017-06-02'
+    - '2018-06-20'
+    - ASISTIR AL ... KKKKKUHIUHUYHIUHIHBI QUE SE REALIZAŔÁ EN ... EL CUAL SE LLEVARÁ
+      A CABO DEL 02 DE JUNIO DEL 2017 AL 20 DE JUNIO DEL 2018 EN LAS INSTALACIONES
+      DE ITOAXACA.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - itoaxaca
+    - 
+    - 
+    - 
+  - - 40
+    - Jurado Examen Profesional
+    - Sin Viaticos
+    - Individual
+    - 20
+    - '2017-06-21'
+    - '2017-06-22'
+    - ASISTIR AL ... JURADO EXAMEN PROFESIONAL QUE SE REALIZARÁ EN ... EL CUAL SE
+      LLEVARÁ A CABO DEL 21 AL 22 DE JUNIO DEL AÑO EN CURSO  EN LAS INSTALACIONES
+      DE ITOAXACA.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - itoaxaca
+    - 
+    - 
+    - 
+  - - 41
+    - Viaje
+    - Con Viaticos
+    - Individual
+    - 6
+    - '2017-06-28'
+    - '2017-06-30'
+    - ASISTIR AL VIAJE QUE SE REALIZARÁ EN puebla EL CUAL SE LLEVARÁ ACABO DEL 28
+      AL 30 DE JUNIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE LA PLAZA DE ARMAS
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Plaza de armas
+    - 
+    - 
+    - 
+  - - 44
+    - participación expociencias
+    - Sin Viaticos
+    - Individual
+    - 22
+    - '2017-07-13'
+    - '2017-07-15'
+    - ASISTIR A LA REUNIÓN DE TRABAJO PARA ULTIMAR DETALES DE SU PARTICIPACIÓN EXPOCIENCIAS
+      QUE SE REALIZARÁ EN  LAS INSTALACIONES DE LA UPAEP,  QUE SE LLEVARÁ A CABO DEL
+      13 AL 15 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE  LA UNIVERSIDAD
+      POULAR AUTONOMA DE PUEBLA
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Puebla
+    - 01-AD201
+    - 
+    - 
+  - - 46
+    - club de programacion
+    - Sin Viaticos
+    - Individual
+    - 3
+    - '2017-07-11'
+    - '2017-07-12'
+    - PARTICIPAR COMO RESPONSABLE DEL CLUB DE PROGRAMACION QUE SE REALIZARÁ EN EL
+      AULA I9, EL CUAL SE LLEVARÁ A CABO EL 14 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES
+      DEL INSTITUTO TECNOLOGICO DE OAXACA
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ''
+    - 01-AD201
+    - 
+    - 
+  - - 47
+    - proyecto multimedia
+    - Sin Viaticos
+    - Individual
+    - 4
+    - '2017-07-11'
+    - '2017-07-12'
+    - 'ASISTIR AL COMO ASESOR DE  PROYECTO MULTIMEDIA QUE SE REALIZARÁ EN EL GIMANSIO
+      AUDITORIO  EL CUAL SE LLEVARÁ A CABO DEL 11 AL 12 DE JULIO DEL AÑO EN CURSO  EN
+      LAS INSTALACIONES DE CBTIS 26. '
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - cbtis 26
+    - 01-AD201
+    - 
+    - 
+  - - 48
+    - CONGRESO EDUCACION
+    - Sin Viaticos
+    - Equipo
+    - 5
+    - '2017-07-17'
+    - '2017-07-18'
+    - ASISTIR AL III CONGRESO EDUCACION QUE SE REALIZARÁ EN EL MARCO DEL SIMPOSIO
+      INTERNACIONA  EL CUAL SE LLEVARÁ A CABO DEL 17 AL 18 DE JULIO DEL AÑO EN CURSO  EN
+      LAS INSTALACIONES DELA UNIVERSIDAD AUTONOMA DE TLAXACALA
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - TLAXCALA
+    - 01-AD201
+    - 
+    - 
+  - - 49
+    - VIAJE TECNOTOUR
+    - Con Viaticos
+    - Individual
+    - 6
+    - '2017-07-18'
+    - '2017-07-26'
+    - 'ASISTIR AL ... VIAJE TECNOTOUR QUE SE REALIZARÁ EN EL HOTEL PERGOLA SUITE EL
+      CUAL SE LLEVARÁ A CABO DEL 18 AL 11 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES
+      DE LA PAZ. '
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - LA PAZ
+    - 01-AD201
+    - 
+    - 
+  - - 50
+    - APLICADOR CENEVAL
+    - Sin Viaticos
+    - Individual
+    - 8
+    - '2017-07-03'
+    - '2017-07-04'
+    - "Sabiendo de su disposición para participar en las actividades que se desarrollan
+      en nuestra institución, me permito comunicar a usted que he tenido a bien comisionarl*
+      para que finja como: \r\ntipoParticipacion? DEL EXAMEN CENEVAL PARA NUEVO INGRESO
+      año? \r\nEl día duracionCurso?, en un horario de horario? horas; fecha en que
+      se realizará dicho examen en este plantel. Así mismo asistir a la capacitación
+      el día fechaCapacitacion? de los corrientes en lugarCapacitacion? en un horario
+      de horarioCapacitacion? hrs. Agradeciendo su colaboración y puntualidad, aprovecho
+      la ocasión para enviarle un cordial saludo."
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ITO
+    - 01-AD201
+    - ''
+    - Titulación Integral
+  - - 51
+    - TUTOR
+    - Sin Viaticos
+    - Individual
+    - 9
+    - '2017-07-10'
+    - '2017-07-14'
+    - ASISTIR AL ... TUTOR QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ A CABO DEL 10
+      AL 14 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ITO
+    - 01-AD201
+    - 
+    - 
+  - - 52
+    - 'PROGRAMACION '
+    - Sin Viaticos
+    - Individual
+    - 10
+    - '2017-07-19'
+    - '2017-07-29'
+    - SE ASESOR DE LA ASIGNATURA DE PROGRAMACION ORIENTADA A OBJETOS
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ITO
+    - 01-AD201
+    - 
+    - 
+  - - 53
+    - PUBLICAR CIERMIIR 2017
+    - Sin Viaticos
+    - Individual
+    - 11
+    - '2017-07-01'
+    - '2017-07-03'
+    - ASISTIR AL ... PUBLICAR CIERMIIR 2017 QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ
+      A CABO DEL 01 AL 03 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE .
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - LOS ANGELES
+    - 01-AD201
+    - 
+    - 
+  - - 54
+    - DIPLOMADO DE LA RISA
+    - Sin Viaticos
+    - Individual
+    - 14
+    - '2017-04-12'
+    - '2017-07-15'
+    - Para dar continuidad a los objetivos y metas del Plan Institucional de Desarrollo
+      y el Programa Operativo Anual, en lo referente al Programa Formación y Actualización
+      Docente y Profesional, me permito informarle que ha sido COMISIONAD* para participar
+      en el tipoActividad? para la nombreActividad? modulo?, el  cual se llevará a
+      cabo del duracionCurso?, de 8:00 a 9:00 hrs, en el lugar?.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - COCYT OAXACA
+    - 01-AD201
+    - ''
+    - Titulación Integral
+  - - 55
+    - PORYECTO MULTIMEDIA
+    - Con Viaticos
+    - Individual
+    - 15
+    - '2017-07-03'
+    - '2017-07-12'
+    - ASISTIR AL ... PORYECTO MULTIMEDIA QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ
+      A CABO DEL 03 AL 12 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE NO SE.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - NO SE
+    - 01-AD201
+    - 
+    - 
+  - - 56
+    - 'CUMPLIO '
+    - Sin Viaticos
+    - Individual
+    - 16
+    - '2017-07-03'
+    - '2017-07-04'
+    - CUMPLIÓ STISFACTORIAMENTE CON LAS ACTIVIDADES DESARROLLADAS DURANTE EL SEMESTRE
+      FEBRERO JUNIO 2017
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ''
+    - 01-AD201
+    - 
+    - 
+  - - 57
+    - CUMPLIO 2017
+    - Sin Viaticos
+    - Individual
+    - 16
+    - '2017-07-03'
+    - '2017-07-04'
+    - CUMPLIÓ STISFACTORIAMENTE CON LAS ACTIVIDADES DESARROLLADAS DURANTE EL SEMESTRE
+      FEBRERO JUNIO 2017
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - ''
+    - 01-AD201
+    - 
+    - 
+  - - 61
+    - Congreso uno
+    - Sin Viaticos
+    - Individual
+    - 5
+    - '2017-06-01'
+    - '2017-07-29'
+    - ASISTIR AL ... CONGRESO UNO QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ A CABO
+      DEL 01 DE JUNIO AL 29 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE INSTITUTO
+      TECNOLÓGICO DE OAXACA.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto Tecnológico de Oaxaca
+    - ''
+    - 
+    - 
+  - - 63
+    - Asesor concurso uno
+    - Sin Viaticos
+    - Individual
+    - 4
+    - '2017-07-03'
+    - '2017-07-03'
+    - ASISTIR AL ... ASESOR CONCURSO UNO QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ
+      A CABO EL 03 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE INSTITUTO TECNOLÓGICO
+      DE OAXACA.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto Tecnológico de Oaxaca
+    - ''
+    - 
+    - 
+  - - 65
+    - Viaje uno
+    - Sin Viaticos
+    - Individual
+    - 6
+    - '2017-08-02'
+    - '2017-09-03'
+    - ASISTIR AL ... VIAJE UNO QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ A CABO EL  DE
+      undefined DEL AÑO EN CURSO  EN LAS INSTALACIONES DE MONTE ALBAN.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Monte alban
+    - ''
+    - 
+    - 
+  - - 66
+    - Articulo uno
+    - Sin Viaticos
+    - Individual
+    - 11
+    - '2017-07-03'
+    - '2017-07-04'
+    - ASISTIR AL ... ARTICULO UNO QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ A CABO
+      DEL 03 AL 04 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE ITOAXACA.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - itoaxaca
+    - ''
+    - 
+    - 
+  - - 68
+    - Examen profesional
+    - Sin Viaticos
+    - Individual
+    - 20
+    - '2017-07-10'
+    - '2017-07-10'
+    - 'ASISTIR AL ... EXAMEN PROFESIONAL QUE SE REALIZARÁ EN ... EL CUAL SE LLEVARÁ
+      A CABO EL 10 DE JULIO DEL AÑO EN CURSO  EN LAS INSTALACIONES DE INSTITUTO TECNOLÓGICO
+      DE OAXACA. '
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto Tecnológico de Oaxaca
+    - ''
+    - 
+    - 
+  - - 69
+    - Asesoria uno
+    - Sin Viaticos
+    - Individual
+    - 4
+    - '2017-09-03'
+    - '2017-11-02'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?  nombreActividad?,
+      el  cual se llevará a cabo del duracionCurso? en el lugar?.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto Tecnológico de Oaxaca
+    - ''
+    - ''
+    - Titulación Integral
+  - - 70
+    - Tutoria uno
+    - Sin Viaticos
+    - Individual
+    - 9
+    - '2017-07-03'
+    - '2017-11-04'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el tipoActividad?
+      para la nombreActividad?, el  cual se llevará a cabo del duracionCurso? en el
+      lugar?.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto Tecnológico de Oaxaca
+    - ''
+    - ''
+    - Titulación Integral
+  - - 72
+    - Jurado para titulación integral
+    - Sin Viaticos
+    - Individual
+    - 20
+    - '2017-07-21'
+    - '2017-07-21'
+    - ASISTIR ALEXAMEN PROFESIONAL COMORA JURADO PARA TITULACIÓN INTEGRAL LLEVARÁ
+      A CABO EL 21 DE JULIO DEL AÑO EN CURSO  EN LA SALA DE TITULACIÓN DEL INSTITUTO
+      TECNOLÓGICO DE OAXACA
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Sala de titulación del Instituto Tecnológico de Oaxaca
+    - AD-2017-03
+    - 
+    - 
+  - - 73
+    - Diplomado para la Formación de Tutores Modulo II Programa de Tutorías
+    - Sin Viaticos
+    - Individual
+    - 2
+    - '2017-08-07'
+    - '2017-08-11'
+    - Para dar continuidad a los objetivos y metas del Plan Institucional de Desarrollo
+      y el Programa Operativo Anual, en lo referente al Programa Formación y Actualización
+      Docente y Profesional, me permito informarle que ha sido COMISIONAD* para participar
+      en el nombreActividad?, el cual se llevará a cabo del duracionCurso?, de horario?,
+      en el lugar?.
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Edificio I
+    - ''
+    - ''
+    - Titulación Integral
+  - - 74
+    - alalalalalalal
+    - Sin Viaticos
+    - Individual
+    - 3
+    - '2017-08-07'
+    - '2017-08-11'
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto tecnologico de oaxaca
+    - ''
+    - '07:00'
+    - Titulación Integral
+  - - 75
+    - Ciencia de la computación 2017
+    - Sin Viaticos
+    - Individual
+    - 4
+    - '2017-08-07'
+    - '2017-08-11'
+    - Me permito informarle que ha sido COMISIONAD* para participar en el Concurso
+      Ciencia de la coputación 2017, el  cual se llevará a cabo del  07 al 11 de AGOSTO
+      del año en curso  en el Instituto tecnologico de oaxaca
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Instituto tecnologico de oaxaca
+    - ''
+    - ''
+    - Titulación Integral
+  - - 77
+    - Actividad 2017
+    - Sin Viaticos
+    - Individual
+    - 25
+    - '2017-08-14'
+    - '2017-08-15'
+    - Por medio de este presente se ha comisionad* para  tipoActividad? del duracionCurso?
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Edificio de Educación a Distancia
+    - ''
+    - '07:00'
+    - Titulación Integral
+  - - 78
+    - Actividad Agosto 2017
+    - Sin Viaticos
+    - Individual
+    - 25
+    - '2017-08-07'
+    - '2017-08-08'
+    - Por este medio se le infoma que ha sido comisionad* para tipoActividad? nombreActividad?
+      que se llevara acabo del duracionCurso? en el lugar?
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+    - Edificio I
+    - ''
+    - ''
+    - Titulación Integral
+
+---
+cat_evidencia_periodos:
+  columns:
+  - id
+  - etiqueta
+  - tipo
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Plan de curso
+    - Materia
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - Lista de asistencia
+    - Curso
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 3
+    - Archivo estadística
+    - Periodo
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+lib_curso_docentes:
+  columns:
+  - id
+  - periodo_liberacion_curso_id
+  - docente_id
+  - liberado
+  - fecha
+  - created_at
+  - updated_at
+  records: 
+  - - 40
+    - 7
+    - 1
+    - s
+    - '2017-06-23'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 41
+    - 7
+    - 2
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 42
+    - 7
+    - 3
+    - s
+    - '2017-06-23'
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 43
+    - 7
+    - 4
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 44
+    - 7
+    - 5
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 45
+    - 7
+    - 6
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 46
+    - 7
+    - 7
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 47
+    - 7
+    - 8
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 48
+    - 7
+    - 9
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 49
+    - 7
+    - 10
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 50
+    - 7
+    - 11
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 51
+    - 7
+    - 12
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 52
+    - 7
+    - 14
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 53
+    - 7
+    - 15
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 54
+    - 7
+    - 17
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 55
+    - 7
+    - 18
+    - ''
+    - 
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+anexos_proyecto_estudiantes:
+  columns:
+  - proyecto_estudiante_id
+  - anexo_id
+  records: 
+  - - 11
+    - 7
+  - - 11
+    - 5
+
+---
+actualizaciones:
+  columns:
+  - id
+  - tipoPeriodo
+  - tipoActualizacion
+  - modalidad
+  - horasCapacitacion
+  - actividad_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Intersemestral
+    - Docente y profesional
+    - Presencial
+    - 20
+    - 73
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+horario_actualizaciones:
+  columns:
+  - id
+  - dia
+  - hora_inicio
+  - hora_fin
+  - actualizacion_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Lunes
+    - '9:00'
+    - '13:00'
+    - 1
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - Viernes
+    - '9:00'
+    - '13:00'
+    - 1
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+oficio_externos:
+  columns:
+  - id
+  - etiqueta
+  - pdf_oficio
+  - oficio_id
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - externo
+    - Reticula_Especialidad_Desarrollo_de_software_con_tecnologias_web.pdf
+    - 112
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+
+---
+firmas:
+  columns:
+  - id
+  - cargo
+  - titular
+  - created_at
+  - updated_at
+  records: 
+  - - 1
+    - Director
+    - Dr. Juan Cruz Nieto
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 2
+    - 'Presidente de academia '
+    - Mayté Mejia Palacios
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 3
+    - Jefe de departamento de recursos humanos
+    - M.A. Juana Niño Hernández
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'
+  - - 4
+    - Jefe del Centro de Cómputo
+    - Ing. Miguel Ángel Pérez Solano
+    - '2017-07-08 16:10:44.056591'
+    - '2017-07-08 16:10:44.056591'

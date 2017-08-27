@@ -1,0 +1,40 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :reunion_new %>
+    
+    <h2 id="align-title">Registro de reuniones</h2>
+    <div id="marco">
+        <div id="align-forms">
+            <%= nested_form_for @reunion, validate: true do |reu| %>
+
+                <div class="row">
+                    <%= reu.label :Fecha_de_reunión_academia, :class => 'col-md-3' %>
+                    <div class="col-md-3">
+                        <%= reu.date_field :fecha, class: "form-control", validate: true %>
+                    </div>
+                </div> 
+            
+                <div class="row">
+                    <%= reu.label :Hora_de_reunión_academia, :class => 'col-md-3' %>
+                    <div class="col-md-3">
+                    <%= reu.select :hora, options_for_select([["07:00", "07:00"], ["08:00", "08:00"],["09:00", "09:00"],["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"],["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"],["19:00", "19:00"], ["20:00", "20:00"]], :selected => reu.object.hora),{}, class: "form-control", validate: true %>
+                    </div>
+                </div> 
+
+                <div class="row" id="btn-cancelar">
+                    <div class="col-md-3" id="btn">
+                        <%= reu.submit :Guardar, :class => 'btn btn-success' %>
+                    </div>   
+            <% end %>
+                    <div class="col-md-3">
+                        <%= button_to "Cancelar", reuniones_path, :class => 'btn btn-warning', :method => :get %>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

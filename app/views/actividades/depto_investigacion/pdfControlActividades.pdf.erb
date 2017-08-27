@@ -1,0 +1,38 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Actividades por el dpto. de investigacion</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 14px; }
+            td.viatico { font-size: 14px; }
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <p align="center">Departamento de Investigación</p>
+        </div>
+        <div style="width: 100%">
+            <% @x = Date.today %>
+            <p align="right" class="estilo">
+                Oaxaca de Juárez, Oax; <%= @x.day %> de <%= meses(@x.month).downcase %> de <%= @x.year %>
+            </p>
+        </div>
+        <br/>
+        <div class="row" style="border: black 1pt solid; padding: 10px;" align="justify">
+            <% @q = params[:act_inv] %>
+            <% @q.each do |act| %>
+                <% actividad = Actividad.find(act) %>
+                <p class="estilo" align="center"><b>Datos de la Actividad</b></p>
+                <p class="estilo">
+                    <b>Nombre de la actividad: </b> <%= actividad.nombreActividad %>
+                    <% tipoAct = CatTipoActividad.find(actividad.cat_tipo_actividad_id) %> <br/>
+                    <b>Tipo Actividad: </b> <%= tipoAct.nombreTipoAct %> <br/>
+                    <b>Periodo: </b> <%= actividad.fechaInicio %> al <%= actividad.fechaTermino %> <br/>
+                    <b>Lugar de la actividad: </b> <%= actividad.lugar %> 
+                </p>
+            <% end %>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+       <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    
+    <h3 id="align-title">Liberación de Actividades Académicas</h3>
+    <% breadcrumb :actividad_academicas %>
+    <div class="row">
+        <div class="col-xs-6 col-sm-2">
+            <% if can? :create, PeriodoActividadAcademica %>
+                <%= button_to new_periodo_actividad_academica_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do%><span class="glyphicon glyphicon-plus" title="Nuevo"></span><% end %>
+            <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-4">
+            <div id="table-responsive">
+                <table class="table table-sm">
+                    <thead>                
+                        <th class="info"><%= sortable "periodo" %></th>
+                    </thead>
+                    <% @periodo_actividades.each do |academica| %>
+                        <tbody>                    
+                            <td class="active">
+                                <%= academica.periodo %>
+                            </td>
+                            <% if can? :read, academica %>
+                                <td class="active">
+                                    <%= link_to periodo_actividad_academica_path(academica), title: "Ver" do %><span class="glyphicon glyphicon-eye-open blue"></span><% end %>    
+                                </td>
+                            <% end %>
+                            <% if can? :update, academica %>
+                                <td>
+                                    <%= link_to edit_periodo_actividad_academica_path(academica), title: "Editar" do %>
+                                        <span class="glyphicon glyphicon-pencil green"></span>
+                                    <% end %>
+                                </td>
+                            <% end %>
+                        </tbody>
+                    <% end %>
+                </table>
+                <%= will_paginate @periodo_actividades %>
+            </div>
+        </div>
+    </div>
+</div>

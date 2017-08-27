@@ -1,0 +1,31 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h3 id="align-title">Editar Examen Profesional</h3>
+    <% @actividad = Actividad.find(params[:actividad_id]) %>
+    <div id="marco">
+		<div class="row">
+			<div class="col-xs-6 col-sm-4"><b>Nombre de la actividad: </b><%= @actividad.nombreActividad %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo actividad: </b><% @acti = CatTipoActividad.find(@actividad.cat_tipo_actividad_id) %>
+            <%= @acti.nombreTipoAct %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo comisión: </b> <%= @actividad.tipoComision %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-4"><b>Fecha inicio: </b><%= @actividad.fechaInicio %></div>
+			<div class="col-xs-6 col-sm-4"><b>Fecha término: </b><%= @actividad.fechaTermino %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo evidencia: </b><%= @actividad.tipoEvidencia %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-12"><b>Descripción: </b><%= @actividad.descripcion %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-12" align="left"><%= link_to edit_actividad_path(@actividad), :method => :get do %><span class="glyphicon glyphicon-pencil green" title="Editar actividad"></span><% end %></div>
+		</div>
+	</div>
+    <%= render "form3" %>
+</div>

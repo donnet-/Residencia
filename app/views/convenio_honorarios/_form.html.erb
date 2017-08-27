@@ -1,0 +1,39 @@
+<div class="container">
+    <div id="align-forms">
+        <%= form_for [@docente, @docente.convenio_honorarios.build], validate: true do |convenio| %>
+        
+            <% if convenio.object.pdfConvenio.file != nil %>
+            <div class="row">
+                <%= convenio.label :Convenio_actual, class: 'col-xs-4 col-md-3' %>
+                <%= convenio.object.pdfConvenio.file.filename %>
+            </div>            
+            <% end %>
+        
+            <div class="row">
+                <%= convenio.label :Convenio, :class => 'col-xs-4 col-md-3' %>
+                <%= convenio.file_field :pdfConvenio, :class => 'col-xs-4 col-md-4', validate: true %>
+            </div>
+        
+            <div class="row">
+                <%= convenio.label :Fecha_inicio, :class => 'col-xs-4 col-md-3' %>
+                <%= convenio.text_field :fechaInicio, 'data-behaviour' => 'datepicker', validate: true %>
+            </div>
+        
+            <div class="row">
+                <%= convenio.label :Fecha_termino, :class => 'col-xs-4 col-md-3' %>
+                <%= convenio.text_field :fechaTermino, 'data-behaviour' => 'datepicker', validate: true %>
+            </div>
+        
+            <div class="row">
+                <%= convenio.label :Estado, :class => 'col-xs-4 col-md-3' %>
+                <%= convenio.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]), :class => 'col-xs-4 col-md-4', validate: true %>
+            </div>
+        
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                    <%= convenio.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            <% end %>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Servicio Social-Terminación</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css"> p.estilo { font-size: 12px; } </style>
+    </head>
+    <body>
+        <% @x = oficioS(params[:numero], nil, nil, nil, nil, nil, @lema, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, params[:descripcion], nil, nil, nil, nil, params[:id], params[:fechaLibS]) %>		
+        <div style="width: 100%">
+            <% @cabecera = Configuracion.find_by(tipo: "Logo Doc GTV") %>
+            <%= wicked_pdf_image_tag(@cabecera.imagen_url, size: "800x115") %>
+        </div>
+        <br/>
+        <% @c = Configuracion.find_by(tipo: "Mexico") %>	
+        <%= wicked_pdf_image_tag(@c.imagen_url, size: "800x600", :style => ' display: flex;  position: absolute; rigth: 150px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 14px;') %>
+        <div style="width: 100%;">
+            <p align="center" style="font-size: 14px;"><b>Anexo</b></p>
+        </div>
+        <div style="width: 100%;">
+            <p align="center" style="font-size: 14px;"><b>Carta de Terminación del Servicio Social</b></p>
+        </div>
+        <br/><br/>
+        <div style="width: 100%;">
+            <p align="left" style="font-size: 14px;">
+                <%= Configuracion.find_by(tipo: "Director del Instituto Tecnologico de Oaxaca").contenido.upcase %>
+                <br/>DIRECTOR DEL INSTITUTO TECNOLÓGICO DE OAXACA
+                <br/>PRESENTE
+            </p>
+        </div>
+        <br/><br/>
+        <div style="width: 100%;">
+            <p align="right" style="font-size: 14px;">
+                At'n: <%= Configuracion.find_by(tipo: "Jefe Dpto GTV").contenido %>
+                <br/>Jefe del Departamento de Gestión Tecnológica y Vinculación
+            </p>
+        </div>
+        <% @serv = ServicioSocial.find(params[:id]) %>        
+        <% @est = Estudiante.find(@serv.estudiante_id) %>
+        <% @esp = CatEspecialidad.find(@est.cat_especialidad_id)%>
+        <br/><br/>
+        <div style="width: 100%">
+            <p align="justify">Con el presente se hace constar que el alumno  <u><%= @est.apPaterno.upcase %> <%= @est.apMaterno.upcase %> <%= @est.nombre.upcase %></u> con núm. de control <u><%= @est.numControl %></u> de la carrera <u><%= @esp.nombreEsp %></u>, realizó su Servicio Social en los periodos comprendidos del <u><%= @serv.fechaInicio.day %> de <%= meses(@serv.fechaInicio.month).downcase %> del <%= @serv.fechaInicio.year %></u> al <u><%= @serv.fechaTermino.day %> de <%= meses(@serv.fechaTermino.month).downcase %> del <%= @serv.fechaTermino.year %></u> en <u><% if @x.descripcion != nil %> <%= @x.descripcion %><% else %>Actividades administrativas<% end %></u> acumulando un total de <u>480</u> hrs.
+            </p>
+            <br/>
+            <p align="justify">
+                En la ciudad de Oaxaca de Juárez, Oax., a los <u><%= @x.fechaLibS.day.to_s %></u> días del mes de <u><%= meses(@x.fechaLibS.month).downcase %></u> del año <%= @x.fechaLibS.year.to_s %>, se extiende la presente <u><b>Carta de terminación de Servicio Social</b></u>, para los fines que el interesado convengan.
+            </p>
+            <br/><br/>
+            <p align="center">Atentamente</p>
+            <br/><br/>
+        </div>
+        <div>
+            <table style="width: 100%;">
+                <thead>
+                    <th style="border-bottom: 1px solid; width: 35%"></th>
+                    <th style="width: 30%"></th>
+                    <th style="border-bottom: 1px solid; width: 35%"></th>
+                </thead>
+                <tbody>
+                    <td align="center"><%= Configuracion.find_by(tipo: "Jefe de Sistemas y Computacion").contenido %><br/>Jefa del Departamento de Sistemas y Computación</td>
+                    <td></td>
+                    <td align="center">Sello</td>
+                </tbody>
+            </table>
+        </div>
+        <br/><br/>
+        <div>
+            <p align="left" style="font-size: 14px;">
+                C.c.p Expediente oficina de Servicio Social<br/>
+            </p>
+        </div>
+        <br/><br/><br/><br/>
+        <div>
+            <table style="width: 100%;">
+                <th align="left" style="width: 50%">ITO-VI-PO-002-06</th>
+                <th align="right" style="width: 50%">Rev.1</th>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<div class="container">
+   
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :docentes%>
+    
+    <h3 id="align-title">Docentes</h3>
+    
+    <div class="container row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, Docente %>
+                <%= button_to new_docente_path, :class => "btn btn-primary", :method => :get do %>     
+                <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+			<% if current_usuario.rol == 'admin' %>
+				<button name = "tipoDocen" onclick="agregarP('a')", class="btn btn-warning">
+					<i class="glyphicon glyphicon-import"></i></button>
+			<% end %>
+        </div>
+        <div class="col-md-5">
+        <%= form_tag docentes_path, method: :get do %>
+                <% if current_usuario.rol == 'admin' %>
+                <div class="col-md-11" align="right">
+                    <%= text_field_tag :search, params[:search], placeholder: " Buscar...", class: "form-control" %>
+                </div>
+                <div class="col-md-1" align="right">
+                    <%= button_tag(type: 'submit', class: "btn btn-default") do %>
+                        <span class="glyphicon glyphicon-search"></span> 
+                    <% end %>
+                </div>
+                <% end %>
+            <% end %> 
+        </div>
+    </div>
+    <br/>
+    <div id="archivo" style="display: none;">
+        <%= form_tag import_docentes_path, multipart: true do %>
+            <div class="col-md-5"><%= file_field_tag :file %></div>
+            <div class="col-md-3"><%= submit_tag "Importar", class: "btn btn-primary" %></div>
+        <% end %>
+    </div>
+    
+    <div>
+        <%= render 'todos' %>
+    </div>
+</div>

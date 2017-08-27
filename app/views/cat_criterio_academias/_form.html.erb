@@ -1,0 +1,26 @@
+<div class="container">
+    <div id="marco">
+        <%= nested_form_for @academia, validate: true do |acad| %>
+            <div class="row">
+                <div class="col-md-2"><%= acad.label :Número_de_criterio %> </div>
+
+                <div class="col-md-4"> <%= acad.number_field :numero, min: 1, class: 'form-control', validate: true %></div>
+                <div class="col-md-2"><%= acad.label :Estado %> </div>
+                <div class="col-md-4"><%= acad.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: 'form-control', validate: true %></div> 
+            </div>
+            <div class="row">
+                <div class="col-md-1"><%= acad.label :Criterio %></div>
+                <div class="col-md-11"><%= acad.text_area :criterio,class: 'form-control', validate: true %></div>
+            </div>
+            
+            <div class="row id btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= acad.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", cat_criterio_academias_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

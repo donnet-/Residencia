@@ -1,0 +1,42 @@
+<div class="container">
+    <div>
+        
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    <h2 id="align-title">Constancias para concursos Dpto. Investigación</h2>
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, ConstanciaDptoInvestigacion %>
+                <%= button_to new_constancia_dpto_investigacion_path, :class => "btn btn-primary", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="col-xs-6 col-sm-11">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info">Actividad</th>
+                    <th class="info">Fecha</th>
+                    <th class="info"></th>
+                </thead>
+                <% @constancias.each do |const| %>
+                    <tbody>
+                        <% act = Actividad.find(const.actividad_id) %>
+                        <td class="active"><%= act.nombreActividad %> <%= act.fechaInicio %> <%= act.fechaTermino %> </td>
+                        <td class="active"><%= const.fecha%></td>
+                        <td class="active">
+                            <%= link_to edit_constancia_dpto_investigacion_path(const) do %><span class="glyphicon glyphicon-pencil green" title="Editar"></span>
+                            <% end %>
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+            <%= will_paginate @constancias %>
+        </div>
+    </div>
+</div>

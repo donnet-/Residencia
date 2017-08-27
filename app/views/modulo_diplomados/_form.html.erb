@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="col-xs-6 col-sm-10" id="marco">
+        <h5 id="align-title"><b>Datos del módulo</b></h5>
+        <%= form_for [@actividad, @actividad.modulo_diplomados.build], validate: true do |modulo| %>
+            <div class="row">
+                <div class="col-md-2"><%= modulo.label :Nombre_módulo %></div>
+                <div class="col-md-4"> <%= modulo.text_field :nombreModulo, class: "form-control", validate: true %></div>
+                <div class="col-md-2"><%= modulo.label :Duración %></div>
+                <div class="col-md-4"> <%= modulo.text_field :duracion, class: "form-control", validate: true %></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2"><%= modulo.label :Fecha_inicio %></div> 
+                <div class="col-md-4"><%= modulo.date_field :fechaInicio, class: "form-control", validate: true %></div>
+                <div class="col-md-2"><%= modulo.label :Fecha_término %></div>
+                <div class="col-md-4"><%= modulo.date_field :fechaTermino, class: "form-control", validate: true %></div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3"><%= modulo.label :Seleccionar_docentes %>:</div>
+                <div class="col-md-7"><%= modulo.collection_check_boxes :actividad_docente_ids, ActividadDocente.where(:actividad_id => @actividad.id), :id, :method_info_docente %></div>
+            </div>
+            <div class="row" id="btn-cancelar">
+                <div class="col-md-6" align="right" id="btn">
+                    <%= modulo.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

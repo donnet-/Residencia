@@ -1,0 +1,33 @@
+<table class="table table-bordered">
+	<thead> 
+		<tr>
+            <th class="info"><%= sortable "fechaInicio" %></th>
+            <th class="info"><%= sortable "horas" %></th>
+			<th class="info"><%= sortable "calificaion" %></th>
+			<th class="info"><%= sortable "nombreE" %></th>
+            <th class="info"><%= sortable "estado" %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @servicios.each do |servicio| %>
+			<% if current_usuario.email == Estudiante.find(servicio.estudiante_id).email %>
+        		<tr>  
+					<td class="active"><%= servicio.fechaInicio.strftime('%d-%m-%Y') %> al <%= servicio.fechaTermino.strftime('%d-%m-%Y') %></td>
+					<td class="active"><%= servicio.horas %></td>
+					<td class="active"><%= servicio.calificacion %></td>
+					<td class="active"><%= servicio.nombreE %></td>
+					<td class="active"><%= servicio.estado %></td>
+					<td class="active">
+						<% if can? :read, servicio %>
+							<%= link_to servicio_social_path(servicio) do %> <span class="glyphicon glyphicon-eye-open blue" title="Ver detalles"></span><% end %>
+						<% end %>
+						<% if can? :update, servicio %>
+							<%= link_to edit_servicio_social_path(servicio) do %> <span class="glyphicon glyphicon-pencil green" title="Editar"></span><% end %>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		<% end %>
+	</tbody>
+</table>
+<%= will_paginate @servicios %>

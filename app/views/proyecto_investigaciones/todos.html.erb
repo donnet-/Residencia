@@ -1,0 +1,81 @@
+<div class="container">
+    <div align="left">
+        <% if current_usuario.rol == 'admin' %>
+            <%= render template: "siged/menuAdmin" %>
+        <% elsif current_usuario.rol == 'docente' %>
+            <%= render template: "siged/menuDocente" %>
+        <% end %>
+    </div>
+    
+    <h3 id="align-title">Proyectos a cargo de la oficina de Investigación</h3>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, ProyectoInvestigacion %>
+                <%= button_to new_proyecto_investigacion_path, :class => "btn btn-primary", :method => :get, :title => "Nuevo" do %>
+                    <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+		<div class="col-xs-6 col-sm-1">
+            <%= button_to proyecto_investigaciones_path, :class => "btn btn-primary", title: "Mis proyectos", :method => :get do %>
+                    <span class="glyphicon glyphicon-list"></span>
+            <% end %>
+        </div>
+        <%= form_tag proyecto_investigaciones_path, method: :get do %>
+                <div class="col-md-5"></div>
+                <div class="col-md-2" align="right" style="padding: 0px;">
+                    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Buscar..." %>
+                </div> 
+                <div class="col-md-1" align="right" style="padding: 0px;">
+                    <%= select_tag :periodo, options_for_select([["",""],["ENE-JUN", "01-01 / 06-31"], ["FEB-JUN", "02-01 / 06-31"], ["AGO-DIC", "08-01 / 12-31"]]), class: "form-control" %>
+                </div>
+                <div class="col-md-1" align="right" style="padding: 0px;">
+                    <%= number_field_tag :anio, params[:anio], min: 2005, class: "form-control", placeholder: "año" %>
+                </div>
+                <div class="col-md-1" align="center" style="padding: 0px">
+                    <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %>
+                        <span class="glyphicon glyphicon-search"></span>
+                    <% end %>
+                </div>
+            <% end %>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="info"><%= sortable "numProyecto" %></th>
+                <th class="info"><%= sortable "nombreProy" %></th>
+                <th class="info">Líder del proyecto</th>
+                <th class="info"><%= sortable "periodo" %></th>
+                <th class="info">Tipo de proyecto</th>
+				<th class="info">Status</th>
+            </tr>
+        </thead>
+        <% @todos.each do |inv| %>
+        	<tbody>
+				<td class="active"><%= inv.numProyecto %></td>
+                    <td class="active"><%= inv.nombreProy %></td>
+                    <% docente = Docente.find(inv.asesorExterno) %>
+                    <td class="active"><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></td>
+                    <td class="active"><%= inv.fechaInicio %> - <%= inv.fechaTermino %></td>
+                    <td class="active">
+                        <% tipoP = CatTipoExamenProyecto.find(inv.cat_tipo_examen_proyecto_id) %> <%= tipoP.nombreTipoP %>
+                    </td>
+					<td class="active"><%= inv.status %></td>
+                    <td class="active">
+                        <% if can? :read, inv %>
+                            <%= link_to proyecto_investigacion_path(inv), :title => "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                            <% end %>
+                        <% end %>     
+                        <% if can? :update, inv %>
+                            <%= link_to edit_proyecto_investigacion_path(inv), :title => "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                            <% end %>
+                        <% end %>
+                    </td>
+                </tbody>
+        <% end %>
+    </table>
+    <%= will_paginate @todos %>
+</div>

@@ -1,0 +1,29 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <h3 id="align-title">Editar Evidencia-Grupal</h3>
+    
+    <%= form_for [@actividad, @evidencia], validate: true do |evidencia| %>
+		
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">
+				<% @evi = CatEvidencia.find(@evidencia.cat_evidencia_id) %> <b><%= @evi.nombreEvidencia %>: </b><%= evidencia.hidden_field :cat_evidencia_id, value: @evi.id %>
+			</div>
+			
+			<% if evidencia.object.pdfEvidencia.file != nil %>
+            	<div class="col-xs-6 col-sm-3"><%= evidencia.object.pdfEvidencia.file.filename %></div>
+                <div class="col-xs-6 col-sm-4"><%= evidencia.file_field :pdfEvidencia, validate: true %></div>
+			<% else %>
+			<% end %>
+        	<div class="col-xs-6 col-sm-2">
+				<% @t = Date.today %>
+				<%= evidencia.hidden_field :fechaActualizacion, value: @t.strftime("%d/%m/%Y"), validate: true %>
+                <%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+             </div>
+        </div>
+	<% end %>
+</div>

@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="col-xs-6 col-sm-10" id="marco">
+        <h4 id="align-title">Generar Informe de Comisión Personal</h4>
+        <% @mod = ModuloDiplomado.find_by(actividad_id: @actividad.id) %>
+        <% if @mod == nil%>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                <% else %>
+                    <h5><b>Datos del documento: </b></h5>
+                    <%= form_tag(informe_comisiones_actividad_path, method: 'get') do %>
+                        <% @arre = serie %>
+                        <%= hidden_field_tag :format, "pdf"%>  
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3"><b>No. oficio: </b><%= select_tag "numero", options_for_select(@arre, "xD") %></div>
+                            <% fp = @actividad.fechaTermino %><% fpo = fp.day.to_i + 1 %> <% fpos = fpo.to_s + '/' + fp.month.to_s + '/' + fp.year.to_s %>
+                            <div class="col-xs-6 col-sm-4"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fpos, 'data-behaviour'=> 'datepicker' %></div>
+                            <div class="col-xs-6 col-sm-5"><b>Cargo: </b>
+                                <% @p = Puesto.find_by(docente_id: @idoc) %>
+                                <% if @p != nil %>
+                                    <% @a = CatTipoPuesto. find(@p.cat_tipo_puesto_id).nombrePuesto%>
+                                    <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], "DOCENTE") %>
+                                <% else %>
+                                    <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"]], "DOCENTE") %>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <% fec = Time.now
+                            f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y")
+                            %>
+                            <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                            <div class="col-xs-6 col-sm-3"><b>Nacionales: </b><%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]]) %></div>
+                            <div class="col-xs-6 col-sm-5"><b>Ciudad-Estado/Ciudad-Pais:</b><%= text_field_tag "zona" %></div>
+                        </div>
+                        <div class="row">
+                             <% d = Docente.find(acd.docente_id) %>
+                            <div class="col-xs-6 col-sm-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %></div>
+                            <div class="col-xs-6 col-sm-5"><b>Importe de viaticos:</b><%= text_field_tag "importeViat" %></div>
+                            <div class="col-xs-6 col-sm-3"><%= submit_tag "Generar", :formtarget => '_blank' %></div>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% end %>   
+        <% else %>
+            <% @actividad.modulo_diplomados.each do |p| %>
+                <% docmod = p.actividad_docentes.map(&:docente_id) %>
+                <% if docmod == [] %>
+                <% else %>
+                    <% for dm in docmod %>
+                        <% s = existeOAM(@actividad.id, dm, p.id) %>
+                        <% if s == true %>
+                        <% else %>
+                            <h5><b>Datos del documento: </b></h5>
+                            <%= form_tag(informe_comisiones_actividad_path, method: 'get') do %>
+                                <% @arre = serie %>
+                                <%= hidden_field_tag :format, "pdf"%>  
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-3"><b>No. oficio: </b><%= select_tag "numero", options_for_select(@arre, "xD") %></div>
+                                    <% fp = @actividad.fechaTermino %><% fpo = fp.day.to_i + 1 %> <% fpos = fpo.to_s + '/' + fp.month.to_s + '/' + fp.year.to_s %>
+                                    <div class="col-xs-6 col-sm-3"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fpos, 'data-behaviour'=> 'datepicker' %></div>
+                                    <% fec = Time.now
+                                    f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y")
+                                    %>
+                                    <div class="col-xs-6 col-sm-3"><b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                                    <div class="col-xs-6 col-sm-3"><b>Cargo: </b>
+                                        <% @p = Puesto.find_by(docente_id: @idoc) %>
+                                        <% if @p != nil %>
+                                            <% @a = CatTipoPuesto. find(@p.cat_tipo_puesto_id).nombrePuesto%>
+                                            <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], "DOCENTE") %>
+                                        <% else %>
+                                            <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"]], "DOCENTE") %>
+                                        <% end %>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                     <% d = Docente.find(dm) %>
+                                    <div class="col-xs-6 col-sm-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, dm %></div>
+                                    <div class="col-xs-6 col-sm-4"><b>Módulo: </b><%= p.nombreModulo %><%= hidden_field_tag :modulo, p.id %></div>
+                                    <div class="col-xs-6 col-sm-3"><b>Nacionales: </b><%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]]) %></div>
+                                    <div class="col-xs-6 col-sm-5"><b>Ciudad-Estado/Ciudad-Pais:</b><%= text_field_tag "zona" %></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6"><b>Importe de viaticos:</b><%= text_field_tag "importeViat" %></div>
+                                    <div class="col-xs-6 col-sm-4"><%= submit_tag "Generar", :formtarget => '_blank' %></div>
+                                </div>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>   
+        <% end %>
+    </div>
+</div>

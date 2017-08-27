@@ -1,0 +1,16 @@
+<div class="container">
+    <h4>Materias impartidas</h4>
+    <div class="row">                
+        <% @curso_materia.curso_materias.each do |cm| %>
+            <div class="marco">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-2"> <strong>Grupo: </strong><%= cm.nombreGrupo %></div>
+                    <div class="col-xs-6 col-sm-2"> <strong>Aula: </strong><%= cm.aula %></div>
+                    <div class="col-xs-6 col-sm-6"> <strong>Materia: </strong><%= cm.cat_materia.nombreMat %> </div>
+                    <div class="col-xs-6 col-sm-2"> <strong>Total: </strong><%= cm.total %></div>
+                </div>
+            </div>
+        <% end %>  
+        
+    </div>
+</div>

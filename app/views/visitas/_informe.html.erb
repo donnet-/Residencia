@@ -1,0 +1,37 @@
+<div class="container">
+        <h4>Generar oficio de informe de comisiones</h4>
+        <%= form_tag(informe_actividad_visita_path, method: 'get') do %>
+            <% @idoc = @actividad.actividad_docentes.first.docente_id %>
+            <% s = existe(@actividad.id, @idoc) %>                    
+            <% if s == true %>                
+                    <% @j = Oficio.find_by(actividad_id: @actividad.id) %>                                
+                <%= hidden_field_tag :format, "pdf" %>
+                <b> No. oficio: <%= @j.numero %> </b><br>
+                <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                <b>Fecha: </b><%= text_field_tag "fecha",f, 'data-behaviour'=> 'datepicker' %>
+                    <br><br>
+                    <b>Cargo: </b>
+                        <% @a = CatTipoPuesto.find(Puesto.find_by(docente_id: @idoc).cat_tipo_puesto_id).nombrePuesto %>
+                        <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], @j.participacion) %>
+
+            <% else %>
+                <% @arre = serie %>
+                <%= hidden_field_tag :format, "pdf"%>        
+                    <b>No. oficio: </b><%= select_tag "numero", options_for_select(@arre, "xD") %>
+                    <br><br>
+                    <% fec = Time.now
+                        f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y")
+                     %>
+                    <b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %>
+                    <br><br>
+                    <b>Cargo: </b>                        
+                        <% if Puesto.find_by(docente_id: @idoc) == nil %>
+                            <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"]], "DOCENTE") %>
+                        <% else %>
+                            <% @a = CatTipoPuesto.find(Puesto.find_by(docente_id: @idoc).cat_tipo_puesto_id).nombrePuesto %>
+                            <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], "DOCENTE") %>
+                        <% end %>
+            <% end %>
+                <%= submit_tag "Generar", target: '_blank' %>                    
+        <% end %>                
+    </div>

@@ -1,0 +1,33 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= devise_error_messages! %>
+    <div id="marco">
+        <div class="row">
+            <div class="col-md-2"><%= f.label :Curp %></div> 
+            <div class="col-md-4"><%= f.text_field :curp, class: "form-control" %></div>
+            <div class="col-md-2"><%= f.label :Rfc %></div> 
+            <div class="col-md-4"><%= f.text_field :rfc, class: "form-control" %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><%= f.label :Correo_electrónico %> </div>
+            <div class="col-md-4"><%= f.email_field :email, class: "form-control", autofocus: true %></div>
+            <div class="col-md-2"><% f.label :Rol %></div>
+            <div class="col-md-4"><%= f.hidden_field :rol, value: 'docente' %></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"><%= f.label :Contraseña %></div>
+            <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> caracteres minimo)</em>
+            <% end %>
+            <div class="col-md-4"><%= f.password_field :password, class: "form-control", autocomplete: "off" %></div>
+            <div class="col-md-2"><%= f.label :Confirmar_contraseña %></div>
+            <div class="col-md-4"><%= f.password_field :password_confirmation, class: "form-control", autocomplete: "off" %></div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12" align="right">
+                <%= f.submit "Guardar", :class => 'btn btn-success' %>
+            </div>
+        </div>
+    </div>
+<% end %>

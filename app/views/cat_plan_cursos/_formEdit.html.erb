@@ -1,0 +1,75 @@
+<div class="container">
+    <div id="align-forms">
+        <%= nested_form_for @planCurso, validate: true do |planCurso | %>
+            <div class="row">
+                <div class="col-md-2"><%= planCurso .label :Plan_de_estudio %></div>
+                <div class="col-md-4"><%= planCurso .text_field :descripcion, :style => 'border: 1px solid red', class: "form-control", validate: true %></div>
+                <div class="col-md-1"><%= planCurso.label :Estado %></div>
+                <div class="col-md-4"><%= planCurso.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: 'form-control', validate: true %></div> 
+            </div>
+        
+            <fieldset id="materias">
+                <%= planCurso.fields_for :cat_materias, validate: true do |materia| %>
+                    <% if materia.object.id != nil %>
+                        <div id="marcoTitle" onclick="muestraPanel('<%= materia.object.id%>')"><%= materia.object.nombreMat %></div>
+                        <div id="<%= materia.object.id %>" style="display: none;  border: 2px solid #ccc; padding: 2px; ">
+                            <div class="row">
+                                <div class="col-md-2"><%= materia .label :Clave_materia %></div>
+                                <div class="col-md-4"><%= materia .text_field :claveMateria, :style => 'border: 1px solid red', class:'form-control', validate: true %></div>
+                                <div class="col-md-2"><%= materia.label :Nombre_materia %></div>
+                                <div class="col-md-4"><%= materia.text_field :nombreMat, :style => 'border: 1px solid red', class: 'form-control', validate: true %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><%= materia .label :Número_credito %></div>
+                                <div class="col-md-4"><%= materia .text_field :credito, :style => 'border: 1px solid red', class: 'form-control', validate: true %></div>
+                                <div class="col-md-2"><%= materia.label :Estado %></div>
+                                <div class="col-md-4"><%= materia.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: 'form-control', validate: true %></div>
+                            </div>
+                            <div class="row">
+                                <% if materia.object.temario.file != nil %>
+                                    <div class="col-md-2"><%= materia.label :Temario_actual %></div>
+                                    <div class="col-md-4"><%= materia.object.temario.file.filename %></div>
+                                <% end %>
+                                <div class="col-md-2"><%= materia.label :Temario %></div>
+                                <div class="col-md-4"><%= materia.file_field :temario, validate: true %></div>
+                            </div>
+                        </div>
+                    <% else %>
+                        <div id="marcoTitle">
+                            <div class="row">
+                                <div class="col-md-2"><%= materia .label :Clave_materia %></div>
+                                <div class="col-md-4"><%= materia .text_field :claveMateria, :style => 'border: 1px solid red', class:'form-control', validate: true %></div>
+                                <div class="col-md-2"><%= materia.label :Nombre_materia %></div>
+                                <div class="col-md-4"><%= materia.text_field :nombreMat, :style => 'border: 1px solid red', class: 'form-control', validate: true %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"><%= materia .label :Número_credito %></div>
+                                <div class="col-md-4"><%= materia .text_field :credito, :style => 'border: 1px solid red', class: 'form-control', validate: true %></div>
+                                <div class="col-md-2"><%= materia.label :Estado %></div>
+                                <div class="col-md-4"><%= materia.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: 'form-control', validate: true %></div>
+                            </div>
+                            <div class="row">
+                                <% if materia.object.temario.file != nil %>
+                                    <div class="col-md-2"><%= materia.label :Temario_actual %></div>
+                                    <div class="col-md-4"><%= materia.object.temario.file.filename %></div>
+                                <% end %>
+                                <div class="col-md-2"><%= materia.label :Temario %></div>
+                                <div class="col-md-4"><%= materia.file_field :temario, validate: true %></div>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+                <p><%= planCurso.link_to_add "Agregar materias", :cat_materias %></p>
+            </fieldset>
+            
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-2 col-md-4" id="btn">
+                    <%= planCurso .submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-2 col-md-4">
+                        <%= button_to "Cancelar", cat_plan_cursos_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

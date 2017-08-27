@@ -1,0 +1,10 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'estudiante' %>
+        <%= render template: "siged/menuEstudiante" %>
+    <% end %>
+    <% breadcrumb :servicio_social_edit, @servicio %>
+    <%= render "form2" %>
+</div>

@@ -1,0 +1,91 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+		<%= nested_form_for @actividad, remote: true, html: {style: "display: inline;" }, validate: true do |act| %>
+			<div class="form-group row">
+				<%= act.label :Nombre_actividad, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.text_field :nombreActividad, class: 'form-control', validate: true %></div>
+
+				<%= act.label :Tipo_actividad, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.select :cat_tipo_actividad_id, CatTipoActividad.all.collect{ |p| [ p.nombreTipoAct, p.id ] },{include_blank: 'Seleccione...'}, validate: true, :selected => @actividad.cat_tipo_actividad_id, id: "actividades_select", class: "form-control" %></div>
+				<%# act.select :cat_tipo_actividad_id, CatTipoActividad.all.collect{ |p| [ p.nombreTipoAct, p.id ] },{}, validate: true, :selected => @actividad.cat_tipo_actividad_id, class: "form-control" %>
+			</div>
+
+			<div class="form-group row">
+				<%= act.label :Tipo_comisión, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.select :tipoComision, options_for_select([["Sin Viaticos", "Sin Viaticos"], ["Con Viaticos", "Con Viaticos"]]),{}, :selected => @actividad.tipoComision, validate: true, class: 'form-control' %></div>
+
+				<%= act.label :Tipo_evidencia, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.select :tipoEvidencia, options_for_select([["Individual", "Individual"], ["Equipo", "Equipo"], ["Individual/Grupo", "Individual/Grupo"]]), {}, :selected => @actividad.tipoEvidencia, validate: true, class: "form-control" %></div>
+			</div>
+
+			<div id="registrar_viatco" style="display: none;">
+				<%= act.collection_check_boxes :cat_viatico_ids, CatViatico.all, :id, :nombreViatico %>
+			</div>
+
+			<div class="row">
+				<%= act.label :Fecha_inicio, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.date_field :fechaInicio, class: 'form-control' %></div>
+
+				<%= act.label :Fecha_término, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.date_field :fechaTermino, class: 'form-control' %></div>
+			</div>
+
+			<div class="row">
+				<%= act.label :Lugar, class: "col-md-2 control-label" %>
+				<div class="col-md-4"><%= act.text_field :lugar, class: 'form-control' %></div>
+				<div id="registrar_proy" style="display: none;">
+					<%= act.label :Proyecto, class: "col-md-2 control-label" %>
+					<% @proyectos = [] %>
+					<% for p in ProyectoInvestigacion.all %>
+						<%# if p.status == 'Terminado' %>
+							<% object = [id = p.id, numPro = p.numProyecto, nombrePro = p.nombreProy] %>
+							<% @proyectos.push(object) %>
+						<%#end %>
+					<% end %>
+					<% for p in Proyecto.all %>
+						<% object = [id = p.id, numPro = p.numProyecto, nombrePro = p.nombreProyecto] %>
+						<% @proyectos.push(object) %>
+					<% end %>
+					<div class="col-md-4"><%= act.select :proyecto_id, @proyectos.collect{|p| [p[2], p[1]] }, {include_blank: 'Seleccione...'}, validate: true, :selected => @actividad.proyecto_id, class: "form-control"  %></div>
+				</div>
+			</div>
+
+			<div class="row">
+				<%= act.label :Descripción, class: "col-md-2 control-label" %>
+				<div class="col-md-9"><%= act.text_area :descripcion, class: 'form-control', validate: true %></div>
+			</div> 
+
+			<fieldset id="actividad">
+				<h5 id="align-title"><b>Participantes</b></h5>
+				<%= act.fields_for :actividad_docentes, validate: true do |actdoc| %>
+					<div class="row">
+
+							<%= actdoc.label :Docente, class: "col-md-1 control-label" %>
+						<div class="col-md-4">
+							<%= actdoc.select :docente_id, Docente.all.collect{ |p| [ p.nombreD + " " + p.apPaterno + " " + p.apMaterno, p.id ] }, {include_blank: 'Seleccione...'},class: 'form-control', validate: true %>
+						</div>
+
+						<%= actdoc.label :Tipo_participación, class: "col-md-2 control-label"%>
+						<div class="col-md-4">
+							<%# actdoc.select :cat_tipo_participacion_id, CatTipoParticipacion.all.collect{ |p| [ p.participacion, p.id ] }, {include_blank: "Seleccione..."}, class: "form-control", validate: true %>
+
+							<%= actdoc.select :cat_tipo_participacion_id, @participaciones.map{ |p| [ p.participacion, p.id ] }, {include_blank: "Seleccione..."}, class: "form-control participaciones_select", validate: true %>
+						</div>
+						<div class="col-xs-6 col-sm-1">                        
+							<%= act.link_to_remove '', data: {confirm: "Eliminará al docente de la actividad"}, class: "glyphicon glyphicon-trash red"%>
+						</div>
+					</div>
+				<% end %>
+				<p><%= act.link_to_add "Agregar otro", :actividad_docentes %></p>
+			</fieldset>
+			<div class="row">
+				<% act.text_field :usuario_id, :class => 'col-xs-6 col-md-4', value: current_usuario.id, validate: true %>
+			</div>
+			<div class="row" id="btn-cancelar">
+				<div class="col-xs-6 col-md-4" id="btn">
+					<%= act.submit :Guardar, :class => 'btn btn-success' %>
+					<%= link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"} %>
+				</div>   
+		<% end %>
+        	</div>
+</div>

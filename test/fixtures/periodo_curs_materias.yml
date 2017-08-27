@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  periodo: MyString
+  : 
+  ZipEstadisitica: MyString
+
+two:
+  periodo: MyString
+  : 
+  ZipEstadisitica: MyString

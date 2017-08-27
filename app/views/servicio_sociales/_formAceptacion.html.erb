@@ -1,0 +1,31 @@
+<div class="container">
+    <h4>Carta de Aceptación Servicio Social</h4>
+    <div id="marco">
+        <h5>Datos del documento: </h5>
+        <%= form_tag(aceptacion_servicio_social_path, method: 'get') do %>
+            
+		<% s = existeS(@servicio.id) %>
+            <div class="row">
+                <% if s == true %>                
+                    <% @j = Oficio.find_by(servicio_social_id: @servicio.id) %>          
+                    <%= hidden_field_tag :format, "pdf" %>
+                    <div class="col-xs-6 col-sm-2"><b>Núm. de oficio: </b><%= @j.numero %></div>
+                    <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                    <div class="col-xs-6 col-sm-3"><b>Fecha: </b><%= text_field_tag "fecha",f, 'data-behaviour'=> 'datepicker' %></div>
+                    <div class="col-xs-6 col-sm-2"><%= submit_tag "Generar", :formtarget => '_blank', :class => 'btn btn-success' %></div>
+                <% else %>
+                    <% @arre = serie %>
+                    <%= hidden_field_tag :format, "pdf"%>
+                    <div class="col-xs-6 col-sm-2"><b>No. oficio:</b></div>
+                    <div class="col-xs-6 col-sm-3"><%= select_tag "numero", options_for_select(@arre, "xD") %></div>
+                    <% fec = Time.now
+                        f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y")
+                    %>
+                    <div class="col-xs-6 col-sm-1"><b>Fecha:</b></div>
+                    <div class="col-xs-6 col-sm-3"><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                    <div class="col-xs-6 col-sm-3"><%= submit_tag "Generar", :formtarget => '_blank', :class => 'btn btn-success' %></div>
+                <% end %>
+            </div>
+        <% end %>  
+    </div>
+</div>

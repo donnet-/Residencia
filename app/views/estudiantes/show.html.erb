@@ -1,0 +1,37 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'estudiante' %>
+        <%= render template: "siged/menuEstudiante" %>
+    <% end %>
+    <% breadcrumb :estudiante, @estudiante%>
+    
+    <h2 id="align-title">Estudiante</h2>
+    <div id="marco">
+        <h5><b>Datos generales</b></h5>
+        <div class="row">
+            <div class="col-md-5"><b>Nombre: </b><%= @estudiante.nombre %> <%= @estudiante.apPaterno %> <%= @estudiante.apMaterno %></div>
+            <div class="col-md-4"><b>Curp: </b><%= @estudiante.curpEstudiante %></div>
+            <div class="col-md-3"><b>Número de control: </b><%= @estudiante.numControl %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-5"><b>Especialidad:</b>
+                <% @esp = CatEspecialidad.find(@estudiante.cat_especialidad_id) %>
+                <%= @esp.nombreEsp %>
+            </div>
+            <div class="col-md-5"><b>Correo electrónico: </b><%= @estudiante.email %><br/><b>Adicional: </b><%= @estudiante.email_adicional %></div>
+            <div class="col-md-2"><b>Género: </b><%= @estudiante.genero %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-5"><b>Contacto: </b> <%= @estudiante.contacto %></div>    
+            <div class="col-md-7" align="right">
+                <% if can? :update, @estudiante %>
+                    <%= link_to edit_estudiante_path(@estudiante),title: "Editar", :method => :get do %>
+                    <span class="glyphicon glyphicon-pencil green"></span>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div id="marcoTitle"><h4 id="align-title">Oficio de Liquidación de Viáticos</h4></div>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                <% else %>
+                    <div id="marco">
+                        <h5><b>Datos del documento: </b></h5>
+                        <%= form_tag(liquidacion_de_viaticos_actividad_path, method: 'get') do %>
+                            <% @arre = serie %>
+                            <%= hidden_field_tag :format, "pdf"%> 
+                            <div class="row">
+                                <% d = Docente.find(acd.docente_id) %>
+                                <div class="col-md-5"><b>Docente </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %></div>
+                                <div class="col-md-5"><b>Sueldo</b><%= text_field_tag "sueldo", nil, class: "form-control" %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>No. oficio </b></div>
+                                <div class="col-md-4"><b>Fecha posterior</b></div>
+                                <div class="col-md-4"><b>Fecha </b> </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <%= select_tag "numero", options_for_select(@arre, "xD"), class: "form-control" %></div>
+                                
+                                <% fec = Time.now
+                                    f = fec.strftime("%Y")+ "-" + fec.strftime("%m") + "-" + fec.strftime("%d") %>
+                                <% fp = @actividad.fechaTermino %><% fpo = fp.day.to_i + 1 %> <% fpos = fp.year.to_s + '-' + fp.strftime('%m') + '-' + fpo.to_s   %>
+                                <div class="col-md-4">
+                                    <%= date_field_tag "fechaPosterior", fpos, class: "form-control"%></div>
+                                <div class="col-md-4">
+                                    <%= date_field_tag "fecha",f, class: "form-control" %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4"><b>Categoria</b><%= text_field_tag "categoria", nil, class: "form-control" %></div>
+                                <div class="col-md-4"><b>Nacionales</b><%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]] ), class: 'form-control'%></div>
+                                <div class="col-md-4" style="margin-top: 5px;"><%= submit_tag "Generar", :formtarget => '_blank', class: 'btn btn-success' %></div>
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

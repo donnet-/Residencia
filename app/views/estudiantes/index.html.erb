@@ -1,0 +1,76 @@
+<div class="container">    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'estudiante' %>
+        <%= render template: "siged/menuEstudiante" %>
+    <% end %>
+    <% breadcrumb :estudiantes%>
+    
+    <h3 id="align-title">Estudiantes</h3>
+
+    <div class="container row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, Estudiante %>
+                <%= button_to new_estudiante_path, :class => "btn btn-primary",title: "Nuevo", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <button name = "tipoEst" onclick="agregarP('a')", class="btn btn-warning"><i class="glyphicon glyphicon-import"></i></button>
+            <% end %>
+        </div>
+        <div class="col-md-5">
+            <%= form_tag estudiantes_path, method: :get do %>
+                <% if current_usuario.rol == 'admin' %>
+                <div class="col-md-11">
+                    <%= text_field_tag :search, params[:search], class: "form-control", placeholder: "Buscar..." %>
+                </div>
+                <div class="col-md-1">
+                    <%= button_tag(type: 'submit', class: "btn btn-default", title: "Importar") do %>
+                        <span class="glyphicon glyphicon-search"></span>
+                    <% end %>
+                </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+    
+    <div id="archivo" style="display: none;">
+        <%= form_tag import_estudiantes_path, multipart: true do %>
+            <div class="col-xs-6 col-sm-4"><%= file_field_tag :file %></div>
+            <div class="col-xs-6 col-sm-3"><%= submit_tag "Importar" %></div>
+        <% end %>
+    </div>
+    
+    <div id="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <th class="info"><%= sortable "numControl" %></th>
+                <th class="info"><%= sortable "curpEstudiante" %></th>
+                <th class="info"><%= sortable "nombre" %></th>
+                <th class="info"><%= sortable "genero" %></th>
+                <th class="info"><%= sortable "email" %></th>               
+            </thead>
+            <% @estudiantes.each do |estudiante| %>
+                <tbody>
+                    <td class="active"><%= estudiante.numControl %></td>
+                    <td class="active"><%= estudiante.curpEstudiante %></td>
+                    <td class="active"><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></td>
+                    <td class="active"><%= estudiante.genero %></td>
+                    <td class="active"><%= estudiante.email %><br/><%= estudiante.email_adicional %></td>               
+                    <td class="active">
+                        <p><% if can? :read, estudiante %>
+                            <%= link_to estudiante_path(estudiante), title: "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                            <% end %><% end %></p>
+                        <p><% if can? :update, estudiante %>
+                            <%= link_to edit_estudiante_path(estudiante), title: "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                                <% end %><% end %></p>
+                    </td>
+                </tbody>
+            <% end %>
+        </table>
+       <%= will_paginate @estudiantes %>
+    </div>
+</div>

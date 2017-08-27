@@ -1,0 +1,28 @@
+<div class="container">
+    <div id="align-forms">        
+        <%= nested_form_for @evidencia, validate: true do |evidencia| %>
+            <div class="row">
+                <%= evidencia.label :Etiqueta, :class => 'col-md-3' %>
+                <div class="col-md-4">
+                    <%= evidencia.text_field :etiqueta, :style => 'border: 1px solid red', class: 'form-control', validate: true %>
+                </div>
+            </div>
+        
+            <div class="row">
+                <%= evidencia.label :tipo, :class => 'col-md-3' %>
+                <div class="col-md-4">
+                    <%= evidencia.select :tipo, options_for_select([["Materia", "Materia"], ["Periodo", "Periodo"],["Curso", "Curso"]]),{}, :class => 'form-control', validate: true %>
+                </div>
+            </div>
+                               
+            <div class="row">
+                <div class="col-md-4" id="btn-cancelar">
+                    <%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-md-4" id="btn-cancelar">
+                        <%= button_to "Cancelar", cat_evidencias_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

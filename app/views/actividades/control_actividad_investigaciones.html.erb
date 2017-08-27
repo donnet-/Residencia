@@ -1,0 +1,29 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h3 id="align-title">Actividades: Jefatura de Investigación</h3>
+    
+    <div class="row">
+		<div class="col-xs-6 col-sm-1"><button class="btn btn-success" title="Abrir PDF"><%= link_to control_actividad_investigaciones_actividades_path(act_inv: @actividad_investigaciones.collect(&:id), format: :pdf), :target => '_blank' do %><span class="glyphicon glyphicon-open green" title="Abrir PDF"></span> <% end %></button></div>
+		<div class="col-xs-6 col-sm-1"><button class="btn btn-success" title="Descargar lista (Excel)"><%= link_to control_actividad_investigaciones_actividades_path(format: :xlsx), :target => '_blank' do %><span class="glyphicon glyphicon-download green" title="Descargar lista (Excel)"></span><% end %> </button></div>
+        <div class="col-xs-6 col-sm-10" align="right">
+                <%= form_tag control_actividad_investigaciones_actividades_path, :method => 'get' do %>
+                    <p>
+                        <%= select_tag :tipo_act, options_for_select([["Articulos", "Articulos"], ["Congreso", "Congreso"], ["Ponencias", "Ponencias"], ["Revistas", "Revistas"]], params[:tipo_act]), include_blank: true %>
+                        <%= select_tag :periodo, options_for_select([["ENE-JUN", "01-01 / 06-31"], ["FEB-JUN", "02-01 / 06-31"], ["AGO-DIC", "08-01 / 12-31"]], params[:periodo]), include_blank: true %>
+                        <%= number_field_tag :anio, params[:anio], placeholder: "año" %>
+                        <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %>
+                            <span class="glyphicon glyphicon-search"></span> 
+                        <% end %>
+                    </p>
+                <% end %>
+        </div>
+    </div>
+	
+    <%= render 'actividades_investigacion' %>
+    <%#= render '/actividades/depto_investigacion/formControlActividades'%>
+</div>

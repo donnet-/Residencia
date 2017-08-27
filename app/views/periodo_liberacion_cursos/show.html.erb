@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+       <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    <%breadcrumb :liberacion_docente, @periodo_liberacion %>
+    <h3 id="align-title">Generación de Liberacion de Actividades por Grupo</h3>
+    
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Periodo: </b><%= @periodo_liberacion.periodo %></div>
+			<div class="col-xs-6 col-md-4"><b>Cabecera:</b>
+				<% if @periodo_liberacion.cabeceraPeriodo != nil %> 
+					<%= link_to @periodo_liberacion.cabeceraPeriodo_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver imagen"></span><% end %> 
+				<% else %>
+					<p>No hay imagen de cabecera para el oficio</p>
+				<% end %>
+			</div>
+			 <div class="col-xs-6 col-sm-3" align="right">
+                 <% if can? :update, @periodo_liberacion %>
+                    <%= link_to edit_periodo_liberacion_curso_path(@periodo_liberacion) do %> <span class="glyphicon glyphicon-pencil green" title="Editar evaluacion docente"></span><% end %>
+                 <% end %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Docentes: </b></div>
+            <div class="col-xs-6 col-sm-2"><b>Fecha: </b></div>
+        </div>
+        <div class="row">
+            <% @periodo_liberacion.lib_curso_docentes.each do |ldc| %>
+                <div class="col-xs-6 col-sm-5">
+                    <% @doc = Docente.find(ldc.docente_id) %>
+                    <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                <% if ldc.fecha != nil %>
+                    <%= ldc.fecha.strftime("%d/%m/%Y")  %>
+                <% end %>
+                </div>
+                <% aux = true %>
+                <% ldc.lib_doc_criterios.each do |crit| %>
+                    <% if crit.respuesta.blank? %>
+                        <% aux = false %>
+                    <% end %>
+                <% end %>
+            
+                <% if aux != false  && ldc.liberado != nil %>
+                 <div class="col-xs-6 col-sm-3">
+                        <%= form_tag(periodo_liberacion_curso_path, method: 'get') do %>
+                            <%= hidden_field_tag :format, "pdf"%>
+                            <%= hidden_field_tag "liberacion_curso", @periodo_liberacion.id %>
+                            <%= hidden_field_tag "liberacion_docente", ldc.id %>
+                            <%= hidden_field_tag "docente_id", ldc.docente_id %>
+                            <%= submit_tag "Generar liberacion",  :class => 'btn btn-success', :formtarget => '_blank' %>
+                        <% end %>
+                    </div>
+                <% else %>
+            <div class="col-xs-6 col-sm-4" style="color: red;"><p>No ha sido evaluado ese docente!!!</p></div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

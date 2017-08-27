@@ -1,0 +1,13 @@
+<div class="container">
+    <div>
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    <% breadcrumb :investigacion_new %>
+    <h3 id="align-title">Registro de Proyectos a cargo de la oficina de Investigación</h3>
+    
+    <%= render 'form' %>
+</div>

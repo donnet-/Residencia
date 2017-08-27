@@ -1,0 +1,97 @@
+<div class="container">
+    <div>
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    
+    <h3 id="align-title">Proyecto a cargo de la oficina de Investigación</h3>
+    
+	 <div class="row">
+		 <div class="col-xs-6 col-sm-2">
+         	<div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar_proy_inv(this)" value="proyectoi">Datos Generales</button>
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar_proy_inv(this)" value="estudiante">Integrantes </button>
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar_proy_inv(this)" value="docent"> Coolaborador </button>
+				<button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar_proy_inv(this)" value="doc">Documentos</button>
+            </div>
+        </div>
+		<div class="col-xs-6 col-sm-10">
+        	<div id="proyectoGI" style="display:block;">
+				<div id="marco">
+					<h5 id="align-title"><b>Datos del proyecto </b></h5>
+					<div class="row">
+						<div class="col-xs-6 col-sm-5"><b>Número de proyecto: </b><%= @investigacion.numProyecto %></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-sm-6" align="justify"><b>Nombre del proyecto: </b><%= @investigacion.nombreProy %></div>
+						<% tipoP = CatTipoExamenProyecto.find(@investigacion.cat_tipo_examen_proyecto_id) %>
+						<div class="col-xs-6 col-sm-6" align="justify"><b>Categoría: </b><%= tipoP.nombreTipoP %></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 col-sm-6"><b>Fecha inicio: </b> <%= @investigacion.fechaInicio %></div>
+						<div class="col-xs-6 col-sm-6"><b>Fecha término: </b><%= @investigacion.fechaTermino %></div>
+					</div>
+					<div class="row">
+						<% docente = Docente.find(@investigacion.asesorExterno) %>
+						<div class="col-xs-6 col-sm-6"><b>Lídel del proyecto: </b><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %> </div>
+						<div class="col-xs-6 col-sm-6"><b>Status del proyecto: </b><%= @investigacion.status %></div>
+					</div>
+					<% if can? :update, @investigacion %> 
+						<div class="row"><div class="col-xs-6 col-sm-12" align="right"><%= link_to edit_proyecto_investigacion_path(@investigacion), method: :get do %><span class="glyphicon glyphicon-pencil green" title="Editar"></span><% end %></div></div>
+					<% end %>
+    			</div>
+			</div>
+			<div id="estudiantes" style="display:none;">
+				<div id="marco">
+					<h5 id="align-title"><b>Estudiante (s) que integran al proyecto </b></h5>
+					<div class="row">
+						<% @investigacion.proyecto_inv_estudiantes.each do |pe| %>
+							<div class="col-xs-6 col-sm-4"><b>Núm. Control: </b><%= pe.numControl %></div>
+							<% est = Estudiante.find_by(numControl: pe.numControl) %>
+							
+						<% end %>
+						<br/>
+					</div>
+					<% if can? :update, @investigacion %> 
+						<div class="row"><div class="col-xs-6 col-sm-12"><%= link_to edit_proyecto_investigacion_path(@investigacion), method: :get do %><span class="glyphicon glyphicon-plus blue" title="Registrar estudiante"></span><% end %></div></div>
+					<% end %>
+				</div>
+			</div>
+			<div id="colabooradores" style="display:none;">
+				<div id="marco">
+					<h5 id="align-title"><b>Colaboradores</b></h5>
+					<% @investigacion.proy_inv_docentes.each do |doc| %>
+						<div class="row">
+							<% @proDoc = doc.id %>
+							<% docen = Docente.find(doc.docente_id) %>
+							<div class="col-xs-6 col-sm-8"><b>Docentes: </b> <%= docen.nombreD %> <%= docen.apPaterno %> <%= docen.apMaterno %> </div>
+						</div>
+					<% end %>
+					<% if can? :update, @investigacion %> 
+						<div class="row"><div class="col-xs-6 col-sm-12"><%= link_to edit_proyecto_investigacion_path(@investigacion), method: :get do %><span class="glyphicon glyphicon-plus blue" title="Añadir colaborador"></span><% end %></div></div>
+					<% end %>
+				</div>
+			</div>
+			<div id="documentos" style="display:none;">
+				<div id="marco">
+					<h5 id="align-title"><b>Documentos</b></h5>
+					<div class="row">
+						<% @investigacion.proy_inv_documentos.each do |doc| %>
+							<div class="col-xs-6 col-sm-5"><b>Descripción/Nombre del documento:</b></div>
+							<div class="col-xs-6 col-sm-4"><%= doc.descripcion %></div>
+							<div class="col-xs-6 col-sm-2"><%= link_to doc.documento_url, :target => '_blank', :title => "Abrir pdf" do %><span class="glyphicon glyphicon-file blue"></span><% end %></div>
+						<% end %>
+					</div>
+					<% lider = Docente.find(@investigacion.asesorExterno) %>
+					<% if current_usuario.email == lider.email %> 
+						<div class="row"><div class="col-xs-6 col-sm-12"><%= link_to edit_proyecto_investigacion_path(@investigacion), method: :get do %><span class="glyphicon glyphicon-plus blue" title="Añadir evidencia"></span><% end %></div></div>
+						<br/>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

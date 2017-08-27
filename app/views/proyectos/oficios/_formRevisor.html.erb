@@ -1,0 +1,28 @@
+<div class="col-xs-6 col-sm-12">
+    <% pEst = ProyectoEstudiante.where(proyecto_id: @proyecto.id) %>
+    <% for est in pEst %>
+        <% s = existeOficioV(@proyecto.id, @proDoc, est.numControl) %>
+    
+        <% if s == true %>
+        <% else %>
+            <div id="marco">
+                <h5><b>Datos del documento: </b></h5>
+                <%= form_tag(oficio_revisores_proyecto_path, method: 'get') do %>
+                    <%= hidden_field_tag :format, "pdf" %>
+                    <%= hidden_field_tag :proyecto_docente_id,  @proDoc %>
+                    <%= hidden_field_tag :proyecto_estudiante_id, est.numControl %>
+                    <%= hidden_field_tag :proyecto_id, @proyecto.id %>
+                    <% @arre = serieOficioV %>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-3"><b>No. oficio: </b><%= select_tag "numOficio", options_for_select(@arre, "xD") %></div>
+                        <% fec = Time.now
+                            f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+                        <div class="col-xs-6 col-sm-3"><b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                        <div class="col-xs-6 col-sm-3"><b>Plan de estudios: </b><%= select_tag "plan_estudio_id", CatPlanCurso.all.collect{ |p| [ p.descripcion, p.id ] }%></div>
+                        <div class="col-xs-6 col-sm-3"><%= submit_tag "Generar", :formtarget => '_blank', class: 'btn btn-success' %></div>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+</div>

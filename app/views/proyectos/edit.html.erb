@@ -1,0 +1,13 @@
+<div class="container">
+    <div>
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    
+    <h3 id="align-title">Editar registro de Proyecto Residencia</h3>
+    
+    <%= render 'form_edit' %>
+</div>

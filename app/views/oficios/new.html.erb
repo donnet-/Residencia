@@ -1,0 +1,56 @@
+<div class="container">
+    <div align="left">
+		<% if current_usuario.rol == 'admin' %>
+			<%= render template: "siged/menuAdmin" %>
+		<% elsif current_usuario.rol == 'docente' %>
+			<%= render template: "siged/menuDocente" %>
+		<% end %>
+    </div>
+    <% breadcrumb :oficio_new %>
+    
+    <h3 id="align-title">Nuevo oficio</h3>
+	    <div class="container">
+	        <%= nested_form_for @oficio, validate: true do |oe| %>
+	        	<div class="row">
+	        		<div class="col-md-2">
+	        			<%= oe.label :No_de_oficio %>
+	        		</div>
+	        		<div class="col-md-2">
+	        			<% @arre = serie %>        			
+	        			<%= oe.select :numero,  @arre.map{ |p| [p, p]},{include_blank: "Seleccione"}, class: "form-control", validate: true %>
+	        			<%= oe.hidden_field :anio, value: Time.now.strftime("%Y") %>	        			
+	        			<%= oe.hidden_field :actividad_docente_id, value: nil %>
+	        		</div>	        	
+	        	</div>
+	        	<div class="marco">
+	        		<fieldset id="oficio_externos">
+			            <h5 id="align-title"><b>Oficio</b></h5>
+			            <%= oe.fields_for :oficio_externos, validate: true do |externo| %>			            	
+			                <div class="row">
+			                    <div class="col-md-2">
+			                    	<%= externo.label :Etiqueta %>
+			                    </div>			               
+			                    <div class="col-md-4">
+			                    	<%= externo.text_field :etiqueta, class: "form-control", validate: true%>
+			                    </div>        
+			                    <div class="col-md-1">
+			                    	<%= externo.label :Archivo %>
+			                    </div>
+			                    <div class="col-md-5">
+			                    	<%= externo.file_field :pdf_oficio, validate: true %>
+			                    </div>			                    
+			                </div>
+			            <% end %>			            
+        			</fieldset>
+	        	</div>
+				<div class="row">
+            	<div class="col-md-4" id="btn">
+                	<%= oe.submit :Guardar, :class => 'btn btn-success' %>
+            	</div>   
+    		<% end %>
+           		<div class="col-md-4">
+                	<%= button_to "Cancelar", oficios_index_path,  data: {confirm: "Eliminará los cambios que haya realizado"}, :class => 'btn btn-warning', :method => :get %>
+            	</div>
+        	</div>
+    		
+</div>

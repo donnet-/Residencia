@@ -1,0 +1,47 @@
+<div class="container">
+    <div id="align-forms">
+        <%= nested_form_for @evidencia, validate: true do |evidencia| %>
+            <div class="row">
+                <%= evidencia.label :Nombre_de_la_evidencia, :class => 'col-md-3' %>
+                <div class="col-md-4">
+                    <%= evidencia.text_field :nombreEvidencia, :style => 'border: 1px solid red', class: 'form-control', validate: true %>
+                </div>
+            </div>
+        
+            <div class="row">
+                <%= evidencia.label :Estado, :class => 'col-md-3' %>
+                <div class="col-md-4">
+                    <%= evidencia.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, :class => 'form-control', validate: true %>
+                </div>
+            </div>
+            
+            <fieldset id="requisitos">
+                <%= evidencia.fields_for :requisito_evidencias, :validate => true do |requisito| %>
+                    <div class="row">
+                        <%= requisito.label :Nombre_del_requisito, :class => 'col-md-3' %>
+                        <div class="col-md-4">
+                            <%= requisito.text_field :nombreRequisito, :class => 'form-control', :style => 'border: 1px solid red', validate: true %>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <%= requisito.label :Estado, :class => 'col-md-3' %>
+                        <div class="col-md-4">
+                            <%= requisito.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, :class => 'form-control', validate: true %>
+                        </div>
+                    </div>                    
+                <% end %>       
+                <p><%= evidencia.link_to_add "Agregar requisito", :requisito_evidencias %></p>
+            </fieldset>
+        
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                    <%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                        <%= button_to "Cancelar", cat_evidencias_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

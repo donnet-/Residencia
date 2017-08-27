@@ -1,0 +1,178 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Estadistica <%= @curso_materia.periodo %></title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 12px; }        
+            p.pq { font-size: 9px; }        
+            td.celda { text-align: center; font-size: 12px; vertical-align: bottom; vertical-align: top; }
+            td.celda2 { text-align: left; font-size: 12px; vertical-align: bottom; vertical-align: top; }
+            table { border-collapse: collapse; }
+            table, th, td { border: black 1pt solid; }            
+            p.estilo2{
+                font-size: 11px;
+            }
+        </style>
+    </head>
+    <body>
+    <% @curso_materia.update(estadistica: true) %>
+       <div class="row" >
+           <p class="estilo" align="center">
+           <br><br><br>
+           TECNOLÓGICO NACIONAL DE MÉXICO <br>
+           INSTITUTO TECNOLÓGICO DE OAXACA <br>
+           SUBDIRECIÓN ACADÉMICA<br>
+           REPORTE FINAL DE LA GESTIÓN DEL CURSO <br>
+           </p>
+       </div>
+       <br>
+       <div class="row">
+           <p class="estilo" align="left">
+               DEPARTAMENTO DE SISTEMAS Y COMPUTACIÓN<BR>
+               REPORTE FINAL DEL SEMESTRE <%= @curso_materia.periodo.upcase %><br>
+               <% x = Periodo.find_by(periodo: @curso_materia.periodo) %>
+               PERIODO: <%= x.fechaInicio.day%> DE <%= meses(x.fechaInicio.month).upcase %> DE <%= x.fechaInicio.year %> AL <%= x.fechaTermino.day%> DE <%= meses(x.fechaTermino.month).upcase %> DE <%= x.fechaTermino.year %>
+           </p>
+       </div>
+       <div class="row">
+            <% x = Docente.find(@curso_materia.docente_id)  %>
+           <p class="estilo">PROFESOR: <%= @curso_materia.docente.nombreD.upcase %> <%= @curso_materia.docente.apPaterno.upcase %> <%= @curso_materia.docente.apMaterno.upcase %></p>
+       </div>
+       <div class="row">
+            <% y = CursoMateria.where(periodo_curs_materia_id: @curso_materia.id) %>
+           <p class="estilo">No. DE GRUPOS ATENDIDOS: <u> &nbsp;&nbsp;&nbsp;<%= y.count %>&nbsp;&nbsp;&nbsp;</u> No. DE ASIGNATURAS DIFERENTES <u> &nbsp;&nbsp; &nbsp; <%= CursoMateria.where(periodo_curs_materia_id: @curso_materia.id).select(:cat_materia_id).distinct.count %> &nbsp;&nbsp;&nbsp; </u></p>
+       </div>
+       <br>
+       <div class="row">            
+                <table style="width: 100%;" >                
+                    <tr>
+                        <td class="celda" align="center">ASIGNATURA</td>
+                        <td class="celda" align="center">CARRERA</td>
+                        <td class="celda" align="center">A</td>
+                        <td class="celda" align="center" colspan="3">B</td>
+                        <td class="celda" align="center">C</td>
+                        <td class="celda" align="center">D</td>
+                        <td class="celda" align="center">E</td>
+                        <td class="celda" align="center">F</td>
+                        <td class="celda" align="center">G</td>
+                    </tr>  
+                    <tr>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center">OR</td>
+                        <td class="celda" align="center">CO</td>
+                        <td class="celda" align="center">ES.</td>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center"></td>
+                        <td class="celda" align="center"></td>
+                    </tr>
+                    <% o = 0 %>
+                    <% e = 0 %>
+                    <% c = 0 %>
+                    <% d = 0 %>
+                    <% r = 0 %>
+                    <% y = Estadistica.where(periodo_curs_materia_id: @curso_materia) %>
+                    <% y.each do |est| %>
+                    <% o = o + est.ordinaria %>
+                    <% e = e + est.especial %>
+                    <% c = c +  est.complementaria %>
+                    <% d = d + est.desertores %>
+                    <% r = r + est.reprobados %>
+                        <tr>                        
+                            <td class="celda2" ><%= est.curso_materia.cat_materia.nombreMat.upcase %></td>
+                            <td class="celda" ><%= est.carrera%></td>
+                            <% total = CursoMateria.find(est.curso_materia_id).total %>
+                            <td class="celda" ><%= total%></td>
+                            <td class="celda" ><%= est.ordinaria%></td>
+                            <td class="celda" ><%= est.complementaria %></td>
+                            <td class="celda" ><%= est.especial %></td>
+                            <% porcentaje = (((est.ordinaria + est.complementaria + est.especial) * 100).to_f/total.to_f).round(0) %>
+                            <td class="celda" ><%= porcentaje %></td>
+                            <td class="celda" ><%= est.reprobados  %></td>
+                            <td class="celda" ><%= (((est.reprobados) * 100).to_f/total.to_f).round(0) %></td>
+                            <td class="celda" ><%= est.desertores%></td>
+                            <td class="celda" ><%= (((est.desertores) * 100).to_f/total.to_f).round(0) %></td>
+                        </tr>                                 
+                    <% end %>
+                    <tr>                        
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>      
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>                            
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>
+                            <td class="celda" >&nbsp;</td>
+                        </tr>   
+                    <tr>        
+                        <% total = 0%>                        
+                        <% cur = CursoMateria.where(periodo_curs_materia_id: @curso_materia.id) %>
+                        <% nu = 0 %>
+                        <% cur.each do |q| %>                    
+                            <% total = total + cur[nu].total %>
+                            <% nu = nu + 1 %>
+                        <% end %>
+                            <td class="celda" ></td>
+                            <td class="celda" ></td>                            
+                            <td class="celda" ><%= total%></td>
+                            <td class="celda" ><%= o %></td>
+                            <td class="celda" ><%= c %></td>
+                            <td class="celda" ><%= e %></td>
+                            <% porcentaje = (((o + c + e) * 100).to_f/total.to_f).round(0) %>
+                            <td class="celda" ><%= porcentaje %></td>
+                            <td class="celda" ><%= r  %></td>
+                            <td class="celda" ><%= (((r) * 100).to_f/total.to_f).round(0) %></td>
+                            <td class="celda" ><%= d %></td>
+                            <td class="celda" ><%= (((d) * 100).to_f/total.to_f).round(0) %></td>
+                        </tr>     
+                </table>            
+        </div>
+        <div class="row">
+            <p class="pq" align="left"><BR>
+                A = TOTAL DE ESTUDIANTES POR GRUPO <br>
+                B =  No. DE ESTUDIANTES ACREDITADOS(OR = ORDINARIO, CO = COMPLEMENTACIÓN, ES = ESPECIAL) <br>
+                C = % DE ESTUDIANTES ACREDITADOS <br>
+                D = No. DE ESTUDIANTES NO ACREDITADOS <br>
+                E = % DE ESTUDIANTES NO ACREDITADOS <br>
+                F = No. DE ESTUDIANTES QUE DESERTARON DURANTE EL SEMESTRE EN LA MATERIA <br>
+                G = % DE ESTUDIANTES QUE DESERTARON EN LA MATERIA <br><br>
+                NOTAS: <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1. &nbsp;&nbsp;Los estudiantes que se incluirán en la columna D son todos los estudiantes no acreditados Excluyendo a los desertores <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; a. &nbsp;&nbsp; Entendiento como estudiante desertor al que toma la desición de no presentar exámenes de COMPLEMENTACIÓN. <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. &nbsp;&nbsp;Este registro deberá de acompañarse con sus respectivos instrumentos de evaluación y actas de calificaciones que evaluen los datos aquí presentados.
+            </p>
+            <br>
+        </div>
+        <div class="row">
+        <div class="col-lg-6">
+            <p class="estilo2" align="center"><strong>DOCENTE</strong></p>
+            <br><br>
+            <p class="estilo2" align="center"><u>&nbsp;&nbsp;&nbsp;&nbsp;<%= @curso_materia.docente.nombreD.upcase %> <%= @curso_materia.docente.apPaterno.upcase %> <%= @curso_materia.docente.apMaterno.upcase %> &nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+        </div>
+        <div class="col-lg-6">
+            <p class="estilo2" align="center"><strong>JEFE DEL DEPARTAMENTO ACADÉMICO</strong></p>
+            <br><br>
+            <% bandera = false %>
+            <% @puesto = Puesto.where(docente_id: @curso_materia.docente.id, estado:"Activo") %>
+            <% @puesto.each do |p| %>
+                <% if p.cat_tipo_puesto.nombrePuesto == "Jefe de Proyecto de Docencia"%>
+                    <%bandera = true %>
+                <% end %>
+            <% end %>
+            <% if bandera == true %> 
+                <% @jefe = Docente.find(Puesto.find_by(cat_tipo_puesto_id: CatTipoPuesto.find_by(nombrePuesto: "Jefe del Departamento de Sistemas y Computación").id, estado: "Activo").docente_id) %>
+            <% else %>
+                <% @jefe = Docente.find(Puesto.find_by(cat_tipo_puesto_id: CatTipoPuesto.find_by(nombrePuesto: "Jefe de Proyecto de Docencia").id, estado: "Activo").docente_id) %>
+            <% end %>           
+                <p class="estilo2" align="center"><u>&nbsp;&nbsp;&nbsp;&nbsp;<%= @jefe.nombreD.upcase %> <%= @jefe.apPaterno.upcase %> <%= @jefe.apMaterno.upcase %>&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+        </div>
+    </body>
+</html>

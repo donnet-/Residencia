@@ -1,0 +1,108 @@
+
+<%= nested_form_for @investigacion, validate: true do |inv | %>    
+    <% d =Puesto.find_by(docente_id: Docente.find_by(email: current_usuario.email).id, cat_tipo_puesto_id: 5, estado: "Activo") %>
+    <% if current_usuario.rol == 'admin' or d != nil%>
+    <div id="marco">
+        <div class="row">
+            <div class="col-md-2"><%= inv.label :Núm_de_proyecto %></div>
+            <div class="col-md-4"><%= inv.text_field :numProyecto, class: "form-control", validate: true %></div>
+            <div class="col-md-2"><%= inv.label :Nombre_proyecto %></div>
+            <div class="col-md-4"><%= inv.text_field :nombreProy, class: "form-control", validate: true %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><%= inv.label :Categoria %></div>
+            <% @pro = CatTipoExamenProyecto.where("nombreTipoP is not ? AND nombreTipoP is not ?", "Residencia Profesional", "Estancia") %>          
+            <div class="col-md-4"><%= inv.select :cat_tipo_examen_proyecto_id, @pro.all.collect{ |p| [ p.nombreTipoP, p.id ] }, {}, class: "form-control", validate: true, :selected => @investigacion.cat_tipo_examen_proyecto_id%></div>
+            <div class="col-md-2"><%= inv.label :Líder_del_proyecto %></div>
+            <div class="col-md-4"><%= inv.select :asesorExterno, Docente.all.collect{ |p| [ p.nombreD + " " + p.apPaterno + " " + p.apMaterno, p.id ] },{}, class: "form-control", validate: true, :selected => @investigacion.asesorExterno %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><%= inv.label :Fecha_inicio %></div>
+            <div class="col-md-4"><%= inv.date_field :fechaInicio, class: "form-control", validate: true %></div>
+            <div class="col-md-2"><%= inv.label :Fecha_término %></div>
+            <div class="col-md-4"><%= inv.date_field :fechaTermino, class: "form-control", validate: true %></div>
+        </div>
+        <div class="row">
+            <div class="col-md-2"><%= inv.label :Status %></div>
+            <div class="col-md-4"><%= inv.select :status, options_for_select([["En proceso", "En proceso"], ["Terminado", "Terminado"], ["Vencido", "Vencido"]]),{}, class: "form-control", validate: true %></div>
+        </div>
+    </div>
+    <fieldset id="poryectoestudiante">
+        <div id="marco">
+            <h5 id="align-title"><b>Estudiantes</b></h5>
+            <%= inv.fields_for :proyecto_inv_estudiantes, validate: true do |proyes| %>
+                <div class="row">
+                    <div class="col-md-2"><%= proyes.label :Núm_de_control%></div>
+                    <div class="col-md-4">
+                        <%#= proyes.autocomplete_field :numControl, autocomplete_estudiante_numControl_proyecto_investigaciones_path, class: "form-control", :placeholder => "Numero de control" %>
+						<%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'} %>
+					</div>
+                    <div class="col-md-4" align="right">
+                        <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
+                </div>
+            <% end %>           
+            <div class="row"><%= inv.link_to_add :proyecto_inv_estudiantes do %><span class="glyphicon glyphicon-plus blue" title="Registrar estudiante"></span><% end %></div>
+        </div>
+    </fieldset>
+    <fieldset id="marco">
+    <h5 id="align-title"><b>Colaboradores</b></h5>
+        <%= inv.fields_for :proy_inv_docentes, validate: true do |actdoc| %>
+                <div class="row">
+                    <div class="col-md-2">
+                        <%= actdoc.label :Docente %>
+                    </div>
+                    <div class="col-md-4">
+                        <%= actdoc.select :docente_id, Docente.all.collect{ |p| [ p.nombreD + " " + p.apPaterno + " " + p.apMaterno, p.id ] }, {include_blank: "Seleccione..."}, class: "form-control", validate: true %>
+                    </div>
+                    <div class="col-md-4" align="right">                        
+                        <%= inv.link_to_remove '', data: {confirm: "Eliminará al docente del proyecto"}, class: "glyphicon glyphicon-trash red"%>
+                    </div>
+                </div>
+        <% end %>
+        <div class="row"><%= inv.link_to_add :proy_inv_docentes do %><span class="glyphicon glyphicon-plus blue" title="Añadir colaborador"></span><% end %></div>
+    </fieldset>
+    <% end %>
+    <% if @investigacion.asesorExterno == Docente.find_by(email: current_usuario.email).id %>	
+		<div id="marco">
+			<h5 id="align-title"><b>Documento (s)</b></h5>
+			<fieldset id="proy-inv-documentos">
+				<%= inv.fields_for :proy_inv_documentos, validate: true  do |doc| %>
+					<% if doc.object.documento.file != nil %>
+						<div class="row">
+							<div class="col-md-4"><%= doc.label :Descripcion %> <%= doc.text_field :descripcion, class: "form-control", validate: true %></div>
+							<div class="col-md-3"><%= doc.label :Documento_actual %>: <br/><%= doc.object.documento.file.filename %></div>
+							<div class="col-md-4"><%= doc.label :Editar %>: <%= doc.file_field :documento, validate: true %></div>
+							<div class="col-md-1" align="right" style="margin-top: 30px;">
+                                <%= doc.link_to_remove '', class: "glyphicon glyphicon-trash red", :title => "Eliminar documento"%></div>
+						</div>
+					<% else %>
+						<div class="row">
+							<div class="col-md-4"><%= doc.label :Etiqueta %>: <%= doc.text_field :descripcion, class: "form-control", validate: true %></div>
+							<div class="col-md-4"><%= doc.label :Subir_documento %> <%= doc.file_field :documento, validate: true %></div>
+							<div class="col-md-4"><%= doc.label :Fecha_Publicación_o_Emisión_documento %> <%= doc.date_field :fechaPublicacion, class: "form-control", validate: true %></div>
+						</div>
+					<div class="row">
+						<div class="col-md-12" align="right"> <%= doc.link_to_remove do %> <span class="glyphicon glyphicon-trash red" title="Eliminar documento"></span> <% end %></div>
+					</div>
+					<% end %>
+				<% end %>
+
+				<div class="row">
+					<div class="col-xs-6 col-sm-12" align="left">
+						<%= inv.link_to_add :proy_inv_documentos do %>
+							<span class="glyphicon glyphicon-plus blue-nested" title="Agregar documento"></span>
+						<% end %>
+					</div>
+				</div> 
+			</fieldset>
+		</div>
+	<% end %>
+    <div class="row" id="btn-cancelar">
+        <div class="col-xs-6 col-md-4" id="btn">
+            <%= inv.submit :Guardar, :class => 'btn btn-success' %>
+        </div> 
+<% end %>
+        <div class="col-xs-6 col-md-4">
+            <%= button_to "Cancelar", proyecto_investigaciones_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+    </div>

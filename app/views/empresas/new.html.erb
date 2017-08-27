@@ -1,0 +1,115 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :empresa_new%>
+
+    <h3 id="align-title">Editar Registro de Empresas</h3>
+    
+    <div id="marco">
+        <%= nested_form_for @empresa, validate: true do |empresa| %>
+            <div class="row">
+                <div class="col-md-4">
+                    <%= empresa.label :Rfc %>                    
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.label :Nombre_empresa %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.label :Convenio %>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <%= empresa.text_field :rfcEmpresa, :style => 'border: 1px solid red', :maxlength => 12, class: "form-control", validate: true %>                        
+                </div>                
+                <div class="col-md-4">
+                    <%= empresa.text_field :nombreE, :style => 'border: 1px solid red', :maxlength => 250, class: "form-control", validate: true %>
+                </div>                
+                <div class="col-md-4">
+                    <%= empresa.file_field :pdfConvenio, validate: true, accept: "application/pdf" %>                     
+                </div>
+            </div>
+            <div class="row">
+                <% if empresa.object.pdfConvenio.file != nil %>
+                    <div class="col-md-6"><%= empresa.label :Convenio_actual %>: <%= empresa.object.pdfConvenio.file.filename %></div>                
+                <% end %>
+            </div>
+            <div class="row">
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <%= empresa.label :Contacto %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.label :Correo_electrónico %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.label :Teléfono %>
+                </div>
+
+
+                <div class="col-md-4">
+                    <%= empresa.text_field :contacto, :style => 'border: 1px solid red', :maxlength => 60, class: "form-control", validate: true %>
+                </div>
+
+                <div class="col-md-4">
+                    <%= empresa.text_field :email, :style => 'border: 1px solid red', :maxlength => 80, class: "form-control", validate: true %>                        
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.text_field :telefono, :style => 'border: 1px solid red', :maxlength => 30, class: "form-control",
+                validate: true%>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <%= empresa.label :Estado %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.label :Colonia %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.label :Calle %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <%= empresa.select :estado, options_for_select([["Aguascalientes", "Aguascalientes"], ["Baja California Norte", "Baja California Norte"], ["Baja Californi Sur", "Baja California Sur"], ["Campeche", "Campeche"], ["Chiapas", "Chiapas"], ["Chihuahua", "Chihuahua"], ["Coahuila", "Coahuila"], ["Colima", "Colima"], ["Distrito Federal", "Distrito federal"], ["Durango", "Durango"], ["Guanajuato", "Guanajuato"], ["Guerrero", "Guerrero"], ["Hidalgo", "Hidalgo"], ["Jalisco", "Jalisco"], ["Mexico", "Mexico"],["Michoacan", "Michoacan"], ["Morelos", "Morelos"], ["Nayarit", "Nayarit"], ["Nuevo Leon", "Nuevo leon"], ["Oaxaca", "Oaxaca"], ["Puebla", "Puebla"], ["Queretaro", "Queretaro"], ["Quintana Roo", "Quintana Roo"], ["San Luis Potosí", "San Luis Potosi"], ["Sinaloa", "Sinaloa"], ["Sonora", "Sonora"], ["Tabasco", "Tabasco"], ["Tamaulipas", "Tamaulipas"], ["Tlaxcala", "Tlaxcala"], ["Veracruz", "Veracruz"], ["Yucatan", "Yucatan"],["Zacatecas", "Zacatecas"] ]), {}, class: "form-control", validate: true %>                        
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.text_field :colonia, :style => 'border: 1px solid red', :maxlength => 60, class: "form-control", validate: true %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.text_field :calle, :style => 'border: 1px solid red', :maxlength => 60, class: "form-control", validate: true %>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><%= empresa.label :Numero_interior %></div>
+                <div class="col-md-4"><%= empresa.label :Numero_exterior %></div>
+                <div class="col-md-4"><%= empresa.label :Status%></div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <%= empresa.text_field :numInterior, :style => 'border: 1px solid red', :maxlength => 20, class: "form-control", validate: true %>                        
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.text_field :numExterior, :maxlength => 20, class: "form-control", validate: true %>
+                </div>
+                <div class="col-md-4">
+                    <%= empresa.select :estadoEmp, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]), {},class: "form-control", validate: true %>                        
+                    </div>
+            </div>
+            <div class="row" id="btn-cancelar">
+                <div class="col-md-4" id="btn"><%= empresa.submit :Guardar, :class => 'btn btn-success' %></div>   
+        <% end %>
+                <div  class="col-md-4"><%= button_to "Cancelar", empresas_path, :class => 'btn btn-warning', :method => :get %></div>
+            </div>
+    </div>
+</div>

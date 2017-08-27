@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-10">
+            <div id="marcoTitle"><h4 id="align-title">Generar Oficio de Comisión </h4></div>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                    <div id="marco">
+                        <h5><b>Datos del documento: </b></h5>
+                        <% @j = Oficio.find_by(actividad_id: @actividad.id, docente: acd.docente_id) %>
+                       <%= form_tag(actividad_path, method: 'get') do %>
+                            <%= hidden_field_tag :format, "pdf"%>
+                            <div class="row">
+                                <% d = Docente.find(acd.docente_id) %>
+								<%= hidden_field_tag :docente, acd.docente_id %>
+                                <div class="col-xs-6 col-sm-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Cargo: </b>
+                                    <% @p = Puesto.find_by(docente_id: @idoc) %>
+                                    <% if @p != nil %>
+                                        <% @a = CatTipoPuesto. find(@p.cat_tipo_puesto_id).nombrePuesto%>
+                                        <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], "DOCENTE") %>
+                                    <% else %>
+                                        <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"]], "DOCENTE") %>
+                                    <% end %>
+								</div>
+								<div class="col-md-4"><b>Firma: </b>                                        
+                                        <% @a = Firma.all %>
+                                        <% if  Firma.find_by(titular: @j.firma)  !=nil %>
+                                            <%= select_tag :firma, options_for_select(@a.collect{|u| [u.cargo,u.titular]}, selected: @j.firma ), class: "form-control", id: "cargos" %>   
+                                        <% else %>
+                                            <%= select_tag :firma, options_for_select(@a.collect{|u| [u.cargo,u.titular]}), class: "form-control", id: "cargos" %>   
+                                        <% end %>                  
+                                        <%= link_to new_firma_path, remote: true, title: "Nuevo tipo de actividad" do %>
+                                            <span class="glyphicon glyphicon-plus blue"></span>
+                                        <% end %>      									
+								</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3"><b>No. Oficio: </b> <%= @j.numero %></div>
+                                <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                                <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha",f, 'data-behaviour'=> 'datepicker' %></div>
+                                <div class="col-xs-6 col-sm-4"><%= submit_tag "Ver", :formtarget => '_blank', class: 'btn btn-success', :id => 'ver' %></div>
+                            </div>
+                        <% end %>
+                    </div>
+                <% else %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <% @docent = Docente.find_by(email: current_usuario.email) %>
+        <% @puest = Puesto.find_by(docente_id: @docent.id) %>
+        <% if @puest != nil %>
+            <% @tipoP = CatTipoPuesto.find(@puest.cat_tipo_puesto_id) %>
+                <% if @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Presidente de Academia'|| @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Secretario de Academia'%>
+                    <%= render template: "siged/menuAcademia" %>
+                <% elsif @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Jefe de Proyecto de Docencia' %>
+                    <%= render template: "siged/menuDocencia" %>
+                <% elsif @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Jefe de Investigacion' %>
+                    <%= render template: "siged/menuInvestigacion" %>
+                <% else %>
+                    <%= render template: "siged/menuDocente" %>
+                <% end %>
+         <% else %>
+            <%= render template: "siged/menuDocente" %>
+        <% end %>
+    <% end %>
+    <% breadcrumb :curso_materia_edit, @curso%>
+    
+    <h3 id="align-title">Editar registro de Curso-Materias</h3>
+    
+    <div>
+        <%= form_for @curso, validate: true do |curso| %>
+            <div  class="row">
+                <div class="col-xs-6 col-sm-4">
+                    <%= curso.label :Materia %><%= curso.select :cat_materia_id,  CatMateria.all.collect{ |p| [ p.claveMateria + " " + p.nombreMat, p.id ] }, include_blank: true, validate: true, :selected => @curso.cat_materia_id %>
+                </div>,
+                <% if curso.object.pdfInstrumentacion.file != nil %>
+                    <div class="col-xs-6 col-sm-3"><%= curso.label :Instrumentacion_actual %><%= curso.object.pdfInstrumentacion.file.filename %></div>
+                <% else %>
+                <% end %>
+                <div class="col-xs-6 col-sm-5"><%= curso.label :Instrumentacion %>
+                <%= curso.file_field :pdfInstrumentacion, validate: true %></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4"><%= curso.label :Nombre_del_grupo %><%= curso.text_field :nombreGrupo, validate: true %></div>
+                <div class="col-xs-6 col-sm-4"><%= curso.label :Aula %><%= curso.text_field :aula, validate: true %></div>
+                <div class="col-xs-6 col-sm-4"><%= curso.label :Periodo %><%= curso.text_field :periodo, validate: true %></div>
+            </div>
+        
+            <div class="row">
+                <% doc = Docente.find_by(email: current_usuario.email) %>        <%= curso.hidden_field :docente_id, :value => doc.id %>  
+            </div>
+            
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= curso.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4" >
+                        <%= button_to "Cancelar", curso_materias_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

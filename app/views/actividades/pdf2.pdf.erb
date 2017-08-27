@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Comisión</title>	
+	<style type="text/css">
+		p.estilo {
+			font-size: 12px;					
+		}
+		td.viatico {
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<%# @c = Configuracion.find_by(tipo: "Mexico") %>
+	<%# wicked_pdf_image_tag(@c.imagen_url, size: "900x700", :style=> 'position: absolute; top: 100px filter:alpha(opacity=15);  opacity:.15;') %>	
+	<br>
+	<div style="width: 100%">
+	<p class="estilo" align="right">
+		Oaxaca de Juárez, Oax.,
+		<% if params[:fecha] != "" %>
+			<%= params[:fecha][0,2] %> de <%= meses(params[:fecha][3,2].to_i).downcase %> de <%= params[:fecha][6,4] %>
+		<% else %>
+			<% @a = Time.now %>
+			<%= @a.strftime("%d") %> de 
+			<%= meses(@a.strftime("%m").to_i).downcase %> de 
+			<%= @a.strftime("%Y") %>.
+		<% end %>
+	</p>
+		<%         			
+           #if params[:numero] == ""
+           	#@x = 'x0001'
+           #else
+           	#@x = params[:numero]
+           #end
+           #@b = Oficio.last
+			@x = oficioN(params[:numero], Actividad.find(params[:id]).id) 
+			         
+		%>	
+
+	<p class="estilo" align="right">OFICIO NUM: DSC-0<%= @x.numero %>/<%= @x.anio %></p>
+	</div>
+	<br/>
+	<br/>
+	<div>
+		<% 
+			@aux = ActividadDocente.find_by(actividad_id: params[:id])
+			@aux2 = Actividad.find(params[:id])
+		%>
+
+		<p class="estilo" align="left"><font face="Comic Sans MS, arial, verdana"><strong><%= @aux.docente.nombreD.upcase %> <%= @aux.docente.apPaterno.upcase%> <%= @aux.docente.apMaterno.upcase%></font><br/>
+		<%= params[:puesto]%><br/></strong>
+		PRESENTE</p>
+	</div>	
+	<div>
+		<p class="estilo" align="justify">Por medio del presente se comunica a usted, que la dirección a mi cargo ha tenido a bien asignarla para el desempeño de la siguiente comisión:</p>
+	</div>	
+	<div>	
+		<p class="estilo" align="justify"><strong>ASISTIR AL <%= Visita.find_by(actividad_id: params[:id]).asunto.upcase %> COMO <% if @aux.docente.genero == "F"%>MAESTRA <% else %>MAESTRO <% end %> RESPONSABLE DEL 		GRUPO DE LA MATERIA DE <%= CatMateria.find(CursoMateria.find((ViajeGrupo.find_by(actividad_id: params[:id]))).cat_materia_id).nombreMat.upcase
+ 			%> DE LA CARRERA DE INGENIERÍA EN SISTEMAS COMPUTACIONALES QUE SE REALIZARÁ DEL <% if @aux2.fechaInicio.month == @aux2.fechaTermino.month %> <%= @aux2.fechaInicio.day%> AL <%= @aux2.fechaTermino.day%> DE 
+ 			<%= meses(@aux2.fechaInicio.month) %> DEL PRESENTE AÑO EN 
+ 		<%else%>
+ 			<%= @aux2.fechaInicio.day%> DE <%= meses(@aux2.fechaInicio.month) %> DE <%= @aux2.fechaInicio.year %> AL <%= @aux2.fechaTermino.day%> DE <%= meses(@aux2.fechaTermino.month) %> DE <%= @aux2.fechaTermino.year %>
+ 		<% end%> A LA CUIDAD DE ...... </strong></p>
+	</div>	
+	<div>
+		<p class="estilo" align="justify"> Debiendo entregar a su regreso un informe detallado de los resultados obtenidos a la Dirección. <br/>
+		Por lo que agradeceré pase al Departamento de Recursos Financieros para recibir:</p>
+	</div>
+	<br/>
+	<div>
+		<table style="width: 100%">
+			<tbody>
+				<tr>
+					<% @v = CatViatico.all %>
+					<% @a = @aux2.cat_viaticos 
+					 %>
+					<% @v.each do |viatico| %>						
+					<td class="viatico">	
+						<%= viatico.nombreViatico %> (
+						<% @c = 0 							
+						while @c < @a.count do 							
+							if @a[@c].id == viatico.id %>
+								X
+							<% else 
+							end
+							@c = @c + 1
+					    end %>
+						)
+
+					</td>
+					<% end %>
+				</tr>
+			</tbody>					
+		</table>
+	</div>
+	<br/>
+	<div>
+		<p class="estilo" align="left"><strong>ATENTAMENTE <br/>
+		"TECNOLOGÍA PROPIA E INDEPENDENCIA ECONÓMICA"
+		</strong></p>
+	</div>
+	<br/>
+	<div>
+		<p class="estilo" align="left"><strong>
+			<% Configuracion.find_by(tipo: "Director del Instituto Tecnologico de Oaxaca").contenido %>
+            <%#= @direc.contenido %><br/>
+			DIRECTOR
+			</strong>
+		</p>
+	</div>
+	<br/>
+	<div><p class="estilo" align="left">JCN/ECO/MAC/fmjc*</p></div>
+	<br>
+</body>
+</html>

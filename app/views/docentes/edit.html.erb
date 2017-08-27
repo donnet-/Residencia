@@ -1,0 +1,176 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+       <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    
+    <h3 id="align-title">Editar datos</h3>
+    <% breadcrumb :docente_edit, @docente %>
+    <div>
+        <%= nested_form_for @docente, validate: true do |docente| %>
+            <div class="row">
+                <%= docente.label :CURP, class: "col-md-4" %>                
+                <%= docente.label :RFC, class: "col-md-4" %>
+                <%= docente.label :Clave_presupuestal, class: "col-md-4" %>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                <%= docente.text_field :curp,class: 'form-control', value: current_usuario.curp, validate: true, disabled: true  %></div>                                
+                <div class="col-md-4">
+                <%= docente.text_field :rfc, class: 'form-control',value: current_usuario.rfc, validate: true, disabled: true %></div>                                
+                <div class="col-md-4">
+                <%= docente.text_field :clavePresupuestal, class: 'form-control', validate: true %></div>
+            </div>
+            <div class="row">
+                <%= docente.label :Nombre, class: "col-md-4" %>                
+                <%= docente.label :Apellido_Paterno, class: 'col-md-4'%>
+                <%= docente.label :Apellido_Materno, class: 'col-md-4' %>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <%= docente.text_field :nombreD,class: "form-control", validate: true %></div>
+                
+                <div class="col-md-4">
+                <%= docente.text_field :apPaterno,class: "form-control", validate: true %></div>
+                
+                <div class="col-md-4">
+                <%= docente.text_field :apMaterno, class: "form-control", validate: true %></div>
+            </div>
+            <div class="row">
+                <%= docente.label :Género, class: 'col-md-4' %>
+                <%= docente.label :Correo_electrónico, class: 'col-md-4' %>
+                <%= docente.label :Contacto, class: 'col-md-4' %>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                <%= docente.select :genero, options_for_select([["Femenino", "F"], ["Masculino", "M"]]),{},class: 'form-control', validate: true %></div>
+                <div class="col-md-4">
+                <%= docente.text_field :email,class: "form-control", disabled: true, validate: true %></div>                
+                <div class="col-md-4">
+                <%= docente.text_field :contacto, class: 'form-control', validate: true %></div>
+            </div>
+			<% if current_usuario.rol == 'docente' %>
+            	<%= docente.hidden_field :usuario_id, :value => current_usuario.id %> 
+			<% end %>         
+            <div class="row">
+                <%= docente.label :Departamento, class: 'col-md-4' %>
+                <%= docente.label :Tipo_docente, class: 'col-md-4' %>
+                <%= docente.label :Estado, class: 'col-md-4' %>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                <%= docente.select :cat_departamento_id, CatDepartamento.all.collect{ |p| [ p.nombreDpto, p.id ] }, { include_blank: 'Seleccione...'},class: 'form-control', validate: true %></div>
+                
+                <div class="col-md-4">
+                <%= docente.select :tipoDocente, options_for_select([["De Base", "De Base"], ["Honorario", "Honorario"]]),{}, class: 'form-control', validate: true %></div>
+                
+                <div class="col-md-4">
+                <%= docente.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: "form-control", validate: true %></div>
+            </div>
+
+            <div class="row">
+                <%= docente.label :Número_curriculum, class: 'col-md-4' %> 
+                <%= docente.label :Tipo_curriculum, class: 'col-md-4' %>
+                <% if docente.object.pdfCurriculum.file != nil %>
+                        <%= docente.label :Curriculum %> <%= docente.object.pdfCurriculum.file.filename %>                    
+                <% else %>                
+                    <%= docente.label :Curriculum, class: "col-md-4" %>
+                <% end %>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                <%= docente.text_field :numCurriculum, class: "form-control", validate: true %></div>                
+                <div class="col-md-4">
+                <%= docente.select :tipoCurriculum, options_for_select([["CONACYT", "CONACYT"], ["PROMEP", "PROMEP"]]), {}, class: 'form-control', validate: true %></div>                
+                <div class="col-md-4">
+                <%= docente.file_field :pdfCurriculum, validate: true %>
+                </div>
+                <%docente.hidden_field :usuario_id, value: current_usuario.id, validate: true %>
+            </div>            
+            
+        
+            <div class="row">
+                <div class="col-xs-6 col-sm-2"> <%= docente.label :Miembro_del_SNI_? %></div>
+                <div class="col-xs-6 col-sm-1"><%= docente.radio_button :sni, 'Si', :onclick => "agregarSNI('si_sni')" %> SI </div>
+                <div class="col-xs-6 col-sm-1"><%= docente.radio_button :sni, 'No', :onclick => "agregarSNI('no_sni')" %> NO</div>
+                <div class="col-xs-6 col-sm-2"></div>
+                <div class="col-xs-6 col-sm-3"><%= docente.label :Perfil_deseable_PROMEP_? %></div>
+                <div class="col-xs-6 col-sm-1"><%= docente.radio_button :prodep, 'Si', :onclick => "agregarPRODEP('si_prodep')" %>SI</div>
+                <div class="col-xs-6 col-sm-1"><%= docente.radio_button :prodep, 'No', :onclick => "agregarPRODEP('no_prodep')" %>NO</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6">
+                    <div id="evidencia_sni" style="border: #ccc 2pt solid; display: none; padding: 5px;">
+                        <p align="center"><b>Evidencia SNI</b></p>
+                        <fieldset id="archiv_docentes">
+                            <%= docente.fields_for :archivo_docentes, validate: true do |archidoc| %>
+                                <p><%= archidoc.hidden_field :tipoArchivo, :value => 'sni' %></p>
+                                <p><%= archidoc.label :Etiqueta %>: <%= archidoc.text_field :etiqueta, class: 'form-control', validate: true %></p>
+                                <p><%= archidoc.label :Pdf %>: <%= archidoc.file_field :archivoPdf , validate: true%></p>
+                                <p align="right"><%= archidoc.link_to_remove "", :class => "glyphicon glyphicon-trash red" %></p>
+                            <% end %>
+                            <p><%= docente.link_to_add "", :archivo_docentes, :class => "glyphicon glyphicon-plus blue" %></p>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                    <div id="evidencia_prodep" style="border: #ccc 2pt solid; display:none; padding: 5px;">
+                        <p align="center"><b>Evidencia PROMEP</b></p>
+                        <fieldset id="archiv_docentes">
+                            <%= docente.fields_for :archivo_prodep_docentes, validate: true do |archipdoc| %>
+                                <p><%= archipdoc.hidden_field :tipoArchivo, :value => 'prodep' %></p>
+                                <p><%= archipdoc.label :Etiqueta %>: <%= archipdoc.text_field :etiqueta, class: "form-control",validate: true %></p>
+                                <p><%= archipdoc.label :Pdf %>: <%= archipdoc.file_field :archivoPdf , validate: true%></p>
+                                <p align="right"><%= archipdoc.link_to_remove "", :class => "glyphicon glyphicon-trash red" %></p>
+                            <% end %>
+                            <p><%= docente.link_to_add "", :archivo_prodep_docentes, :class => "glyphicon glyphicon-plus blue" %></p>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>    
+        
+            <fieldset id="grado_estudios">
+				<h5 id="align-title"><b>Grado de estudios</b></h5>
+                <%= docente.fields_for :grado_estudios, validate: true do |gradoe| %>
+                    <div class="row">
+                        <%= gradoe.label :Nombre_del_grado, class: 'col-md-4' %>
+                        <%= gradoe.label :Tipo_grado, class: 'col-md-4'%>
+                        <%= gradoe.label :Institución, class: 'col-md-4' %>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        <%= gradoe.text_field :nombreGrado, class: "form-control", validate: true %></div>                        
+                        <div class="col-md-4">
+                        <%= gradoe.select :cat_tipo_grado_estudio_id, CatTipoGradoEstudio.all.collect{ |p| [ p.nombreTipoGrado, p.id ] }, {include_blank: 'Seleccione...'},class: "form-control", validate: true %></div>                        
+                        <div class="col-md-4">
+                        <%= gradoe.text_field :institucion, class: 'form-control', validate: true %></div> 
+                    </div>
+                    <div class="row">
+                        <%= gradoe.label :Abreviación, class: 'col-md-4' %>
+                        <%= gradoe.label :Evidencia, class: 'col-md-4' %>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        <%= gradoe.text_field :abrev,class: 'form-control', validate: true %></div>                        
+                        <div class="col-md-4">
+                        <%= gradoe.file_field :pdfEvidencia, validate: true%></div>
+                        <div class="col-md-4" align="right">
+                        <%= gradoe.link_to_remove "", :class => "glyphicon glyphicon-trash red" %></div>
+                    </div>              
+                <% end %>
+                <p><%= docente.link_to_add :grado_estudios do %><span class="glyphicon glyphicon-plus blue-nested"></span><% end %></p>
+            </fieldset>
+        
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= docente.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", docente_path(@docente), :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+    <div id="align-forms">
+        <%= nested_form_for ([@actividad, @actividad.build_examen_profesional]) do |examen| %>    
+            <div class="row">
+                   <div class= "col-xs-6 col-sm-2">
+                    <%= examen.label :Hora %>
+                    </div>
+                    <div class=" col-xs-6 col-sm-4">
+                        <%= examen.select :hora, options_for_select([["07:00", "07:00"], ["08:00", "08:00"],["09:00", "09:00"],["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"],["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"],["19:00", "19:00"], ["20:00", "20:00"]]), {}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+                    </div>  
+            </div>
+            <br>
+            <div class="row">
+                <div class=" col-xs-6 col-sm-2">
+                    <%= examen.label :Tipo_examen %>
+                </div>
+                <div class="ccol-xs-6 ol-sm-4">
+                    <%= examen.select :cat_tipo_examen_proyecto_id, CatTipoExamenProyecto.all.collect{ |p| [ p.nombreTipoP, p.id ] }, {}, {required: 'true', autofocus: 'true', class: 'form-control' } %>
+                </div>    
+            </div>  
+            <fieldset id="poryectoestudiante">
+                <%= examen.fields_for :egresados do |proyes| %>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                        <%= proyes.label :Número_de_control%>
+                        </div>
+                        <div class="col-xs-6 col-sm-4">
+                        <%= proyes.autocomplete_field :numControl,  autocomplete_estudiante_numControl_actividad_examen_profesionales_path, :id_element => "#numControl", :placeholder => "Número control", validate: true , class: 'form-control'%> 
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                        <%= proyes.label :Retícula%>
+                        </div>
+                        <div class="col-xs-6 col-sm-4">
+                        <%= proyes.select :cat_plan_curso_id, CatPlanCurso.all.collect{ |c| [c.descripcion, c.id]},{},{required: 'true', autofocus: 'true', class: 'form-control' } %>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2">
+                        <%= proyes.label :Opción %>
+                        </div>
+                        <div class="col-xs-6 col-sm-4">
+                        <%= proyes.select :opcion, options_for_select([["Titulación integral", "Titulación integral"], ["Exámen CENEVAL", "Exámen CENEVAL"]]), {}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+                        </div>
+                    </div>            
+
+                    <%= proyes.link_to_remove "Eliminar participante" %>
+                <% end %>           
+                <p><%= examen.link_to_add "Agregar participante", :egresados %></p>
+            </fieldset>
+        
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                    <%= examen.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            <% end %>
+            </div>
+    </div>
+</div>

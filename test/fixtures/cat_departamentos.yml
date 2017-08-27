@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombreDpto: MyString
+  estado: MyString
+  user_id: 1
+
+two:
+  nombreDpto: MyString
+  estado: MyString
+  user_id: 1

@@ -1,0 +1,46 @@
+<div>
+	<% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+</div>
+<div class="container">
+    <% breadcrumb :configuraciones %>
+    <h3 id="align-title">Configuraciones</h3>
+    <div class="row">
+        <div class="col-sm-1" id="margen">
+            <%= button_to new_configuracion_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>
+                <span class="glyphicon glyphicon-plus"></span>
+            <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-11">
+            <div id="table-responsive">
+                <table class="table table-sm">
+                    <thead>                
+                        <th class="info"><%= sortable "tipo" %></th>
+                        <th class="info"><%= sortable "contenido" %></th>
+                        <th class="info">Acción</th>
+                    </thead>
+                    <% @configuraciones.each do |config| %>
+                        <tbody>                    
+                            <td class="active"><%= config.tipo %></td>
+                            <td class="active">
+                            <% if config.contenido != "" %>
+                                <%= config.contenido %>
+                            <% else %>                        
+                                <%= link_to config.imagen_url, title: "Ver archivo", :target => '_blank' do %><span class="glyphicon glyphicon-file blue"></span><% end %>            
+                            </td> 
+                            <% end %>  
+                            <td class="active">
+                                <%= link_to edit_configuracion_path(config), :title => "Editar" do%>
+                                    <span class="glyphicon glyphicon-pencil green"></span>
+                                <% end %>
+                            </td>  
+                        </tbody>
+                        <% end %>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

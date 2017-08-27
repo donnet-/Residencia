@@ -1,0 +1,44 @@
+
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+<% breadcrumb :cat_departamentos%>
+
+<div class="container"> 
+    
+    <h3 id="align-title">Cátalogo de Departamentos</h3>
+    
+    <% if can? :create, CatDepartamento %>
+        <%= button_to new_cat_departamento_path, :class => "btn btn-primary", :method => :get do %>
+             <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+    <% end %>
+    <br/>
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <th class="info"><%= sortable "nombreDpto" %></th>
+                <th class="info">Titular</th>
+                <th class="info"><%= sortable "estado" %></th>
+            </thead>
+            <% @departamentos.each do |dpto| %>
+                <tbody>
+                    <td class="active"><%= dpto.nombreDpto %></td>
+                    <td class="active"><%= dpto.encargado %></td>
+                    <td class="active"><%= dpto.estado %></td>
+                    <td class="active">
+                        <% if can? :update, dpto %>
+                            <%= link_to edit_cat_departamento_path(dpto) do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                                <div class="tip" id="action2">Editar</div>
+                            <% end %>
+                    </td>
+                        <% end %>
+                </tbody>
+            <% end %>
+        </table>
+        <%= will_paginate @departamentos %>
+    </div>
+</div>

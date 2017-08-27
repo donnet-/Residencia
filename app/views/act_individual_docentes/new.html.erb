@@ -1,0 +1,25 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <% breadcrumb :actividad_individual_new, @actividad, @actdoc %>
+    
+    <h3 id="align-title">Subir Evidencia(s)</h3>
+    <% @actividadD = ActividadDocente.find(params[:actividad_docente_id ]) %>
+        <%= form_for [@actividadD, @actividadD.act_individual_docentes.build], validate: true do |evi| %>    
+            <div class="row">
+                <% @evidencia = CatEvidencia.find(params[:cat_evidencia_id]) %>
+                <div class="col-xs-6 col-sm-4"><%= evi.label @evidencia.nombreEvidencia %><%= evi.hidden_field :cat_evidencia_id, value: params[:cat_evidencia_id] %></div>
+                <div class="col-xs-6 col-sm-7"><%= evi.file_field :pdfEvidencia, validate: true, accept: "application/pdf" %></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn">
+                    <%= evi.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+        <% end %>
+            </div>
+</div>

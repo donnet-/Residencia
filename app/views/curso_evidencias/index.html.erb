@@ -1,0 +1,64 @@
+<div class="container">	
+   
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <h3 id="align-title">Archivos de los cursos</h3>
+    
+    <div class="row">
+        <div class="col-md-7">        
+        <%@periodo = @archivo %>
+             <% if can? :create, PeriodoCursMateria %>                
+                <%= button_to new_periodo_curs_materia_curso_evidencia_path(@periodo), :class => "btn btn-primary", :method => :get do %>
+                    <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+             <% end %>          
+        </div>   
+        
+        <%= form_tag curso_evidencias_path, :method => 'get' do %>
+            <div class="col-md-2">
+                <%= select_tag :periodo, options_for_select([["FEB-JUN", "FEB-JUN/"], ["AGOS-DIC", "AGOS-DIC/"]], params[:periodo]), include_blank: true, class: "form-control" %>
+            </div>
+            <div class="col-md-2">
+                <%= number_field_tag :anio, params[:anio], placeholder: "Año", class: "form-control" %>
+            </div>
+            <div class="col-md-1">
+                <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %>
+                    <span class="glyphicon glyphicon-search"></span> 
+                <% end %>       
+            </div> 
+        <% end %>
+        
+    </div>             
+    <table class="table" id="archivos">
+        <thead>
+            <tr>
+                <th class="info">Etiqueta</th>                
+                <th class="info">Grupo</th>
+                <th class="info">Documento</th>
+                <th class="info">Acciones</th>
+            </tr>
+        </thead>        
+        <% @archivos.each do |archivos| %>                        
+            <tbody>
+                <td class="active"><%= archivos.etiqueta %></td>                
+                <td class="active">
+                <%= archivos.curso_materia.nombreGrupo %>
+                <%= archivos.curso_materia.cat_materia.nombreMat %></td>
+                 <td class="active">
+                     <%= link_to archivos.archivo_url, :target => '_blank', :title => "Ver PDF" do %><span class="glyphicon glyphicon-file blue"></span><% end %> 
+                 </td>
+                 <td class="active">
+                 	<%= link_to edit_periodo_curs_materia_curso_evidencia_path(@periodo, archivos), :title => "Editar" do%> <span class="glyphicon glyphicon-pencil green"></span><% end %>
+                 	<%= link_to archivos, :method => :delete, data: { confirm: '¿Seguro que desea eliminar esta evidencia?' }, :title => "Eliminar" do %>
+                        <span class="glyphicon glyphicon-trash red"></span>                                
+                    <% end %>
+                 </td>
+            </tbody>
+            <% end %>
+        </table>
+        <%# will_paginate @archivos %>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<table class="table table-bordered">
+	<thead> 
+		<tr>
+			<th class="info"><%= sortable "estudiante_id" %></th>
+            <th class="info"><%= sortable "fechaInicio" %></th>
+            <th class="info"><%= sortable "horas" %></th>
+			<th class="info"><%= sortable "calificaion" %></th>
+			<th class="info"><%= sortable "nombreE" %></th>
+            <th class="info"><%= sortable "estado" %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @sistemas = @servicios.where('nombreE LIKE ?', 'Departamento de Sistemas y Computacion Instituto Tecnologico de Oaxaca') %>
+		<% @sistemas.each do |servicio| %>
+        	<tr>  
+				<td class="active">
+					<% @estu = Estudiante.find(servicio.estudiante_id) %>
+                    <%= @estu.numControl %> <br/>
+					<%= @estu.nombre %> <%= @estu.apPaterno %> <%= @estu.apMaterno %>
+				</td>
+				<td class="active"><%= servicio.fechaInicio %> al <%= servicio.fechaTermino %></td>
+				<td class="active"><%= servicio.horas %></td>
+                <td class="active"><%= servicio.calificacion%></td>
+                <td class="active"><%= servicio.nombreE %></td>
+				<td class="active"><%= servicio.estado %></td>
+                <td class="active">
+					<% if can? :read, servicio %>
+                    	<%= link_to servicio_social_path(servicio) do %> <span class="glyphicon glyphicon-eye-open blue" title="Ver detalles"></span><% end %>
+                    <% end %>
+                    <% if can? :update, servicio %>
+                    	<%= link_to edit_servicio_social_path(servicio) do %> <span class="glyphicon glyphicon-pencil green" title="Editar"></span><% end %>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<%= will_paginate @servicios %>

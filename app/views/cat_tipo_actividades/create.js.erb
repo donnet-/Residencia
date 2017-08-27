@@ -1,0 +1,10 @@
+<% if @tipoActividad.errors.empty? %>
+	<% @tipo_actividades = CatTipoActividad.all %>
+	alert('¡Se ha creado con exito');
+	$('#product-modal').hide();
+	$('.modal-backdrop').hide();
+	$('#actividades_select').empty().append("<%= escape_javascript(render(:partial => @tipo_actividades)) %>")
+
+<% else %>
+	alert('<%= @tipoActividad.errors.full_messages[0] %>');
+<% end %>  

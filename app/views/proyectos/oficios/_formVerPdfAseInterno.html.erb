@@ -1,0 +1,27 @@
+<div class="col-xs-6 col-sm-12">
+    <% pEst = ProyectoEstudiante.where(proyecto_id: @proyecto.id) %>
+    <% for est in pEst %>
+        <% s = existeOficioV(@proyecto.id, @proDoc, est.numControl) %>
+        <% if s == true %>
+            <% @j = OficioVinculacion.find_by(proyecto_id: @proyecto.id, proyecto_docente_id: @proDoc, proyecto_estudiante_id: est.numControl) %>
+            <div id="marco">
+                <h5><b>Datos del documento: </b></h5>
+                <%= form_tag(proyecto_path, method: 'get') do %>
+                    <%= hidden_field_tag :format, "pdf" %>
+                    <%= hidden_field_tag :proyecto_docente_id,  @j.proyecto_docente_id %>
+                    <%= hidden_field_tag :proyecto_estudiante_id, @j.proyecto_estudiante_id %>
+                    <%= hidden_field_tag :proyecto_id, @j.proyecto_id %>
+                    <% estud = Estudiante.find_by(numControl: @j.proyecto_estudiante_id) %>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-2"><b>No. oficio: </b><%= @j.numOficio %></div>
+                        <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                        <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                        <div class="col-xs-6 col-sm-4"><b>Estudiante: </b> <%= estud.nombre %> <%= estud.apPaterno %> <%= estud.apMaterno %></div>
+                        <div class="col-xs-6 col-sm-2"><%= submit_tag "Ver", :formtarget => '_blank', class: 'btn btn-success' %></div>
+                    </div>
+                 <% end %>
+            </div>
+        <% else %>
+        <% end %>
+    <% end %>
+</div>

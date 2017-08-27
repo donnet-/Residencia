@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Carta de aceptación - SS</title>
+		<%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css"> p.estilo { font-size: 12px; } </style>
+	</head>
+	<body>
+		<% @lema = Configuracion.find_by(tipo: "Lema").contenido %>
+		<% @x = oficioS(params[:numero], nil, params[:fecha], nil, nil, nil, @lema, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, params[:id], params[:fechaLibS]) %>
+		<div style="width: 100%">
+			<% @cabecera = Configuracion.find_by(tipo: "Logo cab-dpto-sist") %>
+			<%= wicked_pdf_image_tag(@cabecera.imagen_url, size: "800x115") %>
+			<p align="center"><%= Configuracion.find_by(tipo: "Lema").contenido %></p>
+		</div>
+		<br/><br/>
+		<div style="width: 100%">
+			<p align="right">
+				Oaxaca de Juárez, Oax; <%= @x.fecha.day %> de <%= meses(@x.fecha.month).downcase %> de <%= @x.fecha.year %><br/>
+				OFICIO No. DSC-0<%= @x.numero %>/<%= @x.fecha.year %>
+			</p>
+		</div>
+		<% @c = Configuracion.find_by(tipo: "Mexico") %>	
+        <%= wicked_pdf_image_tag(@c.imagen_url, size: "800x600", :style => ' display: flex;  position: absolute; rigth: 150px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 14px;') %>
+		<div style="width: 100%;"></div>
+		<br/><br/>
+		<div style="width: 100%">
+			<p><% Configuracion.find_by(tipo: "Jefe Dpto GTV").contenido.upcase %></p>
+			<p>JEFE DEL DEPARTAMENTO DE GESTIÓN TENOLÓGICA Y VINCULACIÓN</p>
+			<p><b>PRESENTE</b></p>
+			<br/>
+			<% @serv = ServicioSocial.find(@x.servicio_social_id) %>
+			<% @est = Estudiante.find(@serv.estudiante_id) %>
+        	<% @esp = CatEspecialidad.find(@est.cat_especialidad_id)%>
+			<p align="justify">Por este medio me perimito comunicarle que el C. <b><%= @est.nombre %> <%= @est.apPaterno %> <%= @est.apMaterno %></b> alumno de la carrera de <%= @esp.nombreEsp %> con número de control <b><%= @est.numControl %></b> es <b>ACEPTADO</b> por este Departamento Académico, para realizar su Servicio Social a partir del día de <%= @serv.fechaInicio.day %> de <%= meses(@serv.fechaInicio.month).downcase %> del año en curso.</p>
+			<p>Sin otro particular por el momento, me es grato quedar de usted.</p>
+			<br/><br/>
+			<p><b>A T E N T A M E N T E></b><br/><b>"TECNOLOGÍA PROPIA E INDEPENDENCIA ECONÓMICA"</b></p>
+			<br/><br/>
+			<% puest = CatTipoPuesto.find_by(nombrePuesto: 'Jefe del Departamento de Sistemas y Computacion') %>
+			<% doc = Puesto.find_by(cat_tipo_puesto_id: puest.id, estado: 'Activo') %>
+			<% docente =  Docente.find(doc.docente_id) %>
+			
+			<% grado = GradoEstudio.find_by(docente_id: docente.id) %>
+			<p><b><% if grado != nil %> <%= grado.abrev.upcase %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% else %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% end %></b></p>
+			<p><b><% if docente.genero == 'F' %><%= puest.alterno.upcase %> <% else %> <%= puest.nombrePuesto.upcase %><% end %></b></p>
+		</div>
+		<br/><br/>
+		<p>C.c.p Interesado</p>
+		<p>C.c.p Minutario</p>
+	</body>
+</html>

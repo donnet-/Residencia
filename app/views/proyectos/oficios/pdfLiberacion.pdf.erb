@@ -1,0 +1,89 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Oficio de liberación para Asesor Interno</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 16px; }
+            table { border-collapse: collapse;}
+            table, tr, th, td { border: black 1pt solid; }
+        </style>
+    </head>
+    <body>
+        <div>
+            <% lema = Configuracion.find_by(tipo: "Lema").contenido %>
+            <% @tipoP = CatTipoPuesto.find_by(nombrePuesto: "Jefe del Departamento de Sistemas y Computacion")%>
+            <% puesto = Puesto.where(cat_tipo_puesto_id: @tipoP.id) %>
+            <% @jefe %>
+            <% for p in puesto %>
+                <% if p.estado == 'Activo' %>
+                    <% @jefe = p.docente_id %>
+                <% end %>
+            <% end %>
+            <% @jefeD = Docente.find(@jefe) %>
+            <% @jefeDpto%>
+            <% @grado = GradoEstudio.where(docente_id: @jefeD.id).last %>
+            <% if @grado != [] %>
+                <% @jefeDpto = @grado.abrev + ' ' + @jefeD.nombreD + ' ' +  @jefeD.apPaterno + ' ' + @jefeD.apMaterno %>
+            <% else %>
+                <% @jefeDpto = @jefeD.nombreD + ' ' + @jefeD.apPaterno + ' ' + @jefeD.apMaterno %>
+            <% end %>
+            <% subAcademico = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+            
+            <% @x = oficioVinculacion(nil, params[:fecha], params[:proyecto_id], params[:proyecto_docente_id], params[:proyecto_estudiante_id], lema, nil, @jefeDpto, nil, subAcademico, params[:fechaLiberacion]) %>
+        </div>
+        <br/><br/>
+        <div class="row">
+            <p class="estilo">A QUIEN CORRESPONDA: </p><br/><br/>
+            <% @c = Configuracion.find_by(tipo: "Mexico") %>
+            <%= wicked_pdf_image_tag(@c.imagen_url, size: "700x600", :style => ' display: flex;  position: absolute; rigth: 50px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 14px;') %>
+            <% proyDoc = ProyectoDocente.find(@x.proyecto_docente_id) %>
+            <% docente = Docente.find(proyDoc.docente_id) %>
+            <% grado = GradoEstudio.where(docente_id: docente.id).last %>
+            <p class="estilo" align="justify">La que suscribe <b><%= @x.jefeDpto %> Jefa del Departamento de Sistemas y Computación del Instituto Tecnológico de Oaxaca </b> con clave <b>20DIT0002N, </b> y con base en la documentación existente en los archivos <b> HACE CONSTAR</b> que <% if docente.genero == 'F' %> la <% else %> el <% end %></p><br/>
+            <p class="estilo" align="center"><b><% if grado != nil %> <%= grado.abrev.upcase %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% else %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% end %></b></p><br/>
+            <% proyecto = Proyecto.find(@x.proyecto_id) %>
+            <p class="estilo" align="justify">Forma parte del personal docente de esta institución y  <b>   CUMPLIÓ </b> como <b>ASESOR INTERNO</b> de los proyectos de Residencia Profesional en el periodo <b><%= proyecto.periodo.downcase %></b> de los siguientes alumnos: </p>
+        </div>
+        <br/>
+        <div class="row">
+            <table style="width: 100%; padding: 5px; font-size: 16px;">
+                <tbody>
+                   <tr>
+                       <th>NOMBRE DEL RESIDENTE</th>
+                       <th>PROYECTO</th>
+                       <th>EMPRESA</th>
+                    </tr>
+                    <tr>
+                        <% proEst = ProyectoEstudiante.find_by(numControl: @x.proyecto_estudiante_id) %>
+                        <% estudiante = Estudiante.find_by(numControl: proEst.numControl) %>
+                       <th><%= estudiante.apPaterno.upcase %> <%= estudiante.apMaterno.upcase %> <%= estudiante.nombre.upcase %></th>
+                       <th><%= proyecto.nombreProyecto.upcase %></th>
+                       <th><%= proyecto.rfcEmpresa.upcase %></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div class="row">
+            <p class="estilo" align="justify">A petición de la interasada y para los fines  <b> legales</b> a que haya lugar, le extiende la presente a los <%= @x.fechaLiberacion.day %> días del mes <%=  meses(@x.fechaLiberacion.month) %> del año <%= @x.fechaLiberacion.year %>.  </p><br/>
+            <p align="center">A T E N T A M E N T E </p><br/>
+            <p align="center">"Tecnología propia e independencia económica"</p>
+        </div><br/><br/>
+        <div class="row">
+            <div class="col-lg-6" align="center">
+                <p><%= @x.jefeDpto %></p>
+                <% if @jefeD.genero == 'F' %>
+                     <%= @tipoP.alterno.upcase %>
+                <% else %>
+                    <%= @tipoP.nombrePuesto.upcase %>
+                <% end %>
+            </div>
+            <div class="col-lg-6" align="center">
+                <p><%= subAcademico.upcase %></p>
+                SUBDIRECTOR ACADÉMICO
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+<div class="container">
+    <h3 id="align-title">Alta de usuario</h3>
+    <% @rol = params[:rol] %>
+    <% if  @rol == 'docente' %>
+        <%= render 'formDocente' %>
+    <% elsif @rol == 'estudiante' %>
+        <%= render 'formEstudiante' %>
+    <% else %>
+        <div class="marco">
+            <br><br>
+            <h3 align="center">Su usuario no está registrado en el sistema</h3>
+            <p align="center"> <strong>Verifique sus datos o Acuda con el administrador</strong> </p>
+            <br><br>
+            <form method="get" action="usuarios/sign_in">
+                <div class="row" align="center">
+                    <input type="submit" class="btn btn-success" value="Inicio"></input>
+                </div>
+            </form>            
+        </div>
+    <% end %>
+
+        <br />
+        <%#= render "devise/shared/links" %>
+</div>

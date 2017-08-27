@@ -1,0 +1,23 @@
+
+<style type="text/css">
+	p.aviso{
+		font-family: "arial", serif;
+		font-size: 16pt;
+	}
+	p.atn{
+		font-family: "arial", serif;
+		letter-spacing: 0.3em;
+	}
+</style>
+<p align="center"><strong>TECNOLÓGICO NACIONAL DE MÉXICO <br>
+INSTITUTO TECNOLÓGICO DE OAXACA <br>
+Departamento de sistemas y computación</strong></p>
+<br>
+<h2 align="center"><strong>AVISO</strong></h2>
+<p class="aviso" align="justify">Se le comunica que ha sido asignado(a) a examen profesional que se llevará acabo en la sala de titulación el día <strong><%= dias(@examen.fechaInicio.strftime("%A")) %><%= @examen.fechaInicio.strftime(" %d de ")%><%= meses(@examen.fechaInicio.strftime("%m").to_i).downcase.capitalize%> <%= @examen.fechaInicio.strftime("de %Y") %></strong> a las <strong><%= @examen.hora %> hrs.</strong> </p>
+<br><br>
+<p class="aviso" align="justify">Esperamos su puntual asistencia.</p>
+<br><br>
+<p class="atn">ATENTAMENTE</p>
+<br>
+<p><i>"TECNOLOGÍA PROPIA E INDEPENDENCIA ECONÓMICA"</i></p>

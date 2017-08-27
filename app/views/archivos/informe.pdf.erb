@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Comisión</title>					
+		<%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+
+		<style type="text/css">
+			p.estilo{
+				font-size: 12px;
+			}			
+			div.topp{
+				font-size: 10px;
+				vertical-align: top;	
+				text-align: center;
+			}
+			div.borde{
+				border-bottom: 1px solid;
+				text-align: center;
+				font-size: 11px;
+				vertical-align: bottom;
+			}
+			div.noBorde{							
+				font-size: 11px;
+				vertical-align: bottom;	
+			}
+			div.derecha {
+				text-align: right;
+			}
+			p.estilo2{
+				font-size: 11px;
+			}
+			td.celda{	
+				text-align: center;
+				font-size: 8px;
+				vertical-align: bottom;
+				vertical-align: top;
+			}
+			.little {
+				font-size: 2px;
+			}
+			table {
+				border-collapse: collapse;
+			}
+
+			table, th, td {
+				border: black 1pt solid;	
+			}	
+		</style>
+		
+	</head>
+
+	<br>
+	<% @director = Configuracion.find_by(tipo: "Director del Instituto Tecnologico de Oaxaca").contenido %>
+			<% @lema = Configuracion.find_by(tipo: "Lema").contenido %>		
+		<% @par = ActividadDocente.find_by(actividad_id: params[:actividad_id]).docente_id %>		
+	<% jefe = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+		<% @x = oficioN(params[:numero], params[:actividad_id], params[:fecha], @par, params[:puesto], @director,nil, nil, jefe, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil) %>
+	<body>	
+	<br>	
+		<div class="row">
+			<div class="col-lg-8">&nbsp;</div>
+			<div class="col-lg-4" >
+				<table align="right">
+					<tr bgcolor="#ccc">
+						<td class="celda" colspan="2">ANEXO</td>
+					</tr>	
+					<tr bgcolor="#ccc">
+						<td class="celda">&nbsp;No&nbsp;</td>
+						<td class="celda">CLAVE</td>
+					</tr>
+					<tr>
+						<td class="celda">&nbsp;</td>
+						<td class="celda">&nbsp;INFOCOM&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<p class="little">&nbsp;.</p>
+		<div class="row">
+			<div class="col-lg-8">
+				<p class="estilo" align="center"><strong>					
+					INFORME DE COMISIONES DEL PERSONAL DE LAS <br>
+					UNIDADES ADMINISTRATIVAS DE LA SECRETARÍA DE <br>
+					EDUCACIÓN PÚBLICA
+				</strong></p>
+			</div>
+			<div class="col-lg-4" float="right">
+				<table align="right">
+					<tr bgcolor="#ccc">
+						<td class="celda" colspan="4">INFOCOM</td>						
+					</tr>
+					<tr bgcolor="#ccc">
+						<td class="celda">NÚMERO</td>
+						<td class="celda" colspan="3">FECHA</td>
+					</tr>
+					<tr>
+						<td class="celda">&nbsp;DSC-0<%= @x.numero %>/<%= @x.anio %>&nbsp;</td>
+						<td class="celda">&nbsp;<%= @x.fecha.day %>&nbsp;</td>
+						<td class="celda">&nbsp;<%= @x.fecha.month %>&nbsp;</td>
+						<td class="celda">&nbsp;<%= @x.fecha.year %>&nbsp;</td>
+					</tr>
+                    <tr>
+                        <td class="celda">FN</td>
+                        <td class="celda">SFA</td>
+                        <td class="celda">SFE</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+				</table>
+			</div>
+		</div>
+		&nbsp;
+		<div class="row">
+			<br>
+			<div class="col-lg-4 noBorde"><strong>1. UNIDAD ADMINISTRATIVA:</strong></div>
+			<div class="col-lg-8 borde"> 20DIT0002N &nbsp; &nbsp; &nbsp; &nbsp; INSTITUTO TECNOLÓGICO DE OAXACA</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 topp"> &nbsp;</div>
+			<div class="col-lg-8 topp">CLAVE Y NOMBRE</div>
+		</div>			
+		<div class="row">
+			<div class="noBorde col-lg-2" width="20"><strong>2. NOMBRE:</strong></div>
+			<% @par = Docente.find(@par) %>
+			<div class="borde col-lg-10" width="80"><%= @par.nombreD.upcase %> <%= @par.apPaterno.upcase %> <%= @par.apMaterno.upcase %></div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-2" width="20"><strong>3. CARGO:</strong></div>
+			<% @par2 = Puesto.where(docente_id: @par.id).last%>			
+			<div class="borde col-lg-10" width="80"><%= @par2.cat_tipo_puesto.nombrePuesto.upcase %></div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-2"><strong>4. PERIODO:</strong></div>
+			<% @acti = Actividad.find(params[:actividad_id]) %>
+			<div class="noBorde col-lg-10"> Durante los días del <u>&nbsp;&nbsp;&nbsp;<%= @acti.fechaInicio.day%>&nbsp;&nbsp;&nbsp;</u> de <u>&nbsp;&nbsp;&nbsp;<%= meses(@acti.fechaInicio.month).upcase %> &nbsp;&nbsp;&nbsp;</u> al <u>&nbsp;&nbsp;&nbsp;<%= @acti.fechaTermino.day%>&nbsp;&nbsp;&nbsp;</u> de <u>&nbsp;&nbsp;&nbsp;<%= meses(@acti.fechaTermino.month).upcase %> &nbsp;&nbsp;&nbsp;</u> de <u>&nbsp;&nbsp;&nbsp;<%= @acti.fechaTermino.year%>&nbsp;&nbsp;&nbsp;</u></div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-2"><strong>5. LUGAR:</strong></div>
+			<div class="borde col-lg-10"> OAXACA DE JUÁREZ, OAXACA</div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-4"><strong>6. IMPORTE DE VIÁTICOS:</strong></div>
+			<div class="noBorde col-lg-8"> $_________________      DLS._________________</div>
+		</div>
+		&nbsp;	
+		<p class="estilo2" align="center"><br><strong> DATOS DE LA COMISIÓN</strong></p>
+		<p class="estilo2"><strong>7. OBJETIVO DE LA COMISIÓN: </strong></p>		
+		<% @obj = Visita.find(params[:id]) %>
+		<p class="estilo2" align="center"><%= @obj.objetivo %><br></p>		
+		<p class="estilo2"><strong>8. PRINCIPALES ACTIVIDADES A DESARROLLAR:</strong></p>
+		<p class="estilo2" align="center"><%= @obj.actividades %><br></p>		
+		<p class="estilo2"><strong>9. EVALUACIÓN:</strong></p>		
+		<p class="estilo2" align="center"><strong>COMISIONADO</strong></p>		
+		<p class="estilo2" align="center"><u> &nbsp; &nbsp; &nbsp; &nbsp; <%= @par.nombreD.upcase %> <%= @par.apPaterno.upcase %> <%= @par.apMaterno.upcase %> &nbsp; &nbsp; &nbsp; &nbsp;</u></p>		
+		<br>
+		<div class="col-lg-6">
+			<p class="estilo2" align="center"><strong>Vo. Bo. <br>JEFE INMEDIATO SUPERIOR</strong></p>
+			<p class="estilo2" align="center"><u>&nbsp;&nbsp;&nbsp;&nbsp;<%= @x.jefe %>&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+		</div>
+		<div class="col-lg-6">
+			<p class="estilo2" align="center"><strong>Vo. Bo. <br>POR EL ÁREA ADMINISTRATIVA</strong></p>
+			<p class="estilo2" align="center"><u>&nbsp;&nbsp;&nbsp;&nbsp;<%= @x.firma.upcase %>&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+		</div>
+		<p class="estilo2"><strong>10. DOCUMENTOS DE RESPALDO:</strong></p>
+		<p class="estilo2">(x) Oficio de comisión o desginación de participación comisionado &nbsp; &nbsp; &nbsp; ( ) Programas de trabajo </p>
+		<p class="estilo2">( ) Actas circunstanciadas &nbsp; &nbsp; &nbsp; (x)Diplomas o constancias de participación</p>
+		<p class="estilo2">( ) Otros___________________________________________</p>
+	</body>
+
+</html>

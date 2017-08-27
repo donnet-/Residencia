@@ -1,0 +1,9 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Control Actividades") do |sheet|
+    sheet.add_row ["Actividad", "Docente"]
+    @actividad.actividad_docentes.each do |actInv|
+		doc = Docente.find(actInv.docente_id)
+		act = Actividad.find(actInv.actividad_id)
+        sheet.add_row [act.nombreActividad, doc.nombreD + ' ' + doc.apPaterno + ' ' + doc.apMaterno]
+    end
+end

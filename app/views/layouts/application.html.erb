@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SIGED</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true%>
+  <%#= javascript_include_tag "autocomplete-rails.js" %>
+  <%#= favicon_link_tag "LogoITO.ico" %>
+  <%= csrf_meta_tags %>  
+</head>
+<body>
+  <%= auto_session_timeout_js frequency: 120%>
+    <div class="container">
+        <div id="cab-tec">
+            <div id="header-federal-tecnm"></div>
+            <h5 id="align-title"><b>Sistema Integral para el Departamento de Sistemas y Computación para el ITO (SIGED)</b></h5>
+        </div>                   
+    	<% if usuario_signed_in? %>
+			<div class="row">
+				<div class="col-xs-1" align="right" >                          
+					<%= link_to root_path, :method => :get, :title => "Inicio" do %><span class="glyphicon glyphicon-home blue"></span><% end %>        
+				</div>
+				<div class="col-xs-7" align="left">
+					<%= breadcrumbs display_single_fragment: true, separator: ' / ', class: "ruta" %>
+				</div>
+				<div class="col-xs-4" align="right">
+					<% if usuario_signed_in? %>
+						<%= current_usuario.email %>
+						<%= link_to "Cerrar sesión", destroy_usuario_session_path, method: :delete %>
+					<% else %>
+						<h3 id="align-title"><%= link_to "Loguearse", new_usuario_session_path %></h3>
+					<% end %> 
+				</div>
+			</div>
+		<% end %>
+		<% if notice %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
+	</div>
+    
+<%= yield %>
+    <div class="container">
+		<% if usuario_signed_in? %> 
+		  <% if request.path == "/"%> 
+			<% if current_usuario.rol == "admin" %>              
+			  <%= render "siged/notificaciones" %>          
+			<% elsif current_usuario.rol == "docente" %>        
+			  <%= render "siged/notificacionesDocente" %>
+			<% end %>
+		  <% end %>
+		<% end %>
+    </div>
+</body>
+</html>

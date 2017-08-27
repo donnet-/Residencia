@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <div id="marcoTitle"><h4 id="align-title">Generar Oficio de Comision/Orden de ministracion de viaticos </h4></div>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                <% else %>
+                    <div id="marco">
+                        <h5><b>Datos del documento: </b></h5>
+                        <%= form_tag(orden_ministracion_viaticos_actividad_path, method: 'get') do %>
+                            <% @arre = serie %>
+                            <%= hidden_field_tag :format, "pdf"%> 
+                            <div class="row">
+                                <div class="col-md-3"><b>No. oficio</b></div>
+                                <div class="col-md-3"><b>Fecha</b></div>
+                                <div class="col-md-3"><b>Cuota</b></div>
+                                <div class="col-md-3"><b>Nacionales</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <%= select_tag "numero", options_for_select(@arre, "xD"), class: "form-control" %>
+                                </div>
+                                <div class="col-md-3">
+                                    <% fec = Time.now
+                                        f = fec.strftime("%Y")+ "-" + fec.strftime("%m") + "-" + fec.strftime("%d") %>
+                                    <%= date_field_tag "fecha",f,class: "form-control" %>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <%= text_field_tag "cuota",nil, class: 'form-control' %>
+                                </div>
+                                <div class="col-md-3">
+                                    <%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]] ), class: "form-control"%>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"><b>Tipo de pago</b></div>
+                                <div class="col-md-3"><b>Nivel de aplicación</b></div>
+                                <div class="col-md-3"><b>Tipo zona</b></div>
+                                <div class="col-md-3"><b>Docente</b></div>
+
+                                <div class="col-md-3">
+                                    <%= select_tag "tipoAnDe", options_for_select([["Anticipados", "Anticipados"],["Devengados","Devengados"]]), class: "form-control"%>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <%= select_tag "nivelAp", options_for_select([["Ninguno", " "], ["A", "A"],["B","B"], ["C", "C"]]), class: "form-control"%>                                        
+                                </div>
+                                <div class="col-md-3">
+                                    <%= select_tag "tipoZona", options_for_select([["Ninguno", " "],["Zona más económica", "Zona más económica"],["Zona menos económica","Zona menos económica"]]), class: "form-control"%>
+                                </div>
+                                <div class="col-md-3">
+                                    <% d = Docente.find(acd.docente_id) %>
+                                    <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %>                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <b>Motivo de la comisión</b>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <%= text_field_tag "motivo", nil, class: "form-control" %>
+                                </div>                        
+                                <div class="col-md-6" align="right"> <%= submit_tag "Generar ", :formtarget => '_blank', class: 'btn btn-success'%></div>
+                            </div>
+                        <% end %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

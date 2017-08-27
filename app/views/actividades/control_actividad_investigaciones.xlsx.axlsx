@@ -1,0 +1,8 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Control Actividades") do |sheet|
+    sheet.add_row ["Nombre actividad", "Tipo actividad", "Fecha inicio", "Fecha término", "Lugar"]
+    @actividad_investigaciones.each do |actInv|
+		tipo = CatTipoActividad.find(actInv.cat_tipo_actividad_id)
+        sheet.add_row [actInv.nombreActividad, tipo.nombreTipoAct, actInv.fechaInicio, actInv.fechaTermino, actInv.lugar]
+    end
+end

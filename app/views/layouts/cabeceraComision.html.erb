@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">					
+			p.ito {
+				font-size: 13px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<table style="width: 100%">
+			<br>
+			<tbody>
+				<tr>
+					<td>
+						<% acti = Actividad.find(params[:id]) %>
+						<% if acti != nil %>
+							<% @a = CatTipoActividad.find(acti.cat_tipo_actividad_id) %>	
+							<%= wicked_pdf_image_tag(@a.cabecera_url, size: "800x115") %>
+						<% end %>
+					</td>
+				</tr>
+			</tbody>
+		</table>				
+	</body>
+</html>

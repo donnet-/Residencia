@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombreModulo: MyString
+  fechaInicio: 2017-03-28
+  fechaTermino: 2017-03-28
+  duracion: MyString
+  actividad_docente_id: 
+  actividad_id: 
+
+two:
+  nombreModulo: MyString
+  fechaInicio: 2017-03-28
+  fechaTermino: 2017-03-28
+  duracion: MyString
+  actividad_docente_id: 
+  actividad_id: 

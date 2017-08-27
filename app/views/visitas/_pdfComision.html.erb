@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="col-md-10" id="marco">
+        <h4 id="align-title">Generar Oficio de Comisión</h4>        
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                <% else %>
+                    <h5><b>Datos del documento: </b></h5>
+                    <%= form_tag(actividad_visita_path, method: 'get') do %>
+                        <% @arre = serie %>
+                        <%= hidden_field_tag :format, "pdf"%>
+                        <div class="row">
+                            <div class="col-md-2"><b>No. Oficio: </b></div>
+                            <div class="col-md-2">
+                            <%= select_tag "numero", options_for_select(@arre, "xD"), class: "form-control" %></div>                            
+                            <div class="col-md-1"><b>Fecha: </b></div>
+                            <div class="col-md-3">
+                            <%= date_field_tag "fecha", Date.today.strftime("%Y-%m-%d"), class: "form-control" %>
+                            </div>
+                            <div class="col-md-1"><b>Cargo: </b></div>
+                            <div class="col-md-3">                                
+                                <% @p = Puesto.find_by(docente_id: acd.docente_id, estado: "Activo") %>
+                                <% if @p != nil %>
+                                    <% @a = CatTipoPuesto. find(@p.cat_tipo_puesto_id).nombrePuesto%>
+                                    <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], "DOCENTE"), class: "form-control" %>
+                                <% else %>
+                                    <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"]], "DOCENTE"), class: "form-control" %>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <% d = Docente.find(acd.docente_id) %>
+                            <div class="col-md-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></div>
+                            <div class="col-md-4"><%= hidden_field_tag :docente, acd.docente_id %></div>
+                            <div class="col-md-4"><%= submit_tag "Generar", :formtarget => '_blank', class: 'btn btn-success' %></div>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% end %>        
+    </div>
+</div>

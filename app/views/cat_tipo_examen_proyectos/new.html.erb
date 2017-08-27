@@ -1,0 +1,12 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :cat_tipo_examen_proyecto_new%>
+    
+    <h3 id="align-title">Registro del Catálogo de Tipo de Examen Profesional y Proyectos</h3>
+    <%= render 'form' %>
+</div>

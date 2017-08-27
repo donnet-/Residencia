@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  claveMateria: MyString
+  nombreMat: MyString
+  credito: MyString
+  temario: MyString
+  estado: MyString
+  cat_plan_curso_id: 
+  user_id: 1
+
+two:
+  claveMateria: MyString
+  nombreMat: MyString
+  credito: MyString
+  temario: MyString
+  estado: MyString
+  cat_plan_curso_id: 
+  user_id: 1

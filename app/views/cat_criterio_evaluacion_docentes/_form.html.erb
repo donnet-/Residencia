@@ -1,0 +1,25 @@
+<div class="container">
+    <div style="padding:10px;">
+        <%= nested_form_for @evaluacion, validate: true do |eval| %>
+            <div class="row">
+                <div class="col-md-2"><%= eval.label :Número_de_criterio %></div>
+                <div class="col-md-4"><%= eval.number_field :numero,class: 'form-control', validate: true%></div>
+                <div class="col-md-1"><%= eval.label :Estado %></div>
+                <div class="col-md-4"><%= eval.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: 'form-control', validate: true %></div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"><%= eval.label :Criterio %></div>
+                <div class="col-md-11"><%= eval.text_area :criterio, validate: true, class: 'form-control'%></div>
+            </div>
+        
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= eval.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", cat_criterio_evaluacion_docentes_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

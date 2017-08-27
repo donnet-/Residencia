@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  numProyecto: MyString
+  nombreProy: MyString
+  asesorInterno: MyString
+  cat_tipo_examen_proyecto_id: MyString
+
+two:
+  numProyecto: MyString
+  nombreProy: MyString
+  asesorInterno: MyString
+  cat_tipo_examen_proyecto_id: MyString

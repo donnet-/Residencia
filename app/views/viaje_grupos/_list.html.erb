@@ -1,0 +1,42 @@
+<div class="container">
+    <h4>Grupos Inscritos</h4>
+    <div class="row">
+        <div class="col-xs-6">
+            <div id="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <th class="info"><%= sortable "curso_materia_id" %></th>
+                        <th class="info"><%= sortable "periodo" %></th>
+                        <th class="info"><%= sortable "cat_materia_id" %></th>
+                        <th class="info"><%= sortable "docente_id" %></th>
+                    </thead>
+                    <% @actividad.viaje_grupos.each do |p| %>
+                      <% if p.id != nil %>
+                        <tbody>   
+                            <% @viajgrup = CursoMateria.find(p.curso_materia_id) %>
+                            <% periodo = PeriodoCursMateria.find(@viajgrup.periodo_curs_materia_id) %>
+                            <td class="active"><%= @viajgrup.nombreGrupo %></td>
+                            <td class="active"><%= periodo.periodo %></td>
+                            <td class="active">
+                                <% @mat = CatMateria.find(@viajgrup.cat_materia_id) %>
+                                <%= @mat.claveMateria %> <%= @mat.nombreMat %>
+                            </td>
+                            <td class="active">
+                                <% periodo = PeriodoCursMateria.find(@viajgrup.periodo_curs_materia_id) %>
+                                <% @doc= Docente.find(periodo.docente_id) %>
+                                <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                            </td>
+                            <td class="active">
+                                <%= link_to [p.actividad, p], method: :delete, data: { confirm: 'Seguro que desea quitar al grupo del viaje?'} do %>
+                                    <span class="glyphicon glyphicon-trash red"></span>
+                                    <div class="tip" id="action3">Eliminar</div>
+                                <% end %>
+                            </td>
+                        </tbody>
+                        <% end %>
+                    <% end %>
+                </table>
+        </div>
+    </div>      
+</div>
+</div>

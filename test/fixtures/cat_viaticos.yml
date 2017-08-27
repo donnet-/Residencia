@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombreViatico: MyString
+  estado: MyString
+  user_id: 1
+
+two:
+  nombreViatico: MyString
+  estado: MyString
+  user_id: 1

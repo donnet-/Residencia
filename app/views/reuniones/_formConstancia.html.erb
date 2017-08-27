@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-10">
+            <h4>Constancia de Liberación de Actividades Academicas</h4>
+            <% docBase = Docente.where(tipoDocente: "De Base") %>
+            <% for docb in docBase %>
+                <% s = existeConst(@reunion.id, docb.id) %>
+                <% if s == true %>
+                <% else %>
+                    <% t = Time.now %><% @anio = t.strftime("%Y") %>
+                    <%= form_tag(oficio_constancias_reunion_path, method: 'get') do %>
+                        <div id="marco">
+                            <h5><b>Datos del documento: </b></h5>
+                            <%= hidden_field_tag :format, "pdf"%>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4"><b>Docente:</b> <%= docb.nombreD %> <%= docb.apPaterno %> <%= docb.apMaterno %> <%= hidden_field_tag :docente_id, docb.id %></div>
+                                <% fec = Time.now
+                                   f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+                                <div class="col-xs-6 col-sm-4">
+                                    <b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %>
+                                </div>
+                                <div class="col-xs-6 col-sm-4"><b>Periodo: </b><%= select_tag "periodo", options_for_select([["FEB-JUN/"+@anio.to_s, "FEBRERO-JUNIO/"+@anio.to_s], ["AGOSTO-DICIEMBRE/"+@anio.to_s, "AGOSTO-DICIEMBRE/"+@anio.to_s ]]) %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4"><b>Asistencia a reuniones convocadas: </b><%= select_tag "asistencia", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Participación en programas de formación y actualización docente: </b><%= select_tag "participacion", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Asesorías en procesos de titulación: </b><%= select_tag "asesoriaTitulacion", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4"><b>Propuestas de mejoras en la operación de programas y académicos: </b><%= select_tag "propuesta", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Sinodales en protocolos de titulación: </b><%= select_tag "sinodales", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Participación en eventos de la academia: </b><%= select_tag "partiEvento", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4"><b>Contribución con propuestas de mejora en planes y programas de estudio: </b><%= select_tag "contribucion", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Desarrollo de materiales de apoyo didáctico: </b><%= select_tag "desarrollo", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Propuestas para bancos de proyectos: </b><%= select_tag "propuestaBanco", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-4"><b>Asesorías académicas: </b><%= select_tag "asesoriaAcad", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Tutoría: </b><%= select_tag "tutoria", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><b>Particpación en comisiones académicas: </b><%= select_tag "particComision", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-2"><b>Otros: </b><%= select_tag "otros", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-10"><b>Especificar: </b><%= text_field_tag "otro" %></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-8"><b>¿Cumplió con las actividades académicas al 100%?: </b><%= select_tag "cumplio", options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                                <div class="col-xs-6 col-sm-4"><%= submit_tag "Generar", :class => 'btn btn-success', :formtarget => '_blank' %></div>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

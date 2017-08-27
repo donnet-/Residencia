@@ -1,0 +1,46 @@
+<div class="container">	
+   
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+
+    <h3 id="align-title">EStadísticas</h3>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-7">
+             <% if can? :create, PeriodoCursMateria %>
+                <% x = PeriodoCursMateria.find(params[:periodo_curs_materia_id]) %>
+                <%= button_to new_periodo_curs_materia_estadistica_path(x), :class => "btn btn-primary", :method => :get do %>
+                    <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+             <% end %>
+        </div>        
+        <% @periodo = PeriodoCursMateria.find(params[:periodo_curs_materia_id]) %>
+    <table class="table" id="archivos">
+        <thead>
+            <tr>                            
+                <th class="info">Grupo</th>
+                <th class="info">Materia</th>
+                <th class="info">Carrera</th> 
+                <th class="info">Acciones</th>
+            </tr>
+        </thead>        
+        <% @archivos.each do |archivos| %>                        
+            <tbody>
+                <td class="active"><%= archivos.curso_materia.nombreGrupo %></td>
+                <td class="active"><%= archivos.curso_materia.cat_materia.nombreMat %></td>                
+                <td class="active"><%= archivos.carrera %></td>
+                 <td class="active">
+                 	<%= link_to edit_periodo_curs_materia_estadistica_path(@periodo, archivos), :title => "Editar" do%> <span class="glyphicon glyphicon-pencil green"></span><% end %>
+                 	<%= link_to archivos, :method => :delete, data: { confirm: '¿Seguro que desea eliminar esta evidencia?' }, :title => "Eliminar" do %>
+                        <span class="glyphicon glyphicon-trash red"></span>                                
+                    <% end %>
+                 </td>
+            </tbody>
+            <% end %>
+        </table>
+        <%# will_paginate @archivos %>
+    </div>
+</div>

@@ -1,0 +1,1 @@
+$('#actividad_descripcion_trix_input_actividad').val("<%= @mapa_descrpcion.textoSugerido %>")

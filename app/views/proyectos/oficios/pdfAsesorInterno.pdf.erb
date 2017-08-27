@@ -1,0 +1,122 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Oficio para Asesor Interno</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 12px; }
+            table { border-collapse: collapse;}
+            table, th, td { border: black 1pt solid;  padding: 5px; }
+        </style>
+    </head>
+    <body>
+        <div>
+            <% lema = Configuracion.find_by(tipo: "Lema").contenido %>
+            <% tipoP = CatTipoPuesto.find_by(nombrePuesto: "Jefe del Departamento de Sistemas y Computacion").id %>
+            <% puesto = Puesto.where(cat_tipo_puesto_id: tipoP) %>
+            <% jefe = nil %>
+            <% for p in puesto %>
+                <% if p.estado == 'Activo' %>
+                    <% jefe = p.docente_id %>
+                <% end %>
+            <% end %>
+            <% jefeD = Docente.find(jefe) %>
+            
+            <% @grado = GradoEstudio.where(docente_id: jefeD.id).last %>
+            <% jefeDpto = nil%>
+            
+            <% if @grado != [] %>
+                <% jefeDpto = @grado.abrev + ' ' + jefeD.nombreD + ' ' +  jefeD.apPaterno + ' ' + jefeD.apMaterno %>
+            <% else %>
+                <% jefeDpto = jefeD.nombreD + ' ' +  jefeD.apPaterno + ' ' + jefeD.apMaterno %>
+            <% end %>
+            <% subAcademico = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+            
+            <% @x = oficioVinculacion(params[:numOficio], params[:fecha], params[:proyecto_id], params[:proyecto_docente_id], params[:proyecto_estudiante_id], lema, nil, jefeDpto, nil, subAcademico, nil) %> 
+        </div> 
+        <br/>
+        <div class="row" align="center" style="font-size: 12px">" <%= lema %> " </div>
+        <br/><br/>
+        <div class="row">
+            <p style="font-size: 14px;" align="right">
+                Departamento: Sistemas y Computación<br/>
+                No. De Oficio: JV-<%= @x.numOficio %>/<%= @x.anio %><br/>
+                ASUNTO: Asesor interno de <br/> Residencias Profesionales
+            </p>
+            <div class="col-lg-12" align="right" style="font-size: 13px">Oaxaca de Juárez, Oaxaca; <label style="background-color: black; color: white; font-size: 13px"><%= @x.fecha.day %>/<%= meses(@x.fecha.month).downcase %>/<%= @x.fecha.year %> </label></div>  
+        </div>
+        <br/>
+        <% @c = Configuracion.find_by(tipo: "Mexico") %>
+        <%= wicked_pdf_image_tag(@c.imagen_url, size: "700x600", :style => ' display: flex;  position: absolute; rigth: 50px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 14px;') %>
+        <div class="row">
+            <% proyDoc = ProyectoDocente.find(@x.proyecto_docente_id) %>
+            <% docente = Docente.find(proyDoc.docente_id) %>
+            <% grado = GradoEstudio.where(docente_id: docente.id).last %>
+            <p style="font-size: 16px">
+                <b>
+                    <% if grado != nil %> <%= grado.abrev.upcase %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% else %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% end %> <br/>
+                    CATEDRÁTICO DEL I.T. DE OAXACA, <br/>
+                    P R E S E N T E
+                </b>
+            </p>
+        </div>
+        <div class="row">
+            <p class="estilo" style="font-size: 16px;" align="justify">Por este conducto informo a usted que ha sido asignado para fungir como Asesor Interno del Proyecto de Residencias Profesionales que a continuación se describe: </p>
+        </div>
+        <div class="row">
+            <table style="width: 100%; font-size: 15px;">
+                <tbody>
+                    <tr>
+                        <% proEst = ProyectoEstudiante.find_by(numControl: @x.proyecto_estudiante_id) %>
+                        <% estudiante = Estudiante.find_by(numControl: proEst.numControl) %>
+                        <th align="left">a) Nombre del Residente </th>
+                        <th align="justify"><%= estudiante.apPaterno %> <%= estudiante.apMaterno %> <%= estudiante.nombre %></th>
+                    </tr>
+                    <tr>
+                        <% catEsp = CatEspecialidad.find(estudiante.cat_especialidad_id) %>
+                        <th align="left">b) Carrera </th>
+                        <th align="justify"><%= catEsp.nombreEsp %></th>
+                    </tr>
+                    <tr>
+                        <% proyecto = Proyecto.find(@x.proyecto_id) %>
+                        <th align="left">c) Nombre del Proyecto </th>
+                        <th align="justify"><%= proyecto.nombreProyecto %></th>
+                    </tr>
+                    <tr>
+                        <th align="left">d) Periodo de Realización </th>
+                        <th align="justify"><%= proyecto.periodo %></th>
+                    </tr>
+                    <tr>
+                        <th align="left">e) Empresa </th>
+                        <th align="justify"><%= proyecto.rfcEmpresa %></th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <p class="estilo" style="font-size: 16px;" align="justify">Así mismo, le solicito dar el seguimiento pertinente a la realización del proyecto aplicando los lineamientos establecidos para ello, en el procedimiento del SGC para Residencias Profesionales.</p>
+            <p align="justify">Agradezco de antemano su valioso apoyo en esta importante actividad para la formación profesional de nuestro estudiantado.</p>
+        </div>
+        <div class="row">
+            <p align="center" style="font-size: 16px;">
+                A T E N T A M E N T E <br/>
+                "Tecnología Propia e Independecia Económica"
+            </p>
+        </div>
+        <br/>
+        <div class="row">
+            <p align="center">
+                <%= @x.jefeDpto %> <br/>
+                Jefa del Departamento de Sistemas y computación
+            </p>
+        </div>
+        
+        <div class="row">
+            <p align="left" style="font-size: 10px;">
+                C.c.p. Coordinación de Carrera <br/>
+                C.c.p Expediente
+            </p>
+        </div>
+    </body>
+</html>

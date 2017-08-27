@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  pdfAnexo: MyString
+  fechaAnexo: 2017-03-09
+  derechosCedidos: false
+  proyecto_id: 
+  reunion_id: 
+  estado: MyString
+
+two:
+  pdfAnexo: MyString
+  fechaAnexo: 2017-03-09
+  derechosCedidos: false
+  proyecto_id: 
+  reunion_id: 
+  estado: MyString

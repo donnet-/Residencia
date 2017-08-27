@@ -1,0 +1,55 @@
+<div class="col-xs-6 col-sm-12">   
+    <div class="row">
+		<div class="col-xs-6 col-sm-12" id="div-cabecera" align="center"><b>Evidencia grupal</b></div>
+		<% @tipoAct = CatTipoActividad.find(@actividad.cat_tipo_actividad_id)
+		   @numTipoAct = @tipoAct.cat_evidencias.map(&:nombreEvidencia) %>
+		<% @x = 0 %>
+
+		<% for act in @numTipoAct%>
+			<% @evid = CatEvidencia.find_by(:nombreEvidencia => @numTipoAct[@x])%>
+			<div class="col-xs-6 col-sm-6" id="div-color"><%= @evid.nombreEvidencia %>
+			</div>
+			<div class="col-xs-6 col-sm-6" id="div-color">
+				<% actev = ActividadEvidencia.where(actividad_id: @actividad.id) %>
+				<% if actev != [] %>
+					<p>
+						<% @actividad.actividad_evidencias.each do |p| %>
+                       		<%= link_to edit_actividad_actividad_evidencia_path(@actividad, p), :title => "Editar pdf" do %><span class="glyphicon glyphicon-pencil green"></span><% end %>
+                            <%= link_to p.pdfEvidencia_url, :target => '_blank', :title => "Ver PDF" do %><span class="glyphicon glyphicon-file blue"></span><% end %>
+                    	<% end %>
+					</p>
+				<% else %>
+					<%#= render 'actividad_evidencias/form' %>
+					<% d = Date.today %>
+					<% if @evid.nombreEvidencia == 'Oficio de Liberacion' || @evid.nombreEvidencia == 'Oficio de Informe' || @evid.nombreEvidencia == 'Oficio de Cumplimiento/Constancia' || @evid.nombreEvidencia == 'PDF Evidencia de cumplimiento' %>
+						<% if d < @actividad.fechaTermino %>
+							<p style="color: red;">Aún no de puede subir la evidencia de cumplimiento o constancia</p>
+						<% else %>
+							<%= form_for [@actividad, @actividad.actividad_evidencias.build], validate: true do |evidencia| %>
+								<p>
+										<%= evidencia.hidden_field :cat_evidencia_id, value: @evid.id %>
+										<%= evidencia.file_field :pdfEvidencia, validate: true %>
+										<% evidencia.hidden_field :fechaActualizacion, value: Date.today %>
+										<%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+									</p>
+						 	<% end %>
+						<% end %>
+					<% else %>
+						<% if @actividad.fechaInicio >= d %>
+							<%= form_for [@actividad, @actividad.actividad_evidencias.build], validate: true do |evidencia| %>
+								<p>
+									<%= evidencia.hidden_field :cat_evidencia_id, value: @evid.id %>
+									<%= evidencia.file_field :pdfEvidencia, validate: true %>
+									<% evidencia.hidden_field :fechaActualizacion, value: Date.today %>
+									<%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+								</p>
+							 <% end %>
+						<% else %>
+							<p style="color: red">Aún no puede subir sus oficios!!</p>
+						<% end %>
+					<% end %>
+				<% end %>
+			</div>
+		<% end %>
+	</div>
+</div> 

@@ -1,0 +1,15 @@
+<% s = existe(act.actividad_id, act.docente) %>
+<% if s == true %>
+	<h5><b>Datos del documento: </b></h5>
+    <% @j = Oficio.find_by(actividad_id: act.actividad_id, docente: act.docente) %>
+    <%= form_tag(actividad_path, method: 'get') do %>
+    	<%= hidden_field_tag :format, "pdf"%>
+        <% d = Docente.find(act.docente) %>
+        <%= hidden_field_tag :docente, @j.docente %>
+		<%= hidden_field_tag :puesto, @j.puesto %>
+		<%= hidden_field_tag, :numero, @j.numero %>
+        <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+		<%= hidden_field_tag, :fecha, @j.f %>
+        <%= submit_tag "Ver", :formtarget => '_blank', class: 'btn btn-success', :id => 'ver' %>
+	<% end %>
+<% end %>

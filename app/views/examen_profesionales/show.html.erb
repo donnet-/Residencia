@@ -1,0 +1,47 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h3 id="align-title">EXAMEN PROFESIONAL</h3>
+	<div id="marco">
+		<div class="row">
+			<div class="col-xs-6 col-sm-4"><b>Nombre de la actividad: </b><%= @actividad.nombreActividad %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo actividad: </b><% @acti = CatTipoActividad.find(@actividad.cat_tipo_actividad_id) %>
+            <%= @acti.nombreTipoAct %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo comisión: </b> <%= @actividad.tipoComision %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-4"><b>Fecha inicio: </b><%= @actividad.fechaInicio %></div>
+			<div class="col-xs-6 col-sm-4"><b>Fecha término: </b><%= @actividad.fechaTermino %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo evidencia: </b><%= @actividad.tipoEvidencia %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-12"><b>Descripción: </b><%= @actividad.descripcion %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-12" align="right"><%= link_to edit_actividad_path(@actividad), :method => :get do %><span class="glyphicon glyphicon-pencil green" title="Editar actividad"></span><% end %></div>
+		</div>
+		<% @e = ExamenProfesional.find_by(actividad_id: @actividad.id) %>
+		<% @examen = ExamenProfesional.find(params[:id]) %> 
+		<div class="row">
+			<div class="col-xs-6 col-sm-4"><b>Hora del examen: </b><%= @examen.hora %></div>
+			<div class="col-xs-6 col-sm-4"><b>Tipo examen: </b> <% a = CatTipoExamenProyecto.find(@examen.cat_tipo_examen_proyecto_id) %><%= a.nombreTipoP %></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-8"><b>Participante: </b>
+				<% @Participantes = Egresado.where(examen_profesional_id: params[:id]) %>
+				<% @Participantes.each do |p| %>
+					<% est = Estudiante.find_by(numControl: p.numControl) %>
+					<%= p.numControl %> <%= est.nombre %> <%= est.apPaterno %> <%= est.apMaterno %>
+				<% end %>
+			</div>
+			<div class="col-xs-6 col-sm-4"><%= link_to  edit_actividad_examen_profesional_path(@actividad, @examen), :method => :get do %><span class="glyphicon glyphicon-pencil green" title="Editar examen"></span><% end %></div>
+		</div>
+	</div>      
+</div>
+
+

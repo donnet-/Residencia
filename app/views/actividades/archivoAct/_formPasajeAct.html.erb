@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-10">
+            <div id="marcoTitle"><h4 id="align-title">Generar orden de servicio de pasajes </h4></div>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                <% else %>
+                    <div id="marco">
+                        <h5><b>Datos del documento: </b></h5>
+                        <%= form_tag(orden_servicio_pasajes_actividad_path, method: 'get') do %>
+                            <% @arre = serie %>
+                            <%= hidden_field_tag :format, "pdf"%> 
+                            <div class="row">
+                                <div class="col-md-3"><b>No. Oficio</b></div>
+                                <div class="col-md-3"><b>Fecha</b> </div>
+                                <div class="col-md-3"><b>Punto de partida</b></div>
+                                <div class="col-md-3"><b>Punto de llegada</b></div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <%= select_tag "numero", options_for_select(@arre, "x"), class: "form-control" %>
+                                </div>
+                                <% fec = Time.now
+                                    f = fec.strftime("%Y")+ "-" + fec.strftime("%m") + "-" + fec.strftime("%d") %>
+                                <div class="col-md-3">
+                                    <%= date_field_tag "fecha", f, class: "form-control" %>
+                                </div>
+                                <div class="col-md-3">
+                                    <%= text_field_tag "pPartida", nil, class: "form-control" %>
+                                </div>
+                                <div class="col-md-3">
+                                    <%= text_field_tag "pLlegada", nil, class: "form-control"%>
+                                </div>
+                            </div>
+                            <div class="row">
+                            <div class="col-md-3"><b>Clase de Servicio</b></div>
+                            <div class="col-md-3"><b>Importe</b></div>
+                            <div class="col-md-3"><b>Docente</b></div>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <%= text_field_tag "claseServ",nil, class: 'form-control' %>
+                                </div>
+                                <div class="col-md-3">
+                                    <%= text_field_tag "importe",nil, class: "form-control" %>                                        
+                                </div>
+                                <div class="col-md-3">
+                                    <% d = Docente.find(acd.docente_id) %>
+                                    <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %>                                    
+                                </div>
+                                <div class="col-md-3">
+                                    <%= submit_tag "Generar ", :formtarget => '_blank', class: 'btn btn-success'%>
+                                </div>
+                        </div>
+                        <% end %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

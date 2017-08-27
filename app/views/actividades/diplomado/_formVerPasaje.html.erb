@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="col-xs-6 col-sm-10" id="marco">
+        <h4 id="align-title">Oficios generados: Orden de Servicio para Pasajes Nacionales</h4>
+        <% @mod = ModuloDiplomado.find_by(actividad_id: @actividad.id) %>
+        <% if @mod == nil%>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <h5><b>Datos del documento: </b></h5>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                    <% @j = Oficio.find_by(actividad_id: @actividad.id, docente: acd.docente_id) %>
+                    <%= form_tag(orden_servicio_pasajes_actividad_path, method: 'get') do %>
+                        <%= hidden_field_tag :format, "pdf" %>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-2"><b>No. Oficio: </b><%= @j.numero %></div>
+                            <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                            <div class="col-xs-6 col-sm-3"><b>Fecha: </b><%= text_field_tag "fecha", f, 'data-behaviour'=> 'datepicker' %></div>
+                            <div class="col-xs-6 col-sm-4"><b>Punto de partida: </b><%= text_field_tag "pPartida", @j.pPartida %></div>
+                            <div class="col-xs-6 col-sm-3"><b>Punto de llegada: </b><%= text_field_tag "pLlegada", @j.pLlegada %></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3"><b>Clase de Servicio: </b><%= text_field_tag "claseServ", @j.claseServ %></div>
+                            <div class="col-xs-6 col-sm-3"><b>Importe: </b><%= text_field_tag "importe", @j.importe %></div>
+                            <% d = Docente.find(acd.docente_id) %>
+                            <div class="col-xs-6 col-sm-3"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %></div>
+                            <div class="col-xs-6 col-sm-3">
+                                <%= submit_tag "Generar ", :formtarget => '_blank', class: 'btn btn-success'%></div>
+                        </div>
+                    <% end %>
+                <% else %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <% @actividad.modulo_diplomados.each do |p| %>
+                <% docmod = p.actividad_docentes.map(&:docente_id) %>
+                <% if docmod == [] %>
+                <% else %>
+                    <% for dm in docmod %>
+                        <% s = existeOAM(@actividad.id, dm, p.id) %>
+                        <% if s == true %>
+                            <% @j = Oficio.find_by(actividad_id: @actividad.id, docente: dm, modulo: p.id) %>
+                            <h5><b>Datos del documento: </b></h5>
+                            <%= form_tag(orden_servicio_pasajes_actividad_path, method: 'get') do %>
+                                <%= hidden_field_tag :format, "pdf" %>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-2"><b>No. Oficio: </b><%= @j.numero %></div>
+                                    <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                                    <div class="col-xs-6 col-sm-3"><b>Fecha: </b><%= text_field_tag "fecha", f, 'data-behaviour'=> 'datepicker' %></div>
+                                    <div class="col-xs-6 col-sm-4"><b>Punto de partida: </b><%= text_field_tag "pPartida", @j.pPartida %></div>
+                                    <div class="col-xs-6 col-sm-3"><b>Punto de llegada: </b><%= text_field_tag "pLlegada", @j.pLlegada %></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-3"><b>Clase de Servicio: </b><%= text_field_tag "claseServ", @j.claseServ %></div>
+                                    <div class="col-xs-6 col-sm-3"><b>Importe: </b><%= text_field_tag "importe", @j.importe %></div>
+                                    <div class="col-xs-6 col-sm-4"><b>Módulo: </b><%= p.nombreModulo %><%= hidden_field_tag :modulo, @j.modulo %></div>
+                                </div>
+                                <div class="row">
+                                    <% d = Docente.find(@j.docente) %>
+                                    <div class="col-xs-6 col-sm-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, dm %></div>
+                                    <div class="col-xs-6 col-sm-3"><%= submit_tag "Generar ", :formtarget => '_blank', class: 'btn btn-success'%></div>
+                                </div>
+                            <% end %>
+                        <% else %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

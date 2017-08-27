@@ -1,0 +1,108 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :docente, @docente %>
+    
+    <div id="marco">
+		<h5 id="title-align"><b>Datos generales: </b></h5>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Curp: </b><%= @docente.curp %></div>
+            <div class="col-xs-6 col-sm-4"><b>Rfc: </b><%= @docente.rfc %></div>
+            <div class="col-xs-6 col-sm-4"><b>Clave presupuestal: </b><%= @docente.clavePresupuestal %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Nombre: </b>
+                <%= @docente.nombreD %> <%= @docente.apPaterno %> <%= @docente.apMaterno %>
+            </div>
+            <div class="col-xs-6 col-sm-4"><b>Género: </b><%= @docente.genero %></div>
+            <div class="col-xs-6 col-sm-4"><b>Contacto: </b><%= @docente.contacto %> </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Correo electrónico: </b><%= @docente.email %></div>
+            <div class="col-xs-6 col-sm-4"><b>Tipo: </b><%= @docente.tipoDocente %></div>
+            <div class="col-xs-6 col-sm-4"><b>Departamento: </b>
+                <% @dpto = CatDepartamento.find(@docente.cat_departamento_id) %>
+                <%= @dpto.nombreDpto %>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Núm. Curriculum: </b> <%= @docente.numCurriculum %></div>
+            <div class="col-xs-6 col-sm-4"><b>Tipo de curriculum: </b><%= @docente.tipoCurriculum %></div>
+            <div class="col-xs-6 col-sm-2"><b>Curriculum: </b>
+                <% if @docente.pdfCurriculum == nil %>
+                    <span class="glyphicon glyphicon-warning-sign orange"></span>
+                    <div class="tip" id="empty">Faltan campos por rellenar</div>
+                <% else %>
+                    <%= link_to @docente.pdfCurriculum_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue"></span>
+                        <div class="tip" id="pdf">Ver PDF</div>
+                    <% end %>
+                <% end %>
+            </div>
+            <div class="col-xs-6 col-sm-2"><b>Estado: </b><%= @docente.estado %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4">
+                <% if @docente.sni == "Si" %>
+                    <p><b>Sistema Nacional de Investigación: </b> <%= @docente.sni %></p>
+                    <% @docente.archivo_docentes.each do |sni| %>
+                        <p><b><%= sni.etiqueta %>: </b> <%= link_to  sni.archivoPdf_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue", title="Abrir PDF"></span><% end %></p>
+                    <% end %>
+                <% else %>
+                    <p><b>Sistema Nacional de Investigación: </b> <%= @docente.sni %></p>
+                <% end %>
+            </div>
+            <div class="col-xs-6 col-sm-4">
+                <% if @docente.prodep == "Si" %>
+                    <p><b>Perfil deseable PRODEP: </b> <%= @docente.prodep %></p>
+                    <% @docente.archivo_prodep_docentes.each do |prodep| %>
+                        <p><b><%= prodep.etiqueta %>: </b> <%= link_to  prodep.archivoPdf_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue", title="Abrir PDF"></span><% end %></p>
+                    <% end %>
+                <% else %>
+                    <p><b>Perfil deseable PRODEP: </b> <%= @docente.sni %></p>
+                <% end %>
+            </div>
+        </div>
+        <div class="container row">
+            <b>Grado de estudio: </b>
+                <% @docente.grado_estudios.each do |p| %>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-5"><b>Grado estudio: </b> <%= p.abrev %> <%= p.nombreGrado %></div>
+                        <div class="col-xs-6 col-sm-4"><b>Institucion: </b><%= p.institucion %></div>
+                        <div class="col-xs-6 col-sm-3"><b>Evidencia: </b><%= link_to p.pdfEvidencia_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue", title="Abrir PDF"></span><% end %></div>
+                    </div>
+                <% end %>
+        </div>
+        <div class="container row">
+            <% if @docente.tipoDocente == 'Honorario' %>
+                <%= render 'convenio_honorarios/list' %>
+                <% if can? :create, @docente %>
+                    <div style="margin-left: 15px">
+                        <input type="radio" name="tipo_attach" onclick="mostrar(this)" value="ho"> Agregar Datos del Docente de Honorario semestralmente
+
+                        <div id = honorario style='display:none;'>
+                            <%= render "convenio_honorarios/form" %>
+                        </div>
+                    </div>
+                <% end %>
+            <% elsif  @docente.tipoDocente == 'De Base'%>
+                <%= render 'puestos/list' %>
+                <% if can? :create, @docente %>
+                    <button name = "tipoDocen" onclick="tipoDocente('p')", class="btn btn-warning"><i class="glyphicon glyphicon-cog"><div class="tip" id="grado">Grado de estudio</div></i></button>
+                    <div id=plaza style='display:none;'>
+                        <%= render "puestos/form" %>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-12" align="right">
+                <% if can? :update, @docente %>
+                <%= link_to edit_docente_path(@docente), :method => :get do %><span class="glyphicon glyphicon-pencil green" id="margen-icon"></span><div class="tip" id="action2">Editar</div><% end %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

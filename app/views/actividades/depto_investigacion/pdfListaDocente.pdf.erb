@@ -1,0 +1,44 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lista de docentes por actividad</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 14px; }
+            td.viatico { font-size: 14px; }
+        </style>
+    </head>
+    <body>
+        <div class="row">
+            <p align="center">Departamento de Investigación</p>
+        </div>
+        <div style="width: 100%">
+            <% @x = Date.today %>
+            <p align="right" class="estilo">
+                Oaxaca de Juárez, Oax; <%= @x.day %> de <%= meses(@x.month).downcase %> de <%= @x.year %>
+            </p>
+        </div>
+        <br/>
+        <div class="row" style="border: black 1pt solid; padding: 10px;" align="justify">
+            <% actividad = Actividad.find(params[:actividad_id]) %>
+            <p class="estilo" align="center"><b>Datos de la Actividad</b></p>
+            <p class="estilo"><b>Nombre de la actividad: </b> <%= actividad.nombreActividad %></p>
+            <% tipoAct = CatTipoActividad.find(actividad.cat_tipo_actividad_id) %>
+            
+            <p class="estilo"><b>Tipo Actividad: </b> <%= tipoAct.nombreTipoAct %> </p>
+            <p class="estilo"><b>Duración: </b> <%= actividad.fechaInicio %> al <%= actividad.fechaTermino %> </p>
+        </div>
+        <div class="row" style="border: black 1pt solid; padding: 10px;">
+            <p class="estilo" align="center"><b>Docentes que asistieron a la actividad</b> </p>
+            <ol style=" font-size: 14px;">
+                <% actividad.actividad_docentes.each do |actdoc| %>
+                    <% @doc = Docente.find(actdoc.docente_id) %>
+					
+                    <% grado = GradoEstudio.find_by(docente_id: actdoc.docente_id) %>				
+                    <li style=" font-size: 14px;"><% if grado != nil %> <%= grado.abrev.upcase %> <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %> <% else %> <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %> <% end %></li>
+                <% end %>
+            </ol>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,171 @@
+<div class="container">
+    <div class="row">
+       <% if current_usuario.rol == 'admin' %>
+            <%= render template: "siged/menuAdmin" %>
+        <% elsif current_usuario.rol == 'docente' %>
+            <%= render template: "siged/menuDocente" %>
+        <% end %>
+        <% breadcrumb :liberacion_docente_edit, @periodo_liberacion %>
+    </div>
+    <h3 id="align-title">Editar registro de Liberacion de Actividades por Grupo</h3>
+    
+    <div class="marco">
+        <%= nested_form_for @periodo_liberacion, validate: true do |lib| %>
+            <div class="row">
+                <% t = Time.now %><% @anio = t.strftime("%Y") %>
+                <div class="col-md-1"><%= lib.label :Periodo %></div>
+                <div class="col-md-3">
+                    <%= lib.select :periodo, options_for_select([["FEBRERO-JUNIO/"+@anio.to_s, "FEBRERO-JUNIO/"+@anio.to_s], ["AGOSTO-DICIEMBRE/"+@anio.to_s, "AGOSTO-DICIEMBRE/"+@anio.to_s ]], :selected => @periodo_liberacion.periodo), {}, class: "form-control" %>
+                </div>
+				<div class="col-md-3"><%= lib.label :Cabecera %><% if lib.object.cabeceraPeriodo.file != nil %> <%= lib.object.cabeceraPeriodo.file.filename %> <% end %></div>
+				<div class="col-md-5"><%= lib.file_field :cabeceraPeriodo, class: "form-control" %></div>
+            </div>
+			<div class="row">
+				<div class="col-md-1"><%= lib.label :Nota %></div>
+				<div class="col-md-11"><%= lib.text_area :notaAbajo, validate: true, class: "form-control" %> </div>
+			</div>
+        
+            <fieldset id="lib-curso-docente">
+               <%= lib.fields_for :lib_curso_docentes, validate: true do |libdoc| %>
+                    <% if libdoc.object.id != nil %>
+                        <% libeval = LibDocCriterio.where(lib_curso_docente_id: libdoc.object.id) %>
+                
+                        <% evd = false %>
+                        <% libeval.each do |ev| %>
+                            <% if ev.respuesta == "" %>
+                                <% evd = true %>
+                            <% end %>
+                        <% end %>
+                        <% d = Docente.find(libdoc.object.docente_id) %>
+                        <% if evd != true && libdoc.object.liberado != "" %>
+							<div style="border: 2px solid green; padding: 2px;" onclick="muestraPanel('<%= d.id%>')"><%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></div><p style="margin-bottom: 5px;"></p>
+                            <div id="<%= d.id %>" style="display: none;  border: 2px solid #ccc; padding: 2px; ">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%= libdoc.label :Docente %><b>: <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></b>
+                                        <%= libdoc.hidden_field :docente_id %>
+                                    </div>
+                                    <div class="col-md-1" align="right"><b>Fecha: </b></div>
+                                    <div class="col-md-4">                                    
+                                    <%= libdoc.date_field :fecha, class: "form-control"%></div>
+                                </div>
+
+                                <fieldset id="lib-doc-criterio">
+                                    <% crit = CatCriterioEvaluacionDocente.where(estado:  'Activo') %>
+                                    <%= libdoc.fields_for :lib_doc_criterios, validate: true do |dc| %>
+                                        <div class="row">
+                                            <% c = CatCriterioEvaluacionDocente.find(dc.object.criterio_id) %>
+                                            <div class="col-md-1">
+												<b><%= dc.label :Criterio %> <%= c.numero %></b>
+                                            </div>
+                                            <div class="col-md-7">
+                                                 <b><%= c.criterio %></b>
+                                                <%= dc.hidden_field :criterio_id %>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <%= dc.select :respuesta, options_for_select([["Entrego en tiempo y forma ", "s"],["No entrego en tiempo y forma","n"], ["No entrego", "ne"], ["N/A", "na"]], :selected => dc.object.respuesta), {include_blank: "Seleccione..."}, class: "form-control"%>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                </fieldset>
+                                <div class="row">
+                                	<div class="col-md-8"><%= libdoc.label :Liberación_de_actividades %> </div>
+                                	<div class="col-md-4"><%= libdoc.select :liberado, options_for_select([["Si", "s"],["No","n"]], :selected => libdoc.object.liberado), {include_blank: "Seleccione..."}, class: "form-control" %></div>
+                            	</div>
+                            </div>
+                        <% else %>
+							<div style="border: 2px solid red; padding: 2px;" onclick="muestraPanel('<%= d.id%>')"><%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></div><p style="margin-bottom: 5px;"></p>
+                            <div id="<%= d.id %>" style="display: none;  border: 2px solid #ccc; padding: 2px; ">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <%= libdoc.label :Docente %><b>: <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></b>
+                                        <%= libdoc.hidden_field :docente_id %>
+                                    </div>
+                                    <div class="col-md-1" align="right"><b>Fecha: </b></div>
+                                    <div class="col-md-3">
+                                    <%= libdoc.date_field :fecha, class: "form-control"%></div>
+                                </div>
+
+                                <fieldset id="lib-doc-criterio">
+                                    <% crit = CatCriterioEvaluacionDocente.where(estado:  'Activo') %>
+                                    <%= libdoc.fields_for :lib_doc_criterios, validate: true do |dc| %>
+                                        <div class="row">
+                                            <% c = CatCriterioEvaluacionDocente.find(dc.object.criterio_id) %>
+                                            <div class="col-md-2">
+                                                <%= dc.label :Criterio %>
+												<b><%= c.numero %> </b>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <b><%= c.criterio %></b>
+                                                <%= dc.hidden_field :criterio_id %>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <%= dc.select :respuesta, options_for_select([["Entrego en tiempo y forma ", "s"],["No entrego en tiempo y forma","n"], ["No entrego", "ne"], ["N/A", "na"]]), {include_blank: "Seleccione..."}, class: "form-control" %>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                </fieldset>
+
+                                <div class="row">
+                                    <div class="col-md-8"><%= libdoc.label :Liberación_de_actividades %> </div>
+                                    <div class="col-md-4"><%= libdoc.select :liberado, options_for_select([["Si", "s"],["No","n"]]), {include_blank: true}, class: "form-control" %></div>
+                                </div>
+                            </div>
+                        <% end %>
+                    <% else %>
+                        <% d = Docente.find(libdoc.object.docente_id) %>
+                        <div id="marcoTitle">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <%= libdoc.label :Docente %><b>: <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></b>
+                                    <%= libdoc.hidden_field :docente_id %>
+                                </div>
+                                <% fec = Time.now
+                                f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+                                <div class="col-md-1" align="right"><b>Fecha: </b>
+                                </div>
+                                <div class="col-md-4">
+                                <%= libdoc.date_field :fecha, class: "form-control" %></div>
+
+                            </div>
+
+                            <fieldset id="lib-doc-criterio">
+                                <% crit = CatCriterioEvaluacionDocente.where(estado:  'Activo') %>
+                                <%= libdoc.fields_for :lib_doc_criterios, validate: true do |dc| %>
+                                    <div class="row">
+                                        <% c = CatCriterioEvaluacionDocente.find(dc.object.criterio_id) %>
+                                        <div class="col-md-1">
+                                            <b> <%= dc.label :Criterio %>
+												<%= c.numero %> </b>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <b><%= c.criterio %></b>
+                                            <%= dc.hidden_field :criterio_id %>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <%= dc.select :respuesta, options_for_select([["Entrego en tiempo y forma ", "s"],["No entrego en tiempo y forma","n"], ["No entrego", "ne"], ["N/A", "na"]]), {include_blank: true}, class: "form-control"%>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </fieldset>
+
+                            <div class="row">
+                                <div class="col-md-8"><%= libdoc.label :Liberación_de_actividades %> </div>
+                                <div class="col-md-4"><%= libdoc.select :liberado, options_for_select([["Si", "s"],["No","n"]]), {include_blank: true}, class: "form-control" %></div>
+                            </div>
+                        </div>
+                    <% end %>
+                <% end %>
+            </fieldset>
+        
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= lib.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+            <div class="col-xs-6 col-md-4">
+                <%= button_to "Cancelar", periodo_liberacion_cursos_path, :class => 'btn btn-warning', :method => :get %>
+            </div>
+        </div>
+    </div>
+</div>

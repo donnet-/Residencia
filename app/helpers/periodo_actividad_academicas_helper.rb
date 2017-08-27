@@ -1,0 +1,2 @@
+module PeriodoActividadAcademicasHelper
+end

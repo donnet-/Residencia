@@ -1,0 +1,25 @@
+<%= form_for [@actividad, @actividad.actividad_evidencias.build], validate: true do |evidencia| %>
+	<% @tipoAct = CatTipoActividad.find(@actividad.cat_tipo_actividad_id)
+	   @numTipoAct = @tipoAct.cat_evidencias.map(&:nombreEvidencia) %>
+		<% @evid = CatEvidencia.where(:nombreEvidencia => @numTipoAct)%>
+
+	<div class="row">
+		<%= evidencia.label :Evidencia %>
+		<%= evidencia.select :cat_evidencia_id, @evid.collect{ |p| [ p.nombreEvidencia, p.id ] }, include_blank: true, validate: true %>
+	</div>
+
+	<div class="row">
+		<%= evidencia.file_field :pdfEvidencia, validate: true %>
+	</div>
+
+	<div class="row">
+		<% evidencia.label :Fecha, :class => 'col-xs-4 col-md-4' %>
+		<% evidencia.hidden_field :fechaActualizacion, 'data-behaviour' => 'datepicker', validate: true %>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-2 col-md-4" id="btn-cancelar">
+			<%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+		</div>
+	</div>
+ <% end %>

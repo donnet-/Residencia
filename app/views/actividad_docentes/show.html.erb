@@ -1,0 +1,107 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <% @docent = Docente.find_by(email: current_usuario.email) %>
+        <% @puest = Puesto.find_by(docente_id: @docent.id) %>
+        <% if @puest != nil %>
+            <% @tipoP = CatTipoPuesto.find(@puest.cat_tipo_puesto_id) %>
+                <% if @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Presidente de Academia'|| @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Secretario de Academia'%>
+                    <%= render template: "siged/menuAcademia" %>
+                <% elsif @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Jefe de Proyecto de Docencia' %>
+                    <%= render template: "siged/menuDocencia" %>
+                <% elsif @puest.estado == 'Activo' && @tipoP.nombrePuesto == 'Jefe de Investigacion' %>
+                    <%= render template: "siged/menuInvestigacion" %>
+                <% else %>
+                    <%= render template: "siged/menuDocente" %>
+                <% end %>
+         <% else %>
+            <%= render template: "siged/menuDocente" %>
+        <% end %>
+    <% end %>
+    <% breadcrumb :actividad_docente, @actDoc%>
+    
+    <h3 id="align-title">Datos de la Actividad</h3>
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-2"><b>Nombre actividad:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @actividad.nombreActividad %></div>
+            <div class="col-xs-6 col-sm-2"><b>Tipo actividad:</b></div>
+            <div class="col-xs-6 col-sm-3"><% @acti = CatTipoActividad.find(@actividad.cat_tipo_actividad_id) %><%= @acti.nombreTipoAct %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-2"><b>Tipo comisión:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @actividad.tipoComision %></div>
+            <div class="col-xs-6 col-sm-2"><b>Tipo evidencia:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @actividad.tipoEvidencia %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-2"><b>Fecha incio:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @actividad.fechaInicio.strftime("%d-%m-%Y") %></div>
+            <div class="col-xs-6 col-sm-2"><b>Fecha término:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @actividad.fechaTermino.strftime("%d-%m-%Y") %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-2"><b>Docente:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @actDoc.docente.nombreD %> <%= @actDoc.docente.apPaterno %> <%= @actDoc.docente.apMaterno %></div>            
+        </div>
+        <div class="row">            
+            <div class="col-xs-6 col-sm-12"><b>Descripción:</b> <%= @actividad.descripcion %></div>
+        </div>
+    </div>
+    <br/>
+    <h4 id="align-title">Evidencias Individuales</h4>
+    
+    <div id="marco">
+        <% @tipoAct = CatTipoActividad.find(@actividad.cat_tipo_actividad_id)
+           @numTipoAct = @tipoAct.cat_evidencias.map(&:nombreEvidencia) %>
+        <% @x = 0 %>
+        <div class="row">
+            
+            <% for act in @numTipoAct%>
+                <% @evid = CatEvidencia.find_by(:nombreEvidencia => @numTipoAct[@x])%>
+                    <p><b style="margin-left: 5%;"><%= @evid.nombreEvidencia %></b></p>
+                    <div class="col-xs-6 col-sm-3">
+                        <% @actDoc.act_individual_docentes.each do |evi| %>
+                            <% @evi = CatEvidencia.find(evi.cat_evidencia_id) %>
+                            <% if @evi.nombreEvidencia == @evid.nombreEvidencia %>
+                                <% if evi.pdfEvidencia.file == nil%>
+                                    <span class="glyphicon glyphicon-warning-sign orange"></span>
+                                    <div class="tip" id="empty">Falta subir el archivo</div>
+
+                                <% else %>
+                                    <%= link_to evi.pdfEvidencia_url, :target => '_blank', :title => "Abrir pdf" do %>
+                                        <span class="glyphicon glyphicon-file blue"></span>
+                                        <div class="tip" id="pdf">Abrir pdf</div>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </div>
+                <% @x = @x+1 %>
+                <div class="col-xs-6 col-sm-6">
+                    <% if can? :create, ActIndividualDocente %>
+						<% d = Date.today %>
+						<% if @evid.nombreEvidencia == 'Oficio de Liberacion' || @evid.nombreEvidencia == 'Oficio de Informe' || @evid.nombreEvidencia == 'Oficio de Cumplimiento/Constancia' || @evid.nombreEvidencia == 'PDF Evidencia de cumplimiento' %>
+							<% if  d < @actividad.fechaTermino %>
+								<p style="color: red;">Aún no de puede subir la evidencia de cumplimiento o constancia</p>
+							<% else %>
+							<%= link_to new_actividad_actividad_docente_act_individual_docente_path(@actividad, @actDoc, cat_evidencia_id: @evid.id) do %>
+							<span class="glyphicon glyphicon-pencil green"></span><% end %>
+							<% end %>
+						<% else %>
+							<% if d < @actividad.fechaInicio %>
+								<p style="color: red">Aún no puede subir sus oficios!!</p>
+							<% else %>
+								<%= link_to new_actividad_actividad_docente_act_individual_docente_path(@actividad, @actDoc, cat_evidencia_id: @evid.id) do %> <span class="glyphicon glyphicon-pencil green"></span><% end %>
+							<% end %>
+						<% end %>
+                    <% end %>
+                </div>
+            <br/>
+            <% end %>
+        </div>
+    </div>
+</div>
+    

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Constancia de liberación de actividades frente a grupo</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 14px; }
+            table { border-collapse: collapse; }
+            table, th, td { border: black 1pt solid; padding: 5px;, font-size: 15px; }
+            body { font-size: 12px;}
+        </style>
+    </head>
+    <body>
+        <% libcur = LiberacionCurso.find(params[:liberacion_curso])%>
+        <% libdoc = LiberacioDocenteCurso.find(params[:liberacion_docente]) %>
+        <% doc = Docente.find(params[:docente_id])%>
+        <% @grado = GradoEstudio.where(docente_id: doc.id).last %>
+        <br/><br/><br/>
+        <div style="width: 100%">
+            <div class="row">
+                <div class="col-lg-6" align="right" style="font-size: 15px;"> DEPARTAMENTO DE:</div>
+                <div class="col-lg-5" align="center" style="border-bottom: black 1px solid; margin-left: 8%; font-size: 15px;">SISTEMAS Y COMPUTACIÓN</div>
+            </div>
+            <br/><br/>
+            <div class="row">
+                <div class="col-lg-5" style="margin-left: 60%;"><p align="CENTER" style="border-bottom: black 1px solid; font-size: 15px;">Oaxaca de Juárez, Oax., a <%= libdoc.fecha.day %> de <%= meses(libdoc.fecha.month).downcase %> de <%= libdoc.fecha.year %></p></div>
+            </div>
+            <% @c = Configuracion.find_by(tipo: "Mexico") %>	
+            <%= wicked_pdf_image_tag(@c.imagen_url, size: "800x600", :style => ' display: flex;  position: absolute; rigth: 150px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 12px;') %>
+            <br/><br/>
+            <div class="row">
+                <p align="right" style="font-size: 15px;">ASUNTO: CONSTANCIA DE LIBERACIÓN DE <br/> ACTIVIDADES FRENTE A GRUPO</p>
+            </div>
+        </div>
+        <div style="width: 100%">
+            <p align="left" style="font-size: 15px;"><b><%if @grado == nil %> <%= doc.nombreD.upcase %> <%= doc.apPaterno.upcase %> <%= doc.apMaterno.upcase %> <% else %><%= @grado.abrev.upcase %> <%= doc.nombreD.upcase %> <%= doc.apPaterno.upcase %> <%= doc.apMaterno.upcase %> <% end %> <br/> DOCENTE ADSCRITO AL DEPARTAMENTO DE DE SISTEMAS Y COMPUTACIÓN <br/>PRESENTE</b></p>
+        </div>
+        <br/>
+        <div style="width: 100%">
+            <p align="justify" style="font-size: 15px;">Por este medio <% if doc.genero == 'F' %> de la <% else %> del <% end %> presente se hace de su conocimiento que durante el semestre <%= libcur.periodo.upcase %>, se evaluó el cumplimiento de las siguientes actividades docentes: </p>
+        </div>
+        <br/>
+        <div style="width: 100%">
+            <table>
+                <tbody>
+                    <tr style="font-size: 15px;">
+                        <td><b>N°</b></td>
+                        <td align="center"><b>ACTIVIDADES</b></td>
+                        <td><b>SI</b></td>
+                        <td><b>NO</b></td>
+                        <td><b>NA</b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>1</td>
+                        <td>La elaboración y entrega de la dosificación de  la planeación del curso y avance programático de las materias impartidas (TecNM-AC-PO-003-01)</td>
+                        <td><b><% if libdoc.dosificacion == 's' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.dosificacion == 'n' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.dosificacion == 'na' %> X <% else %> <% end %></b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>2</td>
+                        <td>La elaboración y entrega de la instrumentación didáctica (TecNM-AC-PO-003-02)</td>
+                        <td><b><% if libdoc.instrumentacion == 's' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.instrumentacion == 'n' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.instrumentacion == 'na' %> X <% else %> <% end %></b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>3</td>
+                        <td>Cumplimiento del 100% del contenido de los programas de estudio</td>
+                        <td><b><% if libdoc.cumplimiento == 's' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.cumplimiento == 'n' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.cumplimiento == 'na' %> X <% else %> <% end %></b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>4</td>
+                        <td>La entrega en tiempo y forma de calificaciones parciales y finales</td>
+                        <td><b><% if libdoc.calificacion == 's' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.calificacion == 'n' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.calificacion == 'na' %> X <% else %> <% end %></b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>5</td>
+                        <td>La entrega en tiempo y forma del reporte final (TecNM-AC-PO-003-03)</td>
+                        <td><b><% if libdoc.reporteFinal == 's' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.reporteFinal == 'n' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.reporteFinal == 'na' %> X <% else %> <% end %></b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>6</td>
+                        <td>La entrega del informe de los proyectos individuales/ Horas de apoyo a la docencia del programa de trabajo académico realizados en horas de apoyo a la docencia. (Cumplimiento de las actividades declaradas como apoyo a la docencia)</td>
+                        <td><b><% if libdoc.apoyo == 's' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.apoyo == 'n' %> X <% else %> <% end %></b></td>
+                        <td><b><% if libdoc.apoyo == 'na' %> X <% else %> <% end %></b></td>
+                    </tr>
+                    <tr style="font-size: 15px;">
+                        <td>7</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div style="width: 100%">
+            <table style="width: 90%">
+                <tbody>
+                    <tr style="font-size: 15px;">
+                        <td style="width: 86%"><b>Se otorga liberación de actividades</b></td>
+                        <td style="width: 2%"><b><% if libdoc.liberacion == 's' %> X <% else %> <% end %></b></td>
+                        <td style="width: 2%"><b><% if libdoc.liberacion == 'n' %> X <% else %> <% end %></b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div style="width:100%">
+            <p align="justify" style="font-size: 15px;">En consecuencia <% if doc.genero == 'F' %>la docente citada está LIBERADA <% else %> el docente citado está LIBERADO <% end %> de sus actividades frente a grupo en este semestre. </p>
+        </div>
+        <div style="width:100%">
+            <p align="justify" style="font-size: 14px;">Notas: <br/>El punto 7 no aplicará en el caso de Docentes con nombramiento por horas, indicar N/A. <br/>
+            Si el docente cumplió con el 100% de los puntos del 1 al 7 aplicables en su caso, se otorga la liberación de actividades.
+            <br/>Lo anterior, según lo establecido en el Reglamento Interior de Trabajo del Personal de los Institutos Tecnológicos vigente. </p>
+        </div>
+        <div style="width:100%">
+            <div class="row">
+                <div class="col-lg-6"><p align="center" style="font-size: 14px;" >JEFE DEL DEPARTAMENTO ACADÉMICO</p></div>
+                <div class="col-lg-6"><p align="center" style="font-size: 14px;">SUBDIRECCIÓN ACADÉMICA</p></div>
+            </div>
+            <br/><br/><br/><br/><br/><br/>
+            <div class="row">
+                <% dpto = Configuracion.find_by(tipo: "Jefe de Sistemas y Computacion").contenido %>
+                <% sub = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+                <div class="col-lg-6" style="border-bottom: black 1px solid;"><p align="center" style="font-size: 14px;"><b></b><%= dpto.upcase %></p></div>
+                <div class="col-lg-5" style="border-bottom: black 1px solid; margin-left: 50px; font-size: 14px;"><p align="center" v><b></b><%= sub.upcase %></p></div>
+            </div>
+        </div>
+    </body>
+</html>

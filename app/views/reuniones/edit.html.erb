@@ -1,0 +1,194 @@
+<div class="container">
+    
+   <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :reunion_edit, @reunion %>
+    
+    <h2 id="align-title">Editar Registro de Reunión de Academia </h2>
+    
+    <div id="align-forms">
+        <%= nested_form_for @reunion, validate: true do |reu| %>
+            <% if current_usuario.rol != 'admin' %>
+                
+                <% if reu.object.pdfActa.file != nil %>
+                    <div class="row">                    
+                        <div class="col-md-6"><%= reu.label :Fecha_de_reunión %>: <%= reu.object.fecha.strftime('%d/%m/%Y') %></div>
+                        <div class="col-md-6"><%= reu.label :Hora_de_reunión %>: <%= reu.object.hora %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2"><%= reu.label :Número_de_reunión %></div>
+                        <% num = Reunion.order(:numActa).last %>
+                        <% numA = num.numActa.to_i+1 %> <% numAc = "0"+numA.to_s %>
+                        <% if @reunion.numActa != nil %>
+                            <div class="col-md-4"><%= @reunion.numActa %><%= reu.hidden_field :numActa, class: "form-control", validate: true %></div>
+                        <% else %>
+                            <div class="col-md-4"><%= numAc %> <%= reu.hidden_field :numActa, :value => numAc %></div>
+                        <% end %>
+                    </div>
+                <% else %>
+                    <div class="row">
+                        <div class="col-md-2"><%= reu.label :Fecha_de_reunión %></div>
+                        <div class="col-md-4"><%= reu.date_field :fecha, class: "form-control", validate: true %></div>
+                        <div class="col-md-2"><%= reu.label :Hora_de_reunión %></div>
+                        <div class="col-md-2"><%= reu.select :hora, options_for_select([["07:00", "07:00"], ["08:00", "08:00"],["09:00", "09:00"],["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"],["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"],["19:00", "19:00"], ["20:00", "20:00"]], :selected => reu.object.hora),{}, class: "form-control", validate: true %></div>
+                    </div> 
+            
+                    <div class="row">
+                        <div class="col-md-2"><%= reu.label :Número_de_reunión %></div>
+                        <div class="row">
+                        <% num = Reunion.order(:numActa).last %>
+                        <% numA = num.numActa.to_i+1 %> <% numAc = "0"+numA.to_s %>
+                        <% if @reunion.numActa != nil %>
+                            <div class="col-md-4"><%= @reunion.numActa %><%= reu.hidden_field :numActa, class: "form-control", validate: true %></div>
+                        <% else %>
+                            <div class="col-md-4"><%= numAc %> <%= reu.hidden_field :numActa, :value => numAc %></div>
+                        <% end %>
+                    </div>
+                    </div>
+                <% end %>
+                <div class="row">
+                    <% if reu.object.pdfActa.file != nil %>
+                        <div class="col-md-3"><%= reu.label :Archivo_actual_de_la_reunión %></div>
+                        <div class="col-md-2"><%= reu.object.pdfActa.file.filename %></div>                    
+                    <% end %>
+                    <% if current_usuario.rol == 'docente' %>
+                        <% d = Docente.find_by(email: current_usuario.email) %>
+                        <% puesto = Puesto.where(docente_id: d.id) %>
+
+                        <% puesto.each do |p| %>
+                            <% if p.estado == 'Activo' %>
+                                <% cat_p = CatTipoPuesto.find(p.cat_tipo_puesto_id) %>
+                                <% if cat_p.nombrePuesto == 'Presidente de Academia' || cat_p.nombrePuesto == 'Secretario de academia' %>
+                                    <div class="col-md-2"><%= reu.label :Editar_archivo %></div>
+                                    <div class="col-md-4"><%= reu.file_field :pdfActa, validate: true %></div>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    <% end %>                    
+                </div>
+                <fieldset id="reuniones">
+                    <h5 id="align-title"><b>Solicitud (es)</b></h5>
+                    <%= reu.fields_for :anexos, validate: true do |anexos| %>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <%= anexos.label :Fecha_Solicitud %>
+                            </div>
+                            <div class="col-md-4">
+                                <%= anexos.date_field :fechaAnexo, class: "form-control", validate: true %>
+                            </div>
+                            <div class="col-md-6">
+                                <%= anexos.label :Solicitud_pdf %>
+                                <% if anexos.object.pdfAnexo.file != nil %>
+                                    <%= anexos.object.pdfAnexo.file.filename %>        
+                                <% end %>
+                                <%= anexos.file_field :pdfAnexo, validate: true %>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <% proy = Proyecto.where(status: 'Finalizado') %>
+                                <% colecc_proy = [] %>
+                                <% proy.each do |pr| %>
+                                    <% ane = Anexo.find_by(proyecto_id: pr.id) %>
+                                    <% if ane == nil %>
+                                        <% colecc_proy.push(pr) %>
+                                    <% end %>
+                                <% end %>
+                                <% if anexos.object.proyecto_id != nil %>
+                                    <div class="col-md-6">
+                                        <%= anexos.label :Proyecto %>
+                                        <%= anexos.select :proyecto_id, Proyecto.where(status: 'Finalizado').collect{ |p| [ p.numProyecto + ' ' + p.nombreProyecto, p.id ]}, {include_blank: true}, :selected => anexos.object.proyecto_id, class: "form-control", validate: true %>
+                                    </div>
+                                <% else %>
+                                    <div class="col-md-6">
+                                        <%= anexos.label :Proyecto %>
+                                        <%= anexos.select :proyecto_id, colecc_proy.collect{ |p| [ p.numProyecto + ' ' + p.nombreProyecto, p.id ]}, {include_blank: true}, :selected => anexos.object.proyecto_id, class: "form-control", validate: true %>
+                                    </div>
+                                <% end %>
+                                <div class="col-md-2"><%= anexos.link_to_remove "Eliminar" %></div>
+                            </div>
+                        <div class="row">
+                            <div class="col-md-3"><%= anexos.label :Seleccionar_estudiantes %>:</div>
+                            <div class="col-md-7"><%= anexos.collection_check_boxes :proyecto_estudiante_ids, ProyectoEstudiante.where(:proyecto_id => anexos.object.proyecto_id), :id, :method_info_est %></div>
+                        </div>
+                    <% end %>
+                    <br/>
+                    <p style="margin-left: 10px;"><%= reu.link_to_add :anexos do %><span class="glyphicon glyphicon-plus blue" title="Añadir solicitud"></span>Agregar solicitud<% end %></p>
+                </fieldset>
+            <% else %>
+                <div class="row">
+                    <div class="col-md-6"><%= reu.label :Fecha_de_reunión %>: <%= reu.object.fecha.strftime('%d/%m/%Y') %></div>
+                    <div class="col-md-6"><%= reu.label :Hora_de_reunión %>: <%= reu.object.hora %></div>
+                </div>
+                <% if reu.object.pdfActa.file != nil %>
+                <div class="row">
+                    <div class="col-md-6"><%= reu.label :Número_de_reunión %>: <%= reu.object.numActa %></div>
+                
+                    <div class="col-md-6"><%= reu.label :Archivo_actual_de_la_reunión %>: <%= reu.object.pdfActa.file.filename %></div>
+                </div> 
+                <fieldset id="reuniones">
+                    <h5 id="align-title"><b>Solicitud (es)</b></h5>
+                    <%= reu.fields_for :anexos, validate: true do |anexos| %>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <%= anexos.label :Fecha_Solicitud %>
+                            </div>
+                            <div class="col-md-3">
+                                <%= anexos.date_field :fechaAnexo, class: "form-control", validate: true %>
+                            </div>
+                            <div class="col-md-6">
+                                <%= anexos.label :Solicitud_pdf %>
+                                <% if anexos.object.pdfAnexo.file != nil %>
+                                    <%= anexos.object.pdfAnexo.file.filename %>                                
+                                <% end %>
+                                <%= anexos.file_field :pdfAnexo, validate: true %>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <% proy = Proyecto.where(status: 'Finalizado') %>
+                                <% colecc_proy = [] %>
+                                <% proy.each do |pr| %>
+                                    <% ane = Anexo.find_by(proyecto_id: pr.id) %>
+                                    <% if ane == nil %>
+                                        <% colecc_proy.push(pr) %>
+                                    <% end %>
+                                <% end %>
+                                <% if anexos.object.proyecto_id != nil %>
+                                    <div class="col-md-6">
+                                        <%= anexos.label :Proyecto %>
+                                        <%= anexos.select :proyecto_id, Proyecto.where(status: 'Finalizado').collect{ |p| [ p.numProyecto + ' ' + p.nombreProyecto, p.id ]}, {include_blank: true}, :selected => anexos.object.proyecto_id, class: "form-control", validate: true %>
+                                    </div>
+                                <% else %>
+                                    <div class="col-md-6">
+                                        <%= anexos.label :Proyecto %>
+                                        <%= anexos.select :proyecto_id, colecc_proy.collect{ |p| [ p.numProyecto + ' ' + p.nombreProyecto, p.id ]}, {include_blank: true}, :selected => anexos.object.proyecto_id, class: "form-control", validate: true %>
+                                    </div>
+                                <% end %>
+                                <div class="col-md-2"><%= anexos.link_to_remove "Eliminar" %></div>
+                            </div>
+                        <div class="row">
+                            <div class="col-md-3"><%= anexos.label :Seleccionar_estudiantes %>:</div>
+                            <div class="col-md-7"><%= anexos.collection_check_boxes :proyecto_estudiante_ids, ProyectoEstudiante.where(:proyecto_id => anexos.object.proyecto_id), :id, :method_info_est %></div>
+                        </div>
+
+                    <% end %>
+                    <br/>
+                    <p style="margin-left: 10px;"><%= reu.link_to_add :anexos do %><span class="glyphicon glyphicon-plus blue" title="Añadir solicitud"></span>Agregar solicitud<% end %></p>
+                </fieldset>
+                <% else %>
+                    <p style="color: red;">No se ha subido el acta!!. Revisar con el presidente o secretario de academia</p>
+                <% end %>
+            <% end %>
+            <div class="row"  id="btn-cancelar">
+                <div class="col-xs-2 col-md-3" id="btn">
+                    <%= reu.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-2 col-md-3">
+                    <%= button_to "Cancelar", reuniones_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

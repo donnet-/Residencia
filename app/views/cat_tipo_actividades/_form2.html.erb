@@ -1,0 +1,55 @@
+<div id="product-modal" class="modal fade">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label= "Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"><%= title %></h4>
+					<%= nested_form_for @tipoActividad, validate: true, remote: true do |tipoActividad| %>
+						<div class="modal-body">
+							<div class="row">
+                                <%= tipoActividad .label :Nombre_del_tipo_actividad, :class => 'col-md-3' %>
+                                <div class="col-md-4">
+                                    <%= tipoActividad .text_field :nombreTipoAct, :class => 'form-control', validate: true %>
+                                </div>
+                            </div>
+                        
+                            <div class="row">
+                                <div class="col-md-2"><%= tipoActividad.label :Selecciona_Evidencias %></div>
+                                <div class="col-md-10" style="padding: 5px;">
+                                    <%= tipoActividad.collection_check_boxes :cat_evidencia_ids, CatEvidencia.all, :id, :nombreEvidencia do |ev| %>
+                                        <div class="col-md-6">
+                                            <%= ev.check_box %> <%= ev.label %><br>
+                                        </div>
+                                    <% end %>   
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2"><%= tipoActividad.label :Selecciona_participaciones %></div>
+                                <div class="col-md-10" style="padding: 5px;">
+                                    <%= tipoActividad.collection_check_boxes :cat_tipo_participacion_ids, CatTipoParticipacion.all, :id, :participacion do |pa| %>
+                                    <div class="col-md-6">
+                                            <%= pa.check_box %> <%= pa.label %><br>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            </div>
+                        
+                            <div class="row">
+                                <%= tipoActividad.label :Estado, :class => 'col-md-3' %>
+                                <div class="col-md-4">
+                                <%= tipoActividad.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, :class => 'form-control', validate: true %>
+                                </div>
+                            </div>
+            
+            				<div class="row" id="btn-cancelar">
+                				<div class="col-xs-2 col-md-4" id="btn">
+                    				<%= tipoActividad.submit :Guardar, :class => 'btn btn-success' %>
+                				</div>   
+							</div>						
+						</div>
+					<% end %>	
+			</div>
+		</div>
+	</div>
+</div>

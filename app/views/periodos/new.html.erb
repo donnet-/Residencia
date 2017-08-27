@@ -1,0 +1,50 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+   </div>
+   <% breadcrumb :periodo_new %>
+<div class="container">
+	<h2 align="center">Nuevo Periodo</h2>
+	<%= nested_form_for @periodo, validate: true do |periodo| %>	
+		<div class="row">
+			<% fecha = Date.today.strftime("%Y") %>
+			<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<% t = Time.now %><% @anio = t.strftime("%Y") %>
+				<%= periodo.label :Periodo %>
+			</div>
+			<div class="col-md-4">
+				<%= periodo.select :periodo, options_for_select([["FEB-JUN/"+@anio.to_s, "FEB-JUN/"+@anio.to_s], ["AGOS-DIC/"+@anio.to_s, "AGOS-DIC/"+@anio.to_s ]]), {}, class: "form-control", validate: true %>
+			</div>
+		</div>
+		<div class="row">
+		<div class="col-md-1"></div>
+			<div class="col-md-4" >
+				<%= periodo.label :Fecha_de_inicio%>
+			</div>
+			<div class="col-md-4">
+				<%= periodo.date_field :fechaInicio, class: "form-control", validate: true %>
+			</div>
+
+		</div>
+		<div class="row">
+		<div class="col-md-1"></div>
+			<div class="col-md-4">
+				<%= periodo.label :Fecha_de_término%>
+			</div>
+			<div class="col-md-4">
+				<%= periodo.date_field :fechaTermino, class: "form-control", validate: true %>					
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-9" align="right">
+				<%= periodo.submit :Guardar, :class => 'btn btn-success' %>
+			</div>
+		</div>
+	<% end %>
+
+</div>

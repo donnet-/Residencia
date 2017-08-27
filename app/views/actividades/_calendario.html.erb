@@ -1,0 +1,42 @@
+<div class="actividadC" id="actividadC">
+    <h3 id="month">
+        <%= link_to "<",  date: (@date.prev_month).strftime("%d-%m-%Y")  %>
+        
+        <%= meses(@date.strftime("%m").to_i) %> <%= @date.strftime("%Y") %>
+        
+        <%= link_to ">",  date: (@date.next_month).strftime("%d-%m-%Y") %> </h3>
+    
+    <%if current_usuario.rol == "docente" %>
+        <% @doc = Docente.find_by(email: current_usuario.email) %>
+        <%= calendar @date do |date| %>
+            <%= date.day %>         
+            <% if @actividades_ca[date] %>
+                <ul>
+                    <% @actividades_ca[date].each do |actividad| %>
+                        <% @aux = ActividadDocente.find_by(actividad_id: actividad.id, docente_id: @doc.id) %>
+                        <% if @aux != nil %>
+                            <li>
+                                <%= actividad.nombreActividad %>
+                                <%= link_to "Ver", actividad_path(actividad) %>
+                            </li>
+                        <% end %>
+                    <% end %>
+                </ul>
+            <% end %>
+        <% end %>
+    <% else %>
+        <%= calendar @date do |date| %>
+            <%= date.day %>         
+            <% if @actividades_ca[date] %>
+                <ul>
+                    <% @actividades_ca[date].each do |actividad| %>                     
+                            <li>
+                                <%= actividad.nombreActividad %>
+                                <%= link_to "Ver", actividad_path(actividad) %>
+                            </li>                       
+                    <% end %>
+                </ul>
+            <% end %>
+        <% end %>
+    <% end %>
+</div>

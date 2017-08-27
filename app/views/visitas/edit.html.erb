@@ -1,0 +1,60 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <h3 id="align-title">Editar registro de Viaje</h3>
+    <%= nested_form_for @visita, validate: true do |vist| %>
+        <div class="row">
+            <%= vist.label :Asunto, class: 'col-md-1' %>
+            <div class="col-md-5"><%= vist.select :asunto, options_for_select([["Viaje de estudio", "Viaje de estudio"], ["Visita a empresas", "Visita a empresas"], ["Visita a residente", "Visita a residente"]], :selected => vist.object.asunto),{}, class: 'form-control', validate: true %></div>
+            <%= vist.label :Estado, class: 'col-md-1' %>
+            <div class="col-md-5"><%= vist.select :estado, options_for_select([["Aguascalientes", "Aguascalientes"], ["Baja California Norte", "Baja California Norte"], ["Baja California Sur", "Baja California Sur"], ["Campeche", "Campeche"], ["Chiapas", "Chiapas"], ["Chihuahua", "Chihuahua"], ["Ciudad de México", "Ciudad de México"], ["Coahuila", "Coahuila"], ["Colima", "Colima"], ["Durango", "Durango"], ["Guanajuato", "Guanajuato"], ["Guerrero", "Guerrero"], ["Hidalgo", "Hidalgo"], ["Jalisco", "Jalisco"], ["México", "México"],["Michoacan", "Michoacan"], ["Morelos", "Morelos"], ["Nayarit", "Nayarit"], ["Nuevo León", "Nuevo león"], ["Oaxaca", "Oaxaca"], ["Puebla", "Puebla"], ["Queretaro", "Queretaro"], ["Quintana Roo", "Quintana Roo"], ["San Luis Potosí", "San Luis Potosí"], ["Sinaloa", "Sinaloa"], ["Sonora", "Sonora"], ["Tabasco", "Tabasco"], ["Tamaulipas", "Tamaulipas"], ["Tlaxcala", "Tlaxcala"], ["Veracruz", "Veracruz"], ["Yucatan", "Yucatan"],["Zacatecas", "Zacatecas"]], :selected => vist.object.estado),{}, class: 'form-control', validate: true %></div>  
+        </div>
+        <div class="row">
+            <%= vist.label :Objetivo, class: 'col-md-12' %>
+            <div class="col-md-12"><%= vist.text_area :objetivo, class: 'form-control' %></div>
+        </div>
+        <div class="row">
+            <%= vist.label :Principales_actividades_a_desarrollar, class: 'col-md-12' %>
+            <div class="col-md-12"><%= vist.text_area :actividades, class: 'form-control' %></div>
+        </div>
+        <fieldset id="viaje_itinerario_empresa">
+            <h4 id="align-title"><b>Itinerario</b></h4>
+            <%= vist.fields_for :viaje_itinerario_empresas, validate: true do |itinerario| %> 
+                <div class="row">
+                    <%= itinerario.label :Empresa, class: 'col-md-4' %>
+                    <%= itinerario.label :Fecha, class: 'col-md-4' %>
+                    <%= itinerario.label :Hora, class: 'col-md-3' %>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <%= itinerario.select :curpEmpresa, Empresa.all.map { |u| [u.nombreE, u.rfcEmpresa] }, { include_blank: true },{ class: ' chosen-select'} %> 
+                    </div>
+                    <div class="col-md-4">
+                        <%= itinerario.date_field :fecha, class: 'form-control', validate: true %> </div>                    
+                        
+                    <div class="col-md-3">
+                        <%= itinerario.select :hora, options_for_select([["07:00", "07:00"], ["08:00", "08:00"],["09:00", "09:00"],["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"],["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"],["19:00", "19:00"], ["20:00", "20:00"]], :selected => itinerario.object.hora, :style => "width:70px"),{}, class: 'form-control', validate: true %> </div>
+                    <div class="col-md-1">
+                        <%= itinerario.link_to_remove do %>
+                            <span class="glyphicon glyphicon-trash red"></span>
+                        <% end %> </div>
+                </div>
+            <% end %>
+            <p><%= vist.link_to_add :viaje_itinerario_empresas do %>
+                <span class="glyphicon glyphicon-plus blue-nested"></span>  
+            <% end %></p>
+        </fieldset>
+        <div class="row" id="btn-cancelar">
+            <div class="col-xs-6 col-sm-3"></div>
+            <div class="col-xs-6 col-sm-4">
+                <%= vist.submit :Guardar, :class => 'btn btn-success' %> </div>
+    <% end %>
+            <% @actividad = Actividad.find(params[:actividad_id]) %>
+            <div class="col-xs-6 col-sm-4">
+                <%= button_to "Regresar", actividad_visita_path(@actividad, @visita), :class => 'btn btn-warning', :method => :get %> 
+            </div>
+        </div>
+</div>

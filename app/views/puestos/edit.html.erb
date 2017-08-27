@@ -1,0 +1,41 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+	<% elsif current_usuario.rol == 'docente' %>
+		<%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h3 id="align-title">Editar Puesto del Docente</h3><br/>
+    <%= nested_form_for [@docente, @puesto], validate: true do |docpuesto| %>
+		<% if current_usuario.rol == 'admin' %>
+        <div class="row">
+            <div class="col-xs-6 col-sm-2"><%= docpuesto.label :Fecha_inicio %></div>
+            <div class="col-xs-6 col-sm-4"><%= docpuesto.date_field :fechaInicio,  validate: true %></div>
+            <div class="col-xs-6 col-sm-2"><%= docpuesto.label :Fecha_término %></div>
+            <div class="col-xs-6 col-sm-4"><%= docpuesto.date_field :fechaTermino, validate: true %></div>
+        </div>
+    <% end %>
+	
+         <div class="row">
+            <div class="col-xs-6 col-sm-2"><%= docpuesto.label :Puesto %></div>
+            <div class="col-xs-6 col-sm-4"><%= docpuesto.select :cat_tipo_puesto_id, CatTipoPuesto.all.collect{ |p| [ p.nombrePuesto, p.id ] }, include_blank: true, validate: true %></div>
+            <div class="col-xs-6 col-sm-2"><%= docpuesto.label :Estado %></div>
+            <div class="col-xs-6 col-sm-4"><%= docpuesto.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]), validate: true %></div>
+        </div>
+        <% if docpuesto.object.pdfNombramiento.file != nil %>
+            <div class="row">
+                <div class="col-xs-6 col-sm-3"><%= docpuesto.label :Nombramiento_actual %></div>
+                <div class="col-xs-6 col-sm-3"><%= docpuesto.object.pdfNombramiento.file.filename %></div>
+        <% else %>
+        <% end %>
+                <div class="col-xs-6 col-sm-2"><%= docpuesto.label :Nombramiento %></div>
+                <div class="col-xs-6 col-sm-4"><%= docpuesto.file_field :pdfNombramiento, validate: true %></div>
+            </div>
+        
+        <div class="row" id="btn-cancelar">
+            <div class="col-xs-2 col-md-4" id="btn"><%= docpuesto.submit :Guardar, :class => 'btn btn-success' %></div>
+    <% end %>
+            <div class="col-xs-2 col-md-4"><%= button_to "Cancelar", docente_path(@docente), :class => 'btn btn-warning', :method => :get %>
+            </div>
+        </div>
+</div>

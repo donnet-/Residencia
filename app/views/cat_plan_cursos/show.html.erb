@@ -1,0 +1,42 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :cat_plan_curso, @planCurso%>
+
+    <h3 id="align-title">Plan de Estudio</h3>
+	<div class="row">
+		<div class="col-xs-6 col-sm-11"><b>Plan de estudio: </b> <%= @planCurso.descripcion %> </div>
+		<div class="col-xs-6 col-sm-1" align="right">
+			<% if can? :update, @planCurso %>
+				<%= link_to edit_cat_plan_curso_path(@planCurso), title: "Agregar/Editar materias", :method => :get do %> <span class="glyphicon glyphicon-pencil green"></span> <% end %>
+			<% end %>
+		</div>
+	</div>
+   
+    
+     <div id="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <th class="info"><%= sortable "claveMateria" %></th>
+                <th class="info"><%= sortable "nombreMat" %></th>
+                <th class="info"><%= sortable "credito" %></th>
+                <th class="info"><%= sortable "temario" %></th>
+                <th class="info"><%= sortable "estado" %></th>
+            </thead>
+            <% @planCurso.cat_materias.each do |materia| %>
+                <tbody>
+                    <td class="active"><%= materia.claveMateria %></td>
+                    <td class="active"><%= materia.nombreMat %></td>
+                    <td class="active"><%= materia.credito %></td>
+                    <td class="active"><%= link_to materia.temario_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver PDF"></span><% end %></td>
+                    <td class="active"><%= materia.estado %></td>
+                                        
+                </tbody>
+            <% end %>
+        </table>
+    </div>
+</div>

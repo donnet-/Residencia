@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cat_evidencia_id: 
+  pdfEvidencia: MyString
+  fechaActualizacion: 2017-03-09
+  actividad_id: 
+  estado: 
+  usuario_id: 1
+
+two:
+  cat_evidencia_id: 
+  pdfEvidencia: MyString
+  fechaActualizacion: 2017-03-09
+  actividad_id: 
+  estado: 
+  usuario_id: 1
