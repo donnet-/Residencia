@@ -1,0 +1,77 @@
+<%= form_for(@perfil_egresado) do |f| %>
+  <% if @perfil_egresado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@perfil_egresado.errors.count, "error") %> prohibited this perfil_egresado from being saved:</h2>
+
+      <ul>
+      <% @perfil_egresado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :fk_numControl %><br>
+    <%= f.number_field :fk_numControl %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_nac %><br>
+    <%= f.date_select :fecha_nac %>
+  </div>
+  <div class="field">
+    <%= f.label :curp %><br>
+    <%= f.text_field :curp %>
+  </div>
+  <div class="field">
+    <%= f.label :sexo %><br>
+    <%= f.text_field :sexo %>
+  </div>
+  <div class="field">
+    <%= f.label :edo_civil %><br>
+    <%= f.text_field :edo_civil %>
+  </div>
+  <div class="field">
+    <%= f.label :direccion %><br>
+    <%= f.text_field :direccion %>
+  </div>
+  <div class="field">
+    <%= f.label :telefon %><br>
+    <%= f.number_field :telefon %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :egresado_especialidad %><br>
+    <%= f.text_field :egresado_especialidad %>
+  </div>
+  <div class="field">
+    <%= f.label :fecha_egresado %><br>
+    <%= f.text_field :fecha_egresado %>
+  </div>
+  <div class="field">
+    <%= f.label :titulo %><br>
+    <%= f.text_field :titulo %>
+  </div>
+  <div class="field">
+    <%= f.label :dominio_ingles %><br>
+    <%= f.number_field :dominio_ingles %>
+  </div>
+  <div class="field">
+    <%= f.label :idioma_otro %><br>
+    <%= f.number_field :idioma_otro %>
+  </div>
+  <div class="field">
+    <%= f.label :m_software %><br>
+    <%= f.text_field :m_software %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

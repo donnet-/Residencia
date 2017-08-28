@@ -121,13 +121,12 @@ class Ability
                   can :read, CursoMateria
                     cannot [:create, :update, :destroy], CursoMateriaEstudiante
                     cannot [:create, :update, :destroy], CursoMateria
-<<<<<<< HEAD
+
                   elsif @tipoP.nombrePuesto == 'Jefe de la Oficina de Vinculación de Sistemas'
                   can [:read], ServicioSocial 
                     cannot [:create, :update, :destroy], CursoMateriaEstudiante
                     cannot [:create, :update, :destroy], CursoMateria
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
+
                   elsif @tipoP.nombrePuesto == 'Jefe de la Oficina de Investgacion'
                     can [:todos], ProyectoInvestigacion
                     can [:create, :read, :update], ProyectoInvestigacion
@@ -142,10 +141,8 @@ class Ability
       elsif usuario.rol == 'estudiante'
 		  can [:create, :read, :update], ServicioSocial
           can [:read, :update], Estudiante
-<<<<<<< HEAD
           can [:create, :read, :update], EvaluacionServicio
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
+
           #can [:read, :create], Empresa
           #cannot [:create, :destroy], Estudiante
           #cannot [:update, :destroy], Empresa

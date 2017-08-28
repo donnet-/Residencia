@@ -1,7 +1,7 @@
 class Usuario < ActiveRecord::Base    
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-<<<<<<< HEAD
+
     devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable#, :invitable
     
@@ -72,7 +72,7 @@ class Usuario < ActiveRecord::Base
             end
         end
     end
-=======
+
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable#, :invitable
     
@@ -146,5 +146,5 @@ class Usuario < ActiveRecord::Base
       end
     end
   end
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
+
 end

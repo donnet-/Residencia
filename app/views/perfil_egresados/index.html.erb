@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Perfil Egresados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Fk numcontrol</th>
+      <th>Fecha nac</th>
+      <th>Curp</th>
+      <th>Sexo</th>
+      <th>Edo civil</th>
+      <th>Direccion</th>
+      <th>Telefon</th>
+      <th>Email</th>
+      <th>Egresado especialidad</th>
+      <th>Fecha egresado</th>
+      <th>Titulo</th>
+      <th>Dominio ingles</th>
+      <th>Idioma otro</th>
+      <th>M software</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @perfil_egresados.each do |perfil_egresado| %>
+      <tr>
+        <td><%= perfil_egresado.nombre %></td>
+        <td><%= perfil_egresado.fk_numControl %></td>
+        <td><%= perfil_egresado.fecha_nac %></td>
+        <td><%= perfil_egresado.curp %></td>
+        <td><%= perfil_egresado.sexo %></td>
+        <td><%= perfil_egresado.edo_civil %></td>
+        <td><%= perfil_egresado.direccion %></td>
+        <td><%= perfil_egresado.telefon %></td>
+        <td><%= perfil_egresado.email %></td>
+        <td><%= perfil_egresado.egresado_especialidad %></td>
+        <td><%= perfil_egresado.fecha_egresado %></td>
+        <td><%= perfil_egresado.titulo %></td>
+        <td><%= perfil_egresado.dominio_ingles %></td>
+        <td><%= perfil_egresado.idioma_otro %></td>
+        <td><%= perfil_egresado.m_software %></td>
+        <td><%= link_to 'Show', perfil_egresado %></td>
+        <td><%= link_to 'Edit', edit_perfil_egresado_path(perfil_egresado) %></td>
+        <td><%= link_to 'Destroy', perfil_egresado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Perfil egresado', new_perfil_egresado_path %>

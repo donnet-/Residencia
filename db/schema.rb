@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20170828160814) do
-=======
-ActiveRecord::Schema.define(version: 20170826222254) do
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
+ActiveRecord::Schema.define(version: 20170828181635) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -154,7 +150,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",             null: false
   end
 
-<<<<<<< HEAD
   create_table "cat_criterio_eval_servicios", force: :cascade do |t|
     t.string   "nombre_criterio", limit: 255
     t.integer  "cal_A",           limit: 4
@@ -163,8 +158,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",                  null: false
   end
 
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   create_table "cat_criterio_evaluacion_docentes", force: :cascade do |t|
     t.integer  "numero",     limit: 4
     t.string   "criterio",   limit: 255
@@ -319,7 +312,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
 
   add_index "convenio_honorarios", ["docente_id"], name: "index_convenio_honorarios_on_docente_id", using: :btree
 
-<<<<<<< HEAD
   create_table "criterio_evaluacion_servicios", force: :cascade do |t|
     t.integer  "id_evalucacion",         limit: 4
     t.integer  "id_cat_criterio_eva",    limit: 4
@@ -332,8 +324,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
 
   add_index "criterio_evaluacion_servicios", ["evaluacion_servicio_id"], name: "index_criterio_evaluacion_servicios_on_evaluacion_servicio_id", using: :btree
 
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   create_table "curso_evidencias", force: :cascade do |t|
     t.string   "etiqueta",                limit: 255
     t.string   "archivo",                 limit: 255
@@ -449,7 +439,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",              null: false
   end
 
-<<<<<<< HEAD
   create_table "estadistica_servicios", force: :cascade do |t|
     t.string   "periodo",     limit: 255
     t.integer  "promedioB",   limit: 4
@@ -459,8 +448,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",              null: false
   end
 
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   create_table "estadisticas", force: :cascade do |t|
     t.string   "carrera",                 limit: 255
     t.integer  "ordinaria",               limit: 4
@@ -498,7 +485,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
 
   add_index "estudiantes", ["cat_especialidad_id"], name: "index_estudiantes_on_cat_especialidad_id", using: :btree
 
-<<<<<<< HEAD
   create_table "evaluacion_servicios", force: :cascade do |t|
     t.integer  "id_servicio_social",      limit: 4
     t.integer  "num_reporte",             limit: 4
@@ -508,8 +494,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",                          null: false
   end
 
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   create_table "examen_profesionales", force: :cascade do |t|
     t.string   "hora",                        limit: 255
     t.date     "fecha"
@@ -797,6 +781,26 @@ ActiveRecord::Schema.define(version: 20170826222254) do
   add_index "oficios", ["actividad_docente_id"], name: "index_oficios_on_actividad_docente_id", using: :btree
   add_index "oficios", ["actividad_id"], name: "index_oficios_on_actividad_id", using: :btree
 
+  create_table "perfil_egresados", force: :cascade do |t|
+    t.string   "nombre",                limit: 255
+    t.integer  "fk_numControl",         limit: 4
+    t.date     "fecha_nac"
+    t.string   "curp",                  limit: 255
+    t.string   "sexo",                  limit: 255
+    t.string   "edo_civil",             limit: 255
+    t.string   "direccion",             limit: 255
+    t.integer  "telefon",               limit: 4
+    t.string   "email",                 limit: 255
+    t.string   "egresado_especialidad", limit: 255
+    t.string   "fecha_egresado",        limit: 255
+    t.string   "titulo",                limit: 255
+    t.integer  "dominio_ingles",        limit: 4
+    t.integer  "idioma_otro",           limit: 4
+    t.string   "m_software",            limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
   create_table "periodo_actividad_academicas", force: :cascade do |t|
     t.string   "periodo",    limit: 255
     t.datetime "created_at",             null: false
@@ -976,7 +980,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
   add_index "servicio_sociales", ["empresa_id"], name: "index_servicio_sociales_on_empresa_id", using: :btree
   add_index "servicio_sociales", ["estudiante_id"], name: "index_servicio_sociales_on_estudiante_id", using: :btree
 
-<<<<<<< HEAD
   create_table "tablapromedios", force: :cascade do |t|
     t.string   "nivel_desem", limit: 255
     t.float    "valor_min",   limit: 24
@@ -985,8 +988,6 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",              null: false
   end
 
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   create_table "usuarios", force: :cascade do |t|
     t.string   "rol",                    limit: 255
     t.string   "email",                  limit: 255, default: "", null: false
@@ -1058,10 +1059,7 @@ ActiveRecord::Schema.define(version: 20170826222254) do
   add_foreign_key "archivo_prodep_docentes", "docentes"
   add_foreign_key "cat_materias", "cat_plan_cursos"
   add_foreign_key "convenio_honorarios", "docentes"
-<<<<<<< HEAD
   add_foreign_key "criterio_evaluacion_servicios", "evaluacion_servicios"
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   add_foreign_key "curso_evidencias", "curso_materias"
   add_foreign_key "curso_evidencias", "periodo_curs_materias"
   add_foreign_key "curso_materia_estudiantes", "curso_materias"
