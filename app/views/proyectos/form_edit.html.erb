@@ -1,0 +1,106 @@
+
+<%= nested_form_for @proyecto, validate: true do |inv | %>
+    <% if current_usuario.rol == 'admin' %>
+        <div id="marco">
+            <div class="row">
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Núm_de_proyecto %>: <%= inv.text_field :numProyecto, validate: true %></div>
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Nombre_proyecto %>: <%= inv.text_field :nombreProyecto, validate: true %></div>
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Categoria %>: <%= inv.select :cat_tipo_examen_proyecto_id, CatTipoExamenProyecto.all.collect{ |p| [ p.nombreTipoP, p.id ] }, validate: true, :selected => @proyecto.cat_tipo_examen_proyecto_id%></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4">
+                    <% t = Time.now %><% @anio = t.strftime("%Y") %>
+                    <%= inv.label :Periodo %>: <%= inv.select :periodo, options_for_select([["FEBRERO-JUNIO/"+@anio.to_s, "FEBRERO-JUNIO/"+@anio.to_s], ["AGOSTO-DICIEMBRE/"+@anio.to_s, "AGOSTO-DICIEMBRE/"+@anio.to_s ]]) %>
+                </div>
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Fecha_inicio %>: <%= inv.date_field :fechaInicio, validate: true %></div>
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Fecha_término %>: <%= inv.date_field :fechaTermino, validate: true %></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Asesor_externo %>: <%= inv.text_field :asesorExterno, validate: true %></div>
+                <div class="col-xs-6 col-sm-4"><%= inv.select :rfcEmpresa, Empresa.all.map { |u| [u.nombreE, u.rfcEmpresa] }, { include_blank: true },{ class: ' chosen-select'} %> </div>
+                <div class="col-xs-6 col-sm-4"><%= inv.label :Status %>: <%= inv.select :status, options_for_select([["En proceso", "En proceso"], ["Cancelado", "Cancelado"], ["Finalizado", "Finalizado"]]), validate: true %></div>
+            </div>  
+            <div class="row">
+                <div class="col-xs-6 col-sm-2"><%= inv.label :Descripción %>:</div>
+                <div class="col-xs-6 col-sm-10"><%= inv.text_area :descripcion, validate: true %></div>
+            </div>
+        </div>
+        <fieldset id="poryectoestudiante">
+        <div id="marco">
+            <h5>Agregar Residentes</h5>
+            <%= inv.fields_for :proyecto_estudiantes, validate: true do |proyes| %>
+                <div class="row">
+                    <div class="col-xs-6 col-sm-2"><%= proyes.label :Núm_de_control%></div>
+                    <div class="col-xs-6 col-sm-4">
+                        <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.nunControl] }, { include_blank: true },{ class: ' chosen-select'} %></div>
+                    <div class="col-xs-6 col-sm-1">
+                        <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
+                </div>
+            <% end %>           
+            <div class="row"><%= inv.link_to_add :proyecto_estudiantes do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+        </div>
+    </fieldset>
+    <% end %>
+    <fieldset id="actividad">
+        <h5 id="align-title"><b>Participantes</b></h5>
+        <%= inv.fields_for :proyecto_docentes, validate: true do |actdoc| %>
+            <% docente = Docente.find_by(email: current_usuario.email) %>
+            <% if docente != nil %>
+                <% if docente.id == actdoc.object.docente_id %>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-5">
+                            <%= actdoc.label :Docente %>
+                            <%= actdoc.select :docente_id, Docente.all.collect{ |p| [ p.nombreD + " " + p.apPaterno + " " + p.apMaterno, p.id ] }, include_blank: true, validate: true %>
+                        </div>
+                        <div class="col-xs-6 col-sm-6">
+                        <%= actdoc.label :Tipo_participación %>
+                        <%= actdoc.select :cat_tipo_participacion_id, options_for_select([["Asesor interno", 6], ["Revisor 1", 7], ["Revisor 2", 8], ["Revisor 3", 9]]), include_blank: true, validate: true %>
+                    </div>
+                        <% if current_usuario.rol == "admin" %>
+                            <div class="col-xs-6 col-sm-1">                        
+                                <%= inv.link_to_remove '', data: {confirm: "Eliminará al docente del proyecto"}, class: "glyphicon glyphicon-trash red"%>
+                            </div>
+                        <% end %>
+                    </div>
+                    <fieldset id="proyecto-docente-evidencia">
+                        <%= actdoc.fields_for :proyecto_docente_evidencias, validate: true do |evi| %>
+                            <div class="row">
+                                <div class="col-x6 col-sm-5"><%= evi.label :Etiqueta %>: <%= evi.text_field :etiqueta, validate: true %></div>
+                                <div class="col-x6 col-sm-6"><%= evi.label :Pdf_evidencia %>: <% if evi.object.pdfEvidencia.file != nil %> <%= evi.object.pdfEvidencia.file.filename %><% end %><%= evi.file_field :pdfEvidencia, validate: true %></div>
+                                <div class="col-xs-6 col-sm-1"><%= actdoc.link_to_remove '', data: {confirm: "Eliminará al docente del proyecto"}, class: "glyphicon glyphicon-trash red"%></div>
+                            </div>
+                        <% end %>
+                        <p><%= actdoc.link_to_add "Agregar evidencia", :proyecto_docente_evidencias %></p>
+                    </fieldset>
+                <% end %>
+            <% else %>
+                <div class="row">
+                        <div class="col-xs-6 col-sm-5">
+                            <%= actdoc.label :Docente %>
+                            <%= actdoc.select :docente_id, Docente.all.collect{ |p| [ p.nombreD + " " + p.apPaterno + " " + p.apMaterno, p.id ] }, include_blank: true, validate: true %>
+                        </div>
+                        <div class="col-xs-6 col-sm-6">
+                            <%= actdoc.label :Tipo_participación %>
+                            <%= actdoc.select :cat_tipo_participacion_id, options_for_select([["Asesor interno", 6], ["Revisor 1", 7], ["Revisor 2", 8], ["Revisor 3", 9]]), include_blank: true, validate: true %>
+                        </div>
+                        <% if current_usuario.rol == "admin" %>
+                            <div class="col-xs-6 col-sm-1">                        
+                                <%= inv.link_to_remove '', data: {confirm: "Eliminará al docente del proyecto"}, class: "glyphicon glyphicon-trash red"%>
+                            </div>
+                        <% end %>
+                    </div>
+            <% end %>
+        <% end %>
+        <% if current_usuario.rol == 'admin' %>
+            <p><%= inv.link_to_add "Agregar participante", :proyecto_docentes %></p>
+        <% end %>
+    </fieldset>
+    <div class="row" id="btn-cancelar">
+        <div class="col-xs-6 col-md-4" id="btn">
+            <%= inv.submit :Guardar, :class => 'btn btn-success' %>
+        </div> 
+<% end %>
+        <div class="col-xs-6 col-md-4">
+            <%= button_to "Cancelar", proyectos_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+    </div>

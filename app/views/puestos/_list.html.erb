@@ -1,0 +1,24 @@
+    <b>Puesto</b>
+    <% @docente.puestos.reverse_each do |p| %>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Cargo: </b><% p.cat_tipo_puesto %>
+                <% @docp = CatTipoPuesto.find(p.cat_tipo_puesto_id) %>
+                <%= @docp.nombrePuesto %></div>
+            <div class="col-xs-6 col-sm-3"><b>Duración: </b><%= p.fechaInicio.strftime("%d-%m-%Y")  %> al  <%= p.fechaTermino.strftime("%d-%m-%Y") %></div>
+            <div class="col-xs-6 col-sm-3"><b>Nombramiento: </b>
+                <% if p.pdfNombramiento.file == nil %>
+					<% if current_usuario.rol == 'docente' %>
+                    	<%= link_to edit_docente_puesto_path(@docente, p) do %><span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="pdf">Subir pdf</div><% end %>
+					<% elsif current_usuario.rol == 'admin' %>
+						<p><span class="glyphicon glyphicon-warning orange" title="Falta pdf nombramiento"></span></p>
+					<% end %>
+                <% else %>
+                    <%= link_to p.pdfNombramiento_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue"></span><div class="tip" id="pdf">Ver pdf</div><% end %>
+					<% if current_usuario.rol == 'docente' %>
+						<%= link_to edit_docente_puesto_path(@docente, p) do %><span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar pdf</div><% end %>
+					<% end %>
+                <% end %>
+            </div>
+            <div class="col-xs-6 col-sm-2"><b>Estado: </b><%= p.estado %></div>
+        </div>
+    <% end %>

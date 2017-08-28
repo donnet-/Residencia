@@ -1,0 +1,46 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :cat_plan_cursos%>
+    <h3 id="align-title">Cátalogo de Plan de Estudio</h3>
+    
+    <div class="row">
+        <div class="col-md-2">
+            <% if can? :create, CatPlanCurso %>
+                <%= button_to new_cat_plan_curso_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-5">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info">Plan de Estudio</th>
+                </thead>
+                <% @planCursos.each do |plan| %>
+                    <tbody>
+                        <td class="active"><%= plan.descripcion %></td>
+                        <td class="active">
+                            <%= link_to cat_plan_curso_path(plan), title: "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                            <% end %>
+                        </td>
+                        <td class="active">
+                            <%= link_to edit_cat_plan_curso_path(plan), title: "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                            <% end %>
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+            <%= will_paginate @planCursos %>
+        </div>
+    </div>
+</div>

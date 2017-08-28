@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  curso_materia_id: 
+  actividad_id: 
+  estado: MyString
+  usuario_id: MyString
+
+two:
+  curso_materia_id: 
+  actividad_id: 
+  estado: MyString
+  usuario_id: MyString

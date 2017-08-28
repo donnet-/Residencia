@@ -1,0 +1,271 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <%# breadcrumb :actividad, @actividad %>
+    <br/>
+    <h3 id="align-title">Actividades en Dpto. Sistemas y Computación</h3>
+	
+	<% @acti = CatTipoActividad.find(@actividad.cat_tipo_actividad_id) %> 
+    <div class="row">
+        <div class="col-xs-6 col-sm-2">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar(this)" value="datos">Datos Generales</button>
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar(this)" value="docent">Docentes</button>
+                <% if @actividad.tipoEvidencia == 'Equipo' %>
+                    <button type="button" name="tipo_attach" class="btn btn-default" onclick="mostrar(this)" value="Equipo">Evidencia por Equipo</button>
+                <% elsif @actividad.tipoEvidencia == 'Individual' %>
+                    <button type="button" name="tipo_attach" class="btn btn-default" onclick="mostrar(this)" value="individual"> Evidencia Individual </button>
+                <% elsif @actividad.tipoEvidencia == 'Individual/Grupo' %>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Evidencia
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrar(this)" value="individual">Individual</button>
+                            <button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrar(this)" value="Equipo">Equipo</button>
+                        </ul>
+                    </div>
+                <% end %>
+                <% if current_usuario.rol == 'admin' %>
+                    <% if @acti.nombreTipoAct == 'Diplomado' %>
+                        <button type="button" name="tipo_attach" class="btn btn-default" onclick="mostrar(this)" value="Registrar Modulo">Registrar Módulo</button>
+                        <% @mod = ModuloDiplomado.find_by(actividad_id: @actividad.id) %>
+                        <% if @mod != nil %>
+                            <button type="button" name="tipo_attach" class="btn btn-default" onclick="mostrar(this)" value="Ver modulo">Ver Módulos </button>
+                        <% end %>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Generar Archivos
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <% if @actividad.tipoComision == 'Con Viaticos' %>
+                                    <button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrar(this)" value="Generar Comision">Oficio de Comisión</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Generar Liquidación">Liquidación de viáticos</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Generar informe">Informe de comisión personal</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Generar Orden pasaje">Orden de servicio para pasajes</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Generar OMVI">Oficio de Ministración de Viaticos</button>
+                                <% elsif @actividad.tipoComision == 'Sin Viaticos' %>
+                                    <button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrar(this)" value="Generar Comision">Oficio de Comisión</button>
+                                <% end %>
+                            </ul>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archivos generados
+                                <span class="caret"></span>
+                            </button>
+                             <ul class="dropdown-menu">
+                                <% if @actividad.tipoComision == 'Con Viaticos' %>
+                                    <button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrar(this)" value="Ver Comision">Oficio de Comisión</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Ver Liquidación">Liquidación de viáticos</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Ver informe">Informe de comisión personal</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Ver Orden pasaje">Orden de servicio para pasajes</button>
+                                    <button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrar(this)" value="Ver OMVI">Oficio de Ministración de Viaticos</button>
+                                <% elsif @actividad.tipoComision == 'Sin Viaticos' %>
+                                    <button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrar(this)" value="Ver Comision">Oficio de Comisión</button>
+                                 <% end %>
+                            </ul>
+                        </div>
+                    <% else %>
+						<% if @acti.requiereOficio == 'Si' %>
+                        	<div class="btn-group" role="group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Generar Archivos<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<% if @actividad.tipoComision == 'Con Viaticos' %>
+										<button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrarFormAct(this)" value="Generar Comision gnral">Oficio de Comisión</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Generar Liquidación gnral">Liquidación de viáticos</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Generar informe gnral">Informe de comisión personal</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Generar Orden pasaje gnral">Orden de servicio para pasajes</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Generar OMVI gnral">Oficio de Ministración de Viaticos</button>
+									<% elsif @actividad.tipoComision == 'Sin Viaticos' %>
+										<button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrarFormAct(this)" value="Generar Comision gnral">Oficio de Comisión</button>
+									<% end %>
+								</ul>
+                        	</div>
+							<div class="btn-group" role="group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Archivos generados
+									<span class="caret"></span>
+								</button>
+								 <ul class="dropdown-menu">
+									<% if @actividad.tipoComision == 'Con Viaticos' %>
+										<button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrarFormAct(this)" value="Ver Comision gnral">Oficio de Comisión</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Ver Liquidación gnral">Liquidación de viáticos</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Ver informe gnral">Informe de comisión personal</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Ver Orden pasaje gnral">Orden de servicio para pasajes</button>
+										<button type="button" class="btn btn-default boton" name="tipo_attach" onclick="mostrarFormAct(this)" value="Ver OMVI gnral">Oficio de Ministración de Viaticos</button>
+									<% elsif @actividad.tipoComision == 'Sin Viaticos' %>
+										<button type="button" name="tipo_attach" class="btn btn-default boton" onclick="mostrarFormAct(this)" value="Ver Comision gnral">Oficio de Comisión</button>
+									 <% end %>
+								</ul>
+							</div>
+						<% else %>
+						<% end %>
+                    <% end %>
+                <% end %>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-10">
+            <div id = datoG style='display:block;'>
+				<% @acti = CatTipoActividad.find(@actividad.cat_tipo_actividad_id) %>
+                <div id="marco">
+                    <h5 id="align-title"><b>Datos de la actividad</b></h5>
+                    <div class="row">
+						<div class="col-xs-6 col-sm-7"><b>Nombre actividad: </b><%= @actividad.nombreActividad %></div>
+                        <div class="col-xs-6 col-sm-5"><b>Tipo actividad: </b><%= @acti.nombreTipoAct %></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-7"><b>Duración: </b><%= @actividad.fechaInicio.strftime("%d-%m-%Y") %> al <%= @actividad.fechaTermino.strftime("%d-%m-%Y") %></div>
+                        <div class="col-xs-6 col-sm-5"><b>Tipo evidencia: </b><%= @actividad.tipoEvidencia %></div>     
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-7"><b>Lugar: </b><%= @actividad.lugar %></div>
+						<div class="col-xs-6 col-sm-5"><b>Tipo comisión: </b><%= @actividad.tipoComision %>
+                            <% if @actividad.tipoComision == 'Con Viaticos' %>
+                                <p><b>Lista de viáticos: </b><%= @actividad.cat_viaticos.map(&:nombreViatico).to_sentence %></p>
+                            <% end %></div>
+                    </div>
+					
+					<% if @acti.nombreTipoAct == 'Examen profesional' %>
+						<% if @actividad.tipoexamen != nil && @actividad.hora != nil %>
+							<div class="col-xs-6 col-sm-6"><b>Tipo de examen: </b><%= @actividad.tipoexamen %></div>
+							<div class="col-xs-6 col-sm-6"><b>Hora: </b><%= @actividad.hora %></div>
+						<% end %>
+					<% elsif @acti.nombreTipoAct == 'Ponencias' %>
+						<div class="row">
+							<% if @actividad.proyecto_id != nil %>
+								<div class="col-xs-6 col-sm-12"><b>Proyecto: </b>
+									<%= @actividad.proyecto_id %>
+								</div>
+							<% end %>
+						</div>
+					<% elsif @acti.nombreTipoAct == 'Actualizacion' %>
+						<% act = Actualizacion.find_by(actividad_id: @actividad.id) %>
+						<% if act != nil %>
+							<div class="row">
+								<div class="col-xs-6 col-sm-7"><b>Periodo: </b><%= act.tipoPeriodo %></div>
+								<div class="col-xs-6 col-sm-5"><b>Tipo de actualización: </b> <%= act.tipoActualizacion %></div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-7"><b>Modalidad: </b><%= act.modalidad %></div>
+								<div class="col-xs-6 col-sm-5"><b>Total de horas: </b><%= act.horasCapacitacion %></div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6 col-sm-12"><b>Horario: </b>
+									<% act.horario_actualizaciones.each do |horario| %>
+										<%= horario.dia %> de <%= horario.hora_inicio %> a <%= horario.hora_fin %> - 
+									<% end %>
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+					
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-12" align="justify"><b>Descripción: </b><%= @actividad.descripcion %></div>
+                    </div>
+                    <div class=row>
+                        
+                        <div class="col-xs-6 col-sm-12" align="right">
+                            <% if can? :update, @actividad %>
+                                <%= link_to edit_actividad_path(@actividad), :method => :get, :title => "Editar" do %><span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div><% end %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id = doc style='display:none;'>
+                <%= render "actividad_docentes/listDoc" %>
+				<% if current_usuario.rol == 'docente' %>
+					<% docente = Docente.find_by(email: current_usuario.email) %>
+					<% puesto = Puesto.find_by(docente_id: docente.id) %>
+					<% tipoP = CatTipoPuesto.find(puesto.cat_tipo_puesto_id) %>
+					<% if tipoP.nombrePuesto == 'Jefe de la Oficina de Investgacion' && tipoP.estado == 'Activo' %>
+						<div class="row" align="right" align="right">
+							<div class="col-xs-6 col-sm-11"><%= render "actividades/depto_investigacion/formDocenteActividad" %></div>
+							<div class="col-xs-6 col-sm-1" align="right"><button class="btn btn-success" title="Descargar lista (Excel)"><%= link_to docentes_actividad_path(@actividad.id, format: :xlsx), :target => '_blank' do %><span class="glyphicon glyphicon-download green" title="Descargar lista (Excel)"></span><% end %> </button></div>
+						</div>
+					<% end %>
+				<% end %>
+            </div>
+            <div id = Eequipo style='display:none;'>
+                <%= render 'actividad_evidencias/list' %>
+            </div>
+            <div id = Eindividual style='display:none;'>
+                <%= render 'actividades/listActDoc' %>
+            </div>
+            <!--                  DIPLOMADO                      -->
+            <div id = modulo style='display:none;'>
+                <%= render "modulo_diplomados/form" %>
+            </div>
+            <div id = Vmodulo style='display:none;'>
+                <%= render 'modulo_diplomados/list' %>
+            </div>
+            <div id = omvi style='display:none;'>
+                <%= render "actividades/diplomado/formOMVI" %>
+            </div>
+            <div id = VerOmvi style='display:none;'>
+                <%= render "actividades/diplomado/formVerOMVI" %>
+            </div>
+            <div id = comision style='display:none;'>
+                <%= render "actividades/diplomado/pdfComision" %>
+            </div>
+            <div id = comisionver style='display:none;'>
+                <%= render "actividades/diplomado/formVerComision" %>
+            </div>
+            <div id = comisionsv style='display:none;'>
+                <%= render "actividades/diplomado/formComision" %>
+            </div>
+            <div id = pasaje style='display:none;'>
+                <%= render "actividades/diplomado/formPasaje" %>
+            </div>
+            <div id = VerPasaje style='display:none;'>
+                <%= render "actividades/diplomado/formVerPasaje" %>
+            </div>
+            <div id = liquidacion style='display:none;'>
+                <%= render "actividades/diplomado/formLiquidacion" %>
+            </div>
+            <div id = VerLiquidacion style='display:none;'>
+                <%= render "actividades/diplomado/formVerLiquidacion" %>
+            </div>
+            <div id = informe style='display:none;'>
+                <%= render "actividades/diplomado/formInforme" %>
+            </div>
+            <div id = VerInforme style='display:none;'>
+                <%= render "actividades/diplomado/formVerInforme" %>
+            </div>
+            <!--             ACTIVIDADES EN GENERAL                -->
+            <div id = comisionAct style="display:none;">
+                <%= render "actividades/archivoAct/formComisionAct" %>
+            </div>
+            <div id = verComisionAct style="display:none;">
+                <%= render "actividades/archivoAct/formVerComisionAct" %>
+            </div>
+            <div id = informeComision style="display:none;">
+                <%= render "actividades/archivoAct/formInformeComision" %>
+            </div>
+            <div id = verInformeComision style="display:none;">
+                <%= render "actividades/archivoAct/formVerInformeComision" %>
+            </div>
+            <div id = liquidacionAct style="display:none;">
+                <%= render "actividades/archivoAct/formLiquidacionAct" %>
+            </div>
+            <div id = verLiquidacionAct style="display:none;">
+                <%= render "actividades/archivoAct/formVerLiquidacionAct" %>
+            </div>
+            <div id = omviAct style="display:none;">
+                <%= render "actividades/archivoAct/formOMVIAct" %>
+            </div>
+            <div id = verOmviAct style="display:none;">
+                <%= render "actividades/archivoAct/formVerOMVIAct" %>
+            </div>
+            <div id = pasajeAct style="display:none;">
+                <%= render "actividades/archivoAct/formPasajeAct" %>
+            </div>
+            <div id = verPasajeAct style="display:none;">
+                <%= render "actividades/archivoAct/formVerPasajeAct" %>
+            </div>
+        </div>
+    </div>
+</div>

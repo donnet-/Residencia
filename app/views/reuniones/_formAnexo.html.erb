@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-9">
+            <h4>Generar Liberación del Proyecto para Titulación Integral</h4>
+            <% @an = Anexo.find_by(reunion_id: @reunion.id)%>
+            <% if @an == nil %>
+            <% else %>
+                <% anex = Anexo.where(reunion_id: @reunion.id) %>
+                <% for a in anex %>
+                    <% est = a.proyecto_estudiantes
+						#ProyectoEstudiante.where(proyecto_id: a.proyecto_id) %>
+                    <% for e in est %>
+                        <% s = existeAnex(@reunion.id, a.proyecto_id, e.numControl) %>
+                            <% if s == true %>
+                            <% else %>
+                                <div id="marco">
+                                    <h5><b>Datos del documento: </b></h5>
+                                    <%= form_tag(reunion_path, method: 'get') do %>
+                                        <% @arre = serie %>
+                                        <%= hidden_field_tag :format, "pdf"%>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-3"><b>No. Oficio: </b><%= select_tag "numero", options_for_select(@arre, "xD") %></div>
+                                            <% fec = Time.now
+                                            f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+                                            <div class="col-xs-5 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                                        </div>
+                                        <div class="row">
+                                            <% proy = Proyecto.find(a.proyecto_id)%>
+                                            <div class="col-xs-6 col-sm-6"><b>Proyecto: </b><%= proy.nombreProyecto %><%= hidden_field_tag :proyecto_id, a.proyecto_id %></div>
+                                            <% estud = Estudiante.find_by(numControl: e.numControl)%>
+                                            <div class="col-xs-6 col-sm-6"><b>Estudiante: </b><%= estud.numControl %> <%= estud.nombre %> <%= estud.apPaterno %> <%= estud.apMaterno %><%= hidden_field_tag :numControl, e.numControl %></div>
+                                        </div>
+                                         <div class="row">
+                                            
+                                            <div class="col-xs-3 col-sm-4"><%= submit_tag "Generar", :class => 'btn btn-success', :formtarget => '_blank' %></div>
+                                        </div>
+                                    <% end %>
+                                </div>
+                            <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+</div>

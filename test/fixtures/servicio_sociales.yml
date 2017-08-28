@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  calificacion: 1
+  fechaInicio: 2017-03-09
+  fechaTermino: 2017-03-09
+  horas: 1
+  estudiante_id: 
+  estado: MyString
+  empresa_id: 
+  pdfLiberacion: MyString
+  observaciones: MyString
+
+two:
+  calificacion: 1
+  fechaInicio: 2017-03-09
+  fechaTermino: 2017-03-09
+  horas: 1
+  estudiante_id: 
+  estado: MyString
+  empresa_id: 
+  pdfLiberacion: MyString
+  observaciones: MyString

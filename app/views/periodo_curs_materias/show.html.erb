@@ -1,0 +1,31 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h3 id="align-title">Periodo Curso-Materia</h3>
+    
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-1"><b>Periodo:</b></div>
+            <div class="col-xs-6 col-sm-4"><%= @curso_materia.periodo %></div>
+            <div class="col-xs-6 col-sm-1"><b>Docente:</b></div>
+            <div class="col-xs-6 col-sm-4">
+                <% @cd = Docente.find(@curso_materia.docente_id) %>
+                <%= @cd.nombreD %> <%= @cd.apPaterno %> <%= @cd.apMaterno %>
+            </div>
+        </div>
+        <%= render "curso_materias/lista" %>            
+        <div class="row">            
+            <div class="col-xs-6 col-md-12" align="right">
+            <% c = Estadistica.where(periodo_curs_materia_id: @curso_materia.id) %>
+            <% if c.count == CursoMateria.where(periodo_curs_materia_id: @curso_materia.id).count %>            
+                <%= link_to "Generar Estadísticas", periodo_curs_materia_path(@curso_materia, format: 'pdf'), target: '_blank'%>
+            <% end %>
+                <%= link_to edit_periodo_curs_materia_path(@curso_materia),title: "Editar",  :method => :get do %><span class="glyphicon glyphicon-pencil green"></span><% end %>
+            </div>
+        </div>
+    </div>
+</div>

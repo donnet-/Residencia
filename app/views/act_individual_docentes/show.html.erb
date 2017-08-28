@@ -1,0 +1,62 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h1 id="align-title">Datos de la Actividad</h1>
+    
+    <dl class="dl-horizontal" id="align-list">        
+        <dt>Nombre de la actividad: </dt>
+        <dd><%= @actividad.nombreActividad %></dd>
+        
+        <dt>Docente: </dt>
+        <dd><%= @actDoc.docente.nombreD %> <%= @actDoc.docente.apPaterno %> <%= @actDoc.docente.apMaterno %>    
+        </dd>
+        
+        <dt>Fecha inicio: </dt>
+        <dd><%= @actividad.fechaInicio.strftime("%d-%m-%Y") %></dd>
+        
+        <dt>Fecha término: </dt>
+        <dd><%= @actividad.fechaTermino.strftime("%d-%m-%Y") %></dd>
+        
+        <dt>Tipo evidencia: </dt>
+        <dd><%= @actividad.tipoEvidencia %></dd>
+        
+        <dt>Tipo actividad: </dt>
+        <dd>
+            <% @acti = CatTipoActividad.find(@actividad.cat_tipo_actividad_id) %>
+            <%= @acti.nombreTipoAct %>
+        </dd>
+ 
+        <dt>Descripción: </dt>
+        <dd><%= @actividad.descripcion %></dd>
+        
+        <dt>Tipo comisión: </dt>
+        <dd><%= @actividad.tipoComision %></dd>
+    </dl>
+        <h4 id="align-title">Evidencias Individuales</h4>
+        <div id="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <th class="info"><%= sortable "cat_evidencia_id" %></th>
+                <th class="info"><%= sortable "pdfEvidencia" %></th>         
+            </thead>
+            <% @actDoc.act_individual_docentes.each do |evi| %>
+                <tbody>
+                    <td class="active">
+                        <% @evi = CatEvidencia.find(evi.cat_evidencia_id) %>
+                        <%= @evi.nombreEvidencia %>
+                    <td class="active">                        
+                        <%= link_to evi.pdfEvidencia_url, :target => '_blank', :title => "Abrir pdf" do %>
+                            <span class="glyphicon glyphicon-file blue"></span>
+                            <div class="tip" id="pdf">Abrir pdf</div>
+                        <% end %>
+                    </td>                                                                                        
+                </tbody>
+            <% end %>
+        </table>
+        <%= link_to "Agregar evidencia", new_actividad_actividad_docente_act_individual_docente_path(@actividad, @actDoc) %>
+</div>

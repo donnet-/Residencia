@@ -1,0 +1,149 @@
+<! DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Oficio de Comisión</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 12px; }
+            td.viatico { font-size: 14px; }
+        </style>
+    </head>
+    <body>
+        <%  #@director = Configuracion.find_by(tipo: "Director del Instituto Tecnologico de Oaxaca").contenido %>
+		<% @lema = Configuracion.find_by(tipo: "Lema").contenido %>	
+        <% par = params[:docente] %>
+         <% @x = oficioN(params[:numero], params[:id], params[:fecha], par, params[:puesto], params[:firma], @lema, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, params[:docente], nil, nil, nil, nil, nil, nil, nil, nil, nil, nil) %>
+        <% @c = Configuracion.find_by(tipo: "Mexico") %>
+        <br/><br/><br/><br/>
+        <% @doc = Docente.find(@x.docente)%>
+		<div><p align="center" style="font-size: 14px;"><%= @lema %></p></div>
+        <% @grado = GradoEstudio.where(docente_id: @doc.id).last %>
+        <%= wicked_pdf_image_tag(@c.imagen_url, size: "800x600", :style => ' display: flex;  position: absolute; rigth: 50px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 14px;') %>
+        
+        <div style="width: 100%">
+            <p align="right">
+                Oaxaca de Juárez, Oax; <%= @x.fecha.day %> de <%= meses(@x.fecha.month).downcase %> de <%= @x.fecha.year %>
+                <br/>
+                OFICIO No. DSC-<%= @x.numero %>/<%= @x.anio%><br/>
+                ASUNTO: COMISIÓN
+            </p>
+        </div>
+        <br/><br/>
+        <div style="width: 100%">
+            <p align="left">
+                <b><% if @grado != nil %>
+                        <%= @grado.abrev.upcase %> <%= @doc.nombreD.upcase %> <%= @doc.apPaterno.upcase %> <%= @doc.apMaterno.upcase %>
+                    <% else %>
+                        <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                    <% end %><br/>
+                    <% @pues = params[:puesto] %>
+                    <% if @pues = 'DOCENTE' %>
+                        <%= @pues %> DEL ÁREA DE SISTEMAS Y COMPUTACIÓN <br/>
+                    <% else %>
+                        <%= @pues %> <br/>
+                    <% end %>
+                    PRESENTE                    
+                </b>
+            </p>
+        </div>
+        <br/>
+        <div style="width: 100%" align="justify">
+			<% @acti = Actividad.find(params[:id]) %>
+			<% comisionado = "" %>
+			<% duraAct = "" %>
+			<% if @acti.fechaInicio == @acti.fechaTermino 
+					duraAct = " " + @acti.fechaInicio.day.to_s + " de " + meses(@acti.fechaInicio.month) + " del año en curso "
+				elsif @acti.fechaInicio.year == @acti.fechaTermino.year
+					if @acti.fechaInicio.month == @acti.fechaTermino.month
+						duraAct = " " + @acti.fechaInicio.day.to_s + " al " + @acti.fechaTermino.day.to_s + " de " + meses(@acti.fechaInicio.month) + " del año en curso "
+					 else
+						duraAct = " " + @acti.fechaInicio.day.to_s + " de " + meses(@acti.fechaInicio.month) + " al " + @acti.fechaTermino.day.to_s + " de " + meses(@acti.fechaTermino.month) + " del año en curso "
+					end
+				else
+					duraAct = " " + @acti.fechaInicio.day.to_s + " DE " + meses(@acti.fechaInicio.month) + " DEL " + @acti.fechaInicio.year.to_s + " AL " + @acti.fechaTermino.day.to_s + " DE " + meses(@acti.fechaTermino.month) + " DEL " + @acti.fechaTermino.year.to_s + " "
+				end
+			%>
+			<% horas = HorarioActualizacion.find_by(actualizacion_id: Actualizacion.find_by(actividad_id: @acti.id)) %>
+			<% if @doc.genero == 'F' %>
+				<% comisionado = @acti.descripcion.gsub(/\s?(\*)\s/,"A ") %>
+			<% else %>
+				<% comisionado = @acti.descripcion.gsub(/\s?(\*)\s/, "O " ) %>
+			<% end %>
+			<% nomAct = comisionado.gsub(/\s?(nombreActividad\?\,|nombreActividad\?)\s/, " " +  @acti.nombreActividad + ", ") %>
+			<% tipoAct = nomAct.gsub(/\s?(tipoActividad\?)\s/, "  " +  CatTipoActividad.find(@acti.cat_tipo_actividad_id).nombreTipoAct) + " " %>
+			<% duracion = tipoAct.gsub(/\s?(duracionCurso\?|duracionCurso\?\,)\s/, duraAct) + ", " %>
+			<% lugar = duracion.gsub(/\s?(lugar\?\.)\s/, " " + @acti.lugar + ".") %>
+			<% if horas != nil %>
+				<% horario = lugar.gsub(/\s?(horario\?\,)\s/, " " + horas.hora_inicio  + " a " + horas.hora_fin + ", ") %>
+				<p style="font-size: 20px;" align="justify"><b><%= horario.upcase %></b></p>
+			<% else %>
+			<% actdocent = ActividadDocente.find_by(docente_id: @doc.id) %>
+				<% if actdocent != nil %>
+				<% ctpt = CatTipoParticipacion.find(actdocent.cat_tipo_participacion_id) %>
+					<% parti = lugar.gsub(/\s?(tipoParticipacion\?)\s/, " " + ctpt.participacion + " ") %>
+					<% anio = parti.gsub(/\s?(año\?)\s/, " " + @acti.fechaInicio.year.to_s + " ") %>
+					<p style="font-size: 16px;" align="justify"><b><%= anio.upcase %></b></p>
+				<% else %>
+					<p style="font-size: 16px;" align="justify"><b><%= lugar.upcase %></b></p>
+				<% end %>
+				
+			<% end %>
+        </div>
+        <br>
+        <div style="width: 100%">
+            <p align="justify">Por lo que agradaceré pase al Departamento de Recursos Financieros para recibir: </p>
+            <p></p>
+        </div>
+        <div>
+            <% @v = CatViatico.all %>
+            <% @a = @acti.cat_viaticos %>
+            <% @v.each do |viatico| %>
+                <div class="col-lg-4" align="justify">
+                    ( 
+                    <% @c = 0  %>
+                    <% while @c < @a.count do
+                        if @a[@c].id == viatico.id %>
+                            X
+                        <% else %>
+                        <% end %>
+                    <% @c = @c+1 %>
+                    <% end %>
+                    ) <%= viatico.nombreViatico %>
+                </div>
+            <% end %>
+        </div>
+        <br/><br/>
+        <div class="width: 100%">
+            <p align="justify" style="margin-top: 10px;"><br/>Debiendo entregar a su regreso un informe detallado de los resultados obtenidos a la Dirección.</p>
+        </div>
+        <div class="width: 100%">
+            <p align="left"><br/><b>ATENTAMENTE</b><br/><b>"Tecnología Propia e Independencia Económica"</b><br/><br/><br/></p>
+			<% firma = params[:firma] %>
+			<% jefeSist = Docente.find_by(curp: firma) %>
+			<% if jefeSist != nil %>
+				<% p = Puesto.find_by(docente_id: jefeSist.id) %>
+				<% ctp = CatTipoPuesto.find(p.cat_tipo_puesto_id) %>
+            	<p><b><%= jefeSist.nombreD.upcase %> <%= jefeSist.apPaterno %> <%= jefeSist.apMaterno %></b><br/><b><% if jefeSist.genero == 'F' %> <%= ctp.alterno.upcase %> <% else %> <%= ctp.nombrePuesto%> <% end %></b></p>
+			<% else %>
+				<% config = Configuracion.find_by(contenido: firma) %>
+				<% if config != nil %>
+					<% if config.tipo == 'Director del Instituto Tecnologico de Oaxaca' %>
+						<p><b><%= firma.upcase %></b><br/><b>DIRECTOR</b></p>
+					<% else %>
+						<p><b><%= firma.upcase %></b><br/><b>SUBDIRECTOR ACADEMICO</b></p>
+					<% end %>
+				<% end %>
+			<% end %>
+        </div><br/>
+        <div style="width: 100%">
+            <p>
+                C.c.p. Subdirección Académica<br/>
+                C.c.p. Departamento de Sistemas y Computación<br/>
+                C.c.p. Depto. de Recursos Humanos<br/>
+                C.c.p. Expediente<br/>
+            </p>
+        </div>
+        <div style="width: 100%;"><p style="font-size: 9px;">JCN/RGRM/MAC/fmjc*</p></div>
+    </body>
+</html>

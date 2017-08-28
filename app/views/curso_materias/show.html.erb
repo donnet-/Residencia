@@ -1,0 +1,99 @@
+<div class="container">
+   
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :curso_materia, @curso%>
+    
+    <h3 id="align-title">Curso-Materia</h3>
+    
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-1"><b>Grupo:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @curso.nombreGrupo %></div>
+
+            <div class="col-xs-6 col-sm-1"><b>Aula:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @curso.aula %></div>
+
+            <div class="col-xs-6 col-sm-1"><b>Periodo:</b></div>
+            <div class="col-xs-6 col-sm-3"><%= @curso.periodo %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-1"><b>Docente:</b></div>
+            <div class="col-xs-6 col-sm-3">
+                <% @cd = Docente.find(@curso.docente_id) %>
+                <%= @cd.nombreD %> <%= @cd.apPaterno %> <%= @cd.apMaterno %>
+            </div>
+
+            <div class="col-xs-6 col-sm-1"><b>Materia:</b></div>
+            <div class="col-xs-6 col-sm-3">
+                <% @cm = CatMateria.find(@curso.cat_materia_id) %>
+                <%= @cm.claveMateria %> <%= @cm.nombreMat %>
+            </div>
+
+            <div class="col-xs-6 col-sm-2"><b>Instrumentación:</b></div>
+            <div class="col-xs-6 col-sm-2"><%= link_to  @curso.pdfInstrumentacion_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue"></span><div class="tip" id="pdf">Abrir PDF</div><% end %></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div id="estudiantes">
+            <div class="col-xs-6 col-sm-3">
+                <h5 style="left: 20px;"><b>Agregar estudiantes por </b></h5>
+            </div>
+            <div class="col-xs-6 col-sm-2">
+                <input type="radio" name = "tipoDocente" onclick="agregarP('a')"> Archivo
+            </div>
+            <div class="col-xs-6 col-sm-2">
+                <input type="radio" name = "tipoDocente" onclick="agregarP('m')"> Manual
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div id="archivo" style="display: block;">
+            <%= form_tag import_curso_materia_curso_materia_estudiantes_path(@curso), multipart: true do %>
+                <div class="col-xs-6 col-sm-5"><%= file_field_tag :file %></div>
+                <div class="col-xs-6 col-sm-3"><%= submit_tag "Importar" %></div>
+            <% end %>
+        </div>
+        <div id="manual" style="display: none;">            
+            <%= render "curso_materia_estudiantes/form" %>            
+        </div>
+    </div>
+    
+    <br/>
+    <% if CursoMateriaEstudiante.find_by(curso_materia_id: @curso.id) != nil %>
+        <% @estudiantesC = CursoMateriaEstudiante.where(curso_materia_id: @curso.id) %>
+        <h4 id="align-title">Lista de estudiantes </h4>
+        <table class="table">
+            <thead>
+                <th>Número Control</th>
+                <th>Nombre</th>
+                <th>Apellido paterno</th>
+                <th>Apellido materno</th>
+                <th>Acción</th>
+
+            </thead>
+                <% @estudiantesC.each do |p| %>
+                    <tbody>
+                        <td><%= p.numControl %></td>
+                        <td><%= p.nombre %></td>
+                        <td><%= p.apellidoPaterno %></td>
+                        <td><%= p.apellidoMaterno %></td>                
+                        <td><%#= link_to "Eliminar", p, method: :delete, data: { confirm: '¿Seguro que desea eliminar el registro de servicio?' } %></td>
+                    </tbody>
+                <% end %>
+            </table>
+        <% end %>
+
+    <div class="row" id="btn-cancelar">
+        <div class="col-xs-6 col-md-4" id="btn">
+            <%= button_to "Editar Registro", edit_curso_materia_path(@curso), :class => 'btn btn-success', :method => :get %>
+        </div>
+        <div class="col-xs-6 col-md-4">
+            <%= button_to "Regresar", curso_materias_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+    </div>
+</div>

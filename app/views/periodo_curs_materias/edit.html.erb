@@ -1,0 +1,72 @@
+<div class="container">
+    <div>
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :per_cur_mat_edit, @curso_materia %>
+    </div>
+    <h3 id="align-title">Registro de Periodo Curso-Materias</h3>
+    <div id="marco">
+        <%= nested_form_for @curso_materia, validate: true do |curso| %>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4">                                    
+                    <%= curso.label :Periodo %><strong>:</strong> <%= curso.label :periodo, value: @curso_materia.periodo, validate: true %>
+                </div>
+            </div>
+
+            <div class="row">
+                <% doc = Docente.find_by(email: current_usuario.email) %>
+                <%= curso.hidden_field :docente_id, :value => doc.id %>  
+            </div>
+
+            <div class="row">
+                <% curso.label :Usuario, :class => 'col-xs-4 col-md-3' %>
+                <%= curso.hidden_field :usuario_id, :class => 'col-xs-4 col-md-4', :value => current_usuario.id, validate: true %>
+            </div>
+            <h4>Cursos impartidos durante el semestre</h4>
+            <fieldset id="curso-materias">
+                <%= curso.fields_for :curso_materias, validate: true do |curmat| %>
+                    <div id="marco">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <%= curmat.label :Nombre_del_grupo %>
+                                <%= curmat.text_field :nombreGrupo, class: "form-control", validate: true %>
+                            </div>
+                            <div class="col-md-6">
+                                <%= curmat.label :Aula %>
+                                <%= curmat.text_field :aula, class: "form-control", validate: true %>
+                            </div>                            
+                        </div>                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <%= curmat.label :Materia %>
+                                <%= curmat.select :cat_materia_id,  CatMateria.all.collect{ |p| [ p.claveMateria + " " + p.nombreMat, p.id ] }, {include_blank: 'Seleccione...'}, class: "form-control", validate: true %> 
+                            </div>
+                            <div class="col-md-6">
+                                <%= curmat.label :Total_de_estudiantes %>
+                                <%= curmat.number_field :total, min: 15, max: 50, class: "form-control", validate: true %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" align="right">
+                            <%= curmat.link_to_remove '', data: {confirm: "Eliminar la materia?"}, title: "Eliminar", class: "glyphicon glyphicon-trash red"%>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+                <p><%= curso.link_to_add "Agregar curso", :curso_materias %></p>
+            </fieldset>            
+        
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= curso.submit :Guardar, data: {confirm: "Si modificó algun total y había creado una estadística se eliminará. "}, :class => 'btn btn-success' %>
+                </div>   
+            <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", periodo_curs_materias_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

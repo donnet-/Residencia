@@ -1,0 +1,45 @@
+<div class="container">
+    
+   
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :evaluacion_cursos %>
+    <h4 id="align-title">Criterios para la Evaluación Docente Frente a Grupo</h4>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, CatCriterioEvaluacionDocente %>
+                <%= button_to new_cat_criterio_evaluacion_docente_path, :class => "btn btn-primary", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="col-xs-6 col-sm-11">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info">Número <%#= sortable "participacion" %></th>
+                    <th class="info">Criterio <%#= sortable "estado" %></th>
+                    <th class="info">Estado</th>
+                </thead>
+                <% @evaluaciones.each do |eval| %>
+                    <tbody>
+                        <td class="active"><%= eval.numero %></td>
+                        <td class="active"><%= eval.criterio %></td>
+                        <td class="active"><%= eval.estado %></td>
+                        <td class="active">
+                            <%= link_to edit_cat_criterio_evaluacion_docente_path(eval) do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                                <div class="tip" id="action2">Editar</div>
+                            <% end %>
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+            <%= will_paginate @evaluaciones %>
+        </div>
+    </div>
+</div>

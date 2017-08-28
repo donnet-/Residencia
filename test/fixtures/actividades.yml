@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombreActividad: MyString
+  tipoComision: MyString
+  tipoEvidencia: MyString
+  cat_tipo_actividad_id: 
+  fechaInicio: 2017-03-08
+  fechaTermino: 2017-03-08
+  descripcion: MyString
+  estado: MyString
+  usuario_id: MyString
+
+two:
+  nombreActividad: MyString
+  tipoComision: MyString
+  tipoEvidencia: MyString
+  cat_tipo_actividad_id: 
+  fechaInicio: 2017-03-08
+  fechaTermino: 2017-03-08
+  descripcion: MyString
+  estado: MyString
+  usuario_id: MyString

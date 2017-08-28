@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="col-xs-6 col-sm-10" id="marco">
+        <h4 id="align-title">Oficios generados para Liquidación de Viáticos</h4>
+        <% @mod = ModuloDiplomado.find_by(actividad_id: @actividad.id) %>
+        <% if @mod == nil%>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <h5><b>Datos del documento: </b></h5>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                    <% @j = Oficio.find_by(actividad_id: @actividad.id, docente: acd.docente_id) %>
+                    <%= form_tag(liquidacion_de_viaticos_actividad_path, method: 'get') do %>
+                        <%= hidden_field_tag :format, "pdf" %>
+                        <div class="row">
+                            <% d = Docente.find(acd.docente_id) %>
+                            <div class="col-md-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"><b>No. oficio: </b><%= @j.numero %> </div>
+                            <% if @j.fechaPosterior == nil %>
+                                <% fp = @actividad.fechaTermino %><% fpos = fp.day.to_i + 1 %> <% fpos = fp.to_s + '/' + fp.month.to_s + '/' + fp.year.to_s %>
+                                <div class="col-md-1"><b>Fecha posterior</b></div>
+                                <div class="col-md-4"><%= text_field_tag "fechaPosterior", fpos, 'data-behaviour'=> 'datepicker' %></div>
+                            <% else %>
+                                <% fp = @j.fechaPosterior.day.to_s + '/' + @j.fechaPosterior.month.to_s + "/" + @j.fechaPosterior.year.to_s %>
+                                <div class="col-xs-6 col-sm-5"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fp, 'data-behaviour'=> 'datepicker' %></div>
+                            <% end %>
+                            <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                            <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha",f, 'data-behaviour'=> 'datepicker' %></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3"><b>Categoria: </b><%= text_field_tag "categoria", @j.categoria %></div>
+                            <div class="col-xs-6 col-sm-3"><b>Nacionales: </b><%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]], @j.nacionall)%></div>
+                            <div class="col-xs-6 col-sm-3"><b>Sueldo mensual: </b><%= text_field_tag "sueldo", @j.sueldo %></div>
+                            <div class="col-xs-6 col-sm-3"><%= submit_tag "Generar ", :formtarget => '_blank', class: 'btn btn-success'%></div>
+                        </div>
+                    <% end %>
+                <% else %>
+                <% end %>
+            <% end %>
+        <% else %>
+            <% @actividad.modulo_diplomados.each do |p| %>
+                <% docmod = p.actividad_docentes.map(&:docente_id) %>
+                <% if docmod == [] %>
+                <% else %>
+                    <% for dm in docmod %>
+                        <% s = existeOAM(@actividad.id, dm, p.id) %>
+                        <% if s == true %>
+                            <% @j = Oficio.find_by(actividad_id: @actividad.id, docente: dm, modulo: p.id) %>
+                            <h5><b>Datos del documento: </b></h5>
+                            <%= form_tag(liquidacion_de_viaticos_actividad_path, method: 'get') do %>
+                                <%= hidden_field_tag :format, "pdf" %>
+                                <div class="row">
+                                    <% d = Docente.find(@j.docente) %>
+                                    <div class="col-xs-6 col-sm-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, dm %></div>
+                                    <div class="col-xs-6 col-sm-4"><b>Módulo: </b><%= p.nombreModulo %><%= hidden_field_tag :modulo, @j.modulo %></div>
+                                    <% if @j.fechaPosterior == nil %>
+                                        <% fp = @actividad.fechaTermino %><% fpo = fp.day.to_i + 1 %> <% fpos = fpo.to_s + '/' + fp.month.to_s + '/' + fp.year.to_s %>
+                                        <div class="col-xs-6 col-sm-4"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fpos, 'data-behaviour'=> 'datepicker' %></div>
+                                    <% else %>
+                                        <% fp = @j.fechaPosterior.day.to_s + '/' + @j.fechaPosterior.month.to_s + "/" + @j.fechaPosterior.year.to_s %>
+                                        <div class="col-xs-6 col-sm-5"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fp, 'data-behaviour'=> 'datepicker' %></div>
+                                    <% end %>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-3"><b>No. oficio: </b><%= @j.numero %> </div>
+                                    <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                                    <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha",f, 'data-behaviour'=> 'datepicker' %></div>
+                                    <div class="col-xs-6 col-sm-4"><b>Categoria: </b><%= text_field_tag "categoria", @j.categoria %></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-3"><b>Nacionales: </b><%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]], @j.nacionall)%></div>
+                                    <div class="col-xs-6 col-sm-4"><b>Sueldo</b><%= text_field_tag "sueldo", @j.sueldo %></div>
+                                    <div class="col-xs-6 col-sm-3"><%= submit_tag "Generar ", :formtarget => '_blank', class: 'btn btn-success'%></div>
+                                </div>
+                            <% end %>
+                        <% else %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+</div>

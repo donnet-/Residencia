@@ -1,0 +1,71 @@
+<div class="container">
+    <h4>Evidencia-Individual</h4>
+    <div class="row">
+    <div class="col-xs-10">
+        <table class="table table-responsive" >
+            <thead>
+                <th class="info">Docente</th>
+                <th class="info">Tipo participación</th>
+                    <% if @actividad.tipoEvidencia == "Individual" || "Individual/Grupo" %>
+                        <th class="info">Evidencia</th>
+                    <% end %>
+            </thead>
+            <% @actividad.actividad_docentes.each do |evidoc| %>
+                <% if current_usuario.rol == 'admin' %>
+                    <tbody>
+                        <td class="active">
+                            <% @doc = Docente.find(evidoc.docente_id) %>
+                            <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                        </td>
+                        <td class="active">
+                            <% @parti = CatTipoParticipacion.find(evidoc.cat_tipo_participacion_id) %> <%= @parti.participacion %>
+                        </td>                    
+                        <% if @actividad.tipoEvidencia == "Individual" %>
+                            <td class="active">
+                                <%= link_to actividad_actividad_docente_path(@actividad, evidoc), :title => "Ver"  do%>
+                                    <span class="glyphicon glyphicon-eye-open blue"></span>
+                                    <div class="tip" id="action1">Ver evidencias</div>
+                                <% end %>
+                            </td>
+                        <% elsif @actividad.tipoEvidencia == "Individual/Grupo" %>
+                            <td class="active">
+                                <%= link_to actividad_actividad_docente_path(@actividad, evidoc), :title => "Añadir evidencia" do %><span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="evi">Añadir evidencia</div>
+                                <% end %>
+                            </td>
+                        <% else %>
+                        <% end %>                
+                    </tbody>
+                <%  elsif current_usuario.rol == 'docente' %>
+                    <% docActual = Docente.find_by(email: current_usuario.email) %>
+                    
+                    <% if docActual.id == evidoc.docente_id %>
+                        <tbody>
+                            <td class="active">
+                                <% @doc = Docente.find(evidoc.docente_id) %>
+                                <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                            </td>
+                            <td class="active">
+                                <% @parti = CatTipoParticipacion.find(evidoc.cat_tipo_participacion_id) %> <%= @parti.participacion %>
+                            </td>                    
+                            <% if @actividad.tipoEvidencia == "Individual" %>
+                                <td class="active">
+                                    <%= link_to actividad_actividad_docente_path(@actividad, evidoc), :title => "Ver"  do%>
+                                        <span class="glyphicon glyphicon-eye-open blue"></span>
+                                        <div class="tip" id="action1">Ver evidencias</div>
+                                    <% end %>
+                                </td>
+                            <% elsif @actividad.tipoEvidencia == "Individual/Grupo" %>
+                                <td class="active">
+                                    <%= link_to actividad_actividad_docente_path(@actividad, evidoc), :title => "Añadir evidencia" do %><span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="evi">Añadir evidencia</div>
+                                    <% end %>
+                                </td>
+                            <% else %>
+                            <% end %>                
+                        </tbody>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </table>
+    </div>
+</div>
+</div>

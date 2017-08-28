@@ -1,0 +1,78 @@
+<! DOCTYPE html> 
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Oficio para Revisores</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 12px; }
+            table { border-collapse: collapse;}
+            table, th, td { border: black 1pt solid;  padding: 5px; }
+        </style>
+        <body>
+            <div>
+                <% lema = Configuracion.find_by(tipo: "Lema").contenido %>
+                
+                <% subAcademico = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+                <% jefeVinculacion = 'M.C. Maricela Morales Hernández' %>
+                <% @x = oficioVinculacion(params[:numOficio], params[:fecha], params[:proyecto_id], params[:proyecto_docente_id], params[:proyecto_estudiante_id], lema, params[:plan_estudio_id], nil, jefeVinculacion, subAcademico, nil) %> 
+            </div>
+            <br/><br/>
+            <div class="row">
+                <p style="font-size: 15px;" align="right">
+                    Oficina de Vinculación del Dpto. de Sistemas y Computación <br/>
+                    No. de Oficio: JV-<%= @x.numOficio %>/<%= @x.anio %> <br/>
+                    ASUNTO: Revisor de Residencia Profesionales.
+                </p>
+                <div class="col-lg-12" align="right" style="font-size: 15px">Oaxaca de Juárez, Oaxaca; <label style="background-color: black; color: white; font-size: 13px"><%= @x.fecha.day %>/<%= meses(@x.fecha.month).downcase %>/<%= @x.fecha.year %> </label></div>
+            </div>
+            <% @c = Configuracion.find_by(tipo: "Mexico") %>
+            <%= wicked_pdf_image_tag(@c.imagen_url, size: "700x600", :style => ' display: flex;  position: absolute; rigth: 50px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 14px;') %>
+            <br/><br/><br/>
+            <div class="row">
+                <% proyDoc = ProyectoDocente.find(@x.proyecto_docente_id) %>
+                <% docente = Docente.find(proyDoc.docente_id) %>
+                <% grado = GradoEstudio.where(docente_id: docente.id).last %>
+                <p style="font-size: 15px">
+                    <b>
+                        <% if grado != nil %> <%= grado.abrev.upcase %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% else %> <%= docente.nombreD.upcase %> <%= docente.apPaterno.upcase %> <%= docente.apMaterno.upcase %> <% end %> <br/>
+                        CATEDRÁTICO DEL I.T. DE OAXACA, <br/>
+                        P R E S E N T E
+                    </b>
+                </p>
+            </div>
+            <br/>
+            <div class="row">
+                <p class="estilo" style="font-size: 15px;" align="justify">
+                    Por este conducto informo a usted que ha sido asignado para fingir como <b>REVISOR de RESIDENCIA PROFESIONAL</b> para los proyectos que se encuentran en el anexo a este documento.
+                </p><br/>
+                <p class="estilo" style="font-size: 15px;" align="justify">
+                    Así mismo, le solicito dar el seguimiento pertinente a la realización del proyecto aplicando los lineamientos establecidos para ello, en el lineamiento para la Operación y Acreditación de Residencias Profesionales para el Plan de estudios <%= @x.plan_estudio_id %> de la carrera de Ingeniería en Sistemas Computacionales.
+                </p><br/>
+                <p class="estilo" style="font-size: 15px;" align="justify">
+                    Agradezco de antemano su valioso apoyo en esta importante actividad para la formación profesional de nuestro estudiantado.
+                </p>
+            </div>
+            <br/>
+            <div class="row">
+                <p align="center" style="font-size: 16px;">
+                    A T E N T A M E N T E <br/><br/><br/>
+                    "Tecnología Propia e Independecia Económica"
+                </p>
+            </div>
+            <br/>
+            <div class="row">
+                <p align="center">
+                    <%= @x.jefeVinculacion %> <br/>
+                    Jefa de la Oficina de Vinculación del Dpto. de sistemas
+                </p>
+            </div>
+            <br/>
+            <div class="row">
+            <p align="left" style="font-size: 10px;">
+                C.c.p Expediente
+            </p>
+        </div>
+        </body>
+    </head>
+</html>

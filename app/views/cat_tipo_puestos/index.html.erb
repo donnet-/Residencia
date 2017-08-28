@@ -1,0 +1,39 @@
+<%= render template: "siged/menuAdmin" %>
+<% breadcrumb :cat_tipo_puestos%>
+
+<div class="container">
+    <h3 id="align-title">Cátalogo de Tipos de Puestos para el DPTO</h3>
+    
+    <div class="row">
+        <div class="col-md-1">
+            <% if can? :create, CatTipoPuesto %>
+            <%= button_to new_cat_tipo_puesto_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="col-xs-6 col-sm-11">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info"><%= sortable "nombrePuesto" %></th>
+                    <th class="info"> Alterno </th>
+                    <th class="info"><%= sortable "estado" %></th>
+                </thead>
+                <% @tipoPuestos.each do |puesto| %>
+                    <tbody>
+                        <td class="active"><%= puesto.nombrePuesto %></td>
+                        <td class="active"><%= puesto.alterno %></td>
+                        <td class="active"><%= puesto.estado %></td>
+                        <td class="active">
+                            <%= link_to edit_cat_tipo_puesto_path(puesto), title: "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                            <% end %>
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+            <%= will_paginate @tipoPuestos %>
+        </div>
+    </div>
+</div>

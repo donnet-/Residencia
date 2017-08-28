@@ -1,0 +1,22 @@
+<div id="align-form">
+    <%= form_for ([@curso, @curso.curso_materia_estudiantes.build]) do |ce| %>
+        <br>
+        <div class="row">
+            <%= ce.label :Número_de_control, class: 'col-xs-4 col-md-3' %>
+            <%= ce.text_field :numControl, :class => 'col-xs-4 col-md-4' %>	
+        </div>
+        <div class="row">
+            <%= ce.label :Nombre, :class => 'col-xs-4 col-md-3' %>
+            <%= ce.text_field :nombre, :class => 'col-xs-4 col-md-4' %>		
+        </div>
+        <div class="row">
+            <%= ce.label :Apellido_paterno, :class => 'col-xs-4 col-md-3' %>
+            <%= ce.text_field :apellidoPaterno, :class => 'col-xs-4 col-md-4'%>	
+        </div>
+        <div class="row">
+            <%= ce.label :Apellido_materno, :class => 'col-xs-4 col-md-3' %>
+            <%= ce.text_field :apellidoMaterno, :class => 'col-xs-4 col-md-4' %>
+        </div>
+            <%= ce.submit "Agregar" %>	
+    <% end %>
+</div>

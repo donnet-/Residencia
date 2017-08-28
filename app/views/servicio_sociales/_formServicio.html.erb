@@ -1,0 +1,39 @@
+<div class="container">
+    <h4>Generar Carta de Terminación de Servicio Social</h4>
+    <div id="marco">
+        <h5>Datos del documento: </h5>
+        <%= form_tag(servicio_social_path, method: 'get') do %>
+        
+        <% s = existeSS(@servicio.id) %>        
+            <div class="row">
+                <% if s == true %>                
+                    <% @j = Oficio.where(servicio_social_id: @servicio.id).order(:servicio_social_id, :numero).last %>          
+                    <%= hidden_field_tag :format, "pdf" %>
+                    <div class="col-md-2"><b>Núm. de oficio: </b><%= @j.numero %></div>
+                    <%= hidden_field_tag "numero", @j.numero %>
+                    <%# f = @j.fechaLibS.day.to_s + '/' + @j.fechaLibS.month.to_s + "/" + @j.fechaLibS.year.to_s %>
+                    <% f = @j.fechaLibS.strftime('%Y-%m-%d') %>
+                    <div class="col-md-1"><b>Fecha: </b></div>
+                    <div class="col-md-3"><%= date_field_tag "fechaLibS",f, class: "form-control" %></div>
+                    <div class="col-md-2"><b>Actividades realizadas: </b></div>
+                    <div class="col-md-3"><%= text_field_tag :descripcion, @j.descripcion, class: "form-control" %></div>
+                    <div class="col-md-2"><%= submit_tag "Generar", :formtarget => '_blank', :class => 'btn btn-success' %></div>
+                <% else %>
+                    <% @arre = serie %>
+                    <%= hidden_field_tag :format, "pdf"%>
+                    <div class="col-md-2"><b>No. oficio:</b></div>
+                    <div class="col-md-1"><%= select_tag "numero", options_for_select(@arre, "xD"), class: "form-control" %></div>
+                    <% fec = Time.now
+                        #f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y")
+                        f = fec.strftime("%Y-%m-%d")
+                    %>
+                    <div class="col-md-1"><b>Fecha:</b></div>
+                    <div class="col-md-3"><%= date_field_tag "fechaLibS", f , class: "form-control" %></div>
+                    <div class="col-md-2">Actividades realizadas:</div>
+                    <div class="col-md-3"><%= text_field_tag :descripcion, "", class: "form-control" %></div>
+                    <div class="col-md-3"><%= submit_tag "Generar", :formtarget => '_blank', :class => 'btn btn-success' %></div>
+                <% end %>
+            </div>
+        <% end %>  
+    </div>
+</div>

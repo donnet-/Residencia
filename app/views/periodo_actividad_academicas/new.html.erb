@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="row">
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    <% breadcrumb :actividad_academica_new %>
+    <h3 id="align-title">Registro de Liberación de Actividades Académicas por Periodo</h3>
+    
+    <div class="marco">
+        <%= nested_form_for @periodo_actividad, validate: true do |act| %>
+            <div class="row">
+                <% t = Time.now %><% @anio = t.strftime("%Y") %>
+                <div class="col-md-1"><%= act.label :Periodo %></div>
+                <div class="col-md-4"><%= act.select :periodo, options_for_select([["FEBRERO-JUNIO/"+@anio.to_s, "FEBRERO-JUNIO/"+@anio.to_s], ["AGOSTO-DICIEMBRE/"+@anio.to_s, "AGOSTO-DICIEMBRE/"+@anio.to_s ]]),{}, class: "form-control" %></div>
+            </div>
+        
+            <fieldset id="lib-curso-docente">
+                <% doc = Docente.where(estado: 'Activo') %>
+                <% for d in doc %>
+                    <%= act.fields_for :lib_actividad_docentes, validate: true do |actdoc| %>
+                        <div id="marcoTitle" onclick="muestraPanel('<%= d.id%>')"><%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %></div>                
+                        <div id="<%= d.id %>" style="display: none;  border: 2px solid #ccc; padding: 2px; ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <%= actdoc.label :Docente %> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> 
+                                    <%= actdoc.hidden_field :docente_id, value: d.id %>
+                                </div>
+                                <% f = Time.now.strftime("%Y-%m-%d") %>
+                                <div class="col-md-2"><b>Fecha: </b></div>
+                                <div class="col-md-3">
+                                    <%= actdoc.date_field :fecha, class: "form-control" %>
+                                </div>
+                            </div>
+                        
+                            <fieldset id="lib-doc-criterio">
+                                <% crit = CatCriterioAcademia.where(estado:  'Activo') %>
+                                <% for c in crit %>
+                                    <%= actdoc.fields_for :lib_doc_act_criterios, validate: true do |dc| %>
+                                        <div class="row">                                            
+                                            <div class="col-md-8" align="justify">
+                                                <b>&nbsp;&nbsp;&nbsp;&nbsp;- <%= c.criterio %></b>
+                                                <%= dc.hidden_field :criterio_id, value: c.id %>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <%= dc.select :valor, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]),{include_blank: "Seleccione..."}, class: "form-control"%>
+                                            </div>
+                                        </div>
+                                    <% end %>
+                                <% end %>
+                            </fieldset>
+                        </div>
+                    <% end %>
+                <% end %>
+            </fieldset>
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= act.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", periodo_actividad_academicas_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

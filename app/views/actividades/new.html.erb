@@ -1,0 +1,12 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :actividad_new%>
+    
+    <h2 id="align-title">Registro de actividades</h2>
+    <%= render 'form' %>	
+</div>

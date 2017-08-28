@@ -1,0 +1,195 @@
+body { background-image: image-url('page-bg-1.png'); background-color: #FAFAFA; }
+.container { max-width: 1200px; margin-right: 20px; margin-left: 20px;}
+
+// CABECERA
+#wrap { margin: 0px; margin-top: 0px; }
+
+#header { position: relative; top: 0px; }
+
+#header-top { padding: 1px 0; top:1px; }
+
+#header-federal-tecnm {
+    background-image: url("http://www.itoaxaca.edu.mx/web/wp-content/themes/tecnm/images/header_federal_ito.png");
+    background-repeat: no-repeat; 
+    background-position: center;
+    background-size: 900px 90px;//980px 120px;
+    position:relative;
+    width:99%; //99%;
+    height: 70px; //120px;
+    top: 0px; //15px;
+}
+
+#logo { display: block; }
+
+#logo h1, #logo h2 {
+    font-weight: bold;
+    font-size: 2.2em;
+    font-family: trajan, 'soberana_titularregular','Droid Serif', Georgia, Sans-serif;
+    line-height: 1.15em;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+#logo h2 a:hover { color: #505050; }
+
+#header-ad { text-align: right; }
+
+#header-top { top: 0px; }
+
+#header-top #site-logo a { 
+    background-image: url("images/sep.png"); 
+    background-repeat: no-repeat; 
+    background-size: 200px 90px;//290px 90px; 
+    display: block;
+    height: 50px; //90px
+    width: 100px; //290px
+    text-indent: -9999px;
+    left: 0;
+    position: absolute;
+    top: 0px; //10px
+}
+
+#header-top #site-logo-dgest a {
+    background-image: url("images/logodgest.png");
+    background-repeat: no-repeat;
+    display: block;
+    height: 20px;  //100px;
+    width: 10px; //100px;
+    text-indent: -9999px;
+    right: 80px;//150px
+    position: absolute; 
+    top: 0px;  //35px;
+}
+
+#header-top #site-logo-tec a {
+    background-image: url("images/logotec.png");
+    background-repeat: no-repeat;
+    display: block;
+    height: 50px; //70px
+    width: 80px; //119px
+    text-indent: -9999px;
+    right: 0; 
+    position: absolute;
+    top: 0px; //25px;
+}
+
+.boton { width: 100%; text-align: left; border: 0pt;}
+#align-image { position: absolute; top: 100%; left: 30%; }
+
+#align-title {
+    margin-top: 2px; 
+    text-align: center;
+    color: black;
+    font-family: Arial;
+}
+
+#align-log-out { text-align: right; padding: 0px; }
+
+#align-login { margin-left: 250px; }
+
+#align-forms, #align-form { margin-left: 50px; margin-top: 10px; }
+
+#align-list { margin-top: 30px; margin-left: 100px; text-align: justify; }
+
+#align-radio { margin-left: 130px; margin-top: 30px; }
+
+#align-button { margin-left: 200px; }
+
+#actividad, #reuniones, #viaje_itinerario_empresa, #marco, #grado_estudios {
+    border: 2px solid #ccc; padding: 10px; }
+#marcoTitle { border: 2px solid #ccc; padding: 2px; }
+#margen { margin-top: 5px; margin-bottom: 5px;}
+
+#btn-cancelar { margin-top: 10px; }
+
+#btn { margin-left: 200px; }
+
+#btn-buscar{ #margin-top: 30px; margin-left: 100px; }
+
+#cab-tec { margin: 0 auto 0px 0; background: #FAFAFA; border: 0px solid #ccc; }
+
+#ocultar-div { display: none; }
+
+#nombreActividad { width: 200px; }
+
+#motivo { max-height: 100px; min-height: 100px; min-width: 750px; max-width: 750px; }
+
+textarea { max-height: 100px; min-height: 100px; min-width: 100%; max-width: 100%;}
+
+#tipoActividad, #tipoZona, #puesto, #docente, #modulo { width: 200px; }
+#cat_criterio_evaluacion_docente_criterio, #cat_criterio_academia_criterio { max-height: 100px; min-height: 100px; min-width: 850px; max-width: 850px; }
+#motivo, #otro { max-height: 50px; min-height: 50px; min-width: 550px; max-width: 550px; }
+#div-color { background-color: #f5f5f5; height: 120px; padding: 8px;}
+#div-cabecera { background-color: #d9edf7; height: 35px; padding: 8px;}
+#tipo_act { width: 100px; height: 28px;}
+.bordeInferior { border-bottom: solid 2px; }
+
+.field_with_errors { display: inline; }
+
+.field_with_errors .message {
+    color: #ff0000;
+    padding-left: 5px;
+    font-size: 16px;
+    font-family: Arial;
+}
+
+.row { margin-bottom: 5px; }
+
+input, textarea {
+    #text-transform: uppercase;
+    font: 16px 'soberana_sansregular','Helvetica Neue', Helvetica, Arial, sans-serif !important;
+}
+
+.tip {
+    background-color: white;
+    padding: 2px;
+    display: none;
+    position: absolute;
+}
+//--------------------------------GLYPHICON---------------------------------------
+.glyphicon { font-size: 1em; display: block; #text-align: center; }
+.blue { color: darkcyan; margin-left: 5%;}
+.blue-nested { color: darkcyan;}
+.green { color: darkgreen; }
+.red { color: darkred; }
+.orange { color: darkorange; }
+.brown { color: brown; }
+.chocolate { color: chocolate; }
+#margen-icon { margin-top: 25px; }
+//----------------------------RUTAS----------------------------------------------
+.ruta {
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;   
+    list-style: none;    
+    border-radius: 4px;
+}
+.ruta > li {
+    display: inline-block;
+}
+//--------------------- panel
+button.botonpanel {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+button.botonpanel.active, button.botonpanel:hover {
+    background-color: #ddd; 
+}
+
+div.panel {
+    padding: 0 18px;
+    display: none;
+    background-color: white;
+}
+
+th { color: #337ab7}

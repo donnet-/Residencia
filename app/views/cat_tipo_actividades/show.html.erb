@@ -1,0 +1,38 @@
+<div align="left">
+	<% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+</div>
+<div class="container">
+    <% breadcrumb :cat_tipo_actividad, @tipoActividad%>
+
+    <h3 id="align-title">Datos del Tipo actividad</h3>
+    
+    <div id="marco">
+		<div class="row">
+			<div class="col-md-5"><b>Tipo de actividad: </b> <%= @tipoActividad.nombreTipoAct %></div>
+			<div class="col-md-5"><b>Requiere generación de oficio: </b> <%= @tipoActividad.requiereOficio %></div>
+			<div class="col-md-2"><b>Status: </b> <%= @tipoActividad.estado %></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><b>Participaciones: </b> <%= @tipoActividad.cat_tipo_participaciones.map(&:participacion).to_sentence.gsub(/\s?(and)\s/,", ") %></div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><b>Evidencias: </b> <%= @tipoActividad.cat_evidencias.map(&:nombreEvidencia).to_sentence.gsub(/\s?(and)\s/,", ") %></div>
+		</div>
+		<% if @tipoActividad.requiereOficio == 'Si' %>
+			<div class="row">
+				<div class="col-md-10" align="justify"><b>Texto sugerido para oficio: </b><%= @tipoActividad.textoSugerido %></div>
+				<div class="col-md-2"><b>Cabecera: </b> <%= link_to @tipoActividad.cabecera_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver Imagen"></span><% end %> </div>
+			</div>
+		<% else %>
+		<% end %>
+		<div class="row">
+			<div class="col-md-12" align="right"><% if can? :update, @tipoActividad %>
+            	<%= link_to edit_cat_tipo_actividad_path(@tipoActividad), :method => :get do %> <span class="glyphicon glyphicon-pencil green" title="Editar registro"></span> <% end %>
+			<% end %></div>
+		</div>
+	</div>
+</div>

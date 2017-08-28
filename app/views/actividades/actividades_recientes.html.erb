@@ -1,0 +1,61 @@
+<div class="container">
+    <div>
+        
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    <% breadcrumb :actividades %>
+    
+    <h3 id="align-title">Actividades en el Dpto. Sistemas y Computación</h3>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, Actividad %>
+                <%= button_to new_actividad_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-1" id="calenda" style='display:block;'>
+            <div class="col-xs-6 col-sm-6" id="calenda" style='display:block;'>
+                <button type="submit" class="btn btn-warning" title="Calendario" name="tipo_attach" onclick="calendario1()" id="Calendario">
+                <i class="glyphicon glyphicon-calendar"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="col-md-5"></div>
+            <%= form_tag actividades_recientes_actividades_path, :method => 'get' do %>
+        <div class="col-md-3">                
+                    <%= text_field_tag :search, params[:search], placeholder: "Buscar...", class: "form-control" %>
+        </div>
+        <div class="col-md-1" align="left">
+                    <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %>
+                        <span class="glyphicon glyphicon-search"></span> 
+                    <% end %>                
+            <% end %>
+        </div>
+        <div class="col-md-1">
+            <%= button_to actividades_path, :class => "btn btn-primary", title: "Todas", :method => :get do %>
+                    <span class="glyphicon glyphicon-list-alt"></span>
+            <% end %>
+        </div>
+    </div>
+    <div id = calend style='display:none;'>
+         <div style="position: relative; top: -45px; left: 81px; padding-right: 0px">
+             <button type="submit" class="btn btn-danger" name="tipo_attach" onclick="calendario2()" title="Ocultar calendario" id="CalendarioOc">
+                <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+         </div>
+        <%= render 'calendario' %>
+    </div>    
+    
+    <% if current_usuario.rol == 'admin' %>
+        <div id="actividadesRec">
+            <%= render 'actividad_reciente' %>
+        </div>
+    <% end %>
+</div>

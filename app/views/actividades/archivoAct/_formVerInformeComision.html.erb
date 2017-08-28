@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-sm-10">
+            <div id="marcoTitle"><h4 id="align-title">Generar Oficio de Comisión </h4></div>
+            <% @ad = ActividadDocente.where(actividad_id: @actividad.id) %>
+            <% for acd in @ad %>
+                <% s = existe(@actividad.id, acd.docente_id) %>
+                <% if s == true %>
+                    <div id="marco">
+                        <h5><b>Datos del documento: </b></h5>
+                        <% @j = Oficio.find_by(actividad_id: @actividad.id, docente: acd.docente_id) %>
+                        <%= form_tag(informe_comisiones_actividad_path, method: 'get') do %>
+                            <%= hidden_field_tag :format, "pdf" %>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3"><b>No. oficio: </b><%= @j.numero %></div>
+                                <% d = Docente.find(acd.docente_id) %>
+                                <div class="col-xs-6 col-sm-4"><b>Docente: </b> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> <%= hidden_field_tag :docente, acd.docente_id %></div>
+                                <div class="col-xs-6 col-sm-5"><b>Cargo: </b>
+                                    <% @p = Puesto.find_by(docente_id: @idoc) %>
+                                    <% if @p != nil %>
+                                        <% @a = CatTipoPuesto. find(@p.cat_tipo_puesto_id).nombrePuesto%>
+                                        <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"],[@a.upcase, @a.upcase]], "DOCENTE") %>
+                                    <% else %>
+                                        <%= select_tag :puesto, options_for_select([["DOCENTE", "DOCENTE"]], "DOCENTE") %>
+                                    <% end %>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <% f = @j.fecha.day.to_s + '/' + @j.fecha.month.to_s + "/" + @j.fecha.year.to_s %>
+                                <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha",f, 'data-behaviour'=> 'datepicker' %></div>
+                                <% if @j.fechaPosterior == nil %>
+                                    <% fp = @actividad.fechaTermino %><% fpo = fp.day.to_i + 1 %> <% fpos = fpo.to_s + '/' + fp.month.to_s + '/' + fp.year.to_s %>
+                                    <div class="col-xs-6 col-sm-4"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fpos, 'data-behaviour'=> 'datepicker' %></div>
+                                <% else %>
+                                    <% fp = @j.fechaPosterior.day.to_s + '/' + @j.fechaPosterior.month.to_s + "/" + @j.fechaPosterior.year.to_s %>
+                                    <div class="col-xs-6 col-sm-5"><b>Fecha posterior: </b><%= text_field_tag "fechaPosterior", fp, 'data-behaviour'=> 'datepicker' %></div>
+                                <% end %>
+                                 <div class="col-xs-6 col-sm-3"><b>Nacionales: </b><%= select_tag "nacionall", options_for_select([["Si", "true"],["No","false"]], @j.nacionall)%></div>                                
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-5"><b>Ciudad-Estado/Ciudad-Pais:</b><%= text_field_tag "zona", @j.zona %></div>
+                                <div class="col-xs-6 col-sm-5"><b>Importe de viaticos:</b><%= text_field_tag "importeViat", @j.importeViat %></div>
+                                <div class="col-xs-6 col-sm-2"><%= submit_tag "Generar", :formtarget => '_blank', :class => 'btn btn-success' %></div>
+                            </div>
+                        <% end %>
+                    </div>
+                <% else %>
+                <% end %>
+            <% end %>   
+        </div>
+    </div>
+</div>

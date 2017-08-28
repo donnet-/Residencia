@@ -1,0 +1,49 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h4 id="align-title">Generación de Liberacion de Actividades por Grupo</h4>
+    
+    <div class="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Periodo: </b><%= @liberacion.periodo %></div>
+        </div>
+    </div>
+    
+    <div id="marco">
+        <h5 id="align-title"><b>Docentes evaluados</b></h5>
+        <div class="row">
+            <div class="col-xs-12" align="center">
+                <table class="table table-responsive" >
+                    <thead>
+                        <th class="info">Docente</th>
+                        <th class="info">Fecha</th>
+                        <th class="Liberacion de actividad-docente"></th>
+                    </thead>
+                    <% @liberacion.liberacio_docente_cursos.each do |ldc| %>
+                        <tbody>
+                            <td class="active">
+                                <% @doc = Docente.find(ldc.docente_id) %>
+                                <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                            </td>
+                            <td class="active">
+                                <%= ldc.fecha %>
+                            </td>
+                            <td class="active">
+                                <%= form_tag(liberacion_curso_path, method: 'get') do %>
+                                    <%= hidden_field_tag :format, "pdf"%>
+                                    <%= hidden_field_tag "liberacion_curso", @liberacion.id %>
+                                    <%= hidden_field_tag "liberacion_docente", ldc.id %>
+                                    <%= hidden_field_tag "docente_id", ldc.id %>
+                                    <%= submit_tag "Generar liberacion",  :class => 'btn btn-success', :formtarget => '_blank' %>
+                                <% end %>
+                            </td>
+                        </tbody>
+                    <% end %>
+                </table>
+            </div>
+    </div>
+</div>

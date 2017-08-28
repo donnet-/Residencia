@@ -1,0 +1,15 @@
+
+[1mFrom:[0m /home/angeles/PROYECTO/REVISION/SIGED/app/views/servicio_sociales/estudiante_vista/_servEstudiante.html.erb @ line 13 ActionView::CompiledTemplates#_app_views_servicio_sociales_estudiante_vista__serv_studiante_html_erb__293443481__635088368:
+
+     [1;34m8[0m:             <th class="info"><%= sortable "estado" %></th>
+     [1;34m9[0m: 		</tr>
+    [1;34m10[0m: 	</thead>
+    [1;34m11[0m: 	<tbody>
+    [1;34m12[0m: 		<% @servicios.each do |servicio| %>
+ => [1;34m13[0m: 		<% binding.pry%>
+    [1;34m14[0m: 			<% if current_usuario.email == Estudiante.find(servicio.estudiante_id) %>
+    [1;34m15[0m:         		<tr>  
+    [1;34m16[0m: 					<td class="active"><%= servicio.fechaInicio %> al <%= servicio.fechaTermino %></td>
+    [1;34m17[0m: 					<td class="active"><%= servicio.horas %></td>
+    [1;34m18[0m: 					<td class="active"><%= servicio.calificacion %></td>
+

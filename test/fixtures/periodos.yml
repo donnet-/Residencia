@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  periodo: MyString
+  fechaInicio: 2017-06-26
+  fechaTermino: 2017-06-26
+
+two:
+  periodo: MyString
+  fechaInicio: 2017-06-26
+  fechaTermino: 2017-06-26

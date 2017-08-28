@@ -1,0 +1,105 @@
+<div class="container">
+   
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :curso_materias%>
+    
+    <h3 id="align-title">Curso-Materias</h3>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-7">
+             <% if can? :create, CursoMateria %>
+                <%= button_to new_curso_materia_path, :class => "btn btn-primary", :method => :get do %>
+                    <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+             <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-5">
+            <%= form_tag curso_materias_path, method: :get do %>
+                <%= text_field_tag :search, params[:search], placeholder: "Buscar..." %>
+                <%= button_tag(type: 'submit', class: "btn btn-default") do %>
+                    <span class="glyphicon glyphicon-search"></span> 
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <table class="table" id="curso materias">
+        <thead>
+            <tr>
+                <th class="info"><%= sortable "nombreGrupo" %></th>
+                <th class="info"><%= sortable "periodo" %></th>
+                <th class="info"><%= sortable "docente_id" %></th>
+                <th class="info"><%= sortable "cat_materia_id" %></th>
+                <th class="info"><%= sortable "pdfInstrumentacion" %></th>
+            </tr>
+        </thead>
+        <% @cursos.each do |cursmat| %>
+            <% @docen = Docente.find_by(:id => cursmat.docente_id) %>
+                <%if current_usuario.rol == "docente" %>
+                    <% if @docen.email == current_usuario.email %>
+                        <tbody>
+                            <td class="active">
+                                <%= cursmat.nombreGrupo %> / <%= cursmat.aula %>
+                            </td>
+                            <td class="active"><%= cursmat.periodo %></td>
+                            <td class="active">
+                                <% @cd = Docente.find(cursmat.docente_id) %>
+                                <p><%= @cd.curp %></p>
+                                <p><%= @cd.nombreD %> <%= @cd.apPaterno %> <%= @cd.apMaterno %></p>
+                            </td>
+                            <td class="active">
+                                <% @cm= CatMateria.find(cursmat.cat_materia_id) %>
+                                <%= @cm.claveMateria %> <%= @cm.nombreMat %>
+                            </td>
+                            <td class="active">
+                                <%= link_to cursmat.pdfInstrumentacion_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue"></span><div class="tip" id="pdf">Abrir PDF</div><% end %>
+                            </td>
+                            <td class="active">
+                                <p><% if can? :read, cursmat %>
+                                        <%= link_to curso_materia_path(cursmat) do %><span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div><% end %>
+                                <% end %></p>
+                                <p><% if can? :update, cursmat %>
+                                        <%= link_to edit_curso_materia_path(cursmat) do %>
+                                        <span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div><% end %>
+                                    <% end %></p>
+                            </td>
+                        </tbody>
+                    <% end%>
+                <% else %>
+                    <tbody>
+                        <td class="active">
+                            <%= cursmat.nombreGrupo %> / <%= cursmat.aula %>
+                        </td>
+                            <td class="active"><%= cursmat.periodo %></td>
+                            <td class="active">
+                                <% @cd = Docente.find(cursmat.docente_id) %>
+                                <p><%= @cd.curp %></p>
+                                <p><%= @cd.nombreD %> <%= @cd.apPaterno %> <%= @cd.apMaterno %></p>
+                            </td>
+                            <td class="active">
+                                <% @cm= CatMateria.find(cursmat.cat_materia_id) %>
+                                <%= @cm.claveMateria %> <%= @cm.nombreMat %>
+                            </td>
+                            <td class="active">
+                                <%= link_to cursmat.pdfInstrumentacion_url, :target => '_blank' do%><span class="glyphicon glyphicon-file blue"></span><div class="tip" id="pdf">Abrir PDF</div> <% end %>
+                            </td>
+                            <td class="active">
+                                <p><% if can? :read, cursmat %>
+                                    <%= link_to curso_materia_path(cursmat) do %>
+                                    <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div><% end %>
+                                <% end %></p>
+                                <p><% if can? :update, cursmat %>
+                                    <%= link_to edit_curso_materia_path(cursmat) do %><span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div><% end %>
+                                <% end %></p>
+                            </td>
+                        </tbody>
+                <% end %>
+            <% end %>
+        </table>
+        <%= will_paginate @cursos %>
+    </div>
+</div>

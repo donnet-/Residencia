@@ -1,0 +1,2 @@
+module CatTipoParticipacionesHelper
+end

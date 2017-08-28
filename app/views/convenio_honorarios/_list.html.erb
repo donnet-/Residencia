@@ -1,0 +1,25 @@
+<div class="container">
+    
+    <h4 id="align-title">Convenios del Docente</h4>
+    
+    <% @docente.convenio_honorarios.each do |p| %>
+        <dl class="dl-horizontal" id="align-list">
+            <dt>Convenio: </dt>
+            <dd>
+                <% if p.pdfConvenio == nil %>
+                    <p><%= link_to "Subir convenio", edit_docente_convenio_honorario_path(@docente, p) %></p>
+                <% end %>
+                <p><%= link_to "Ver Convenio", p.pdfConvenio_url %></p>
+            </dd>
+
+            <dt>Fecha inicio: </dt>
+            <dd><%= p.fechaInicio %></dd>
+
+            <dt>Fecha término: </dt>
+            <dd><%= p.fechaTermino %></dd>
+            
+            <dt>Estado: </dt>
+            <dd><%= p.estado %></dd>
+        </dl>
+    <% end %>
+</div>

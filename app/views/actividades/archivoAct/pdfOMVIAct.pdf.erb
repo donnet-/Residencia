@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Oficio de Comisión / Orden de Ministración de viáticos</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 12px; }			
+			div.topp { font-size: 10px; vertical-align: top; text-align: center; }
+			div.borde { border-bottom: 1px solid; text-align: center; font-size: 11px; vertical-align: bottom; }
+			div.noBorde { font-size: 11px; vertical-align: bottom; }
+			div.derecha { text-align: right; }
+			p.estilo2{ font-size: 11px; }
+			td.celda { text-align: center; font-size: 8px; padding: 3px; letter-spacing: .1em;}
+            td.celdaF { font-size: 8px; padding: 8px;}
+			.little { font-size: 2px; }
+			table { border-collapse: collapse; }
+            table, th, td { border: black 1pt solid; }
+        </style>
+    </head>
+    <body>
+        <% @director = Configuracion.find_by(tipo: "Director del Instituto Tecnologico de Oaxaca").contenido %>
+        <% @lema = Configuracion.find_by(tipo: "Lema").contenido %>		
+		<% @par = params[:docente] %>		
+        <% jefe = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+		<% @x = oficioN(params[:numero], params[:id], params[:fecha], @par, params[:puesto], @director, @lema, nil, jefe, params[:cuota], params[:nacionall], params[:tipoAnDe], params[:nivelAp], params[:tipoZona], params[:motivo], nil, nil, nil, nil, nil, nil, nil, params[:docente], nil, nil, nil, nil, nil, nil, nil, nil, nil, nil) %>
+        
+        <p class="little">&nbsp;.</p>
+		<div><p align="center" style="font-size: 10px;"><%= @lema %></p></div>
+        <div class="row">
+            <div class="col-lg-4">&nbsp;</div>
+            <div class="col-lg-4">
+                <p class="estilo" align="center"><strong>OFICIO DE COMISIÓN/ORDEN DE MINISTRACIÓN DE VIÁTICOS</strong></p>
+            </div>
+            <div class="col-lg-4" float="right">
+				<table align="right">
+                    <tr bgcolor="#ccc"><td class="celda" colspan="2">FORMATO</td>
+                    </tr>
+                    <tr bgcolor="#ccc">
+                        <td class="celda">No</td>
+						<td class="celda">CLAVE</td>
+                    </tr>
+                    <tr>
+						<td class="celda">&nbsp;</td>
+						<td class="celda">&nbsp;OC/OMVI&nbsp;</td>
+					</tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-lg-7">
+                <table style="width: 90%;">
+                    <tr bgcolor="#ccc">
+                        <td class="celda" colspan="2">UNIDAD ADMINISTRATIVA</td>
+                    </tr>
+                    <tr bgcolor="#ccc">
+                        <td class="celda" >CLAVE</td>
+                        <td class="celda">DENOMICACION</td>
+                    </tr>
+                    <tr>
+                        <td class="celda">20DIT002N</td>
+                        <td class="celda">INSTITUTO TECNOLÓGICO DE OAXACA</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <table style="width: 90%;">
+                    <tr bgcolor="#ccc">
+                        <td class="celda" colspan="4">OC/OMVI</td>
+                    </tr>
+                    <tr bgcolor="#ccc">
+                        <td class="celda">NUMERO</td>
+                        <td class="celda" colspan="3">FECHA</td>
+                    </tr>
+                    <tr>
+                        <td class="celda">DSC-0<%= @x.numero %>/<%= @x.anio %></td>
+                        <td class="celda"><%= @x.fecha.day %></td>
+                        <td class="celda"><%= @x.fecha.month %></td>
+                        <td class="celda"><%= @x.fecha.year %></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-1">
+                <table>
+                    <tr bgcolor="#ccc"><td class="celda">CONTRA- RECIBO No.</td></tr>
+                    <tr><td><br/></td></tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-lg-12">
+                <table style="width: 100%;">
+                    <tr bgcolor="#ccc"><td class="celda">DATOS DEL COMISIONADO</td></tr>
+                    <tr>
+                        <td class="celdaF">
+                            <div class="row">
+                                <div class="col-lg-1">C.</div>
+                                <% @par = Docente.find(@par) %>
+                                <% @grado = GradoEstudio.where(docente_id: @par.id).last %>
+                                <div class="col-lg-7" style="border-bottom: black 1pt solid;"><% if @grado != nil %><%= @grado.abrev %>. <% end %><%= @par.nombreD.upcase %> <%= @par.apPaterno.upcase %> <%= @par.apMaterno.upcase %></div>
+                                <div class="col-lg-1">R.F.C.</div>
+                                <div class="col-lg-3" style="border-bottom: black 1pt solid;"><%= @par.rfc %></div>
+                            </div><br/>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-3">DEPENDENCIA DE ADSCRIPCION: </div>
+                                <div class="col-lg-9" style="border-bottom: black 1pt solid;">INSTITUTO TECNOLOGICO DE OAXACA</div>
+                            </div><br/>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-1">UBICACION: </div>
+                                <div class="col-lg-11" style="border-bottom: black 1pt solid;">DEPARTAMENTO DE SISTEMAS Y COMPUTACIÓN</div>
+                            </div><br/>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-lg-2">PUESTO O CATEGORIA: </div>
+                                <% @par2 = Puesto.where(docente_id: @par.id).last%>
+                                <div class="col-lg-6" style="border-bottom: black 1pt solid;">
+                                    <% if @par2 != nil %>
+                                        <% if @par2.estado == 'Activo' %>
+                                            <% @puesto = CatTipoPuesto.find(@par2.cat_tipo_puesto_id) %>
+                                            <%= @puesto.nombrePuesto.upcase %>
+                                        <% end %>
+                                    <% else %>
+                                        DOCENTE
+                                    <% end %>
+                                </div>
+                                <div class="col-lg-1">CLAVE: </div>
+                                <div class="col-lg-3" style="border-bottom: black 1pt solid;"><%= @par.clavePresupuestal %></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 100px;">
+            <div class="col-lg-12">
+                <table style="width: 100%;">
+                    <tr bgcolor="#ccc">
+                        <td class="celda">LUGAR (ES) Y PERIODO (S) DE LA COMISION</td>
+                        <td class="celda">CUOTA DIARIA</td>
+                        <td class="celda">DIAS</td>
+                        <td class="celda">IMPORTE</td>
+                    </tr>
+                    <tr>
+                        <% @act = Actividad.find(params[:id]) %>
+                        <td class="celda"><%= @act.lugar %> DEL <%= @act.fechaInicio.day%> AL <%= @act.fechaTermino.day%> DE <%= meses(@act.fechaInicio.day).upcase %> DEL <%= @act.fechaTermino.year%></td>
+                        <td class="celda">$<%= @x.cuota %>.00</td>
+                        <% @fI = @act.fechaInicio.day%>
+                        <% @fT = @act.fechaTermino.day%>
+                        <% @dias = @fT - @fI%>
+                        <td class="celda"><%= @dias%></td>
+                        <% @imp = @dias * @x.cuota.to_i %>
+                        <td class="celda">$<%= @imp %>.00</td>
+                    </tr>
+                    <tr style="border-left: 0pt;">
+                        <td style="border: 0pt;"></td>
+                        <td style="border: 0pt;"></td>
+                        <td style="border: 0pt;" class="celda">Total</td>
+                        <td class="celda">$<%= @imp %>.00</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-lg-6">
+                <table style="width: 90%;">
+                    <tr>
+                        <td class="celda">MOTIVO DE LA COMISIÓN:<br/><%= @act.descripcion.upcase %></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <table style="width: 100%;">
+                    <tr>
+                        <td class="celda">OBSERVACIONES:<br/><%= @x.motivo.upcase %> </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-lg-6">
+                <table style="width: 90%;">
+                    <tr>
+                        <td class="celda">CARACTERISTICAS DE LOS VIATICOS:</td>
+                    </tr>
+                    <tr>
+                        <td class="celdaF">
+                            <div class="row">
+                                <% if @x.nacionall == true %>                     
+                                    |X|       NACIONALES
+                                    <% else %>
+                                    | |       NACIONALES
+                                <% end %>
+                            </div>
+                            <div class="row">
+                                <% if @x.tipoAnDe == "Anticipados" %>
+                                    <div class="col-lg-4">ANTICIPADOS</div>
+                                    <div class="col-lg-2">X</div>
+                                    <div class="col-lg-4">DEVENGADOS</div>
+                                    <div class="col-lg-2">()</div>
+                                <% else %>
+                                    <div class="col-lg-4">ANTICIPADOS</div>
+                                    <div class="col-lg-2">()</div>
+                                    <div class="col-lg-4">DEVENGADOS</div>
+                                    <div class="col-lg-2">X</div>
+                                <% end %>
+                            </div>
+                            <div class="row">
+                                <% if @x.nivelAp == 'A' %>
+                                    <div class="col-lg-5">NIVELES DE APLICACION</div>
+                                    <div class="col-lg-2">A (X)</div>
+                                    <div class="col-lg-2">B ( )</div>
+                                    <div class="col-lg-2">C ( )</div>
+                                <% elsif @x.nivelAp == 'B' %>
+                                    <div class="col-lg-5">NIVELES DE APLICACION</div>
+                                    <div class="col-lg-2">A ( )</div>
+                                    <div class="col-lg-2">B (X)</div>
+                                    <div class="col-lg-2">C ( )</div>
+                                <% elsif @x.nivelAp == 'C' %>
+                                    <div class="col-lg-5">NIVELES DE APLICACION</div>
+                                    <div class="col-lg-2">A ( )</div>
+                                    <div class="col-lg-2">B ( )</div>
+                                    <div class="col-lg-2">C (X)</div>
+                                <% else %>
+                                    <div class="col-lg-5">NIVELES DE APLICACION</div>
+                                    <div class="col-lg-2">A ( )</div>
+                                    <div class="col-lg-2">B ( )</div>
+                                    <div class="col-lg-2">C ( )</div>
+                                <% end %>
+                            </div>
+                            <div class="row">
+                                <% if @x.tipoZona == "Zona más económica" %>
+                                    <div class="col-lg-5">ZONA MÁS ECONÓMICA (X)</div>
+                                    <div class="col-lg-5">ZONA MENOS ECONÓMICA ( )</div>
+                                <% elsif  @x.tipoZona == "Zona menos económica"%>
+                                    <div class="col-lg-5">ZONA MÁS ECONÓMICA ( )</div>
+                                    <div class="col-lg-5">ZONA MENOS ECONÓMICA (X)</div>
+                                <% else %>
+                                    <div class="col-lg-5">ZONA MÁS ECONÓMICA ( )</div>
+                                    <div class="col-lg-5">ZONA MENOS ECONÓMICA ( )</div>
+                                <% end %>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <table style="width: 100%;">
+                    <tr bgcolor="#ccc">
+                        <td class="celda" colspan="6">DOCUMENTO CONTABILIZADOR:<br/> SALIDA EL DIA <%= @act.descripcion %> </td>
+                    </tr>
+                    <tr bgcolor="#ccc">
+                        <td class="celda">RA</td>
+                        <td class="celda">UR</td>
+                        <td class="celda" colspan="3">F/SF</td>
+                        <td><br/></td>
+                    </tr>
+                    <tr>
+                        <td class="celda"><br/></td>
+                        <td class="celda"><br/></td>
+                        <td class="celda">FN</td>
+                        <td class="celda">SFA</td>
+                        <td class="celda">SFE</td>
+                        <td class="celda"><br/></td>
+                    </tr>
+                    <tr bgcolor="#ccc">
+                        <td class="celda">PG</td>
+                        <td class="celda">GI</td>
+                        <td class="celda">PP</td>
+                        <td class="celda">OG</td>
+                        <td class="celda">TG</td>
+                        <td class="celda">FF</td>
+                    </tr>
+                    <tr>
+                        <td class="celda"><br/></td>
+                        <td class="celda"><br/></td>
+                        <td class="celda"><br/></td>
+                        <td class="celda"><br/></td>
+                        <td class="celda"><br/></td>
+                        <td class="celda"><br/></td>
+                    </tr>
+                    <tr bgcolor="#ccc" style="width: 100%">
+                        <td class="celda" colspan="6">IMPORTE</td>
+                    </tr>
+                    <tr>
+                        <td class="celda" colspan="6">$<%= @imp %>.00</td>
+                    </tr>
+                    <tr bgcolor="#ccc">
+                        <td class="celdaF">No. DE LINEA DE CREDITO</td>
+                        <td class="celda" colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <td class="celda"><br/></td>
+                        <td class="celda" colspan="5"><br/></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 60px;">
+            <div class="col-lg-6">
+                <table style="width: 90%;">
+                    <tr bgcolor="#ccc">
+                        <td class="celda">TITULAR DE LA UNIDAD ADMINISTRATIVA</td>
+                    </tr>
+                    <tr>
+                        <td class="celda"><br/>
+                            <p class="celda" style="border-bottom: black 1pt solid;"><%= @x.firma.upcase %><br/>DIRECTOR</p>
+                            <p class="celda">NOMBRE Y FIRMA</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-6">
+                <table style="width: 100%;">
+                    <tr bgcolor="#ccc">
+                        <td class="celda">RECIBIDO</td>
+                    </tr>
+                    <tr>
+                        <td class="celda"><br/>
+                            <p class="celda" style="border-bottom: black 1pt solid;"><% if @grado != nil %><%= @grado.abrev %>. <% end %><%= @par.nombreD.upcase %> <%= @par.apPaterno.upcase %> <%= @par.apMaterno.upcase %><br/>
+                                <% if @par2 != nil %>
+                                        <% if @par2.estado == 'Activo' %>
+                                            <% @puesto = CatTipoPuesto.find(@par2.cat_tipo_puesto_id) %>
+                                            <%= @puesto.nombrePuesto.upcase %>
+                                        <% end %>
+                                    <% else %>
+                                        DOCENTE
+                                    <% end %>
+                            </p>
+                            <p class="celda">NOMBRE Y FIRMA DEL COMISIONADO</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <br/>
+        <div class="row" style="margin-top: 100px;">
+            <p style=" padding: 8px; font-size: 8px;">JCN/RGRM/MAC/fmjc*</p>
+        </div>
+    </body>
+</html>

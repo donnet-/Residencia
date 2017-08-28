@@ -1,0 +1,81 @@
+<div>
+	<% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'estudiante' %>
+        <%= render template: "siged/menuEstudiante" %>
+    <% end %>
+</div>
+<div class="container">
+    <% breadcrumb :servicio_social, @servicio%>
+    
+	<h3 id="align-title">Datos del Servicio Social</h3>
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Estudiante: </b>
+                <% @id = @servicio.estudiante_id %>
+                <% @obj = Estudiante.find(@id) %>
+                <%= @obj.nombre %> <%= @obj.apPaterno %> <%= @obj.apMaterno %>
+            </div>
+			<div class="col-xs-6 col-sm-7"><b>Empresa: </b> <%= @servicio.nombreE %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Duración: </b><%= @servicio.fechaInicio.strftime('%d-%m-%Y') %> al <%= @servicio.fechaTermino.strftime('%d-%m-%Y') %></div>
+            <div class="col-xs-6 col-sm-4"><b>Horas: </b><%= @servicio.horas %></div>
+			<div class="col-xs-6 col-sm-3"><b>Calificación: </b><%= @servicio.calificacion %></div>
+        </div>
+		<div class="row">
+			<div class="col-xs-6 col-sm-5"><b>Oficio de presentación: </b>
+				<% if @servicio.pdfPresentacion.present?  %> 
+					<%= link_to @servicio.pdfPresentacion_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver imagen"></span><% end %>
+				<% else %>
+					<p style="color: red;">No se ha subido el archivo de presentación!</p>
+				<% end %>
+			</div>
+			<div class="col-xs-6 col-sm-4"><b>Oficio de aceptación: </b>
+				<% if @servicio.pdfAceptacion.present? %> 
+					<%= link_to @servicio.pdfAceptacion_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver imagen"></span><% end %>
+				<% else %>
+					<p style="color: red;">No se ha subido el archivo de aceptación!</p>
+				<% end %>
+			</div>
+			<div class="col-xs-6 col-sm-3"><b>Oficio de liberación: </b>
+				<% if @servicio.pdfLiberacion.present?  %> 
+					<%= link_to @servicio.pdfLiberacion_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue" title="Ver imagen"></span><% end %>
+				<% else %>
+					<p style="color: red;">No se ha subido el archivo de terminación!</p>
+				<% end %>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Observaciones: </b><%= @servicio.observaciones %></div>
+        </div>
+		<div class="row">
+			<div class="col-md-12" align="right">
+				<% if can? :update, @servicio %>
+                	<%= link_to edit_servicio_social_path(@servicio), :method => :get do %><span class="glyphicon glyphicon-pencil green" title="Editar registro"></span><% end %>
+            	<% end %>
+			</div>
+		</div>
+		<% if current_usuario.rol == 'admin' && @servicio.nombreE == 'Departamento de Sistemas y Computacion Instituto Tecnologico de Oaxaca' %>
+			<div class="row container">
+				<% if @servicio.pdfPresentacion.present? %>
+					<input type="button" name="tipo_attach" onclick="mostrar(this)" value="Generar aceptacion" class='btn btn-info'>
+				<% end %>
+				<% if @servicio.pdfAceptacion.present? && @servicio.horas == 480 %>
+					<input type="button" name="tipo_attach" onclick="mostrar(this)" value="Generar liberacion" class='btn btn-info'>
+				<% end %>
+			</div>		
+		<% end %>
+    </div>
+        
+	<div class="container">
+        <div id=aceptacion style='display:none;'>
+            <%= render "formAceptacion" %>
+        </div>
+    </div>
+    <div class="container">
+        <div id = terminacion style='display:none;'>
+            <%= render "formServicio" %>
+        </div>
+    </div>
+</div>

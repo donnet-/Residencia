@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombreGrado: MyString
+  cat_tipo_grado_estudio_id: 
+  institucion: MyString
+  pdfEvidencia: MyString
+  docente_id: 
+
+two:
+  nombreGrado: MyString
+  cat_tipo_grado_estudio_id: 
+  institucion: MyString
+  pdfEvidencia: MyString
+  docente_id: 

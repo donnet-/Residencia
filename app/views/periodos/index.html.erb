@@ -1,0 +1,48 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :periodos %>
+    <h3 id="align-title">Periodos escolares</h3>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1">
+                <%= button_to new_periodo_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>     
+                    <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            </div>
+        </div>
+        <div class="row">
+            <div id="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <th class="info">Periodo</th>
+                        <th class="info">Fecha de Inicio</th>
+                        <th class="info">Fecha  de Término</th>
+                        <th class="info">Acción</th>
+                    </thead>
+                    <% @periodos.each do |periodo| %>
+                    <tbody>
+                        <td class="active"><%= periodo.periodo %></td>
+                        <td class="active"><%= periodo.fechaInicio.strftime('%d/%m/%Y') %></td>
+                        <td class="active"><%= periodo.fechaTermino.strftime('%d/%m/%Y') %></td>
+                        <td class="active">                            
+                            <%= link_to periodo_path(periodo), title: "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                            <% end %> 
+
+                            <%= link_to edit_periodo_path(periodo), title: "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                            <% end %> 
+
+                            
+                        </td>
+                    </tbody>
+                    <% end %>
+                </table>
+            </div>
+        </div>        
+</div>

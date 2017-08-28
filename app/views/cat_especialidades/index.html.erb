@@ -1,0 +1,45 @@
+<div class="container">
+
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :cat_especialidades%>
+
+    <h3 id="align-title">Catálogo de Carreras</h3>
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, CatEspecialidad %>
+                <%= button_to new_cat_especialidad_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info"><%= sortable "nombreEsp" %></th>
+                    <th class="info"><%= sortable "alias" %></th>
+                    <th class="info"><%= sortable "estado" %></th>
+                </thead>
+                <% @especialidades.each do |especialidad| %>
+                    <tbody>
+                        <td class="active"><%= especialidad.nombreEsp %></td>
+                        <td class="active"><%= especialidad.alias %></td>
+                        <td class="active"><%= especialidad.estado %></td>
+                        <td class="active">
+                            <%= link_to edit_cat_especialidad_path(especialidad), title: "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>                            
+                            <% end %>
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+            <%= will_paginate @especialidades %>
+        </div>
+    </div>
+</div>

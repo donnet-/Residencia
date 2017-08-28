@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Constancia de liberación de actividades académicas</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 14px; }
+            table { border-collapse: collapse; }
+            table, th, td { border: black 1pt solid; padding: 5px;, font-size: 10px; }
+        </style>
+    </head>
+    <body>
+        <% catP = CatTipoPuesto.find_by(nombrePuesto: 'Presidente de Academia') %>
+        <% puest = Puesto.where(cat_tipo_puesto_id: catP.id) %>
+        <% @pu = nil %>
+        <% for p in puest %>
+            <% if p.estado == 'Activo' %>
+                <% @pu = p.docente_id %>
+            <% end %>
+        <% end %>
+        <% docpre = Docente.find(@pu) %>
+        <% presidAcad =  docpre.nombreD + " " + docpre.apPaterno + " " + docpre.apMaterno %>
+        <% dpto = Configuracion.find_by(tipo: "Jefe de Sistemas y Computacion").contenido %>
+        
+        <% libact = PeriodoActividadAcademica.find(params[:liberacion_actividad])%>
+        <% libdoc = LibActividadDocente.find(params[:liberacion_docente]) %>
+        
+        <% doc = Docente.find(params[:docente_id])%>
+        <% @grado = GradoEstudio.where(docente_id: doc.id).last %>
+        <br/><br/>
+        <div style="width: 100%;">
+            <p align="center" style="font-size: 14px;">
+                <b>CARTA DE LIBERACIÓN DE ACTIVIDADES ACADÉMICAS</b><br/>
+                Departamento Académico de Sistemas y Computación
+            </p>
+        </div>
+        <br/>
+        <div style="width: 100%">
+            <p align="right" style="font-size: 14px;">
+                Oaxaca de Juárez, Oaxaca, a <%= libdoc.fecha.day %> de <%= meses(libdoc.fecha.month).downcase %> de <%= libdoc.fecha.year %>
+	           <br/>
+                Asunto: Constancia de liberación <br/>de actividades académicas
+            </p>
+        </div>
+        <% @c = Configuracion.find_by(tipo: "Mexico") %>	
+        <%= wicked_pdf_image_tag(@c.imagen_url, size: "800x600", :style => ' display: flex;  position: absolute; rigth: 150px; filter:alpha(opacity=25);-moz-opacity:.25;opacity:.25;, font-size: 10px;') %>
+        
+        <div style="width: 100%;">
+            <% docent = Docente.find(doc.id) %>
+            <p align="left" style="font-size: 16px;">
+                <strong>C. <%= docent.nombreD.upcase %> <%= docent.apPaterno.upcase %> <%= docent.apMaterno.upcase %><br/>PRESENTE</strong>
+            </p>
+        </div>
+        <div style="width:100%;">
+            <p align="justify" style="font-size: 15px;">Por medio <% if docent.genero == 'F' %> de la <% else %> del <% end %> presente, se hace de su conocimiento que durante el semestre <%= libact.periodo.downcase %>, se evaluó el cumplimiento de las siguientes actividades académicas: 
+            </p>
+        </div>
+        <div style="width:100%;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td align="center"><b>Actividades</b></td>
+                        <td><b align="center">Si</b></td>
+                        <td><b align="center">No</b></td>
+                        <td><b align="center">NA</b></td>
+                    </tr>
+                    <% libdocrit = LibDocActCriterio.where(lib_actividad_docente: libdoc.id)%>
+                    <% for c in libdocrit %>
+                        <% crit = CatCriterioAcademia.find(c.criterio_id) %>
+                        <tr style="font-size: 15px;">
+                            <td><%= crit.criterio %></td>
+                            <td><b><% if c.valor == 's' %> X <% else %> <% end %></b></td>
+                            <td><b><% if c.valor == 'n' %> X <% else %> <% end %></b></td>
+                            <td><b><% if c.valor == 'na' %> X <% else %> <% end %></b></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div style="width: 100%;">
+            <div class="row">
+                <div class="col-lg-6"><p align="center"><b><% if docpre.genero == 'F' %>Presidenta de la Academia<% else %>Presidente de Academia<% end %> </b></p></div>
+                <div class="col-lg-6"><p align="center"><b>Vo. Bo. Jefe del Departamento Académico</b></p></div>
+            </div>
+            <br/><br/><br/><br/><br/>
+            <div class="row">
+                <% @grado = GradoEstudio.where(docente_id: docpre.id).last %>
+                <div class="col-lg-6" style="border-top: black 1px solid;"><p align="center"><b></b><%= @grado.abrev %> <%= presidAcad %></p></div>
+                <div class="col-lg-5" style="border-top: black 1px solid; margin-left: 50px;"><p align="center"><b></b><%= dpto %></p></div>
+            </div>
+        </div>
+    </body>
+</html>

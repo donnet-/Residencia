@@ -1,0 +1,85 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+            <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :reuniones %>
+    
+    <h3 id="align-title">Reuniones de academia del Dpto. Sistemas y Computación</h3>
+     
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <% if current_usuario.rol == 'admin' %>
+            <% else %>
+                <% if can? :create, Reunion %>
+                    <%= button_to new_reunion_path, :class => "btn btn-primary", :method => :get do %>
+                         <span class="glyphicon glyphicon-plus"></span>
+                    <% end %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+    <br/>
+    <div class="table">
+        <table class="table table-bordered">
+            <thead>
+                <th class="info"><%= sortable "fecha" %></th>
+                <th class="info"><%= sortable "hora" %></th>
+                <th class="info"><%= sortable "numActa" %></th>                
+                <th class="info"><%= sortable "pdfActa" %></th>
+            </thead>
+            <% @reuniones.each do |act| %>
+                <tbody>
+                    <td class="active"><%= act.fecha.strftime('%d/%m/%y') %></td>
+                    <td class="active"><%= act.hora %></td>
+                    <td class="active">
+                        <% if act.numActa == nil %>
+                            <span class="glyphicon glyphicon-warning-sign orange"></span>
+                            <div class="tip" id="empty">Faltan campos por rellenar</div>
+                        <% else %>
+                            <%= act.numActa %>
+                        <% end %>
+                    </td>
+                    <td class="active">
+                        <% if act.pdfActa.file == nil %>
+                            <span class="glyphicon glyphicon-warning-sign orange"></span>
+                            <div class="tip" id="empty">Faltan campos por rellenar</div>
+                        <% else %>
+                            <%= link_to act.pdfActa_url, :target => '_blank' do %>
+                                <span class="glyphicon glyphicon-file blue"></span>
+                                <div class="tip" id="pdf">Ver PDF</div>
+                            <% end %>
+                        <% end %>
+                    </td>
+                    <td>
+                        <%= link_to reunion_path(act), title: "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                        <% end %>
+                        <% if current_usuario.rol == 'admin' %>
+                        <% else %>
+                            <% if can? :update, act %>
+                                <%= link_to edit_reunion_path(act), title: "Editar" do %>
+                                    <% if act.pdfActa.file == nil && act.numActa == nil %>
+                                        <span class="glyphicon glyphicon-pencil green"></span>
+                                    <% else %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <% if can? :destroy, act %>
+                                <% if act.pdfActa.file == nil && act.numActa == nil %>
+                                        <%= link_to act, method: :delete, data: { confirm: '¿Seguro que desea eliminar esta reunión?' } do%>
+                                            <span class="glyphicon glyphicon-trash red"></span>
+                                            <div class="tip" id="action3">Eliminar</div>
+                                        <% end %>
+                                <% else %>
+                                <% end %>
+                            <% end %>
+                        <% end %>
+                    </td>  
+                </tbody>
+            <% end %>
+        </table>
+        <%= will_paginate @reuniones %>
+    </div>
+</div>

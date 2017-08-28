@@ -1,0 +1,23 @@
+<div class="container">
+    <div id="align-forms">
+        <% @actdoc = ActividadDocente.find(params[:id]) %>
+        <%= form_for [@actdoc, @actdoc.act_individual_docentes.build], validate: true do |evidencia| %>
+            
+            <div class="row">
+                <%= evidencia.label :Evidencia, :class => 'col-xs-4 col-md-3' %>
+                <%= evidencia.select :cat_evidencia_id, CatEvidencia.all.collect{ |p| [ p.nombreEvidencia, p.id ] }, include_blank: true, :class => 'col-xs-4 col-md-4', validate: true %>
+            </div>
+        
+            <div class="row">
+                <%= evidencia.label :Evidencia, :class => 'col-xs-4 col-md-4' %>
+                <%= evidencia.file_field :pdfEvidencia, :class => 'col-xs-4 col-md-4', validate: true, accept: "application/pdf" %>
+            </div>
+        
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn">
+                    <%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

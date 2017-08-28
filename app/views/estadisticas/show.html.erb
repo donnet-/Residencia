@@ -1,0 +1,24 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <h3>Estadisticas</h3>
+    <div class="row">
+        <div class="marco">
+            <p><strong>Materia:</strong><%=@periodo.cat_materia.nombreMat%></p>
+            <p><strong>Grupo:</strong><%=@periodo.nombreGrupo%></p>            
+            <p><strong>Aprobados en ordinaria:</strong><%= @archivo.ordinaria%></p>
+            <p><strong>Aprobados en complementaria:</strong><%= @archivo.complementaria%></p>
+            <p><strong>Aprobados en especial:</strong><%= @archivo.especial%></p>
+            <p><strong>Reprobados:</strong><%= @archivo.reprobados%></p>
+            <p><strong>Desertores:</strong><%= @archivo.desertores%></p>            
+        </div>
+        <%= link_to periodo_curs_materias_path, title: "Volver" do %>
+            <span class="glyphicon glyphicon-arrow-left green"></span>
+            <% end %>
+    </div>
+
+</div>

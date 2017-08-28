@@ -1,0 +1,28 @@
+<div class="col-xs-6 col-sm-12">
+    <% pEst = ProyectoEstudiante.where(proyecto_id: @proyecto.id) %>
+    <% for est in pEst %>
+        <% s = existeOficioV(@proyecto.id, @proDoc, est.numControl) %>
+        <% if s == true %>
+        <% else %>
+            <div id="marco">
+                <h5><b>Datos del documento: </b></h5>
+                <%= form_tag(proyecto_path, method: 'get') do %>
+                    <%= hidden_field_tag :format, "pdf" %>
+                    <%= hidden_field_tag :proyecto_docente_id,  @proDoc %>
+                    <%= hidden_field_tag :proyecto_estudiante_id, est.numControl %>
+                    <%= hidden_field_tag :proyecto_id, @proyecto.id %>
+                    <% estud = Estudiante.find_by(numControl: est.numControl) %>
+                    <p><b>Estudiante: </b> <%= estud.nombre %> <%= estud.apPaterno %> <%= estud.apMaterno %></p>
+                    <% @arre = serieOficioV %>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4"><b>No. oficio: </b><%= select_tag "numOficio", options_for_select(@arre, "xD") %></div>
+                        <% fec = Time.now
+                           f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+                        <div class="col-xs-6 col-sm-4"><b>Fecha: </b><%= text_field_tag "fecha", f , 'data-behaviour'=> 'datepicker' %></div>
+                        <div class="col-xs-6 col-sm-4"><%= submit_tag "Generar", :formtarget => '_blank', class: 'btn btn-success' %></div>
+                    </div>
+                <% end %>
+            </div>
+        <% end %>
+    <% end %>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+    <h4>Docentes</h4>
+    <div class="row">
+    <div class="col-xs-10">
+        <table class="table table-responsive" id="tabletocsv" >
+            <thead>
+				<tr>
+					<th class="info">Docente</th>
+					<th class="info">Tipo participación</th>
+				</tr>
+            </thead>
+            <% @actividad.actividad_docentes.each do |evidoc| %>
+                <tbody>
+					<tr>
+						<td class="active">
+							<% @doc = Docente.find(evidoc.docente_id) %>
+							<%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+						</td>
+						<td class="active">
+							<% @parti = CatTipoParticipacion.find(evidoc.cat_tipo_participacion_id) %> <%= @parti.participacion %>
+						</td> 
+					</tr>
+                </tbody>
+            <% end %>
+        </table>
+    </div>
+</div>
+</div>

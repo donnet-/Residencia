@@ -1,0 +1,25 @@
+<h4 id="align-title">Datos del examen</h4>
+    <% @examen = ExamenProfesional.find(params[:id]) %>    
+    <dl class="dl-horizontal" id="align-list">
+    <dt>Hora del examen: </dt>
+    <dd><%= @examen.hora %></dd>  
+
+    <dt>Fecha del examen: </dt>
+    <dd><%= @examen.fecha %></dd>
+
+    <dt>Tipo de examen</dt>
+    <%# @a = @examen.cat_tipo_examen_proyecto_id %>
+        
+    <% #@e = CatTipoExamenProyecto.find(@a) %>
+    <dd><%#= @e.nombreTipoP %></dd>
+ 
+    <dt>Participantes</dt>
+    <% @Participantes = Egresado.where(examen_profesional_id: params[:id]) %>
+    <% @Participantes.each do |p| %>
+        <dd><%= p.numControl %><dd>
+    <% end %>
+    </dl>
+    <div class="row">
+        <div class="col-xs-2 col-md-4" id="btn-cancelar">
+            <%= button_to "Editar proyecto", edit_actividad_examen_profesional_path(@actividad,@examen), :class => 'btn btn-success', :method => :get %>
+        </div>

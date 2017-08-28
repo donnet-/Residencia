@@ -1,0 +1,32 @@
+<div class="container">
+    <div id="marco" style="margin-top: 2px;">
+        <%= form_for [@actividad, @actividad.viaje_grupos.build], validate: true do |viajgrup| %>
+            <div class="row">
+                <% viajgrup.label :Periodo %>
+                <% t = Time.now %>             <% @anio = t.strftime("%Y") %>
+                <% @month = t.strftime("%m").to_i %>     <% @periodo = nil %>
+                <% if @month >= 02 && @month <= 06 %>
+                    <% @periodo = "FEB-JUN/"+@anio.to_s %>
+                <% elsif @month >= 8 && @month <= 12 %>
+                    <% @periodo = "AGO-DIC/"+@anio.to_s %>
+                <% end %>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <% pe = Periodo.order(:fechaInicio).last %>
+                     <% @aux = @actividad.actividad_docentes %>
+                    <% @cursoMaterias = CursoMateria.where(periodo_curs_materia_id: PeriodoCursMateria.where(:periodo =>  pe.periodo, docente_id: @aux[0].docente_id)) %>
+                    <%= viajgrup.label :Curso_Materia %>
+                </div>
+                <div class="col-md-4">
+                   
+                    <%# viajgrup.select :curso_materia_id, @cursoMaterias.collect{|p| [ p.information_course, p.id ]}, include_blank: true, validate: true%>                    
+                    <%= viajgrup.select :curso_materia_id, @cursoMaterias.all.collect{ |p| [ p.information_course, p.id ] }, {include_blank: "Seleccione"}, class: "form-control", validate: true %>
+                </div>
+                <div class="col-md-2">
+                    <%= viajgrup.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

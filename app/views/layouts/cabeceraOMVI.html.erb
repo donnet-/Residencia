@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">					
+			p.ito {
+				font-size: 12px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<table style="width: 100%">
+			<br>
+			<tbody>
+				<tr>
+					<td>
+						<% @a = Configuracion.find_by(tipo: "Logo SEP") %>	
+						<%= wicked_pdf_image_tag(@a.imagen_url, size: "200x100") %>
+					</td>
+					<td>
+						<% @a = Configuracion.find_by(tipo: "Logo ITO") %>	
+						<%= wicked_pdf_image_tag(@a.imagen_url, size: "50x50") %>
+					</td>
+					<td>
+					   	<p class="ito" align="right">
+							TECNOLÓGICO NACIONAL DE MÉXICO <br/>
+							Instituto Tecnológico de Oaxaca <br/>
+							Depto. de Sistemas y Computación
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>				
+	</body>
+</html>

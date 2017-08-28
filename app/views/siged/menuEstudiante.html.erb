@@ -1,0 +1,26 @@
+<div class="container">
+    <header>
+      <nav class = "navbar navbar-default" role = "navigation">
+          <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>            
+        </div>
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">  
+                    <% @a = Estudiante.find_by(email: current_usuario.email) %>
+                        <% if @a != nil %>
+                            <li><%= link_to "Datos generales", estudiante_path(@a) %></li>
+                        <% else %>                            
+                        <% end %>
+                    <li><a href="/servicio_sociales">Servicio social</a></li>
+                </ul>            
+            </div>
+          </div>
+        </nav>
+    </header>
+</div>

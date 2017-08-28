@@ -1,0 +1,46 @@
+<div class="container">
+    <%= form_for [@docente, @docente.puestos.build], validate: true do |docpuesto| %>
+        <div class="row">
+            <div class="col-md-2">
+                <%= docpuesto.label :Fecha_inicio %>                    
+            </div>
+            <div class="col-md-3">
+                <%= docpuesto.date_field :fechaInicio, class: "form-control", validate: true %>                    
+            </div>
+            <div class="col-md-2">
+                <%= docpuesto.label :Fecha_término %>                    
+            </div>
+            <div class="col-md-3">
+                <%= docpuesto.date_field :fechaTermino,class: "form-control", validate: true %>                    
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col-md-2">
+                <%= docpuesto.label :Puesto %>                    
+            </div>
+            <div class="col-md-3">
+                <%= docpuesto.select :cat_tipo_puesto_id, CatTipoPuesto.all.collect{ |p| [ p.nombrePuesto, p.id ] }, {include_blank: true}, class: "form-control", validate: true %>                    
+            </div>
+            <div class="col-md-2">
+                <%= docpuesto.label :Estado %>                    
+            </div>
+            <div class="col-md-3">
+                <%= docpuesto.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: "form-control", validate: true %>                    
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2"><%= docpuesto.label :Nombramiento %></div>
+            <div class="col-md-3"><%= docpuesto.file_field :pdfNombramiento, validate: true %></div>
+        </div>
+
+        <div class="row" id="btn-cancelar">
+            <div class="col-md-4" id="btn">
+                <%= docpuesto.submit :Guardar, :class => 'btn btn-success' %>
+            </div>
+        <% end %>
+            <div class="col-md-4">
+                <%= button_to "Cancelar", docente_path(@docente), :class => 'btn btn-warning', :method => :get %>
+            </div>
+        </div>
+</div>

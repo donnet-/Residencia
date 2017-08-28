@@ -1,0 +1,78 @@
+<div  class="container">  
+    <div id="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <th class="info"><%= sortable "curp" %></th>
+                <th class="info"><%= sortable "rfc" %></th>
+                <!--<th class="info"><%= sortable "clavePresupuestal" %></th>-->
+                <th class="info"><%= sortable "nombreD" %></th>
+                <!--<th class="info"><%= sortable "genero" %></th>-->
+                <th class="info"><%= sortable "email" %></th>
+                <th class="info"><%= sortable "tipoDocente" %></th>
+                <th class="info"><%= sortable "estado" %></th>
+            </thead>
+            <% @docentes.each do |docente| %>
+                <%if current_usuario.rol == "docente" %>
+                    <% if docente.email == current_usuario.email %>
+                    <tbody>
+                        <td class="active"><%= docente.curp %></td>
+                        <td class="active"><%= docente.rfc %></td>
+                        <!--<td class="active"><%# docente.clavePresupuestal %></td>-->
+                        <td class="active"><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></td>
+                        <!--<td class="active"><%# docente.genero %></td>-->
+                        <td class="active"><%= docente.email %></td>
+                        <td class="active"><%= docente.tipoDocente %></td>
+                        <td class="active"><%= docente.estado %></td>
+
+                        <td class="active">
+                                <% if can? :show, docente %>
+                                    <%= link_to docente_path(docente) do %>
+                                        <span class="glyphicon glyphicon-eye-open blue"></span>
+                                        <div class="tip" id="action1">Ver</div>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                            <td class="active">
+                                <% if can? :update, docente %>
+                                    <%= link_to edit_docente_path(docente) do %>
+                                        <span class="glyphicon glyphicon-pencil green"></span>
+                                        <div class="tip" id="action2">Editar</div>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                    </tbody>
+                    <% end %>
+                <% else %>
+                    <tbody>
+                        <td class="active"><%= docente.curp %></td>
+                        <td class="active"><%= docente.rfc %></td>
+                        <!--<td class="active"><%# docente.clavePresupuestal %></td>-->
+                        <td class="active"><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></td>
+                        <!--<td class="active"><%# docente.genero %></td>-->
+                        <td class="active"><%= docente.email %></td>
+                        <td class="active"><%= docente.tipoDocente %></td>
+                        <td class="active"><%= docente.estado %></td>
+
+                        <td class="active">
+                                <% if can? :show, docente %>
+                                    <%= link_to docente_path(docente) do %>
+                                        <span class="glyphicon glyphicon-eye-open blue"></span>
+                                        <div class="tip" id="action1">Ver</div>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                            <td class="active">
+                                <% if can? :update, docente %>
+                                    <%= link_to edit_docente_path(docente) do %>
+                                        <span class="glyphicon glyphicon-pencil green"></span>
+                                        <div class="tip" id="action2">Editar</div>
+                                    <% end %>
+                                <% end %>
+                            </td>
+                    </tbody>
+                <% end %>
+            <% end %>
+        </table>
+        <%= will_paginate @docentes %>
+    </div>
+</div>  

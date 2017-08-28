@@ -1,0 +1,37 @@
+<div class="container">
+    <%= render template: "siged/menuAdmin" %>
+    <% breadcrumb :cat_tipo_grado_estudios %>
+
+    <h3 id="align-title">Cátalogo de Tipos de Grados de Estudios</h3>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, CatTipoGradoEstudio %>
+            <%= button_to new_cat_tipo_grado_estudio_path, :class => "btn btn-primary",title: "Nuevo", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="col-xs-6 col-sm-8">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info"><%= sortable "nombreTipoGrado"%></th>
+                    <th class="info"><%= sortable "estado" %></th>
+                </thead>
+                <% @tipoGrados.each do |grado| %>
+                    <tbody>
+                        <td class="active"><%= grado.nombreTipoGrado%></td>
+                        <td class="active"><%= grado.estado %></td>
+                        <td class="active">
+                            <%= link_to edit_cat_tipo_grado_estudio_path(grado), title: "Editar" do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                            <% end %>
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+            <%= will_paginate @tipoGrados %>
+        </div>
+    </div>
+</div>

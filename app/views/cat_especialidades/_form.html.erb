@@ -1,0 +1,27 @@
+<div id="align-forms">
+    <%= nested_form_for @especialidad, validate: true do |especialidad| %>
+		<div class="row">
+			<%= especialidad.label :Carrera, :class => 'col-md-1' %>
+			<div class="col-md-4">
+				<%= especialidad.text_field :nombreEsp, :maxlength => 50, :class => 'form-control', validate: true %>
+			</div>
+			<%= especialidad.label :Alías, :class => 'col-md-1' %>
+			<div class="col-md-4">
+				<%= especialidad.text_field :alias, :maxlength => 6, :class => 'form-control', validate: true %>
+			</div>
+		</div>
+
+		<div class="row">
+			<%= especialidad.label :Estado, :class => 'col-md-1' %>
+			<div class="col-md-4">
+				<%= especialidad.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, :class => 'form-control', validate: true %>
+			</div>
+			<div class="col-md-3" align="right">
+				<%= especialidad.submit :Guardar, :class => 'btn btn-success' %>
+			</div>  
+	<% end %>
+			<div class="col-md-2">
+				<%= button_to "Cancelar", cat_especialidades_path, :class => 'btn btn-warning', :method => :get %>
+			</div>
+		</div>
+</div>

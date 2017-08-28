@@ -1,0 +1,12 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :cat_plan_curso_edit, @planCurso%>
+
+    <h3 id="align-title">Editar registro del Cátalogo de Plan de Estudio</h3>
+    <%= render 'formEdit' %>
+</div>

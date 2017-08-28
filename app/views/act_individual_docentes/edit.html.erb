@@ -1,0 +1,28 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+            <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <div id="align-forms">
+        <%= form_for [@actdoc, @individual], validate: true do |evidencia| %>
+        
+            <div class="row">
+                <%= evidencia.label :Evidencia, :class => 'col-xs-4 col-md-3' %>
+                <%= evidencia.select :cat_evidencia_id, CatEvidencia.all.collect{ |p| [ p.nombreEvidencia, p.id ] }, include_blank: true, :class => 'col-xs-4 col-md-4', :selected => @individual.cat_evidencia_id, validate: true %>
+            </div>
+        
+            <div class="row">
+                <%= evidencia.label :Evidencia, :class => 'col-xs-4 col-md-4' %>
+                <%= evidencia.file_field :pdfEvidencia, :class => 'col-xs-4 col-md-4', validate: true, accept: "application/pdf" %>
+            </div>
+        
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                    <%= evidencia.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

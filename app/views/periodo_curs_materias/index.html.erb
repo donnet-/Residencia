@@ -1,0 +1,113 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h3 id="align-title">Periodo Curso-Materias</h3>   
+
+    <div class="row">
+        <div class="col-md-7">
+             <% if can? :create, PeriodoCursMateria %>
+                <%= button_to new_periodo_curs_materia_path, :class => "btn btn-primary", title: "Nuevo periodo", :method => :get do %>
+                    <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+             <% end %>
+        </div>
+        <% breadcrumb :per_cur_mats %>
+        
+            <%= form_tag periodo_curs_materias_path, :method => 'get' do %>
+				<div class="col-md-2">
+					<%= select_tag :periodo, options_for_select([["",""],["FEB-JUN", "FEB-JUN/"], ["AGOS-DIC", "AGOS-DIC/"]], params[:periodo]), class: "form-control" %>
+                </div>
+                <div class="col-md-2">
+                    <%= number_field_tag :anio, params[:anio], min: 2010, class: "form-control", placeholder: "Año" %>
+                </div>
+                <div class="col-md-1">
+                    <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %> <span class="glyphicon glyphicon-search"></span><% end %>
+                </div>                
+			<% end %>    
+    </div>
+   
+    <% if current_usuario.rol == 'admin' %>
+    	<table class="table" id="curso materias">
+			<thead>
+				<tr>
+					<th class="info"><%= sortable "periodo" %></th>
+					<th class="info"><%= sortable "docente_id" %></th>               
+                    <th class="info">Acciones</th>
+				</tr>
+			</thead>        
+			<% @curso_materias.each do |cursmat| %> 
+				<% @docen = Docente.find_by(:id => cursmat.docente_id) %>
+				<tbody>
+					<td class="active"><%= cursmat.periodo %></td>
+					<td class="active">
+						<% @cd = Docente.find(cursmat.docente_id) %>
+						<p><%= @cd.curp %></p>
+						<p><%= @cd.nombreD %> <%= @cd.apPaterno %> <%= @cd.apMaterno %></p>
+					</td>                            
+					<td class="active">
+						<% if can? :read, cursmat %>
+							<%= link_to periodo_curs_materia_path(cursmat), title: "Ver" do %><span class="glyphicon glyphicon-eye-open blue"></span>
+							<% end %>
+						<% end %> 
+						<% if can? :update, cursmat %>
+							<%= link_to edit_periodo_curs_materia_path(cursmat), title: "Editar" do %>
+								<span class="glyphicon glyphicon-pencil green"></span><% end %>
+						<% end %>
+					</td>
+				</tbody>            
+			<% end %>
+		</table>    
+    <% elsif current_usuario.rol == 'docente' %>
+		<% if @curso_materia != nil %>
+		<div class="row">            
+				<div class="col-xs-6 col-md-12" align="right">
+				<% c = Estadistica.where(periodo_curs_materia_id: @curso_materia.id) %>
+				<% if c.count == CursoMateria.where(periodo_curs_materia_id: @curso_materia.id).count %>            
+					<%= link_to "Generar Estadísticas", periodo_curs_materia_path(@curso_materia, format: 'pdf'), target: '_blank'%>
+				<% end %>
+				<% if @curso_materia.estadistica != true %>
+					<%= link_to edit_periodo_curs_materia_path(@curso_materia),title: "Editar",  :method => :get do %><span class="glyphicon glyphicon-pencil green"></span><% end %>
+				<% end %>    
+				</div>
+			</div>
+		<% end %> 
+        <table class="table" id="curso materias">
+            <thead>
+                <tr>
+                    <th class="info">Grupo</th>
+                    <th class="info">Aula</th>                
+                    <th class="info">Materia</th>
+                    <th class="info">Total</th>
+                    <th class="info">Estadística</th>              
+				</tr>
+            </thead>        
+        	<% @grupos.each do |grupo| %>                                       
+                <tbody>
+                    <td class="active"><%= grupo.nombreGrupo%></td>
+                    <td class="active">
+                        <%= grupo.aula %>
+                    </td>                            
+                    <td class="active">
+                        <%= grupo.cat_materia.nombreMat %>
+                    </td>                    
+                    <td class="active"><%= grupo.total %></td>
+                    <td class="active">
+                    <% d = Estadistica.find_by(curso_materia_id: grupo.id) %>
+                    <% if d == nil %>
+                        <%= link_to new_curso_materia_estadistica_path(grupo), title: "Nueva" do %>
+                            <span class="glyphicon glyphicon-plus green"></span>
+                        <% end %>
+                    <% else %>
+                        <%= link_to curso_materia_estadistica_path(grupo, d ), title: "ver" do %>
+                                <span class="glyphicon glyphicon-check green"></span><% end %>
+                    <% end %> 
+                    </td>
+                </tbody>
+         <% end %>
+         </table>        
+	<% end %>
+</div>

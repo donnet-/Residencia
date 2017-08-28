@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Oficio Informe de Comisión</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 12px; }
+            div.topp { font-size: 10px; vertical-align: top; text-align: center; }
+            div.borde { border-bottom: 1px solid; text-align: center; font-size: 11px; vertical-align: bottom; }
+            div.noBorde { font-size: 11px; vertical-align: bottom; }
+            div.derecha { text-align: right; }
+			p.estilo2 { font-size: 11px; }
+			td.celda { text-align: center; font-size: 8px; vertical-align: bottom; vertical-align: top; }
+			.little { font-size: 2px; }
+			table { border-collapse: collapse; }
+            table, th, td { border: black 1pt solid; }	
+        </style>
+    </head>
+    <body>
+        <% @director = Configuracion.find_by(tipo: "Director del Instituto Tecnologico de Oaxaca").contenido %>
+        <% @lema = Configuracion.find_by(tipo: "Lema").contenido %>		
+        <% @par = params[:docente] %>		
+        <% jefe = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+        <% @x = oficioN(params[:numero], params[:id], params[:fecha], @par, params[:puesto], @director, @lema, nil, jefe, nil, params[:nacionall], nil, nil, nil, nil, nil, nil, nil, nil, nil, nil,nil, params[:docente], params[:fechaPosterior], params[:zona], params[:importeViat], nil, nil, nil, nil, nil, nil, nil) %>
+        <% @doc = Docente.find(@x.docente)%>
+        <% @grado = GradoEstudio.where(docente_id: @doc.id).last %>
+        
+        <br/> 
+		<div><p align="center" style="font-size: 10px;"><%= @lema %></p></div>
+        <div class="row">
+            <div class="col-lg-8">&nbsp;</div>
+            <div class="col-lg-4" >
+				<table align="right">
+					<tr bgcolor="#ccc">
+						<td class="celda" colspan="2">ANEXO</td>
+					</tr>	
+					<tr bgcolor="#ccc">
+						<td class="celda">&nbsp;No&nbsp;</td>
+						<td class="celda">CLAVE</td>
+					</tr>
+					<tr>
+						<td class="celda">&nbsp;</td>
+						<td class="celda">&nbsp;INFOCOM&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+        </div>
+        <p class="little">&nbsp;.</p><br/>
+		<div class="row">
+			<div class="col-lg-8">
+				<p class="estilo" align="center"><strong>					
+					INFORME DE COMISIONES DEL PERSONAL DE LAS <br>
+					UNIDADES ADMINISTRATIVAS DE LA SECRETARÍA DE <br>
+					EDUCACIÓN PÚBLICA
+				</strong></p>
+			</div>
+			<div class="col-lg-4" float="right">
+				<table align="right">
+					<tr bgcolor="#ccc">
+						<td class="celda" colspan="4">INFOCOM</td>						
+					</tr>
+					<tr bgcolor="#ccc">
+						<td class="celda">NÚMERO</td>
+						<td class="celda" colspan="3">FECHA</td>
+					</tr>
+					<tr>
+						<td class="celda">&nbsp;DSC-0<%= @x.numero %>/<%= @x.anio %>&nbsp;</td>
+						<td class="celda">&nbsp;<%= @x.fechaPosterior.day %>&nbsp;</td>
+						<td class="celda">&nbsp;<%= @x.fechaPosterior.month %>&nbsp;</td>
+						<td class="celda">&nbsp;<%= @x.fechaPosterior.year %>&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		&nbsp;
+		<div class="row">
+			<br>
+			<div class="col-lg-4 noBorde"><strong>1. UNIDAD ADMINISTRATIVA:</strong></div>
+			<div class="col-lg-8 borde"> 20DIT0002N &nbsp; &nbsp; &nbsp; &nbsp; INSTITUTO TECNOLÓGICO DE OAXACA</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-4 topp"> &nbsp;</div>
+			<div class="col-lg-8 topp">CLAVE Y NOMBRE</div>
+		</div>			
+		<div class="row">
+			<div class="noBorde col-lg-2" width="20"><strong>2. NOMBRE:</strong></div>
+			<% @par = Docente.find(@par) %>
+			<div class="borde col-lg-10" width="80">
+                <% if @grado != nil %>
+                    <%= @grado.abrev.upcase %> <%= @doc.nombreD.upcase %> <%= @doc.apPaterno.upcase %> <%= @doc.apMaterno.upcase %>
+                <% else %>
+                    <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                <% end %><br/>                    
+            </div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-2" width="20"><strong>3. CARGO:</strong></div>
+			<% @par2 = Puesto.where(docente_id: @par.id).last%>	
+			<div class="borde col-lg-10" width="80">
+                <% if @par2 != nil %>
+                    <% if @par2.estado == 'Activo' %>
+                        <% @puesto = CatTipoPuesto.find(@par2.cat_tipo_puesto_id) %>
+                        <%= @puesto.nombrePuesto.upcase %>
+                    <% end %>
+                <% else %>
+                    DOCENTE DEL DEPARTAMENTO DE SISTEMAS Y COMPUTACIÓN
+                <% end %>
+            </div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-2"><strong>4. PERIODO:</strong></div>
+			<% @acti = Actividad.find(params[:id]) %>
+			<div class="noBorde col-lg-10"> Durante <u>el,los</u> día(s), del <u>&nbsp;&nbsp;&nbsp;<%= @acti.fechaInicio.day%>&nbsp;&nbsp;&nbsp;</u> de <u>&nbsp;&nbsp;&nbsp;<%= meses(@acti.fechaInicio.month).upcase %> &nbsp;&nbsp;&nbsp;</u> al <u>&nbsp;&nbsp;&nbsp;<%= @acti.fechaTermino.day%>&nbsp;&nbsp;&nbsp;</u> de <u>&nbsp;&nbsp;&nbsp;<%= meses(@acti.fechaTermino.month).upcase %> &nbsp;&nbsp;&nbsp;</u> del <u>&nbsp;&nbsp;&nbsp;<%= @acti.fechaTermino.year%>&nbsp;&nbsp;&nbsp;</u></div>
+		</div>
+		<div class="row">
+			<div class="noBorde col-lg-2"><strong>5. LUGAR:</strong></div>
+            <% if @x.nacionall == true %>
+                <div class="col-lg-3 topp">NACIONAL (X)</div>
+                <div class="col-lg-2 topp" style="border-bottom: black 1pt solid;"><%= @x.zona.upcase %></div>
+                <div class="col-lg-3 topp">INTERNACIONAL ( )</div>
+                <div class="col-lg-2 topp" style="border-bottom: black 1pt solid;"><br/></div>
+            <% else %>
+                    <div class="col-lg-3 topp">NACIONAL ( )</div>
+                    <div class="col-lg-2 topp" style="border-bottom: black 1pt solid;"><br/></div>
+                    <div class="col-lg-3 topp">INTERNACIONAL (X)</div>
+                    <div class="col-lg-2 topp" style="border-bottom: black 1pt solid;"><%= @x.zona %></div>
+            <% end %>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 topp" style="margin-left: 16%;">Ciudad y Estado</div>
+            <div class="col-lg-4 topp">Ciudad y País</div>     
+        </div>
+		<div class="row">
+			<div class="noBorde col-lg-3"><strong>6. IMPORTE DE VIÁTICOS:</strong></div>
+			<div class="noBorde col-lg-4" align="center" style="border-bottom: black 1pt solid;"> $ <%= @x.importeViat %>.00</div>
+            <div class="noBorde col-lg-1"><br/></div>
+            <div class="noBorde col-lg-1">DLS.</div>
+            <div class="noBorde col-lg-3" style="border-bottom: black 1pt solid;"><br/></div>
+		</div>
+		&nbsp;	
+		<p class="estilo2" align="center"><br><strong> DATOS DE LA COMISIÓN</strong></p>
+		<p class="estilo2"><strong>7. OBJETIVO DE LA COMISIÓN: </strong></p>
+        <p class="estilo2" align="center"><%= @acti.descripcion.upcase %></p>		
+		<p class="estilo2"><strong>8. PRINCIPALES ACTIVIDADES A DESARROLLAR:</strong></p>
+        <p class="estilo2" align="center"><%= @acti.descripcion.upcase %></p>
+				
+		<p class="estilo2"><strong>9. EVALUACIÓN:</strong></p>		
+		<p class="estilo2" align="center"><strong>COMISIONADO</strong></p>		
+		<p class="estilo2" align="center"><u> &nbsp; &nbsp; &nbsp; &nbsp;
+            <% if @grado != nil %>
+                    <%= @grado.abrev.upcase %> <%= @doc.nombreD.upcase %> <%= @doc.apPaterno.upcase %> <%= @doc.apMaterno.upcase %>
+                <% else %>
+                    <%= @doc.nombreD %> <%= @doc.apPaterno %> <%= @doc.apMaterno %>
+                <% end %> &nbsp; &nbsp; &nbsp; &nbsp;</u></p>		
+		<br/>
+		<div class="col-lg-6">
+			<p class="estilo2" align="center"><strong>Vo. Bo. <br>JEFE INMEDIATO SUPERIOR</strong></p>
+			<p class="estilo2" align="center"><u>&nbsp;&nbsp;&nbsp;&nbsp;<%= @x.jefe %>&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+		</div>
+		<div class="col-lg-6">
+			<p class="estilo2" align="center"><strong>Vo. Bo. <br>POR EL ÁREA ADMINISTRATIVA</strong></p>
+			<p class="estilo2" align="center"><u>&nbsp;&nbsp;&nbsp;&nbsp;<%= @x.firma.upcase %>&nbsp;&nbsp;&nbsp;&nbsp;</u></p>
+		</div>
+		<p class="estilo2"><strong>10. DOCUMENTOS DE RESPALDO:</strong></p>
+		<p class="estilo2">(x) Oficio de comisión o desginación de participación comisionado &nbsp; &nbsp; &nbsp; ( ) Programas de trabajo </p>
+		<p class="estilo2">( ) Actas circunstanciadas &nbsp; &nbsp; &nbsp; (x)Diplomas o constancias de participación</p>
+		<p class="estilo2">( ) Otros___________________________________________</p>
+        <br/>
+        <div class="row">
+            <div class="col-lg-4">
+                <p class="estilo" style="font-size:10px;">JCN/RGRM/MAC/fmjc*</p>
+            </div>
+        </div>    
+    </body>
+</html>

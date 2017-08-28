@@ -1,0 +1,38 @@
+<div>
+	<% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'estudiante' %>
+        <%= render template: "siged/menuEstudiante" %>
+    <% end %>
+</div>
+<div class="container">
+    <% breadcrumb :servicio_sociales%>
+    
+    <h3 id="align-title">Servicio social</h3>
+    
+	<div class="row">
+		<% if can? :create, ServicioSocial %>
+			<div class="col-xs-6 col-sm-1">
+				<%= button_to new_servicio_social_path, :class => "btn btn-primary", :method => :get do%><span class="glyphicon glyphicon-plus" title="Añadir servicio"></span><% end %>
+			</div>
+		<% else %>
+			<div class="col-xs-6 col-sm-1">
+				<button onclick="todosServSocial('t')" class="btn btn-primary"> <i class="glyphicon glyphicon-list-alt" title="Todos"></i></button>
+			</div>
+			<div class="col-xs-6 col-sm-1">	
+				<button onclick="todosServSocial('s')" class="btn btn-primary"> <i class="glyphicon glyphicon-list" title="Dpto. sistemas"></i></button>
+			</div>
+		<% end %>
+	</div>
+    
+	<% if current_usuario.rol == 'admin' %>
+		<div id="sistemasServ" style="display:block;">
+			<%= render '/servicio_sociales/admin_vista/sistemas' %>
+		</div>
+		<div id="mostrarTodos" style="display:none;">
+			<%= render '/servicio_sociales/admin_vista/todos' %>
+		</div>
+	<% else %>
+		<%= render '/servicio_sociales/estudiante_vista/servEstudiante' %>
+	<% end %>
+</div>

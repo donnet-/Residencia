@@ -1,0 +1,39 @@
+<h4 id="align-title">Módulos del Diplomado</h4>
+
+<div id="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <th class="info"><%= sortable "nombreModulo" %></th>
+                <th class="info"><%= sortable "fechaInicio" %></th>
+                <th class="info"><%= sortable "fechaTermino" %></th>
+                <th class="info"><%= sortable "duracion" %></th>
+                <th class="info">Docentes</th>
+            </thead>
+            <% @actividad.modulo_diplomados.each do |p| %>
+                <tbody>
+                    <td class="active"><%= p.nombreModulo %></td>
+                    <td class="active"><%= p.fechaInicio%> <%#.strftime("%d-%m-%Y") %></td>
+                    <td class="active"><%= p.fechaTermino%> <%#.strftime("%d-%m-%Y") %></td>
+                    <td class="active"><%= p.duracion %></td>
+                    <td class="active">
+                        <%= p.actividad_docentes.map(&:method_info_docente).to_sentence %>
+                    </td>
+                    <% if p.id == nil %>
+                    <% else %>
+                     <td class="active">
+                        <%= link_to edit_actividad_modulo_diplomado_path(@actividad.id, p.id) do %>
+                            <span class="glyphicon glyphicon-pencil green"></span>
+                            <div class="tip" id="action2">Editar</div>
+                        <% end %>
+                    </td>
+                    <% end %>
+                    <td class="active">
+                        <%= link_to [p.actividad, p], method: :delete, data: { confirm: 'Seguro que desea eliminar el módulo?'} do %>
+                            <span class="glyphicon glyphicon-trash red"></span>
+                            <div class="tip" id="action3">Eliminar</div>
+                        <% end %>
+                    </td>
+                </tbody>
+            <% end %>
+        </table>
+    </div>       

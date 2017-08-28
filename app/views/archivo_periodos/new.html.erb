@@ -1,0 +1,28 @@
+<div class="container">
+	
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <h3>Evidencia del periodo <%= @periodo.periodo%></h3>
+    <div id="marco">
+        <%= nested_form_for @archivo, validate: true do |archivo| %> 
+                        <div class="row">
+                            <div class="col-md-6"><%= archivo.label :Etiqueta %><br><%# archivo.text_field :descripcion, class: 'form-control', validate: true %>
+                            <%= archivo.select :descripcion, CatEvidenciaPeriodo.where(tipo: "Periodo").collect{|p| [p.etiqueta, p.etiqueta]}, {include_blank: "Seleccione..."}, class: "form-control", validate: true %>
+                            </div>
+                            <div class="col-md-6"><%= archivo.label :Archivo %><%= archivo.file_field :archivo, validate: true %></div>
+                            <%= archivo.hidden_field :periodo_curs_materia_id, :value => @periodo.id %>
+                        </div>                        
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= archivo.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+            <% end %>
+                <div class="col-md-4">
+                    <%= button_to "Cancelar", periodo_curs_materia_archivo_periodos_path(@periodo), :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+            </div>
+</div>

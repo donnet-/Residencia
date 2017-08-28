@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  numOficio: 1
+  anio: MyString
+  fechaG: 2017-05-21
+  destinatario: MyString
+  jefeDivision: MyString
+  reunion_id: 
+
+two:
+  numOficio: 1
+  anio: MyString
+  fechaG: 2017-05-21
+  destinatario: MyString
+  jefeDivision: MyString
+  reunion_id: 

@@ -1,0 +1,132 @@
+<div class="container">
+    <%= nested_form_for @actividad, validate: true do |act| %>
+        <div class="form-group row">
+            <%= act.label :Nombre_actividad, class: "col-md-2 control-label" %>
+            <div class="col-md-4"><%= act.text_field :nombreActividad, class: 'form-control', validate: true %></div>
+                
+            <%= act.label :Tipo_actividad, class: "col-md-2 control-label" %>
+            <div class="col-md-3"><%= act.select :cat_tipo_actividad_id, CatTipoActividad.all.collect{ |p| [ p.nombreTipoAct, p.id ] },{include_blank: 'Seleccione...'}, validate: true, :selected => @actividad.cat_tipo_actividad_id, id: "actividades_select", class: "form-control" %></div> 
+            <div class="col-md-1" align="right">
+                <%= link_to new_cat_tipo_actividad_path, remote: true, title: "Nuevo tipo de actividad" do %>
+                    <span class="glyphicon glyphicon-plus blue"></span>
+                <% end %>            
+            </div>           
+        </div>
+        
+        <div class="form-group row">
+            <%= act.label :Tipo_comisión, class: "col-md-2 control-label" %>
+            <div class="col-md-4"><%= act.select :tipoComision, options_for_select([["Sin Viaticos", "Sin Viaticos"], ["Con Viaticos", "Con Viaticos"]]),{}, :selected => @actividad.tipoComision, validate: true, class: 'form-control' %></div>
+            
+            <%= act.label :Tipo_evidencia, class: "col-md-2 control-label" %>
+            <div class="col-md-4"><%= act.select :tipoEvidencia, options_for_select([["Individual", "Individual"], ["Equipo", "Equipo"], ["Individual/Grupo", "Individual/Grupo"]]), {}, :selected => @actividad.tipoEvidencia, validate: true, class: "form-control" %></div>
+        </div>
+        
+        <div id="registrar_viatco" style="display: none;">
+            <%= act.collection_check_boxes :cat_viatico_ids, CatViatico.all, :id, :nombreViatico %>
+        </div>
+        
+        <div class="row">
+            <%= act.label :Fecha_inicio, class: "col-md-2 control-label" %>
+            <div class="col-md-4"><%= act.date_field :fechaInicio, class: 'form-control' %></div>
+                    
+            <%= act.label :Fecha_término, class: "col-md-2 control-label" %>
+            <div class="col-md-4"><%= act.date_field :fechaTermino, class: 'form-control' %></div>
+        </div>
+	
+		<div class="row">
+            <%= act.label :Lugar, class: "col-md-2 control-label" %>
+            <div class="col-md-4"><%= act.text_field :lugar, class: 'form-control' %></div>
+			<div id="registrar_proy" style="display: none;">
+				<div class="col-md-2 control-label"><%= act.label :Proyecto %></div>
+				<div class="col-md-4"><%= act.text_field :proyecto_id, validate: true, class: "form-control" %></div>
+			</div>
+        </div>
+	
+		<div class="row">
+			<div id="registrar_ex" style="display: none;">
+				<div class="col-md-2 control-label"><%= act.label :Tipo_de_examen %></div>
+				<div class="col-md-4"><%= act.select :tipoexamen, options_for_select([["Titulación Integral", "Titulación Integral"], ["Ceneval", "Ceneval"]]), {}, :selected => @actividad.tipoexamen, validate: true, class: "form-control" %></div>
+				<div class="col-md-2 control-label"><%= act.label :Hora %></div>
+				<div class="col-md-4"><%= act.select :hora, options_for_select([["07:00", "07:00"], ["08:00", "08:00"],["09:00", "09:00"],["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"],["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"],["19:00", "19:00"], ["20:00", "20:00"]]), {}, :selected => @actividad.hora, validate: true, class: "form-control" %></div>
+			</div>
+		</div> 
+	
+		<fieldset id="actualizacion" style="margin-bottom: 5px;">
+			<%= act.fields_for :actualizacion, validate: true do |actualizacion| %>
+				<div id="reg_actualizacion" style="display: none;">
+					<div class="row">
+						<div class="col-md-2"><%= actualizacion.label :Tipo_periodo %></div>
+						<div class="col-md-4"><%= actualizacion.select :tipoPeriodo, options_for_select([["Intersemestral", "Intersemestral"], ["Intrasemestral", "Intrasemestral"]], :selected => actualizacion.object.tipoPeriodo), {include_blank: "Seleccione..."}, class: "form-control", validate: true, :required => true %></div>
+						<div class="col-md-2"><%= actualizacion.label :Tipo_actualizacion %></div>
+						<div class="col-md-4"><%= actualizacion.select :tipoActualizacion, options_for_select([["Docente", "Docente"], ["Profesional", "Profesional"], ["Docente y profesional", "Docente y profesional"]], :selected => actualizacion.object.tipoActualizacion), {include_blank: "Seleccione..."}, class: "form-control", validate: true, :required => true %></div>
+					</div>
+					<div class="row">
+						<div class="col-md-2"><%= actualizacion.label :Modalidad %></div>
+						<div class="col-md-4"><%= actualizacion.select :modalidad, options_for_select([["Presencial", "Presencial"], ["Online", "Online"]], :selected => actualizacion.object.modalidad), {include_blank: "Seleccione..."}, class: "form-control", validate: true, :required => true %></div>
+						<div class="col-md-2"><%= actualizacion.label :Total_de_horas %></div>
+						<div class="col-md-4"><%= actualizacion.number_field :horasCapacitacion, class: "form-control", validate: true, :required => true %></div>
+					</div>
+					<div id="marco">
+						<h5 id="align-title"><b>Horario (s)</b></h5>
+						<fieldset id="horarios">
+							<%= actualizacion.fields_for :horario_actualizaciones, validate: true do |h| %>
+								<div class="row"> 
+									<div class="col-md-1"><%= h.label :Día %></div>
+									<div class="col-md-2"><%= h.select :dia, options_for_select([["Lunes", "Lunes"], ["Martes", "Martes"], ["Miércoles", "Miércoles"], ["Jueves", "Jueves"], ["Viernes", "Viernes"], ["Sábado", "Sábado"]], :selected => h.object.dia), {include_blank: "Seleccione..."}, class: "form-control", validate: true %> </div>
+									<div class="col-md-2"><%= h.label :Hora_entrada %></div>
+									<div class="col-md-2"><%= h.select :hora_inicio, options_for_select([["7:00", "7:00"], ["8:00", "8:00"], ["9:00", "9:00"], ["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"], ["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"], ["19:00", "19:00"], ["20:00", "20:00"], ["21:00", "21:00"], ["22:00", "22:00"], ["23:00", "23:00"],["24:00", "24:00"]]), {include_blank: "Seleccione..."}, class: "form-control", validate: true %></div>
+									<div class="col-md-2"><%= h.label :Hora_salida %></div>
+									<div class="col-md-2"><%= h.select :hora_fin, options_for_select([["7:00", "7:00"], ["8:00", "8:00"], ["9:00", "9:00"], ["10:00", "10:00"], ["11:00", "11:00"], ["12:00", "12:00"], ["13:00", "13:00"], ["14:00", "14:00"], ["15:00", "15:00"], ["16:00", "16:00"], ["17:00", "17:00"], ["18:00", "18:00"], ["19:00", "19:00"], ["20:00", "20:00"], ["21:00", "21:00"], ["22:00", "22:00"], ["23:00", "23:00"],["24:00", "24:00"]]), {include_blank: "Seleccione..."}, class: "form-control", validate: true %></div>
+									<div class="col-md-1"><%= h.link_to_remove do %> <span class="glyphicon glyphicon-trash red" title="Eliminar horario"></span><% end %></div>
+								</div>
+							<% end %>
+							<p><%= actualizacion.link_to_add :horario_actualizaciones do %>
+							<span class="glyphicon glyphicon-plus blue-nested" title="Agregar horario"></span><%end%></p>
+						</fieldset>
+					</div>
+				</div>
+			<% end %>	
+		</fieldset>
+        
+        <fieldset id="actividad" style="margin-bottom: 10px;">
+            <h5 id="align-title"><b>Participantes</b></h5>
+            <%= act.fields_for :actividad_docentes, validate: true do |actdoc| %>
+                <div class="row">
+                    <%= actdoc.label :Docente, class: "col-md-1 control-label" %>
+                    <div class="col-md-4">
+                        <%= actdoc.select :docente_id, Docente.all.collect{ |p| [ p.nombreD + " " + p.apPaterno + " " + p.apMaterno, p.id ] }, {include_blank: 'Seleccione...'},class: 'form-control', validate: true %>
+                    </div>
+					
+					<%= actdoc.label :Tipo_participación, class: "col-md-2 control-label"%>
+                    <div class="col-md-4">
+                        <%= actdoc.select :cat_tipo_participacion_id, @participaciones.map{ |p| [ p.participacion, p.id ] }, {include_blank: "Seleccione..."}, class: "form-control participaciones_select", validate: true %>
+					</div>
+                    <div class="col-xs-6 col-sm-1">                        
+                        <%= act.link_to_remove '', data: {confirm: "Eliminará al docente de la actividad"}, class: "glyphicon glyphicon-trash red"%>
+                    </div>
+                </div>
+            <% end %>
+            <p><%= act.link_to_add "Agregar otro", :actividad_docentes %></p>
+        </fieldset>
+	
+		
+        <div class="row">
+            <%= act.label :Descripción, class: "col-md-2 control-label" %>
+            <div class="col-md-10">
+                <%= act.cktext_area :descripcion %>
+            </div>
+        </div>
+	
+        <div class="row">
+            <% act.text_field :usuario_id, :class => 'col-xs-6 col-md-4', value: current_usuario.id, validate: true %>
+        </div>
+        <div class="row" id="btn-cancelar">
+            <div class="col-md-6" align="right">
+                <%= act.submit :Guardar, :class => 'btn btn-success' %>
+            </div>   
+    <% end %>
+            <div class="col-md-4">
+                <%= button_to "Cancelar", actividades_path, :class => 'btn btn-warning', data: {confirm: "Se perderan todos sus cambios ¿Quiere contiuar?"}, :method => :get %>
+            </div>
+        </div>
+</div>

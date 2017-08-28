@@ -1,0 +1,10 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h4 id="align-title">Generación de Liberacion de Actividades por Grupo</h4>
+    <%= render 'form' %>
+</div>

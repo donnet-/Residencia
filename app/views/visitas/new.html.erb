@@ -1,0 +1,19 @@
+<div class="container">
+   <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    
+    <h2 id="align-title">VIAJE DE PRÁCTICAS</h2>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-3"><strong>NOMBRE DE LA ACTIVIDAD:</strong> </div>
+        
+        <div class="col-xs-6 col-sm-9" align="left"><%= @actividad.nombreActividad.upcase %></div> 
+    </div>
+    
+    <div>
+        <%= render 'form' %>
+    </div>
+</div>

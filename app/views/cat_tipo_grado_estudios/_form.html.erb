@@ -1,0 +1,32 @@
+<div class="container">
+    <div id="align-forms">
+        <%= nested_form_for @tipoGrado, validate: true do |tipoGrado| %>
+            <div class="row">
+                <%= tipoGrado.label :Nombre_del_Grado, :class => 'col-md-3' %>
+                <div class="col-md-4">
+                    <% if @tipoGrado.nombreTipoGrado == nil %>
+                        <%= tipoGrado.text_field :nombreTipoGrado, :class => 'form-control', :style => 'border: 1px solid red', validate: true %>
+                    <% else %>  
+                        <%= tipoGrado.text_field :nombreTipoGrado, :class => 'form-control',disabled: true, validate: true %>
+                    <% end %>
+                </div>
+            </div>
+            
+            <div class="row">
+                <%= tipoGrado.label :Estado, :class => 'col-md-3' %>
+                <div class="col-md-4">
+                <%= tipoGrado.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, :class => 'form-control', validate: true %>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                    <%= tipoGrado.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-2 col-md-4" id="btn-cancelar">
+                        <%= button_to "Cancelar", cat_tipo_grado_estudios_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

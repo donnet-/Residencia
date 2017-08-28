@@ -1,0 +1,66 @@
+<div class="container">
+    <div id="align-forms">
+        <%= nested_form_for @configuracion, validate: true do |config| %>
+
+            <div class="row">
+                <%= config.label :Tipo_de_configuración, :class => 'col-md-3' %>
+                <div class="col-md-4">                
+                <% if @configuracion.tipo != nil %>
+                    <%= config.text_field :tipo,disabled: true, :class => 'form-control', validate: true %>
+                <% else %>
+                    <%= config.text_field :tipo, :class => 'form-control', validate: true %> 
+                <% end %>
+                </div>
+            </div>
+            <%if params[:id] == nil %>            
+                <div class="radio">
+                    <label><input type="radio" id ="abc"name="configuracion" checked="checked" onclick="textoImagen('txt')">Texto</label>            
+                    <label><input type="radio" name="configuracion" onclick="textoImagen('img')">Imagen</label>
+                </div>
+                <div class="row" id="texto" style="display: block;">
+                    <%= config.label :Contenido, :class => 'col-md-3' %>
+                    <div class="col-md-4">
+                        <%= config.text_field :contenido,  :class => 'form-control', validate: true %>
+                    </div>
+                </div>
+                <div class="row" id="imagen" style="display: none">
+                    <%= config.label :Imagen, class: 'col-md-3' %>
+                    <div class="col-md-4">
+                    <%= config. file_field :imagen, accept: "image/jpeg, image/jpg, image/gif, image/png" %>
+                    </div>
+                </div>
+            <% else %>
+                <% @contenido = Configuracion.find(params[:id]) %>                
+                <%if @contenido.contenido != "" %>
+                   <div class="row" id="texto">
+                    <%= config.label :Contenido, :class => 'col-md-3' %>
+                    <div class="col-md-4">
+                        <%= config.text_field :contenido,  :class => 'form-control', validate: true %>
+                    </div>
+                </div>
+                <% else %>
+                    <div class="row">
+                            <%= config.label :Imagen_actual, class: 'col-md-3' %>
+                            <div class="col-md-9">
+                                <%= image_tag(@configuracion.imagen_url.to_s, width: 220, height: 130) %>
+                            </div>
+                    </div>
+                    <div class="row" id="imagen">
+                        <%= config.label :Imagen, class: 'col-md-3' %>
+                        <div class="col-md-4">
+                            <%= config.file_field :imagen, accept: "image/jpeg, image/jpg, image/gif, image/png" %>                            
+                        </div>                        
+                    </div>
+                <% end %>
+            <% end %>
+            <div class="row" id="btn-cancelar">
+                <div class="col-md-5" align="right">
+                    <%= config.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-md-4">
+                        <%= button_to "Cancelar", configuraciones_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

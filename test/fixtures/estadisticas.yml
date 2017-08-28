@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  carrera: MyString
+  ordinaria: 1
+  complementaria: 1
+  especial: 1
+  desertores: 1
+  reprobados: 1
+  curso_materia_id: 
+  periodo_curs_materia_id: 
+
+two:
+  carrera: MyString
+  ordinaria: 1
+  complementaria: 1
+  especial: 1
+  desertores: 1
+  reprobados: 1
+  curso_materia_id: 
+  periodo_curs_materia_id: 

@@ -1,0 +1,64 @@
+<%= nested_form_for @servicio, validate: true do |servicio| %>
+    <div class="row">
+        <% if current_usuario.rol == "estudiante" %>
+            <% @est = Estudiante.find_by(email: current_usuario.email) %>
+            <%= servicio.hidden_field :estudiante_id, :value => @est.id %>
+        <% end %>
+    </div>   
+    <div class="row">
+        <%= servicio.label :Empresa, :class => 'col-md-2' %>                
+        <div class="col-md-4"> <%= servicio.select :nombreE, Empresa.all.map { |u| [u.nombreE, u.nombreE] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
+        <%= servicio.label :Status, :class => 'col-md-2' %>
+        <div class="col-md-4"><%= servicio.select :estado, options_for_select([["En proceso", "En proceso"], ["Pausado", "Pausado"], ["Finalizado", "Finalizado"]]), {}, :selected => @servicio.estado, validate: true, :class => "form-control" %></div>
+    </div>
+    <div class="row">
+        <%= servicio.label :Calificación, :class => 'col-md-2' %>
+        <div class="col-md-4"> <%= servicio.number_field :calificacion, class: "form-control", validate: true %></div>
+        <%= servicio.label :Horas, :class => 'col-md-2' %>
+        <div class="col-md-4"><%= servicio.number_field :horas, validate: true, :class => 'form-control' %></div>
+    </div>
+    <div class="row">
+        <%= servicio.label :Fecha_inicio, :class => 'col-md-2' %>
+        <div class="col-md-4"><%= servicio.date_field :fechaInicio, :class => 'form-control', validate: true %></div>
+        <%= servicio.label :Fecha_termino, :class => 'col-md-2' %>
+        <div class="col-md-4"><%= servicio.date_field :fechaTermino, :class => 'form-control', validate: true %></div>
+    </div>
+    <div class="row">
+        <% if servicio.object.pdfPresentacion.file != nil %>
+            <%= servicio.label :Presentación_actual, class: 'col-md-2' %>
+            <div class="col-md-4"><%= servicio.object.pdfPresentacion.file.filename %></div>        
+        <% end %>
+        <%= servicio.label :Archivo_de_presentación, :class => 'col-md-2' %>
+        <div class="col-md-4"><%= servicio.file_field :pdfPresentacion, :class => 'form-control', validate: true %></div>
+    </div>
+    <% if servicio.object.pdfPresentacion.file != nil %>
+        <div class="row">
+            <% if servicio.object.pdfAceptacion.file != nil %>
+                <%= servicio.label :Aceptación_actual, class: 'col-md-2' %>
+                <div class="col-md-4"><%= servicio.object.pdfAceptacion.file.filename %></div>        
+            <% end %>
+            <%= servicio.label :Archivo_de_aceptacion, :class => 'col-md-2' %>
+            <div class="col-md-4"><%= servicio.file_field :pdfAceptacion, :class => 'form-control', validate: true %></div>
+        </div>
+    <% end %>
+    <% if servicio.object.pdfAceptacion.file != nil %>
+        <div class="row">
+            <% if servicio.object.pdfLiberacion.file != nil %>
+                <%= servicio.label :Liberacion_actual, class: 'col-md-2' %>
+                <div class="col-md-4"><%= servicio.object.pdfLiberacion.file.filename %></div>        
+            <% end %>
+            <%= servicio.label :Archivo_de_liberacion, :class => 'col-md-2' %>
+            <div class="col-md-4"><%= servicio.file_field :pdfLiberacion, :class => 'form-control', validate: true %></div>
+        </div>
+    <% end %>
+    <div class="row">
+        <%= servicio.label :Observaciones, :class => 'col-md-2' %>
+        <div class="col-md-10"><%= servicio.text_area :observaciones, validate: true, :class => 'form-control'%></div>
+    </div>
+    <div class="row" id="btn-cancelar">
+        <div class="col-md-3" id="btn">
+            <%= servicio.submit :Guardar, :class => 'btn btn-success' %>
+        </div>   
+<% end %>
+        <div class="col-md-3"> <%= button_to "Cancelar", servicio_sociales_path, :class => 'btn btn-warning', :method => :get %> </div>
+</div>

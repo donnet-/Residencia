@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Comisión</title>	
+	<style type="text/css">
+		p.estilo {
+			font-size: 12px;					
+		}
+		td.viatico {
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>	
+	<br>
+	<% @destinatario = Configuracion.find_by(tipo: "Division de Estudios").contenido %>
+	<% @firma = Configuracion.find_by(tipo: "Jefe de Sistemas y Computacion").contenido %>
+		<% @lema = Configuracion.find_by(tipo: "Lema").contenido %>		
+		<% par = ActividadDocente.find_by(actividad_id: params[:actividad_id]).docente_id %>		
+		<% @x = oficioN(params[:numero], params[:actividad_id], params[:fecha], par, params[:puesto], @firma, @lema, @destinatario, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil) %>
+	<div style="width: 100%">
+	<p class="estilo" align="right">
+		
+		Oaxaca de Juárez, Oax.,
+		 A <%= @x.fecha.day%> de <%= meses(@x.fecha.month).downcase %> de <%= @x.fecha.year %>		
+	</p>		
+	<p class="estilo" align="right">OFICIO NUM: DSC-0<%= @x.numero %>/<%= @x.anio %></p>
+	</div>
+	<br/>
+	<br/>
+	<div>
+		<% 		
+			@aux = ActividadDocente.find_by(actividad_id: params[:actividad_id])
+			@aux2 = Actividad.find(params[:actividad_id])
+		%>
+		<br>
+		<p class="estilo" align="left"><font face="Comic Sans MS, arial, verdana"><strong>
+		<%= @x.destinatario %>
+		</font><br/>
+		JEFE DE LA DIVISIÓN DE ESTUDIOS DE PROFESIONALES<br/></strong>
+		PRESENTE</p>
+	</div>	
+	<div>
+		<br>
+		<p class="estilo" align="justify"><strong>Por este medio me permito informarle a usted que el viaje de estudios de<% if @aux.docente.genero == "F"%> la<% else %>l<% end %> ... <%= @aux.docente.nombreD.upcase %> <%= @aux.docente.apPaterno.upcase%> <%= @aux.docente.apMaterno.upcase%> a realizarse del <% if @aux2.fechaInicio.month == @aux2.fechaTermino.month %> <%= @aux2.fechaInicio.day%> al <%= @aux2.fechaTermino.day%> de 
+ 			<%= meses(@aux2.fechaInicio.month).downcase %> del año en curso 
+ 		<%else%>
+ 			<%= @aux2.fechaInicio.day%> de <%= meses(@aux2.fechaInicio.month) %> de <%= @aux2.fechaInicio.year %> al <%= @aux2.fechaTermino.day%> de <%= meses(@aux2.fechaTermino.month) %> de<%= @aux2.fechaTermino.year %><% end %>, se encuentra contemplado dentro de la canlendarización de las Visitas a Empresas como lo marca el normtivo académico y el procedimiento del SGC para el semestre <% if  semestre(@aux2.fechaInicio.month) == true %>
+ 				Febrero-Junio
+ 				<% else %>
+ 					Agosto - Diciembre
+ 				<% end %>/<%= Time.now.strftime("%Y") %>, por tal motivo hago de su conocimiento que dicha acticidad si cubre con el perfil de egreso requerido. Se anexa lista autorizada de alumnos.
+ 			</strong></p>
+	</div>	
+	<div>
+		<br>
+		<p class="estilo" align="left"><strong>Sin más por el momento, reciba un cordial saludo.</strong></p>
+	</div>
+	<div>
+		<br>
+		<p class="estilo" align="left"><strong>ATENTAMENTE <br/>
+		"TECNOLOGÍA PROPIA E INDEPENDENCIA ECONÓMICA"
+		</strong></p>
+	</div>
+	<br/>
+	<div>
+		<p class="estilo" align="left"><strong>	
+			<%= @x.firma.upcase %>
+            <br/>
+			JEFA DE DEPTO. DE SISTEMAS Y COMPUTACIÓN
+			</strong>
+		</p>
+	</div>
+	<div>
+		<br>
+		<p class="estilo" align="left">c.c.p. Expediente y minutario</p>
+	</div>
+	<br/>
+	<div><p class="estilo" align="left">MAC/fmjc*</p></div>
+	<br>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% end %>
+    <h3 id="align-title">Editar Módulo Diplomado</h3>
+    <div id="align-forms">
+        <%= form_for [@actividad, @diplomado], validate: true do |modulo| %>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6"><%= modulo.label :Nombre_módulo %>:<%= modulo.text_field :nombreModulo, validate: true %></div>
+                <div class="col-xs-6 col-sm-6"><%= modulo.label :Duración %>: <%= modulo.text_field :duracion, validate: true %></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-6"><%= modulo.label :Fecha_inicio %>: <%= modulo.text_field :fechaInicio, 'data-behaviour' => 'datepicker', validate: true %></div>
+                <div class="col-xs-6 col-sm-6"><%= modulo.label :Fecha_término %>: <%= modulo.text_field :fechaTermino, 'data-behaviour' => 'datepicker', validate: true %></div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-3"><%= modulo.label :Seleccionar_docentes %></div>
+                <div class="col-xs-6 col-sm-7"><%= modulo.collection_check_boxes :actividad_docente_ids, ActividadDocente.where(:actividad_id => @actividad.id), :id, :method_info_docente %></div>
+            </div>
+            <div class="row" id="btn-cancelar">
+                <div class="col-xs-6" id="btn">
+                    <%= modulo.submit :Guardar, :class => 'btn btn-success' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>

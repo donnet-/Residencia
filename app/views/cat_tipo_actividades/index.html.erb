@@ -1,0 +1,43 @@
+<div>
+	<% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+</div>
+
+<div class="container">
+    <% breadcrumb :cat_tipo_actividades%>
+    <h3 id="align-title">Cátalogo de Tipo de Actividades</h3>
+    
+	<% if can? :create, CatTipoActividad %>
+    	<%= button_to new_cat_tipo_actividad_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %> <span class="glyphicon glyphicon-plus"></span> <% end %>
+	<% end %>
+   
+    <table class="table table-bordered">
+    	<thead>
+			<tr>
+				<th class="info" style="width: 15%;"><%= sortable "nombreTipoAct" %></th>
+				<th class="info" style="width: 45%;">Evidencias</th>
+				<th class="info" style="width: 25%;">Participaciones</th>
+				<th class="info" style="width: 5%;"><%= sortable "estado" %></th>
+				<th class="info" style="width: 6%;"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @tipoActividades.each do |tipoActividad| %>
+				<tr>	
+					<td class="active"><%= tipoActividad.nombreTipoAct %></td>
+                    <td class="active"><%= tipoActividad.cat_evidencias.map(&:nombreEvidencia).to_sentence.gsub(/\s?(and)\s/,", ") %></td>
+                    <td class="active"><%= tipoActividad.cat_tipo_participaciones.map(&:participacion).to_sentence.gsub(/\s?(and)\s/,", ") %></td>
+                    <td class="active"><%= tipoActividad.estado %></td>
+                    <td class="active">
+						<%= link_to cat_tipo_actividad_path(tipoActividad), title: "Detalles" do %> <span class="glyphicon glyphicon-eye-open blue"></span> <% end %>
+						<%= link_to edit_cat_tipo_actividad_path(tipoActividad), title: "Editar" do %> <span class="glyphicon glyphicon-pencil green"></span> <% end %>
+                    </td>
+				</tr>
+            <% end %>
+		</tbody>
+    </table>
+    <%= will_paginate @tipoActividades %>
+</div>   

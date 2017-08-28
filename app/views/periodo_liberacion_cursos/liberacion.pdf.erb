@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Constancia de liberación de actividades frente a grupo</title>
+        <%= wicked_pdf_stylesheet_link_tag "pdf.css" -%>
+        <style type="text/css">
+            p.estilo { font-size: 11px; }
+            table { border-collapse: collapse; }
+            table, th, td { border: black 1pt solid; padding: 5px;, font-size: 11px; }
+            body { font-size: 11px;}
+        </style>
+    </head>
+    <body>
+        <% libcur = PeriodoLiberacionCurso.find(params[:liberacion_curso])%>
+        <% libdoc = LibCursoDocente.find(params[:liberacion_docente]) %>
+        
+        <% doc = Docente.find(params[:docente_id])%>
+        <% @grado = GradoEstudio.where(docente_id: doc.id).last %>
+        <br/>
+        <div style="width: 100%">
+            <div align="center" style="font-size: 14px;"><b>INSTITUTO TECNOLÓGICO DE OAXACA</b></div>
+            <div align="center" style="font-size: 10px;"><b>DEPARTAMENTO DE SISTEMAS Y COMPUTACIÓN</b></div>
+            
+            <div class="row">
+                <div class="col-lg-5" style="margin-left: 60%;"><p align="CENTER" style="font-size: 12px;">Oaxaca de Juárez, Oax., a <%= libdoc.fecha.day %> de <%= meses(libdoc.fecha.month).downcase %> de <%= libdoc.fecha.year %></p></div>
+            </div>
+        
+            <br/><br/>
+            <div class="row">
+                <p align="right" style="font-size: 11px;"><b>ASUNTO:</b> CONSTANCIA DE LIBERACIÓN DE <br/> ACTIVIDADES FRENTE A GRUPO</p>
+            </div>
+        </div>
+        <div style="width: 100%">
+            <p align="left" style="font-size: 12px;"><b>C. <%if @grado == nil %> <%= doc.nombreD.upcase %> <%= doc.apPaterno.upcase %> <%= doc.apMaterno.upcase %> <% else %><%= @grado.abrev.upcase %> <%= doc.nombreD.upcase %> <%= doc.apPaterno.upcase %> <%= doc.apMaterno.upcase %> <% end %></b> <br/> PRESENTE</p>
+        </div>
+        
+        <div style="width: 100%">
+            <p align="justify" style="font-size: 12px;">Por medio <% if doc.genero == 'F' %> de la <% else %> del <% end %> presente se hace de su conocimiento que durante el semestre <b><%= libcur.periodo.upcase %></b>, se evaluó el cumplimiento de las siguientes actividades docentes: </p>
+        </div>
+        <div style="width: 100%">
+            <table>
+                <tbody>
+                    <tr style="font-size: 11px;">
+                        <td style="width:2%; border-bottom: 0pt;"><b>N°</b></td>
+                        <td align="center" style="width: 72%; border-bottom: 0pt;"><b>ACTIVIDADES</b></td>
+                        <td colspan="2" style="width: 16%; border-bottom: 0pt;"><b>Entrega en tiempo y forma</b></td>
+                        <td style="width: 8%; border-bottom: 0pt;" align="center"><b>No entrego</b></td>
+                        <td  style="width: 2%; border-bottom: 0pt;"><b>NA</b></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 0pt; border-right: black 1pt solid;"></td>
+                        <td style="border: 0pt; border-right: black 1pt solid;"></td>
+                        <td align="center"><b>SI</b></td>
+                        <td align="center"><b>NO</b></td>
+                        <td style="border: 0pt; border-right: black 1pt solid;"></td>
+                        <td style="border: 0pt; border-right: black 1pt solid;"></td>
+                    </tr>
+                    <% libdocrit = LibDocCriterio.where(lib_curso_docente: libdoc.id)%>
+                    <% for c in libdocrit %>
+                        <% crit = CatCriterioEvaluacionDocente.find(c.criterio_id) %>
+                        <tr style="font-size: 11px;">
+                            <td align="center"><%= crit.numero %></td>
+                            <td align="justify"><%= crit.criterio %></td>
+                            <td align="center"><b><% if c.respuesta == 's' %> X <% else %> <% end %></b></td>
+                            <td align="center"><b><% if c.respuesta == 'n' %> X <% else %> <% end %></b></td>
+                            <td align="center"><b><% if c.respuesta == 'ne' %> X <% else %> <% end %></b></td>
+                            <td align="center"><b><% if c.respuesta == 'na' %> X <% else %> <% end %></b></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+        <br/>
+        <div style="width: 100%" style="font-size: 12px;">
+            <div class="row">
+                <div class="col-lg-9"><b>Se otorga liberación de actividades</b></div>
+                <% if libdoc.liberado == 's' %>
+                    <div class="col-lg-1" style="color: white; border: black 1pt solid; margin-right: 25px; background-color: black;" align="center"><b> Si </b></div>
+                    <div class="col-lg-1" style="border: black 1pt solid; margin-left: 25px;" align="center"><b> No </b></div>
+                <% else %>
+                    <div class="col-lg-1" style="border: black 1pt solid; margin-right: 25px;" align="center"><b>Si</b></div>
+                    <div class="col-lg-1" style="color: white; border: black 1pt solid; margin-left: 25px; background-color: black;" align="center"><b> No </b></div>
+                <% end %>
+            </div>
+        </div>
+        <br/>
+        <div style="width:100%">
+            <pre align="justify" style="font-size: 11px;"><pre><%= libcur.notaAbajo %></pre>
+        </div>
+        <div style="width:100%">
+            <div class="row">
+                <div class="col-lg-6"><p align="center" style="font-size: 11px;" >JEFE DEL DEPARTAMENTO ACADÉMICO</p></div>
+                <div class="col-lg-6"><p align="center" style="font-size: 11px;">SUBDIRECCIÓN ACADÉMICA</p></div>
+            </div>
+            
+            <div class="row">
+                <% dpto = Configuracion.find_by(tipo: "Jefe de Sistemas y Computacion").contenido %>
+                <% sub = Configuracion.find_by(tipo: "Subdirector academico").contenido %>
+                <div class="col-lg-6" style="border-bottom: black 1px solid;"><p align="center" style="font-size: 11px;"><b></b><%= dpto.upcase %></p></div>
+                <div class="col-lg-5" style="border-bottom: black 1px solid; margin-left: 50px; font-size: 11px;"><p align="center" ><b></b><%= sub.upcase %></p></div>
+            </div>
+        </div>
+        <div style="margint-top: 20px;">
+            <p style="font-size: 9px; margin-top: 20px;">C.c.p. Subdirección Académica <br/> C.c.p. Archivo</p>
+        </div>
+    </body>
+</html>

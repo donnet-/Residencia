@@ -1,0 +1,55 @@
+<div class="container">
+    <%= nested_form_for @liberacion, validate: true do |lib| %>
+        <div class="row">
+            <% t = Time.now %><% @anio = t.strftime("%Y") %>
+            <div class="col-xs-6 col-sm-2"><%= lib.label :Periodo %></div>
+            <div class="col-xs-6 col-sm-4"><%= lib.select :periodo, options_for_select([["FEBRERO-JUNIO/"+@anio.to_s, "FEBRERO-JUNIO/"+@anio.to_s], ["AGOSTO-DICIEMBRE/"+@anio.to_s, "AGOSTO-DICIEMBRE/"+@anio.to_s ]], :selected => @liberacion.periodo) %></div>
+        </div> 
+        
+        <fieldset id="liberacion-docente">
+            <% doc = Docente.all %>
+            <% for d in doc %>
+                <div id="marco">
+                    <h5 id="align-title"><b>Actividad-Docente</b></h5>
+                    <%= lib.fields_for :liberacio_docente_cursos, validate: true do |libdoc| %>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4">
+                                <%= libdoc.label :Docente %> <%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %> 
+                                <%= libdoc.hidden_field :docente_id, value: d.id %>
+                            </div>
+                            <% fec = Time.now
+                            f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+                            <div class="col-xs-6 col-sm-6"><b>Fecha: </b><%= libdoc.text_field :fecha, value: f , 'data-behaviour'=> 'datepicker' %></div>
+                            <div class="col-xs-6 col-sm-2">
+                                <%= libdoc.link_to_remove do %>
+                                    <span class="glyphicon glyphicon-trash red"></span>
+                                <% end %>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Elaboración_y_entrega_de_la_dosificacion_de_la_planeación_del_curso_y_avance %> <%= libdoc.select :dosificacion, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %> </div>
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Elaboración_y_entrega_de_la_instrumentacion_didactica %> <%= libdoc.select :instrumentacion, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]]) %></div>
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Cumplimiento_del_contenido_de_los_programas_de_estudio %> <%= libdoc.select :cumplimiento, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]])  %></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Entrega_en_tiempo_y_forma_calificaciones_parciales_y_finales%> <%= libdoc.select :calificacion, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]])%> </div>
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Entrega_en_tiempo_y_forma_del_reporte_final %> <%= libdoc.select :reporteFinal, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]])  %></div>
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Cumplimiento_de_las_actividades_declaradas_como_apoyo_a_la_docencia %> <%= libdoc.select :apoyo, options_for_select([["Si", "s"],["No","n"], ["NA", "na"]])%></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-4"><%= libdoc.label :Liberación_de_actividades %> <%= libdoc.select :liberacion, options_for_select([["Si", "s"],["No","n"]])%></div>
+                        </div>
+                    <% end %>
+                </div>
+            <% end %>
+        </fieldset>
+        <div class="row" id="btn-cancelar">
+            <div class="col-xs-6 col-md-4" id="btn">
+                <%= lib.submit :Guardar, :class => 'btn btn-success' %>
+            </div>   
+    <% end %>
+            <div class="col-xs-6 col-md-4">
+                <%= button_to "Cancelar", liberacion_cursos_path, :class => 'btn btn-warning', :method => :get %>
+            </div>
+        </div>
+</div>

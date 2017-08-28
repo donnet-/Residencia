@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  curso_materia_id: 
+  numControl: 1
+  nombre: MyString
+  apellidoPaterno: MyString
+  apellidoMaterno: MyString
+
+two:
+  curso_materia_id: 
+  numControl: 1
+  nombre: MyString
+  apellidoPaterno: MyString
+  apellidoMaterno: MyString

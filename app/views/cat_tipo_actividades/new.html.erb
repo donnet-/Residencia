@@ -1,0 +1,11 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :cat_tipo_actividad_new %>    
+    <h3 id="align-title">Registro del Cátalogo de Tipo de Actividades</h3>
+    <%= render 'form' %>
+</div>

@@ -1,0 +1,66 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :empresas%>
+    <h3 id="align-title">Empresas</h3>
+    
+    <% if can? :create, Empresa %>
+        <%= button_to new_empresa_path, :class => "btn btn-primary", :method => :get do %><span class="glyphicon glyphicon-plus"></span><% end %>
+    <% end %>
+    <br/>
+    <div id="table-responsive">
+        <table class="table table-sm">
+            <thead>
+                <th class="info"><%= sortable "rfcEmpresa" %></th>
+                <th class="info"><%= sortable "nombreE" %></th>
+                <th class="info"><%= sortable "contacto" %></th>
+                <th class="info"><%= sortable "pdfConvenio" %></th>
+                <th class="info"><%= sortable "estado" %></th>
+                <th class="info"><%= sortable "estadoEmp" %></th>
+            </thead>
+            <% @empresas.each do |empresa| %>
+                <tbody>
+                    <td class="active"><%= empresa.rfcEmpresa %></td>
+                    <td class="active"><%= empresa.nombreE %></td>
+                    <td class="active">
+                        <%= empresa.contacto%><br/>
+                        <%= empresa.email %><br/>
+                        <%= empresa.telefono %><br/>
+                    </td>
+                    <td class="active">
+                        <%= link_to empresa.pdfConvenio_url, :target => '_blank' do %>
+                            <span class="glyphicon glyphicon-file blue" title="Detalles"></span>
+                        <% end %>
+                    </td>
+                    <td class="active">
+                        Calle: <%= empresa.calle %>,
+                        Colonia: <%= empresa.colonia %>,  
+                        Núm. Interior: <%= empresa.numInterior %>, 
+                        Núm. exterior: <%= empresa.numExterior%>,  
+                        Estado: <%= empresa.estado %>
+                    </td>
+                    <td class="active"><%= empresa.estadoEmp %></td>
+                    <td class="active">
+                        <p>
+                            <%= link_to empresa_path(empresa) do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                                <div class="tip" id="action1">Ver</div>
+                            <% end %>
+                        </p>
+                        <p>
+                            <%= link_to edit_empresa_path(empresa) do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                                <div class="tip" id="action2">Editar</div>
+                            <% end %>
+                        </p>
+                    </td>
+                </tbody>
+            <% end %>
+        </table>
+        <%= will_paginate @empresas %>
+    </div>
+</div> 

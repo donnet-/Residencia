@@ -1,0 +1,20 @@
+<div class="container">
+    <%= render template: "siged/menuAdmin" %>
+    <% breadcrumb :cat_tipo_grado_estudio, @tipoGrado%>
+
+    <h3id="align-title">Datos del Grado de Estudios</h3>
+    
+    <dl class="dl-horizontal" id="align-list">
+        <dt>Grado de estudio: </dt>
+        <dd><%= @tipoGrado.nombreTipoGrado %></dd>
+    </dl>
+
+    <div class="row">
+        <div class="col-xs-2 col-md-4" id="btn-cancelar">
+            <%= button_to "Editar", edit_cat_tipo_grado_estudio_path(@tipoGrado), :class => 'btn btn-success', :method => :get %>
+        </div>
+        <div class="col-xs-2 col-md-4" id="btn-cancelar">
+            <%= button_to "Regresar", cat_tipo_grado_estudios_path, :class => 'btn btn-info', :method => :get %>
+        </div>
+    </div>
+</div>

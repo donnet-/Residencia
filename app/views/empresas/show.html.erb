@@ -1,0 +1,38 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <% breadcrumb :empresa, @empresa%>
+
+    <h3 id="align-title">Empresa </h3>
+    
+    <div id="marco">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>RFC: </b><%= @empresa.rfcEmpresa %></div>
+            <div class="col-xs-6 col-sm-4"><b>Nombre de la empresa: </b><%= @empresa.nombreE %></div>
+            <div class="col-xs-6 col-sm-4"><b>Convenio: </b><%= link_to "Ver Convenio", @empresa.pdfConvenio_url, :target => '_blank' %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Contacto: </b><%= @empresa.contacto %></div>
+            <div class="col-xs-6 col-sm-4"><b>Correo electrónico: </b><%= @empresa.email %></div>
+            <div class="col-xs-6 col-sm-4"><b>Telefóno: </b><%= @empresa.telefono %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Estado: </b><%= @empresa.estado %></div>
+            <div class="col-xs-6 col-sm-4"><b>Colonia: </b> <%= @empresa.colonia %></div>
+            <div class="col-xs-6 col-sm-4"><b>Calle: </b><%= @empresa.calle %></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-4"><b>Número interior: </b><%= @empresa.numInterior %></div>
+            <div class="col-xs-6 col-sm-4"><b>Número exterior: </b><%= @empresa.numExterior%></div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-12" align="right">
+                <%= link_to edit_empresa_path(@empresa), :method => :get do %><span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div><% end %>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div id="marco">
+    <%= form_for @curso, validate: true do |curso| %>
+        <div class="row">
+            <div class="col-md-4">
+                <%= curso.label :Materia %>
+                <%= curso.select :cat_materia_id,  CatMateria.all.collect{ |p| [ p.claveMateria + " " + p.nombreMat, p.id ] }, {}, class: "form-control", validate: true %>                
+            </div>
+            <div class="col-md-8">
+                <%= curso.label :Instrumentacion %> 
+                <%= curso.file_field :pdfInstrumentacion,class: "form-control" ,validate: true %>                
+            </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-xs-6 col-sm-4">
+                <% t = Time.now %><% @anio = t.strftime("%Y") %>
+                <%= curso.label :Periodo %><%= curso.select :periodo, options_for_select([["FEB-JUN/"+@anio.to_s, "FEB-JUN/"+@anio.to_s], ["AGOS-DIC/"+@anio.to_s, "AGOS-DIC/"+@anio.to_s ]]), validate: true %></div>
+            <div class="col-xs-6 col-sm-4"><%= curso.label :Nombre_del_grupo %><%= curso.text_field :nombreGrupo, validate: true %></div>
+            <div class="col-xs-6 col-sm-4"><%= curso.label :Aula %><%= curso.text_field :aula, validate: true %></div>
+        </div>
+    
+        <div class="row">
+            <% doc = Docente.find_by(email: current_usuario.email) %>
+            <%= curso.hidden_field :docente_id, :value => doc.id %>  
+        </div>
+        
+        <div class="row">
+            <% curso.label :Usuario, :class => 'col-xs-4 col-md-3' %>
+            <% curso.text_field :usuario_id, :class => 'col-xs-4 col-md-4', :value => current_usuario.id, validate: true %>
+        </div>
+        
+        <div class="row" id="btn-cancelar">
+            <div class="col-xs-6 col-md-4" id="btn">
+                <%= curso.submit :Guardar, :class => 'btn btn-success' %>
+            </div>   
+        <% end %>
+            <div class="col-xs-6 col-md-4">
+                <%= button_to "Cancelar", curso_materias_path, :class => 'btn btn-warning', :method => :get %>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="container">
+    
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    <%# breadcrumb :cat_evidencia, @evidencia%>
+
+    <h3 id="align-title">Datos de la Evidencia </h3>
+    
+    <dl class="dl-horizontal" id="align-list">
+
+        <dt>Nombre evidencia: </dt>
+        <dd><%= @evidencia.etiqueta %></dd>
+        <dt>Tipo: </dt>
+        <dd><%= @evidencia.Tipo %></dd>
+        
+        
+    </dl>
+        
+    <div class="row">
+        <div class="col-xs-2 col-md-4" id="btn-cancelar">
+            <%= button_to "Editar", edit_cat_evidencia_periodo_path(@evidencia), :class => 'btn btn-success', :method => :get %>
+        </div>
+        <div class="col-xs-2 col-md-4" id="btn-cancelar">
+            <%= button_to "Regresar", cat_evidencia_periodos_path, :class => 'btn btn-info', :method => :get %>
+        </div>
+    </div>
+</div>

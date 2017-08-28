@@ -1,0 +1,106 @@
+<div id="table-responsive">
+    <%= hidden_field_tag :direction, params[:direction] %>
+    <%= hidden_field_tag :sort, params[:sort] %>
+    
+    <table class="table table-sm">
+        <thead>
+            <th class="info"><%= sortable "nombreActividad" %></th>
+            <th class="info"><%= sortable "cat_tipo_actividad_id" %></th>
+            <th class="info" style="width: 25%;">Periodo</th>
+            <th class="info">Lugar</th>
+            <th class="info">Evidenicia</th>
+        </thead>
+        <% @docente_actividades.each do |act| %>
+                <tbody>
+                    <td class="active"><%= act.nombreActividad %></td>
+                    <td class="active">
+                        <% @acti = CatTipoActividad.find(act.cat_tipo_actividad_id) %>
+                        <%= @acti.nombreTipoAct %>
+                    </td>
+                    <td class="active" style="width: 25%;"><p><%= act.fechaInicio.strftime("%d-%m-%Y") %> / <%= act.fechaTermino.strftime("%d-%m-%Y") %></p></td>
+                    <td class="active"><%= act.lugar %></td>
+                    
+                    <% @evi = act.cat_tipo_actividad.cat_evidencias.map(&:id) %>
+                    <% @arreglo = 0 %>
+                    <% if act.tipoEvidencia == "Individual" %>
+                        <% @ad = ActividadDocente.find_by(actividad_id: act.id, docente_id: @doc.id) %>
+                        <% @evi.each do |e| %>
+                            <% if ActIndividualDocente.find_by(actividad_docente_id: @ad.id, cat_evidencia_id: e) != nil%>
+                                <% @arreglo = @arreglo + 1 %>
+                            <% end %>
+                        <% end %>
+                    <% elsif act.tipoEvidencia == "Equipo"%>
+                        <% @evi.each do |e| %>
+                            <% if ActividadEvidencia.find_by(actividad_id: act.id, cat_evidencia_id: e) != nil%>
+                                <% @arreglo = @arreglo + 1 %>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <% @ad = ActividadDocente.find_by(actividad_id: act.id, docente_id: @doc.id) %>
+                        <% @evi.each do |e| %>
+                            <% if ActIndividualDocente.find_by(actividad_docente_id: @ad.id, cat_evidencia_id: e) != nil || ActividadEvidencia.find_by(actividad_id: act.id, cat_evidencia_id: e) != nil%>
+                                <% @arreglo = @arreglo + 1 %>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                    <td class="active">
+                        <% if @evi.length != @arreglo %>
+                            <% if Date.today - act.fechaTermino >=30 %>
+                                <span class="glyphicon glyphicon-warning-sign red" title="Falta evidencia"></span>
+                            <% else %>
+                                <span class="glyphicon glyphicon-warning-sign orange" title="Falta evidencia"></span>
+                            <% end %>
+                        <% else %>
+                            <span class="glyphicon glyphicon-ok green" title="Evideincia completa"></span>
+                        <% end %>
+                    </td>
+                    <td class="active">
+                        <% if @acti.nombreTipoAct == 'Viaje de Practicas' %>
+                            <% @visita = Visita.find_by(actividad_id: act.id) %>
+                            <%= link_to actividad_visita_path(act, @visita), :title => "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                                <div class="tip" id="action1">Ver</div>
+                            <% end %>
+                        <% elsif @acti.nombreTipoAct == 'Actualizacion' %>
+                            <% @actualizacion = ActualizacionDocenteProfesional.find_by(:actividad_id => act.id) %>
+                            <%= link_to actividad_actualizacion_docente_profesional_path(act, @actualizacion), :title => "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                                <div class="tip" id="action1">Ver</div>
+                            <% end %>
+                        <% else%>
+                            <%= link_to actividad_path(act), :title => "Ver" do %>
+                                <span class="glyphicon glyphicon-eye-open blue"></span>
+                                <div class="tip" id="action1">Ver</div>
+                            <% end %>
+                        <% end %>
+
+                        <% if can? :update, act %>
+                            <% @actiDoc = ActividadDocente.find_by(actividad_id: act.id) %>
+                            <% if @actiDoc != nil %> 
+                                <% @evi = ActIndividualDocente.find_by(actividad_docente_id: @actiDoc.id) %>
+                                <% if @evi != nil %>
+                                <% else %>
+                                    <%= link_to edit_actividad_path(act), :title => "Editar" do%> <span class="glyphicon glyphicon-pencil green"></span> <div class="tip" id="action2">Editar</div> <% end %>
+                                <% end %>
+                            <% else %>
+                            <% end %>
+                        <% end %>
+                        <% if can? :delete, act %>
+                            <% @actiDoc = ActividadDocente.find_by(actividad_id: act.id) %>
+                            <% if @actiDoc != nil %> 
+                                <% @evi = ActIndividualDocente.find_by(actividad_docente_id: @actiDoc.id) %>
+                                <% if @evi != nil %>
+                                <% else %>
+                                    <%= link_to act, :method => :delete, data: { confirm: 'Seguro que desea eliminar esta actividad?' }, :title => "Eliminar" do %>
+                                    <span class="glyphicon glyphicon-trash red"></span>
+                                    <div class="tip" id="action3">Eliminar</div><%end%>
+                                <% end %>
+                            <% else %>
+                            <% end %>
+                        <% end %>
+                    </td>
+                </tbody>
+        <% end %>
+    </table>
+</div>
+<%#= will_paginate @docente_actividades %>

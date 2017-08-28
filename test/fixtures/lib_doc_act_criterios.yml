@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lib_actividad_docente_id: 
+  criterio_id: 1
+  valor: MyString
+
+two:
+  lib_actividad_docente_id: 
+  criterio_id: 1
+  valor: MyString

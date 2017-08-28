@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="row">
+        <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+        <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+        <% end %>
+        <% breadcrumb :liberacion_docente_new%>
+    </div>
+    <h3 id="align-title">Generación de Liberacion de Actividades por Grupo</h3>
+    <div id="marco">
+        <%= nested_form_for @periodo_liberacion, validate: true do |lib| %>
+			<div class="row">
+				<% t = Time.now %><% @anio = t.strftime("%Y") %>
+				<div class="col-md-1"><%= lib.label :Periodo %></div>
+				<div class="col-md-3"><%= lib.select :periodo, options_for_select([["FEBRERO-
+				JUNIO/"+@anio.to_s, "FEBRERO-JUNIO/"+@anio.to_s], ["AGOSTO-DICIEMBRE/"+@anio.to_s,
+				"AGOSTO-DICIEMBRE/"+@anio.to_s ]]),{}, class: "form-control" %></div>
+				<div class="col-md-2"><%= lib.label :Cabecera %></div>
+				<div class="col-md-5"><%= lib.file_field :cabeceraPeriodo, class: "form-control" %></div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"><%= lib.label :Nota %></div>
+				<div class="col-md-11"><%= lib.text_area :notaAbajo, validate: true, class: "form-control" %> </div>
+			</div>
+			<% x = 0 %>
+			<fieldset id="lib-curso-docente">
+				<% doc = Docente.where(estado: 'Activo') %>
+				<%= lib.fields_for :lib_curso_docentes, validate: true do |libdoc|%>
+					<% d = doc[x] %>        
+					<% if d != nil %>
+						<div id="marcoTitle" onclick="muestraPanel('<%=d.id %>')">
+							<%= d.nombreD %> <%= d.apPaterno %> <%= d.apMaterno %>                        
+						</div>
+						<div id="<%= d.id %>" style="display: none;border: 2px solid #ccc; padding: 2px; ">
+							<div class="row">
+								<div class="col-md-4">
+									<%= libdoc.label :Docente %> <%= d.nombreD %> <%= d.apPaterno %> <%=d.apMaterno %>
+									<%= libdoc.hidden_field :docente_id, value: d.id %>
+								</div>
+								<% fec = Time.now
+								   f = fec.strftime("%d")+ "/" + fec.strftime("%m") + "/" + fec.strftime("%Y") %>
+								<div class="col-md-4" align="right">
+									<b>Fecha: </b>
+								</div>
+								<div class="col-md-4">
+								<%= libdoc.date_field :fecha, value: f , class: "form-control" %>                            
+								</div>
+							</div>
+							<fieldset id="lib-doc-criterio">
+								<% crit = CatCriterioEvaluacionDocente.where(estado: 'Activo') %>
+								<% for c in crit %>
+									<%= libdoc.fields_for :lib_doc_criterios, validate: true do |dc| %>
+										<div class="row">
+											<div class="col-md-1">
+												<%= dc.label :Criterio %>
+												<b><%= c.numero %>
+											</div>
+											<div class="col-md-7">
+												<%= c.criterio %></b>
+												<%= dc.hidden_field :criterio_id, value: c.id %>
+											</div>
+											<div class="col-md-4">
+												<%= dc.select :respuesta, options_for_select([["Entrego en tiempo y forma ", "s"],["No entrego en tiempo y forma","n"], ["No entrego", "ne"], ["N/A", "na"]]),{include_blank: "Seleccione..."}, class: "form-control" %>
+											</div>
+										</div>
+									<% end %>
+								<% end %>
+							</fieldset>
+							<div class="row">
+								<div class="col-md-8">
+									<%= libdoc.label :Liberación_de_actividades %>
+								</div>
+								<div class="col-md-4">
+									<%= libdoc.select :liberado, options_for_select([["Si", "s"],["No","n"]]), {include_blank: "Seleccione..."}, class: "form-control"%>                    
+								</div>
+							</div>
+						</div>
+					<% end %>
+					<% x = x + 1 %>
+				<% end %>
+			</fieldset>
+			<div class="row" id="btn-cancelar">
+				<div class="col-md-4" id="btn">
+					<%= lib.submit :Guardar, :class => 'btn btn-success' %>
+				</div>
+            <% end %>
+            <div class="col-md-4">
+                <%= button_to "Cancelar", periodo_liberacion_cursos_path, :class => 'btn btn-warning',:method => :get %>
+            </div>
+        </div>
+    </div>
+</div>

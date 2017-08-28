@@ -1,0 +1,22 @@
+<style type="text/css">
+	p.aviso{
+		font-family: "arial", serif;
+		font-size: 16pt;
+	}
+	p.atn{
+		font-family: "arial", serif;
+		letter-spacing: 0.3em;
+	}
+</style>
+<p align="center"><strong>TECNOLÓGICO NACIONAL DE MÉXICO <br>
+INSTITUTO TECNOLÓGICO DE OAXACA <br>
+Departamento de sistemas y computación</strong></p>
+<br>
+<h2 align="center"><strong>AVISO</strong></h2>
+<p class="aviso" align="justify">Se cita a los integrantes de la <strong>Academia</strong> de <strong>Sistemas y Computación</strong> a una <strong>reunión ordinaria</strong> el día <strong><%= dias(@reunion.fecha.strftime("%A")) %><%= @reunion.fecha.strftime(" %d de ")%><%= meses(@reunion.fecha.strftime("%m").to_i).downcase.capitalize%> <%= @reunion.fecha.strftime("de %Y") %></strong> a las <strong><%= @reunion.hora %> hrs</strong> en la sala de juntas del edificio I. </p>
+<br><br>
+<p class="aviso" align="justify">Esperamos su puntual asistencia.</p>
+<br><br>
+<p class="atn">ATENTAMENTE</p>
+<br>
+<p><i>"TECNOLOGÍA PROPIA E INDEPENDENCIA ECONÓMICA"</i></p>

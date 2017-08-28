@@ -1,0 +1,112 @@
+<style type="text/css">
+	.button{
+		text-align: left;
+	}
+</style>
+<div class="container">
+		<% numero  = 1 %>
+		<% @actividades = Actividad.all.order(:fechaTermino) %>
+		<% @doc = Docente.find_by(email: current_usuario.email) %>
+		<% if @doc.tipoDocente == "De Base" %>
+			<% reu = Reunion.last %>
+    		<% if reu.fecha >= Date.today %>
+    			<h4><strong>Próxima reunión de academia <%= reu.fecha.day%> de <%= meses(reu.fecha.month).downcase %> de <%= reu.fecha.year%> a las <%=reu.hora %> horas.</strong></h4>
+    		<% end %>
+		<% end %>	
+		<% examen = Actividad.where(cat_tipo_actividad_id: CatTipoActividad.find_by(nombreTipoAct: 'Examen profesional').id) %>
+		<% examen.each do |e| %>
+			<% act = ActividadDocente.find_by(actividad_id: e.id) %>
+			<% if act.docente_id == @doc.id && e.fechaTermino >= Date.today %>
+				<h4><b>Próximo examen profesional <%= e.fechaTermino.day %> de <%= meses(e.fechaTermino.month).downcase %> de <%= e.fechaTermino.year %></b></h4>
+			<% end %>
+		<% end %>
+		<% @actividades.each do |actividad| %>
+			<% @evi = actividad.cat_tipo_actividad.cat_evidencias.map(&:id) %>
+			<% bandera = false %>
+			<% contador = 1 %>
+			<% actual = Date.today %>
+			<% if @evi != [] %>		
+				<% @arreglo = [] %>		
+				<% if actividad.tipoEvidencia == "Individual" %>
+					<% @ad = ActividadDocente.find_by(actividad_id: actividad.id, docente_id: @doc.id) %>
+					<% if @ad !=nil %>
+						<% texto = actividad.cat_tipo_actividad.nombreTipoAct%> 
+						<% texto = texto +" "+ actividad.nombreActividad %>
+						<% @arreglo.push(texto) %>					
+						<% @evi.each do |evi| %>
+							<% if ActIndividualDocente.find_by(actividad_docente_id: @ad.id, cat_evidencia_id: evi) == nil %>
+								<% @arreglo.push(CatEvidencia.find(evi).nombreEvidencia) %>
+							<% end %>
+						<% end %>
+					<% end %>
+
+					<% if @arreglo.size()> 1 %>						
+						<div class="row">
+							<div class="col-xs-6">	
+								<% @arreglo.each do |elemento| %>
+									<% if bandera == false %>
+										<% if actual - actividad.fechaTermino > 30 %>
+											<button class=" btn btn-danger  btn-block button" onclick="muestraPanel('<%= numero %>')"><%= elemento %></button>
+										<% elsif actual - actividad.fechaTermino <= 30 && actual - actividad.fechaTermino >=15 %>
+											<button class="btn btn-warning btn-block button" onclick="muestraPanel('<%= numero %>')"><%= elemento%></button>
+										<% else %>				
+											<button class="btn btn-success btn-block button" onclick="muestraPanel('<%= numero %>')"><%= elemento %></button>
+										<% end %>
+											<% bandera = true %>
+											<div class="panel" id="<%= numero %>">
+									<% else %>
+										<div class="row">
+											<div class="col-xs-6 col-sm-11">- Falta la evidencia: <%= elemento %></div> 
+											<div class="col-xs-6 col-sm-1"><%= link_to  actividad_actividad_docente_path(actividad.id, @ad.id) do %> <span class="glyphicon glyphicon-pencil green" title="Subir evidencia"></span><% end %></div>
+										</div>
+									<% end %>									
+								<% end %>
+								</div>
+							<% @arreglo = [] %>
+			 				<% contador = 1 %>
+							</div>	
+						</div>								
+					<% end %>
+
+				<% elsif  actividad.tipoEvidencia == "Equipo" %>
+					<% @evi.each do |evi| %>
+						<% texto = actividad.cat_tipo_actividad.nombreTipoAct%> 
+						<% texto = texto +" "+ actividad.nombreActividad %>
+						<% @arreglo.push(texto) %>					
+						<% if ActividadEvidencia.find_by(actividad_id: actividad.id, cat_evidencia_id: evi) == nil %>
+							<% @arreglo.push(CatEvidencia.find(evi).nombreEvidencia) %>
+						<% end %>
+					<% end %>
+					<% if @arreglo.size()> 1 %>						
+						<div class="row">
+							<div class="col-xs-6">	
+								<% @arreglo.each do |elemento| %>
+									<% if bandera == false %>
+										<% if actual - actividad.fechaTermino > 30 %>
+											<button class=" btn btn-danger  btn-block button" onclick="muestraPanel('<%= numero %>')"><%= elemento %></button>
+										<% elsif actual - actividad.fechaTermino <= 30 && actual - actividad.fechaTermino >=15 %>
+											<button class="btn btn-warning btn-block button" onclick="muestraPanel('<%= numero %>')"><%= elemento%></button>
+										<% else %>				
+											<button class="btn btn-success btn-block button" onclick="muestraPanel('<%= numero %>')"><%= elemento %></button>
+										<% end %>
+											<% bandera = true %>
+											<div class="panel" id="<%= numero %>">
+									<% else %>																					
+										- Falta la evidencia: <%= elemento %><br>										
+									<% end %>									
+								<% end %>
+								</div>
+							<% @arreglo = [] %>
+			 				<% contador = 1 %>
+							</div>	
+						</div>								
+					<% end %>
+
+				<% else %>
+					<%# actividad.nombreActividad individual/grupo%> 
+				<% end %>
+			<% end %>
+			<% bandera = false %>
+			<% numero = numero + 1 %>
+		<% end %>	
+</div>

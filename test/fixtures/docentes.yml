@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  curp: MyString
+  rfc: MyString
+  clavePresupuestal: MyString
+  nombreD: MyString
+  apPaterno: MyString
+  apMaterno: MyString
+  genero: MyString
+  email: MyString
+  cat_departamento_id: 
+  tipoDocente: MyString
+  usuario_id: 
+  estado: MyString
+
+two:
+  curp: MyString
+  rfc: MyString
+  clavePresupuestal: MyString
+  nombreD: MyString
+  apPaterno: MyString
+  apMaterno: MyString
+  genero: MyString
+  email: MyString
+  cat_departamento_id: 
+  tipoDocente: MyString
+  usuario_id: 
+  estado: MyString

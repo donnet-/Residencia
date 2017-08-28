@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row">
+       <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+    </div>
+    
+    <% breadcrumb :reunion, @reunion %>
+    
+    <h2 id="align-title">Reunión de Academia</h2>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-2">
+            <div class="btn-group-vertical" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar(this)" value="datos">Datos Generales</button>
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar(this)" value="Ver solicitud">Ver solicitudes</button>
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar(this)" value="Generar anexo">Generar Anexo III</button>
+                <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrar(this)" value="Ver anexo">Ver Anexo III</button>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-10" align="left">
+            <div id='datoG' style="display:block;">
+                <div id="marco">
+                    <h5><b>Datos de la reunión de academia</b></h5>
+                    <% if @reunion.numActa == nil && @reunion.pdfActa.file == nil %>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-5"><b>Fecha reunión academia: </b><%= @reunion.fecha.strftime('%d-%m-%Y') %></div>
+                            <div class="col-xs-6 col-sm-5"><b>Hora reunión academia: </b><%= @reunion.hora %></div>
+                        </div>        
+                    <% else %>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3"><b>Número de reunión: </b><%= @reunion.numActa%></div>
+                            <div class="col-xs-6 col-sm-4"><b>Fecha reunión academia: </b><%= @reunion.fecha.strftime('%d-%m-%Y') %></div>
+                            <div class="col-xs-6 col-sm-3"><b>Hora reunión academia: </b><%= @reunion.hora %></div>
+                            <div class="col-xs-6 col-sm-2"><b>Acta: </b><%= link_to @reunion.pdfActa_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue-nested"></span><div class="tip" id="pdf">Abrir PDF</div><% end %></div>
+                        </div>
+                    <% end %>
+                    <div class="row">
+                        <% if current_usuario.rol == 'admin' %>
+                        <% else %>
+                            <% if can? :update, @reunion %> 
+                                <div class="col-xs-6 col-sm-1"><%= link_to edit_reunion_path(@reunion), :method => :get, :title => "Editar datos de la reunión" do %><span class="glyphicon glyphicon-pencil green"></span><% end %></div>
+                            <% end %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div id='solicitud' style="display:none;">
+                <div id="marco">
+                    <h5><b>Solicitud (es) para Anexo III</b></h5>
+                    <% @a = Anexo.where(reunion_id: @reunion.id) %>
+                    <% if @a == 'nil' %>
+                    <% else %>
+                        <% @a.each do |an| %>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-5"><b>Proyecto: </b><% if an.proyecto_id != nil %>  <% @e = Proyecto.find(an.proyecto_id) %> <%= @e.numProyecto %> <%= @e.nombreProyecto %> <% else %><% end %></div>
+                                <div class="col-xs-6 col-sm-3"><b>Fecha de solicitud: </b><%= an.fechaAnexo %></div>
+                                <div class="col-xs-6 col-sm-2"><b>Solicitud: </b><%= link_to an.pdfAnexo_url, :target => '_blank' do %><span class="glyphicon glyphicon-file blue-nested"></span><div class="tip" id="pdf">Abrir PDF</div><% end %></div>
+                            </div>
+							<div class="row">
+								<div class="col-md-12"><b>Estudiantes aceptados: </b>
+									<%= an.proyecto_estudiantes.map(&:method_info_est).to_sentence %>
+								</div>
+							</div>
+                        <% end %>
+                    <% end %>
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-1"><%= link_to edit_reunion_path(@reunion), :method => :get, :title => "Añadir solicitud" do %><span class="glyphicon glyphicon-plus blue-nested"></span><% end %></div>
+                    </div>
+                </div>
+            </div>
+            <div id='anexoIII' style='display:none;'>
+                <%= render "formAnexo" %>
+            </div>
+            <div id='verAnexoIII' style='display:none;'>
+                <%= render "formVerAnexos" %>
+            </div>
+        </div>
+    </div>
+</div>

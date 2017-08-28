@@ -1,0 +1,10 @@
+<% if @firma.errors.empty? %>
+	<% @firma = Firma.all %>
+	alert('¡Se ha creado con exito');
+	$('#product-modal').hide();
+	$('.modal-backdrop').hide();
+	$('#cargos').empty().append("<%= escape_javascript(render(:partial => @firma)) %>")
+
+<% else %>
+	alert('<%= @firma.errors.full_messages[0] %>');
+<% end %>  

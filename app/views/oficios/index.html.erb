@@ -1,0 +1,133 @@
+<div class="container">
+    <div align="left">
+		<% if current_usuario.rol == 'admin' %>
+			<%= render template: "siged/menuAdmin" %>
+		<% elsif current_usuario.rol == 'docente' %>
+			<%= render template: "siged/menuDocente" %>
+		<% end %>
+    </div>
+    <% breadcrumb :oficios %> 
+    
+    <h3 id="align-title">Relación de oficios</h3>
+    
+    <div class="row">
+		<div class="col-md-8" align="left">			       
+            <%= button_to new_oficio_path, :class => "btn btn-primary", title: "Nuevo", :method => :get do %>
+                <span class="glyphicon glyphicon-plus"></span>
+            <% end %>            
+        </div>
+		
+		<%= form_tag oficios_index_path, :method => 'get' do %>
+			<div class="col-md-3" align="right">
+				<%= text_field_tag :search, params[:search], placeholder: "Buscar...", class: "form-control" %>
+			</div>
+			<div class="col-md-1">
+				<%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %><span class="glyphicon glyphicon-search"></span><% end %>                    
+			</div>
+		<% end %>        
+    </div>
+    <% if current_usuario.rol == 'admin' %>
+		<div id="table-responsive">
+			<%= hidden_field_tag :direction, params[:direction] %>
+			<%= hidden_field_tag :sort, params[:sort] %>
+
+			<table class="table table-sm">
+				<thead>
+					<th class="info">Num.Oficio</th>
+					<th class="info">Año</th>
+					<th class="info">Actividad</th>
+					<th class="info">Tipo actividad</th>
+					<th class="info">Comisionado</th>
+				</thead>
+				<tbody>
+					<% @oficios.each do |act| %>
+						<% if act.actividad_id == nil && act.numControl == nil && act.servicio_social_id== nil %>
+							<td class="active"><%= act.numero %></td>
+							<td class="active"><%= act.anio %></td>							
+							<% f = OficioExterno.find_by(oficio_id: act.id) %>						
+							<td class="active"><%= f.etiqueta %></td>
+							<td class="active"><strong>N/A</strong></td>
+							<td class="active"><strong>N/A</strong></td>
+							<td class="active"> 
+								<%= link_to f.pdf_oficio_url, :target => '_blank', :title => "Ver PDF" do %>
+									<span class="glyphicon glyphicon-file blue"></span>
+								<% end %>
+							</td>
+						<% else %>						
+							<tr>
+								<td class="active"><%= act.numero %></td>
+								<td class="active"><%= act.anio %></td>
+								<td class="active">
+									<% if act.actividad_id != nil %>
+										<% acti = Actividad.find(act.actividad_id) %><%= acti.nombreActividad %>
+									<% else %>
+										<% anexo = Anexo.find_by(reunion_id: act.reunion_id, proyecto_id: act.proyecto_id) %>
+										<% if anexo != nil %>
+											<% pro = Proyecto.find(anexo.proyecto_id) %>
+											<%= pro.nombreProyecto %>
+										<% else %>
+											<% serv = ServicioSocial.find(act.servicio_social_id) %>
+											<% if serv != nil %>
+												Carta de Aceptación / Liberación 
+											<% end %>
+										<% end %>
+									<% end %>
+								</td>
+								<td class="active">
+									<% if act.actividad_id != nil %>
+										<% acti = Actividad.find(act.actividad_id) %><% tipoA = CatTipoActividad.find(acti.cat_tipo_actividad_id) %><%= tipoA.nombreTipoAct %>
+									<% elsif Anexo.find_by(reunion_id: act.reunion_id, proyecto_id: act.proyecto_id) != nil %>
+										Anexo III para proyectos aceptados en Reunión de Academia
+									<% else %>
+										Servicio Social
+									<% end %>
+								</td>
+								<td class="active">
+									<% if act.docente != nil %>
+										<% doc = Docente.find(act.docente) %>
+										<%= doc.rfc %><br/> <%= doc.nombreD %> <%= doc.apPaterno %> <%= doc.apMaterno %>
+									<% else %>
+										<% est = Estudiante.find_by(numControl: act.numControl) %>
+										<% if est != nil %>
+											<%= est.numControl %><br/> <%= est.nombre %> <%= est.apPaterno %> <%= est.apMaterno %>
+										<% else %>
+											<% serv = ServicioSocial.find(act.servicio_social_id) %>
+											<% if serv != nil %>
+												<% est = Estudiante.find(serv.estudiante_id) %>
+												<%= est.numControl %> <%= est.nombre %> <%= est.apPaterno %> <%= est.apMaterno %>
+											<% end %>
+										<% end %>
+									<% end %>
+								</td>
+								<td class="active">
+									<% if act.actividad_id != nil %>
+										<% a = Actividad.find(act.actividad_id) %>
+										<% tipoAct = CatTipoActividad.find(a.cat_tipo_actividad_id) %>
+										<% if tipoAct.nombreTipoAct == 'Viaje de Practicas' %>
+																					
+										<% else %>
+											<%= link_to actividad_path(act.actividad_id, numero: act.numero, participacion: act.participacion, fecha: act.fecha, docente: act.docente, format: :pdf), :target => '_blank' do %><span class="glyphicon glyphicon-file blue"></span><% end %>
+										<% end %>
+									
+										<% ad = ActividadDocente.find_by(actividad_id: act.actividad_id, docente_id: act.docente) %>
+										<% ae = ActividadEvidencia.find_by(actividad_id: act.actividad_id) %>
+										<% if ad != nil || ae != nil %>
+											<%= link_to edit_actividad_path(act.actividad_id), :title => "Editar actividad" do %> <span class="glyphicon glyphicon-pencil green"></span> <% end %>
+										<% else %>
+											<span class="glyphicon glyphicon-exclamation-sign red" title="No se puede editar la actividad, ya que existe una evidencia. Favor de borrar la evidencia para editar datos de la actividad."></span>
+										<% end %>
+									<% elsif Anexo.find_by(reunion_id: act.reunion_id, proyecto_id: act.proyecto_id) != nil%>
+										<%= link_to reunion_path(act.reunion_id), :title => "Ir a la reunión" do %><span class="glyphicon glyphicon-arrow-right blue"></span><% end %>
+									<% else %>
+										<%= link_to servicio_social_path(act.servicio_social_id), :title => "Ir al servicio social" do %><span class="glyphicon glyphicon-arrow-right blue"></span><% end %>
+									<% end %>
+								</td>
+							</tr>
+						<% end %>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+		<%= will_paginate @oficios %>
+    <% end %>
+</div>

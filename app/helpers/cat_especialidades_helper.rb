@@ -1,0 +1,2 @@
+module CatEspecialidadesHelper
+end
