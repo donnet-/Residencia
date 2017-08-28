@@ -139,6 +139,7 @@ class Ability
       elsif usuario.rol == 'estudiante'
 		  can [:create, :read, :update], ServicioSocial
           can [:read, :update], Estudiante
+          can [:create, :read, :update], EvaluacionServicio
           #can [:read, :create], Empresa
           #cannot [:create, :destroy], Estudiante
           #cannot [:update, :destroy], Empresa

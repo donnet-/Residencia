@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :cat_criterio_eval_servicios
+  resources :criterio_evaluacion_servicios
   resources :tablapromedios
   resources :evaluacion_servicios
   resources :estadistica_servicios

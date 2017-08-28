@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Criterio Evaluacion Servicios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id evalucacion</th>
+      <th>Id cat criterio eva</th>
+      <th>Calificacion criterio</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @criterio_evaluacion_servicios.each do |criterio_evaluacion_servicio| %>
+      <tr>
+        <td><%= criterio_evaluacion_servicio.id_evalucacion %></td>
+        <td><%= criterio_evaluacion_servicio.id_cat_criterio_eva %></td>
+        <td><%= criterio_evaluacion_servicio.calificacion_criterio %></td>
+        <td><%= link_to 'Show', criterio_evaluacion_servicio %></td>
+        <td><%= link_to 'Edit', edit_criterio_evaluacion_servicio_path(criterio_evaluacion_servicio) %></td>
+        <td><%= link_to 'Destroy', criterio_evaluacion_servicio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Criterio evaluacion servicio', new_criterio_evaluacion_servicio_path %>

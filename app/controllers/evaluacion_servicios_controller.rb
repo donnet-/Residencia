@@ -19,7 +19,7 @@ class EvaluacionServiciosController < ApplicationController
   # GET /evaluacion_servicios/new
   def new
     @evaluacion_servicio = EvaluacionServicio.new
-    @evaluacion_servicio.criterio_evalucion_servicios.build
+    @evaluacion_servicio.criterio_evaluacion_servicios.build
   end
 
   # GET /evaluacion_servicios/1/edit

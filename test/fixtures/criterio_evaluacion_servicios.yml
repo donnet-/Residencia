@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_evalucacion: 1
+  id_cat_criterio_eva: 1
+  calificacion_criterio: 1
+
+two:
+  id_evalucacion: 1
+  id_cat_criterio_eva: 1
+  calificacion_criterio: 1
