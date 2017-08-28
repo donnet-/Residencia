@@ -1,0 +1,31 @@
+<div class="container">
+    <div id="marco">
+        <%= form_for (@tablapromedio), validate: true do |f| %>
+           
+            <div class="row">
+                <div class="col-xs-6 col-sm-9"><%= f.label "Nivel de desempeño" %>
+                <%= f.text_field :nivel_desm, validate: true,style: 'width:50%;'%>
+                  </div>
+                </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-9"><%= f.label "Valor Minimo" %>
+                <%= f.text_field :valor_min, validate: true,style: 'width:20%;'%>
+                  </div>
+                  <div class="col-xs-6 col-sm-9"><%= f.label "Valor Maximo" %>
+                <%= f.text_field :valor_max, validate: true,style: 'width:20%;'%>
+                  </div>
+                </div>
+            
+            
+            <div class="row id btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= f.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", tablapromedios_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>
+  

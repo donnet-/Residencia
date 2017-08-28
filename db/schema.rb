@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170826222254) do
+ActiveRecord::Schema.define(version: 20170828143027) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -419,6 +419,15 @@ ActiveRecord::Schema.define(version: 20170826222254) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "estadistica_servicios", force: :cascade do |t|
+    t.string   "periodo",     limit: 255
+    t.integer  "promedioB",   limit: 4
+    t.integer  "promedioFin", limit: 4
+    t.string   "desempeño",   limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "estadisticas", force: :cascade do |t|
     t.string   "carrera",                 limit: 255
     t.integer  "ordinaria",               limit: 4
@@ -455,6 +464,15 @@ ActiveRecord::Schema.define(version: 20170826222254) do
   end
 
   add_index "estudiantes", ["cat_especialidad_id"], name: "index_estudiantes_on_cat_especialidad_id", using: :btree
+
+  create_table "evaluacion_servicios", force: :cascade do |t|
+    t.integer  "id_servicio_social",      limit: 4
+    t.integer  "num_reporte",             limit: 4
+    t.string   "pdf_eval_servicio",       limit: 255
+    t.date     "fecha_registro_servicio"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
 
   create_table "examen_profesionales", force: :cascade do |t|
     t.string   "hora",                        limit: 255
@@ -921,6 +939,14 @@ ActiveRecord::Schema.define(version: 20170826222254) do
 
   add_index "servicio_sociales", ["empresa_id"], name: "index_servicio_sociales_on_empresa_id", using: :btree
   add_index "servicio_sociales", ["estudiante_id"], name: "index_servicio_sociales_on_estudiante_id", using: :btree
+
+  create_table "tablapromedios", force: :cascade do |t|
+    t.string   "nivel_desem", limit: 255
+    t.float    "valor_min",   limit: 24
+    t.float    "valor_max",   limit: 24
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "usuarios", force: :cascade do |t|
     t.string   "rol",                    limit: 255

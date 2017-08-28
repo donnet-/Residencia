@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :tablapromedios
+  resources :evaluacion_servicios
+  resources :estadistica_servicios
   get 'estudiantes/import'
 
   get 'docentes/import'

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  periodo: MyString
+  promedioB: 1
+  promedioFin: 1
+  desempeño: MyString
+
+two:
+  periodo: MyString
+  promedioB: 1
+  promedioFin: 1
+  desempeño: MyString

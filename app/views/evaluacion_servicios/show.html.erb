@@ -1,0 +1,42 @@
+<div class="container">
+	<p id="notice"><%= notice %></p>
+
+	<p>
+	  <strong>Id servicio social:</strong>
+	  <%= @evaluacion_servicio.id_servicio_social %>
+	</p>
+
+	<p>
+	  <strong>Num reporte:</strong>
+	  <%= @evaluacion_servicio.num_reporte %>
+	</p>
+
+	<p>
+	  <strong>Pdf eval servicio:</strong>
+	  <%= @evaluacion_servicio.pdf_eval_servicio %>
+	</p>
+
+	<p>
+	  <strong>Fecha registro servicio:</strong>
+	  <%= @evaluacion_servicio.fecha_registro_servicio %>
+	</p>
+	 <table class="table table-responsive" >
+	            <thead>
+	                <th class="info">Criterio</th>
+	                <th class="info">Calificacion</th>
+	            </thead>
+	            <% @evaluacion_servicio.criterio_evalucion_servicios.each do |e| %>
+	                <tbody>
+	                    <td class="active">	                    
+	                    <%= CatCriterioEvalServicio.find(e.id_cat_criterio_eval).nombre_criterio %>	                        
+	                    </td>
+	                    <td class="active">
+	                        <%= e.calificacion_criterio %>
+	                    </td>              
+	                </tbody>
+	            <% end %>
+	        </table>
+
+	<%= link_to 'Edit', edit_evaluacion_servicio_path(@evaluacion_servicio) %> |
+	<%= link_to 'Back', evaluacion_servicios_path %>
+</div>

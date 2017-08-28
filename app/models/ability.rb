@@ -121,6 +121,10 @@ class Ability
                   can :read, CursoMateria
                     cannot [:create, :update, :destroy], CursoMateriaEstudiante
                     cannot [:create, :update, :destroy], CursoMateria
+                  elsif @tipoP.nombrePuesto == 'Jefe de la Oficina de Vinculación de Sistemas'
+                  can [:read], ServicioSocial 
+                    cannot [:create, :update, :destroy], CursoMateriaEstudiante
+                    cannot [:create, :update, :destroy], CursoMateria
                   elsif @tipoP.nombrePuesto == 'Jefe de la Oficina de Investgacion'
                     can [:todos], ProyectoInvestigacion
                     can [:create, :read, :update], ProyectoInvestigacion

@@ -1,0 +1,14 @@
+<div class="container">
+    <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+    <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+    <% end %>
+</div>
+
+    
+<div class="container">
+    <h1 id="align-title">Registro de promedios </h1>
+    
+    <%= render 'form' %>
+</div>

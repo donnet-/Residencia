@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Periodo:</strong>
+  <%= @estadistica_servicio.periodo %>
+</p>
+
+<p>
+  <strong>Promediob:</strong>
+  <%= @estadistica_servicio.promedioB %>
+</p>
+
+<p>
+  <strong>Promediofin:</strong>
+  <%= @estadistica_servicio.promedioFin %>
+</p>
+
+<p>
+  <strong>Desempeño:</strong>
+  <%= @estadistica_servicio.desempeño %>
+</p>
+
+<%= link_to 'Edit', edit_estadistica_servicio_path(@estadistica_servicio) %> |
+<%= link_to 'Back', estadistica_servicios_path %>

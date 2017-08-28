@@ -1,0 +1,43 @@
+<div class="container">
+    <%= render template: "siged/menuAdmin" %>
+
+    <h3 id="align-title">Criterios de promedios</h3>
+    
+    <div class="row">
+        <div class="col-xs-6 col-sm-1">
+            <% if can? :create, Tablapromedio %>
+                <%= button_to new_tablapromedio_path, :class => "btn btn-primary", :method => :get do %>
+                     <span class="glyphicon glyphicon-plus"></span>
+                <% end %>
+            <% end %>
+        </div>
+
+        <div class="col-xs-6 col-sm-9">
+            <table class="table table-bordered">
+                <thead>
+                    <th class="info"><%= sortable "Nivel de desempeño" %></th>
+                    <th class="info"><%= sortable "Valor minimo" %></th>
+                    <th class="info"><%= sortable "Valor maximo" %></th>
+                </thead>
+                <% @tablapromedio.each do |tablapromedio| %>
+                    <tbody>
+                        <td class="active"><%= tablapromedio.nivel_desm %></td>
+                        <td class="active"><%= tablapromedio.valor_min %></td>
+                        <td class="active"><%= tablapromedio.valor_max %></td>
+                
+                        
+                        <td class="active">
+                            <%= link_to edit_tablapromedio_path(tablapromedio) do %>
+                                <span class="glyphicon glyphicon-pencil green"></span>
+                                <div class="tip" id="action2">Editar</div>
+                               
+                            <% end %>
+
+                        </td>
+                    </tbody>
+                <% end %>
+            </table>
+           
+        </div>
+    </div>
+</div>

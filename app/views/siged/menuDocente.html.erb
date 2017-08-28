@@ -41,6 +41,7 @@
                                             <% end %>
                                         <% end %>
                                    <% end %>
+
                                 </ul>
                             </li> 
                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proyecto <span class="caret"></span></a>
@@ -49,6 +50,23 @@
                                    <li><a href="/proyecto_investigaciones">Investigación</a></li>
                                 </ul>          
                            </li>                 
+                       <% end %>
+                       <% if @p != [] %>
+                            <% for puesto in @p %>
+                                <% if puesto.estado == 'Activo' %>
+                                    <% @tipoP = CatTipoPuesto.find(puesto.cat_tipo_puesto_id) %>
+                                    
+                                    <% if @tipoP.nombrePuesto == 'Jefe de la Oficina de Vinculación de Sistemas' %>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Servicio Social <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="servicio_sociales">Lista de Servicio Social</a></li>
+                                               
+                                            </ul>          
+                                        </li>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
                        <% end %>
                        <% if @p != [] %>
                             <% for puesto in @p %>

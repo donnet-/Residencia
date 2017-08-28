@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Evaluacion Servicios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id servicio social</th>
+      <th>Num reporte</th>
+      <th>Pdf eval servicio</th>
+      <th>Fecha registro servicio</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @evaluacion_servicios.each do |evaluacion_servicio| %>
+      <tr>
+        <td><%= evaluacion_servicio.id_servicio_social %></td>
+        <td><%= evaluacion_servicio.num_reporte %></td>
+        <td><%= evaluacion_servicio.pdf_eval_servicio %></td>
+        <td><%= evaluacion_servicio.fecha_registro_servicio %></td>
+        <td><%= link_to 'Show', evaluacion_servicio %></td>
+        <td><%= link_to 'Edit', edit_evaluacion_servicio_path(evaluacion_servicio) %></td>
+        <td><%= link_to 'Destroy', evaluacion_servicio, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Evaluacion servicio', new_evaluacion_servicio_path %>
