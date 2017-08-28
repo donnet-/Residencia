@@ -1,0 +1,58 @@
+
+<div id="marco">
+<div class="row">    
+    <%= form_tag new_estadistica_servicio_path, method: :get do %>
+      <div class="col-md-1">
+        <%= label_tag :Periodo %>
+      </div>
+      <div class="col-md-3">
+        <%= select_tag :periodo, options_for_select([["",""],["FEB-JUN", "FEB-JUN/"], ["AGOS-DIC", "AGOS-DIC/"]], params[:periodo]), class: "form-control" %>                
+      </div>
+      <div class="col-md-1">
+        <%= number_field_tag :anio %>
+      </div>
+      <div class="col-md-1">
+        <%= button_tag(type: 'submit', class: "btn btn-default") do %>
+          <span class="glyphicon glyphicon-search"></span> 
+        <% end %>
+      </div>
+    <% end %>        
+  </div>  
+  
+
+<%= form_for(@estadistica_servicio) do |f| %>
+<% if @estadistica_servicio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@estadistica_servicio.errors.count, "error") %> prohibited this estadistica_servicio from being saved:</h2>
+
+    <ul>
+      <% @estadistica_servicio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+
+  <div class="row">
+    <div class="col-xs-5"> <%# f.label 'Periodo' %>
+   <%# select_tag :periodo, options_for_select([["",""],["FEB-JUN", "FEB-JUN/"], ["AGOS-DIC", "AGOS-DIC/"]], params[:periodo]), class: "form-control" %>
+   </div>
+   </div>
+   <div class="row">
+    <div class="col-xs-5"> <%= f.label 'Promedio Bimestral' %>
+    <%= f.number_field :promedioB %></div>
+
+    <div class="col-xs-5"> <%= f.label 'Promedio Final' %>
+    <%= f.text_field :promedioFin %></div>
+    </div>
+
+   <div class="col-xs-5"><%= f.label 'Desempeño' %>
+    <%= f.text_field :desempeño  %></div>
+  
+  <div class="actions">
+   <%= f.submit :Calcular, :class => 'btn btn-success'%>
+  </div>
+<% end %>
+</div> 
+<%#ServicioSocial.where(fechaTermino: Periodo.find_by(:periodo  params[:periodo]).fechaTermino)%>

@@ -1,0 +1,1 @@
+json.partial! "criterio_evaluacion_servicios/criterio_evaluacion_servicio", criterio_evaluacion_servicio: @criterio_evaluacion_servicio

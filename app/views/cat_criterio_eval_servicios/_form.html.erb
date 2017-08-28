@@ -1,0 +1,23 @@
+<div class="container">
+    <div id="marco">
+        <%= form_for (@cat_criterio_eval_servicio), validate: true do |f| %>
+           
+            <div class="row">
+                <div class="col-xs-6 col-sm-9"><%= f.label "Nombre del Criterio:" %>
+                <%= f.text_field :nombre_criterio, validate: true,style: 'width:90%;'%>
+                  </div>
+                </div>
+            
+            
+            
+            <div class="row id btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= f.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", cat_criterio_eval_servicios_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

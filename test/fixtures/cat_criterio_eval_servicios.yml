@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre_criterio: MyString
+  cal_A: 1
+  status: MyString
+
+two:
+  nombre_criterio: MyString
+  cal_A: 1
+  status: MyString

@@ -8,7 +8,11 @@ default: &default
   adapter: mysql2
   encoding: utf8
   username: root
+<<<<<<< HEAD
+  password: ito123
+=======
   password: 1234
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   host: 127.0.0.1
 
 development:

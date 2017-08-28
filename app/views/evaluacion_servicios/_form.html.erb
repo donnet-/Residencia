@@ -1,0 +1,75 @@
+<div class="container">
+<%  x = Estudiante.find_by(email: current_usuario.email).servicio_sociales[0].id %>   
+<% q = EvaluacionServicio.where(id_servicio_social: x).order(:num_reporte).last%>  
+<%#binding.pry%>
+<% if q ==nil%>
+      <% q = 1 %>
+<% else %>
+     <% q = q.num_reporte + 1 %>
+<% end %>
+
+<% if q <= 3 %>
+  <%= nested_form_for @evaluacion_servicio, validate: true do |f| %>  
+    <div id="marco">
+      <div class="container">
+        <div class="row">
+          <span class="label label-warning" style="font-size: 20px; color: #000" >Formato de Evalucion del Servicio Social</span>
+        </div>
+        <div class="row">            
+          
+        <%= f.hidden_field :id_servicio_social, value: x %></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4"><%= f.label "Numero de Reporte" %><br>
+          
+          <%= f.number_field :num_reporte , value: q %></div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-4"><p><%= f.label :Pdf,"Pdf Evalucion del Serivicio" %>: <%= f.file_field :pdf_eval_servicio , validate: true,accept: 'application/pdf'%></p></div>
+        </div> 
+
+      <div class="row">
+        <%= f.hidden_field :fecha_registro_servicio, :value=>Date.today %>        
+      </div>    
+      <fieldset id="criterios">
+            <h5 id="align-title"><b><span class="label label-warning" style="font-size: 20px; color: #000" >Registro de criterios evaluados  del prestador de SERVICIO SOCIAL
+            </span></b></h5>
+            <div class="row"><h5 id="align-title">
+            <%=f.label "Registre su nivel de desempeño de acuerdo al formato que previamente subido "%>
+            </div></h5>          
+          <% ca =CatCriterioEvalServicio.all%>
+          <% for c in ca %>
+              <%= f.fields_for :criterio_evalucion_servicios, validate: true do |actdoc| %>
+              <%# t.integer  "id_cat_criterio_eval",   limit: 4
+                  t.integer  "calificacion_criterio",  limit: 4 %>
+                  <div class="row">                  
+                      <div class="col-md-10">
+                          <%= c.nombre_criterio%>
+                          <%= actdoc.hidden_field :id_cat_criterio_eval, value: c.id %>
+                      </div>
+                      <div class="col-md-2">
+                      <%= actdoc.select :calificacion_criterio, options_for_select([["Insuficiente", "0"],["Suficiente","1"], ["Bueno", "2"], ["Notable", "3"],["Exelente", "4"]]),{include_blank: "Seleccione..."}, class: "form-control" %>
+                          <%#= actdoc.number_field :calificacion_criterio, class: "form-control"%>
+                      </div>
+                      
+                  </div>
+              <% end %>
+          <% end %>            
+        </fieldset>
+                            
+      <div class="row" id="btn-cancelar">
+        <div class="col-xs-2 col-md-4" id="btn">
+          <%= f.submit :Continuar, :class => 'btn btn-success', data:{ confirm: 'Seguro que desea Continuar?'} %>
+        </div>   
+    <% end %>
+  <% else %>
+  <span class="label label-warning" style="font-size: 20px; color: #000" >Ya ha registrado sus tres reportes</span>
+  <% end %>
+        <div class="col-xs-2 col-md-4">
+          <%= button_to "Cancelar",servicio_sociales_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

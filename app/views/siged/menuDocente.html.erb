@@ -41,6 +41,10 @@
                                             <% end %>
                                         <% end %>
                                    <% end %>
+<<<<<<< HEAD
+
+=======
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
                                 </ul>
                             </li> 
                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proyecto <span class="caret"></span></a>
@@ -55,6 +59,26 @@
                                 <% if puesto.estado == 'Activo' %>
                                     <% @tipoP = CatTipoPuesto.find(puesto.cat_tipo_puesto_id) %>
                                     
+<<<<<<< HEAD
+                                    <% if @tipoP.nombrePuesto == 'Jefe de la Oficina de Vinculación de Sistemas' %>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Servicio Social <span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="servicio_sociales">Lista de Servicio Social</a></li>
+                                               
+                                            </ul>          
+                                        </li>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                       <% end %>
+                       <% if @p != [] %>
+                            <% for puesto in @p %>
+                                <% if puesto.estado == 'Activo' %>
+                                    <% @tipoP = CatTipoPuesto.find(puesto.cat_tipo_puesto_id) %>
+                                    
+=======
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
                                     <% if @tipoP.nombrePuesto == 'Secretario de academia' || @tipoP.nombrePuesto == 'Presidente de Academia' %>
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reunión académica <span class="caret"></span></a>

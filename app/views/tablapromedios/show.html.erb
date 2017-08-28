@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nivel desem:</strong>
+  <%= @tablapromedio.nivel_desem %>
+</p>
+
+<p>
+  <strong>Valor min:</strong>
+  <%= @tablapromedio.valor_min %>
+</p>
+
+<p>
+  <strong>Valor max:</strong>
+  <%= @tablapromedio.valor_max %>
+</p>
+
+<%= link_to 'Edit', edit_tablapromedio_path(@tablapromedio) %> |
+<%= link_to 'Back', tablapromedios_path %>

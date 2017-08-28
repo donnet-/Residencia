@@ -1,0 +1,29 @@
+<%= form_for(@criterio_evaluacion_servicio) do |f| %>
+  <% if @criterio_evaluacion_servicio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@criterio_evaluacion_servicio.errors.count, "error") %> prohibited this criterio_evaluacion_servicio from being saved:</h2>
+
+      <ul>
+      <% @criterio_evaluacion_servicio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :id_evalucacion %><br>
+    <%= f.number_field :id_evalucacion %>
+  </div>
+  <div class="field">
+    <%= f.label :id_cat_criterio_eva %><br>
+    <%= f.number_field :id_cat_criterio_eva %>
+  </div>
+  <div class="field">
+    <%= f.label :calificacion_criterio %><br>
+    <%= f.number_field :calificacion_criterio %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

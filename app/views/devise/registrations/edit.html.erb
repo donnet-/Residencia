@@ -12,7 +12,11 @@
 
           <div class="row">
             <%= f.label :Elige_un_rol, :class => 'col-xs-4 col-md-3' %>
+<<<<<<< HEAD
+            <%= f.select :rol, options_for_select([,["",""], ["Docente", "docente"], ["Estudiante", "estudiante"], ["Jefe del Proyecto de Docenia", "jefe_de_docencia"], ["Jefe_del_Proyecto_de_Investigacion", "jefe_de_investigacion"], ["Presidente_Reunión_Academia", "presidente_reunion_academia"], ["Administrador", "admin"]]), :class => 'col-xs-4 col-md-4', validate: true, :selected => @user.rol %>
+=======
             <%= f.select :rol, options_for_select([,["",""], ["Docente", "docente"], ["Estudiante", "estudiante"], ["Empresa", "empresa"], ["Jefe del Proyecto de Docenia", "jefe_de_docencia"], ["Jefe_del_Proyecto_de_Investigacion", "jefe_de_investigacion"], ["Presidente_Reunión_Academia", "presidente_reunion_academia"], ["Administrador", "admin"]]), :class => 'col-xs-4 col-md-4', validate: true, :selected => @user.rol %>
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
            </div>
 
           <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

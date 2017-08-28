@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   
+<<<<<<< HEAD
+  resources :cat_criterio_eval_servicios
+  resources :criterio_evaluacion_servicios
+  resources :tablapromedios
+  resources :evaluacion_servicios
+  resources :estadistica_servicios
+=======
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
   get 'estudiantes/import'
 
   get 'docentes/import'
