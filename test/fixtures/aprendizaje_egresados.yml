@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  calidad_docente: MyString
+  plan_estudio: MyString
+  proyecto_investigacion: MyString
+  condiciones_estudio: MyString
+  experiencia: MyString
+
+two:
+  calidad_docente: MyString
+  plan_estudio: MyString
+  proyecto_investigacion: MyString
+  condiciones_estudio: MyString
+  experiencia: MyString

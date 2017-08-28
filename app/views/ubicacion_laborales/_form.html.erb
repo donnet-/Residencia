@@ -1,0 +1,149 @@
+<%= form_for(@ubicacion_laboral) do |f| %>
+  <% if @ubicacion_laboral.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ubicacion_laboral.errors.count, "error") %> prohibited this ubicacion_laboral from being saved:</h2>
+
+      <ul>
+      <% @ubicacion_laboral.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :act_dedica %><br>
+    <%= f.text_field :act_dedica %>
+  </div>
+  <div class="field">
+    <%= f.label :estudia %><br>
+    <%= f.text_field :estudia %>
+  </div>
+  <div class="field">
+    <%= f.label :especialidad_institucion %><br>
+    <%= f.text_field :especialidad_institucion %>
+  </div>
+  <div class="field">
+    <%= f.label :tiempo_empleo %><br>
+    <%= f.text_field :tiempo_empleo %>
+  </div>
+  <div class="field">
+    <%= f.label :medio_empleo %><br>
+    <%= f.text_field :medio_empleo %>
+  </div>
+  <div class="field">
+    <%= f.label :requisitos_contratacion %><br>
+    <%= f.text_field :requisitos_contratacion %>
+  </div>
+  <div class="field">
+    <%= f.label :idioma_trabajo %><br>
+    <%= f.text_field :idioma_trabajo %>
+  </div>
+  <div class="field">
+    <%= f.label :hablar_idioma %><br>
+    <%= f.number_field :hablar_idioma %>
+  </div>
+  <div class="field">
+    <%= f.label :escribir_idioma %><br>
+    <%= f.number_field :escribir_idioma %>
+  </div>
+  <div class="field">
+    <%= f.label :leer_idioma %><br>
+    <%= f.number_field :leer_idioma %>
+  </div>
+  <div class="field">
+    <%= f.label :escuchar_idioma %><br>
+    <%= f.number_field :escuchar_idioma %>
+  </div>
+  <div class="field">
+    <%= f.label :anti_empleo %><br>
+    <%= f.text_field :anti_empleo %>
+  </div>
+  <div class="field">
+    <%= f.label :ano_ingreso %><br>
+    <%= f.text_field :ano_ingreso %>
+  </div>
+  <div class="field">
+    <%= f.label :ingreso %><br>
+    <%= f.text_field :ingreso %>
+  </div>
+  <div class="field">
+    <%= f.label :nivel_jerarquico %><br>
+    <%= f.text_field :nivel_jerarquico %>
+  </div>
+  <div class="field">
+    <%= f.label :condicion %><br>
+    <%= f.text_field :condicion %>
+  </div>
+  <div class="field">
+    <%= f.label :relacion %><br>
+    <%= f.text_field :relacion %>
+  </div>
+  <div class="field">
+    <%= f.label :organismo %><br>
+    <%= f.text_field :organismo %>
+  </div>
+  <div class="field">
+    <%= f.label :giro %><br>
+    <%= f.text_field :giro %>
+  </div>
+  <div class="field">
+    <%= f.label :razon_social %><br>
+    <%= f.text_field :razon_social %>
+  </div>
+  <div class="field">
+    <%= f.label :domicilio %><br>
+    <%= f.text_field :domicilio %>
+  </div>
+  <div class="field">
+    <%= f.label :ciudad %><br>
+    <%= f.text_field :ciudad %>
+  </div>
+  <div class="field">
+    <%= f.label :municipio %><br>
+    <%= f.text_field :municipio %>
+  </div>
+  <div class="field">
+    <%= f.label :estado %><br>
+    <%= f.text_field :estado %>
+  </div>
+  <div class="field">
+    <%= f.label :telefno %><br>
+    <%= f.text_field :telefno %>
+  </div>
+  <div class="field">
+    <%= f.label :ext %><br>
+    <%= f.text_field :ext %>
+  </div>
+  <div class="field">
+    <%= f.label :fax %><br>
+    <%= f.text_field :fax %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :pagina_web %><br>
+    <%= f.text_field :pagina_web %>
+  </div>
+  <div class="field">
+    <%= f.label :sector_primario %><br>
+    <%= f.text_field :sector_primario %>
+  </div>
+  <div class="field">
+    <%= f.label :sector_secundario %><br>
+    <%= f.text_field :sector_secundario %>
+  </div>
+  <div class="field">
+    <%= f.label :sector_terciario %><br>
+    <%= f.text_field :sector_terciario %>
+  </div>
+  <div class="field">
+    <%= f.label :tam_empresa %><br>
+    <%= f.text_field :tam_empresa %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

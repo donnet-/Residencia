@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Calidad docente:</strong>
+  <%= @aprendizaje_egresado.calidad_docente %>
+</p>
+
+<p>
+  <strong>Plan estudio:</strong>
+  <%= @aprendizaje_egresado.plan_estudio %>
+</p>
+
+<p>
+  <strong>Proyecto investigacion:</strong>
+  <%= @aprendizaje_egresado.proyecto_investigacion %>
+</p>
+
+<p>
+  <strong>Condiciones estudio:</strong>
+  <%= @aprendizaje_egresado.condiciones_estudio %>
+</p>
+
+<p>
+  <strong>Experiencia:</strong>
+  <%= @aprendizaje_egresado.experiencia %>
+</p>
+
+<%= link_to 'Edit', edit_aprendizaje_egresado_path(@aprendizaje_egresado) %> |
+<%= link_to 'Back', aprendizaje_egresados_path %>

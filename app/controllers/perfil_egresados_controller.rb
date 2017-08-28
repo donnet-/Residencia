@@ -28,7 +28,7 @@ class PerfilEgresadosController < ApplicationController
 
     respond_to do |format|
       if @perfil_egresado.save
-        format.html { redirect_to @perfil_egresado, notice: 'Perfil egresado was successfully created.' }
+        format.html { redirect_to new_aprendizaje_egresado_path, notice: 'Perfil egresado was successfully created.' }
         format.json { render :show, status: :created, location: @perfil_egresado }
       else
         format.html { render :new }
@@ -69,6 +69,6 @@ class PerfilEgresadosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def perfil_egresado_params
-      params.require(:perfil_egresado).permit(:nombre, :fk_numControl, :fecha_nac, :curp, :sexo, :edo_civil, :direccion, :telefon, :email, :egresado_especialidad, :fecha_egresado, :titulo, :dominio_ingles, :idioma_otro, :m_software)
+      params.require(:perfil_egresado).permit(:nombre_egresado, :fk_numControl, :fecha_nac, :curp, :sexo, :edo_civil, :direccion, :telefon, :email, :egreso_especialidad, :fecha_egreso, :titulo, :dominio_ingles, :idioma_otro, :m_software)
     end
 end

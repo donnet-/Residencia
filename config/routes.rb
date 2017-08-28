@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
 
+  resources :ubicacion_laborales
+  resources :aprendizaje_egresados
   resources :perfil_egresados
   resources :cat_criterio_eval_servicios
   resources :criterio_evaluacion_servicios

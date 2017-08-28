@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Aprendizaje Egresados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Calidad docente</th>
+      <th>Plan estudio</th>
+      <th>Proyecto investigacion</th>
+      <th>Condiciones estudio</th>
+      <th>Experiencia</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aprendizaje_egresados.each do |aprendizaje_egresado| %>
+      <tr>
+        <td><%= aprendizaje_egresado.calidad_docente %></td>
+        <td><%= aprendizaje_egresado.plan_estudio %></td>
+        <td><%= aprendizaje_egresado.proyecto_investigacion %></td>
+        <td><%= aprendizaje_egresado.condiciones_estudio %></td>
+        <td><%= aprendizaje_egresado.experiencia %></td>
+        <td><%= link_to 'Show', aprendizaje_egresado %></td>
+        <td><%= link_to 'Edit', edit_aprendizaje_egresado_path(aprendizaje_egresado) %></td>
+        <td><%= link_to 'Destroy', aprendizaje_egresado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aprendizaje egresado', new_aprendizaje_egresado_path %>

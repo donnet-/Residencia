@@ -15,11 +15,15 @@
                     <% @a = Estudiante.find_by(email: current_usuario.email) %>
                         <% if @a != nil %>
                             <li><%= link_to "Datos generales", estudiante_path(@a) %></li>
+                            
+
                         <% else %>                            
                         <% end %>
                     <li><a href="/servicio_sociales">Servicio social</a></li>
+                    <li><a href="/perfil_egresados/new">Cuestionario</a></li>
                 </ul>            
             </div>
+
           </div>
         </nav>
     </header>

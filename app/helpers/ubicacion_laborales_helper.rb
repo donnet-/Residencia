@@ -1,0 +1,2 @@
+module UbicacionLaboralesHelper
+end

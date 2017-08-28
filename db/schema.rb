@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828181635) do
+ActiveRecord::Schema.define(version: 20170828192609) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -108,6 +108,16 @@ ActiveRecord::Schema.define(version: 20170828181635) do
   create_table "anexos_proyecto_estudiantes", id: false, force: :cascade do |t|
     t.integer "proyecto_estudiante_id", limit: 4, null: false
     t.integer "anexo_id",               limit: 4, null: false
+  end
+
+  create_table "aprendizaje_egresados", force: :cascade do |t|
+    t.string   "calidad_docente",        limit: 255
+    t.string   "plan_estudio",           limit: 255
+    t.string   "proyecto_investigacion", limit: 255
+    t.string   "condiciones_estudio",    limit: 255
+    t.string   "experiencia",            limit: 255
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "archivo_docentes", force: :cascade do |t|
@@ -986,6 +996,44 @@ ActiveRecord::Schema.define(version: 20170828181635) do
     t.float    "valor_max",   limit: 24
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "ubicacion_laborales", force: :cascade do |t|
+    t.string   "act_dedica",               limit: 255
+    t.string   "estudia",                  limit: 255
+    t.string   "especialidad_institucion", limit: 255
+    t.string   "tiempo_empleo",            limit: 255
+    t.string   "medio_empleo",             limit: 255
+    t.string   "requisitos_contratacion",  limit: 255
+    t.string   "idioma_trabajo",           limit: 255
+    t.integer  "hablar_idioma",            limit: 4
+    t.integer  "escribir_idioma",          limit: 4
+    t.integer  "leer_idioma",              limit: 4
+    t.integer  "escuchar_idioma",          limit: 4
+    t.string   "anti_empleo",              limit: 255
+    t.string   "ano_ingreso",              limit: 255
+    t.string   "ingreso",                  limit: 255
+    t.string   "nivel_jerarquico",         limit: 255
+    t.string   "condicion",                limit: 255
+    t.string   "relacion",                 limit: 255
+    t.string   "organismo",                limit: 255
+    t.string   "giro",                     limit: 255
+    t.string   "razon_social",             limit: 255
+    t.string   "domicilio",                limit: 255
+    t.string   "ciudad",                   limit: 255
+    t.string   "municipio",                limit: 255
+    t.string   "estado",                   limit: 255
+    t.string   "telefno",                  limit: 255
+    t.string   "ext",                      limit: 255
+    t.string   "fax",                      limit: 255
+    t.string   "email",                    limit: 255
+    t.string   "pagina_web",               limit: 255
+    t.string   "sector_primario",          limit: 255
+    t.string   "sector_secundario",        limit: 255
+    t.string   "sector_terciario",         limit: 255
+    t.string   "tam_empresa",              limit: 255
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "usuarios", force: :cascade do |t|

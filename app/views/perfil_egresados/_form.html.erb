@@ -1,3 +1,6 @@
+<div class="container">
+
+
 <%= form_for(@perfil_egresado) do |f| %>
   <% if @perfil_egresado.errors.any? %>
     <div id="error_explanation">
@@ -10,68 +13,58 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+ <div id="marco">
+ <div class="container">
+ <div class="row">
+  <span class="label label-warning" style="font-size: 20px; color: #000" >I. Perfil Egresado</span>
   </div>
-  <div class="field">
-    <%= f.label :fk_numControl %><br>
-    <%= f.number_field :fk_numControl %>
+  <p class="text-danger">*Campos obligatorios</p>
+ 
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">*<%= f.label "Nombre del Egresado: "%><%= f.text_field :nombre %></div>
+  <div class="col-xs-6 col-sm-3"><%= f.label "Numero Control" %><%= f.number_field :fk_numControl %>
   </div>
-  <div class="field">
-    <%= f.label :fecha_nac %><br>
-    <%= f.date_select :fecha_nac %>
+  <div class="col-xs-6 col-sm-3"><%= f.label "Fecha de nacimiento:" %><%= f.date_field :fecha_nac %>
   </div>
-  <div class="field">
-    <%= f.label :curp %><br>
-    <%= f.text_field :curp %>
   </div>
-  <div class="field">
-    <%= f.label :sexo %><br>
-    <%= f.text_field :sexo %>
+  <div class="row">
+    <div class="col-xs-5 col-sm-4"><%= f.label "CURP: " %><br>
+  <%= f.text_field :curp %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Sexo: " %><br>
+  <%= f.text_field :sexo %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Estado civil" %><br>
+  <%= f.text_field :edo_civil %>
   </div>
-  <div class="field">
-    <%= f.label :edo_civil %><br>
-    <%= f.text_field :edo_civil %>
   </div>
-  <div class="field">
-    <%= f.label :direccion %><br>
-    <%= f.text_field :direccion %>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4"><%= f.label "Dirección" %>:<br>
+  <%= f.text_field :direccion %></div>
+ <div class="col-xs-5 col-sm-4"><%= f.label "Telefono" %>:<br>
+  <%= f.number_field :telefon %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "E-mail" %>:<br>
+  <%= f.text_field :email %> </div>
   </div>
-  <div class="field">
-    <%= f.label :telefon %><br>
-    <%= f.number_field :telefon %>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4"><%= f.label "Especialidad"%>:<br>
+  <%= f.text_field :egresado_especialidad %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Fecha de egreso" %>:<br>
+  <%= f.text_field :fecha_egresado %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Titulo" %>:<br>
+    <%= f.text_field :titulo %></div>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :egresado_especialidad %><br>
-    <%= f.text_field :egresado_especialidad %>
-  </div>
-  <div class="field">
-    <%= f.label :fecha_egresado %><br>
-    <%= f.text_field :fecha_egresado %>
-  </div>
-  <div class="field">
-    <%= f.label :titulo %><br>
-    <%= f.text_field :titulo %>
-  </div>
-  <div class="field">
-    <%= f.label :dominio_ingles %><br>
-    <%= f.number_field :dominio_ingles %>
-  </div>
-  <div class="field">
-    <%= f.label :idioma_otro %><br>
-    <%= f.number_field :idioma_otro %>
-  </div>
-  <div class="field">
-    <%= f.label :m_software %><br>
-    <%= f.text_field :m_software %>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4"><%= f.label "Dominio de ingles" %>:<br>
+  <%= f.number_field :dominio_ingles %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Otro idioma" %>:<br>
+    <%= f.number_field :idioma_otro %></div>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Manejo de Software" %>:<br>
+    <%= f.text_field :m_software %></div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+     <%= f.submit :Siguiente, :class => 'btn btn-success'%>
   </div>
 <% end %>
+ </div>
+</div>
+</div>
+</div>

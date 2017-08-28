@@ -1,0 +1,102 @@
+<div class="container">
+<%= form_for(@aprendizaje_egresado) do |f| %>
+  <% if @aprendizaje_egresado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@aprendizaje_egresado.errors.count, "error") %> prohibited this aprendizaje_egresado from being saved:</h2>
+
+      <ul>
+      <% @aprendizaje_egresado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div id="marco">
+<div class="container">
+<div class="row">
+  <span class="label label-warning" style="font-size: 20px; color: #000" >II. Pertinencia y disponibilidad de medios y recursos para el aprendizaje</span>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-11">
+  <p style="text-align: justify;">Califique la calidad de la educación profesional proporcionada por el personal docente, así como el Plan de Estudios de la carrera que curso y las condiciones del plantel en cuanto a infraestructura.</p>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-xs-5 col-sm-3">2.1
+    <%= f.label "Calidad de los docentes" %><br>
+    <%= f.radio_button :calidad_docente, 'muy buena'%>
+    <%= f.label :calidad_docente, 'Muy Buena', :value => 'muy buena' %><br>
+    <%= f.radio_button :calidad_docente, 'buena'%>
+    <%= f.label :calidad_docente, 'Buena', :value => 'buena' %><br>
+    <%= f.radio_button :calidad_docente, 'regular'%>
+    <%= f.label :calidad_docente, 'Regular', :value => 'regular' %><br>
+    <%= f.radio_button :calidad_docente, 'mala'%>
+    <%= f.label :calidad_docente, 'Mala', :value => 'mala' %><br>
+  </div>
+  <div class="col-xs-5 col-sm-2">2.2
+    <%= f.label "Plan de estudios" %><br>
+     <%= f.radio_button :plan_estudio, 'muy buenos'%>
+    <%= f.label :plan_estudio, 'Muy Buenos', :value => 'muy buenos' %><br>
+    <%= f.radio_button :plan_estudio, 'buenos'%>
+    <%= f.label :plan_estudio, 'Buenos', :value => 'buenos' %><br>
+    <%= f.radio_button :plan_estudio, 'regulares'%>
+    <%= f.label :plan_estudio, 'Regulares', :value => 'regulares' %><br>
+    <%= f.radio_button :plan_estudio, 'mala'%>
+    <%= f.label :plan_estudio, 'Malos', :value => 'malos' %><br>
+  </div> 
+  <div class="col-xs-5 col-sm-7">
+  <div class="field">2.3
+    <%= f.label "Oportunidad de participar en proyectos de investigación y desarrollo" %><br>
+    <%= f.radio_button :proyecto_investigacion, 'muy buena'%>
+    <%= f.label :proyecto_investigacion, 'Muy Buena', :value => 'muy buena' %><br>
+    <%= f.radio_button :proyecto_investigacion, 'buena'%>
+    <%= f.label :proyecto_investigacion, 'Buena', :value => 'buena' %><br>
+    <%= f.radio_button :proyecto_investigacion, 'regular'%>
+    <%= f.label :proyecto_investigacion, 'Regular', :value => 'regular' %><br>
+    <%= f.radio_button :proyecto_investigacion, 'mala'%>
+    <%= f.label :proyecto_investigacion, 'Mala', :value => 'mala' %><br>
+  </div>
+  </div>
+   </div>
+   <div class="row">
+   <div class="col-xs-5 col-sm-6">
+  <div class="field">2.4 
+    <%= f.label "Satisfacción con las condiciones de estudio (infraestructura)" %><br>
+    <%= f.radio_button :condiciones_estudio, 'muy buena'%>
+    <%= f.label :condiciones_estudio, 'Muy Buena', :value => 'muy buena' %><br>
+    <%= f.radio_button :condiciones_estudio, 'buena'%>
+    <%= f.label :condiciones_estudio, 'Buena', :value => 'buena' %><br>
+    <%= f.radio_button :condiciones_estudio, 'regular'%>
+    <%= f.label :condiciones_estudio, 'Regular', :value => 'regular' %><br>
+    <%= f.radio_button :condiciones_estudio, 'mala'%>
+    <%= f.label :condiciones_estudio, 'Mala', :value => 'mala' %><br>
+    
+  </div>
+  </div>
+  <div class="col-xs-5 col-sm-6">
+  <div class="field">2.5
+    <%= f.label "Experiencia obtenida a través de la residencia profesional" %><br>
+    <%= f.radio_button :experiencia, 'muy buena'%>
+    <%= f.label :experiencia, 'Muy Buena', :value => 'muy buena' %><br>
+    <%= f.radio_button :experiencia, 'buena'%>
+    <%= f.label :experiencia, 'Buena', :value => 'buena' %><br>
+    <%= f.radio_button :experiencia, 'regular'%>
+    <%= f.label :experiencia, 'Regular', :value => 'regular' %><br>
+    <%= f.radio_button :experiencia, 'mala'%>
+    <%= f.label :experiencia, 'Mala', :value => 'mala' %><br>
+    </div>
+  </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit :Siguiente, :class => 'btn btn-success'%>
+  </div>
+<% end %>
+<div class="row">
+  <% x = PerfilEgresado.where(Estudiante.find_by(email: current_usuario.email).numControl).last %>
+    <%#= button_to "Anterior", edit_perfil_egresado_path(x), :class => 'btn btn-warning', :method => :get %>
+    <%# link_to "Anterior", edit_perfil_egresado_path(x) %>
+</div>
+</div>
+</div>
+</div>

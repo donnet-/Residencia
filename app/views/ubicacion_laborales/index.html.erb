@@ -1,0 +1,91 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Ubicacion Laborales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Act dedica</th>
+      <th>Estudia</th>
+      <th>Especialidad institucion</th>
+      <th>Tiempo empleo</th>
+      <th>Medio empleo</th>
+      <th>Requisitos contratacion</th>
+      <th>Idioma trabajo</th>
+      <th>Hablar idioma</th>
+      <th>Escribir idioma</th>
+      <th>Leer idioma</th>
+      <th>Escuchar idioma</th>
+      <th>Anti empleo</th>
+      <th>Ano ingreso</th>
+      <th>Ingreso</th>
+      <th>Nivel jerarquico</th>
+      <th>Condicion</th>
+      <th>Relacion</th>
+      <th>Organismo</th>
+      <th>Giro</th>
+      <th>Razon social</th>
+      <th>Domicilio</th>
+      <th>Ciudad</th>
+      <th>Municipio</th>
+      <th>Estado</th>
+      <th>Telefno</th>
+      <th>Ext</th>
+      <th>Fax</th>
+      <th>Email</th>
+      <th>Pagina web</th>
+      <th>Sector primario</th>
+      <th>Sector secundario</th>
+      <th>Sector terciario</th>
+      <th>Tam empresa</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ubicacion_laborales.each do |ubicacion_laboral| %>
+      <tr>
+        <td><%= ubicacion_laboral.act_dedica %></td>
+        <td><%= ubicacion_laboral.estudia %></td>
+        <td><%= ubicacion_laboral.especialidad_institucion %></td>
+        <td><%= ubicacion_laboral.tiempo_empleo %></td>
+        <td><%= ubicacion_laboral.medio_empleo %></td>
+        <td><%= ubicacion_laboral.requisitos_contratacion %></td>
+        <td><%= ubicacion_laboral.idioma_trabajo %></td>
+        <td><%= ubicacion_laboral.hablar_idioma %></td>
+        <td><%= ubicacion_laboral.escribir_idioma %></td>
+        <td><%= ubicacion_laboral.leer_idioma %></td>
+        <td><%= ubicacion_laboral.escuchar_idioma %></td>
+        <td><%= ubicacion_laboral.anti_empleo %></td>
+        <td><%= ubicacion_laboral.ano_ingreso %></td>
+        <td><%= ubicacion_laboral.ingreso %></td>
+        <td><%= ubicacion_laboral.nivel_jerarquico %></td>
+        <td><%= ubicacion_laboral.condicion %></td>
+        <td><%= ubicacion_laboral.relacion %></td>
+        <td><%= ubicacion_laboral.organismo %></td>
+        <td><%= ubicacion_laboral.giro %></td>
+        <td><%= ubicacion_laboral.razon_social %></td>
+        <td><%= ubicacion_laboral.domicilio %></td>
+        <td><%= ubicacion_laboral.ciudad %></td>
+        <td><%= ubicacion_laboral.municipio %></td>
+        <td><%= ubicacion_laboral.estado %></td>
+        <td><%= ubicacion_laboral.telefno %></td>
+        <td><%= ubicacion_laboral.ext %></td>
+        <td><%= ubicacion_laboral.fax %></td>
+        <td><%= ubicacion_laboral.email %></td>
+        <td><%= ubicacion_laboral.pagina_web %></td>
+        <td><%= ubicacion_laboral.sector_primario %></td>
+        <td><%= ubicacion_laboral.sector_secundario %></td>
+        <td><%= ubicacion_laboral.sector_terciario %></td>
+        <td><%= ubicacion_laboral.tam_empresa %></td>
+        <td><%= link_to 'Show', ubicacion_laboral %></td>
+        <td><%= link_to 'Edit', edit_ubicacion_laboral_path(ubicacion_laboral) %></td>
+        <td><%= link_to 'Destroy', ubicacion_laboral, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ubicacion laboral', new_ubicacion_laboral_path %>
