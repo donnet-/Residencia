@@ -18,7 +18,21 @@ class SigedController < ApplicationController
                 else
                     render template: 'siged/menuEstudiante'
                 end
+<<<<<<< HEAD
             end
         end      
     end
 end
+=======
+            elsif current_usuario.rol == "empresa"
+              emp = Empresa.find_by(email: current_usuario.email)
+              if  emp.usuario_id == nil
+                # redirect_to edit_empresa_path(emp)
+              elsif
+                render template: 'siged/menuEmpresa'
+              end
+            end
+        end      
+    end
+end
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae

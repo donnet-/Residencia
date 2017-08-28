@@ -17,7 +17,10 @@
 					<td class="active"><%= servicio.calificacion %></td>
 					<td class="active"><%= servicio.nombreE %></td>
 					<td class="active"><%= servicio.estado %></td>
+<<<<<<< HEAD
 					<td class="active"><%= link_to 'Realizar', new_evaluacion_servicio_path%></td>
+=======
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
 					<td class="active">
 						<% if can? :read, servicio %>
 							<%= link_to servicio_social_path(servicio) do %> <span class="glyphicon glyphicon-eye-open blue" title="Ver detalles"></span><% end %>

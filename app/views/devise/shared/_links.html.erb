@@ -13,6 +13,10 @@
 		<%- if devise_mapping.registerable? && controller_name != 'registrations' %>      
 				<%= link_to "Crear cuenta Docente", new_registration_path(resource_name, rol: 'docente') %><br />    
 				<%= link_to "Crear cuenta Estudiante", new_registration_path(resource_name, rol: 'estudiante' ) %><br />   
+<<<<<<< HEAD
+=======
+				<%= link_to "Crear cuenta Empresa", new_registration_path(resource_name, rol: 'empresa' ) %><br />   
+>>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
 		<% end -%>
 	</div>
 </div>
