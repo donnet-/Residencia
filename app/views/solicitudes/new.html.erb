@@ -1,5 +1,5 @@
-<% if current_usuario.rol == 'admin' %>
-  <%= render template: "siged/menuAdmin" %>
+<% if current_usuario.rol == 'docente' %>
+  <%= render template: "siged/menuDocente" %>
 <% elsif current_usuario.rol == 'empresa' %>
   <%= render template: "siged/menuEmpresa" %>
 <% end %>

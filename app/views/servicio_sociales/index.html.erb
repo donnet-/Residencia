@@ -22,13 +22,10 @@
 			<div class="col-xs-6 col-sm-1">	
 				<button onclick="todosServSocial('s')" class="btn btn-primary"> <i class="glyphicon glyphicon-list" title="Dpto. sistemas"></i></button>
 			</div>
-<<<<<<< HEAD
 			<div class="col-xs-6 col-sm-1">	
 				 <%= button_to estadistica_servicios_path, :class => "btn btn-primary", :method => :get do %> <i class="glyphicon glyphicon-stats" title="Estadistica"></i></button>
 				 <%end%>
 			</div>
-=======
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
 		<% end %>
 	</div>
     
@@ -39,7 +36,6 @@
 		<div id="mostrarTodos" style="display:none;">
 			<%= render '/servicio_sociales/admin_vista/todos' %>
 		</div>
-<<<<<<< HEAD
 		<% elsif current_usuario.rol == 'docente'%>
 		<% @a = Docente.find_by(email: current_usuario.email) %>
 		<% @p = Puesto.where(docente_id: @a.id) %>
@@ -63,9 +59,6 @@
 			</div>
 
 	<% elsif %>
-=======
-	<% else %>
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
 		<%= render '/servicio_sociales/estudiante_vista/servEstudiante' %>
 	<% end %>
 </div>

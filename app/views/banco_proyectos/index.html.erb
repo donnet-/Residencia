@@ -1,7 +1,15 @@
 
 <div class = "container" >
 
-  <%= render template: "siged/menuAdmin" %>
+  <% if current_usuario.rol == 'admin' %>
+      <%= render template: "siged/menuAdmin" %>
+  <% elsif current_usuario.rol == 'docente' %>
+      <%= render template: "siged/menuDocente" %>    
+  <% elsif current_usuario.rol == 'empresa' %>
+      <%= render template: "siged/menuEmpresa" %>
+  <% elsif current_usuario.rol == 'estudiante' %>
+      <%= render template: "siged/menuEstudiante" %>
+  <% end %>
   <% breadcrumb :banco_proyectos %>
   
   <h3 id = "aling-title"> </h3>
