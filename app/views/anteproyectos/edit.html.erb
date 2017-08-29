@@ -1,0 +1,17 @@
+<h1>l</h1>
+
+  <% if current_usuario.rol == 'admin' %>
+      <%= render template: "siged/menuAdmin" %>
+  <% elsif current_usuario.rol == 'docente' %>
+      <%= render template: "siged/menuDocente" %>    
+  <% elsif current_usuario.rol == 'empresa' %>
+      <%= render template: "siged/menuEmpresa" %>
+  <% end %>
+  
+  <% if current_usuario.rol == "admin" %>
+    <h3 id="align-title">Observaciones de Anteproyecto de Residencia Profesional</h3>
+  <% else %>
+    <h3 id="align-title">Edición de Anteproyecto de Residencia Profesional</h3>
+  <% end %>
+
+<%= render 'form' %>

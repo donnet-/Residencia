@@ -1,0 +1,29 @@
+<%= form_for(@anteproyecto_observacion) do |f| %>
+  <% if @anteproyecto_observacion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@anteproyecto_observacion.errors.count, "error") %> prohibited this anteproyecto_observacion from being saved:</h2>
+
+      <ul>
+      <% @anteproyecto_observacion.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :identificador %><br>
+    <%= f.text_field :identificador %>
+  </div>
+  <div class="field">
+    <%= f.label :observacion %><br>
+    <%= f.text_area :observacion %>
+  </div>
+  <div class="field">
+    <%= f.label :solicitud_id %><br>
+    <%= f.text_field :solicitud_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

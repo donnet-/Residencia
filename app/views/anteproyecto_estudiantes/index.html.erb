@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Anteproyecto Estudiantes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @anteproyecto_estudiantes.each do |anteproyecto_estudiante| %>
+      <tr>
+        <td><%= link_to 'Show', anteproyecto_estudiante %></td>
+        <td><%= link_to 'Edit', edit_anteproyecto_estudiante_path(anteproyecto_estudiante) %></td>
+        <td><%= link_to 'Destroy', anteproyecto_estudiante, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Anteproyecto estudiante', new_anteproyecto_estudiante_path %>
