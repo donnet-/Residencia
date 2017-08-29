@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre empresa:</strong>
+  <%= @datos_generales_empresa.nombre_empresa %>
+</p>
+
+<p>
+  <strong>Calle:</strong>
+  <%= @datos_generales_empresa.calle %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @datos_generales_empresa.numero %>
+</p>
+
+<p>
+  <strong>Colonia:</strong>
+  <%= @datos_generales_empresa.colonia %>
+</p>
+
+<p>
+  <strong>Cp:</strong>
+  <%= @datos_generales_empresa.cp %>
+</p>
+
+<p>
+  <strong>Ciudad:</strong>
+  <%= @datos_generales_empresa.ciudad %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @datos_generales_empresa.estado %>
+</p>
+
+<p>
+  <strong>Municipio:</strong>
+  <%= @datos_generales_empresa.municipio %>
+</p>
+
+<p>
+  <strong>Telefono:</strong>
+  <%= @datos_generales_empresa.telefono %>
+</p>
+
+<p>
+  <strong>Correo:</strong>
+  <%= @datos_generales_empresa.correo %>
+</p>
+
+<p>
+  <strong>Tipo empresa:</strong>
+  <%= @datos_generales_empresa.tipo_empresa %>
+</p>
+
+<p>
+  <strong>Tam empresa:</strong>
+  <%= @datos_generales_empresa.tam_empresa %>
+</p>
+
+<p>
+  <strong>Actividad economica:</strong>
+  <%= @datos_generales_empresa.actividad_economica %>
+</p>
+
+<%= link_to 'Edit', edit_datos_generales_empresa_path(@datos_generales_empresa) %> |
+<%= link_to 'Back', datos_generales_empresas_path %>

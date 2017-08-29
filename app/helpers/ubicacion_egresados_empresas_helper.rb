@@ -1,0 +1,2 @@
+module UbicacionEgresadosEmpresasHelper
+end

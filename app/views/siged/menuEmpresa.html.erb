@@ -28,6 +28,7 @@
             <ul class="dropdown-menu">
             </ul>          
           </li>
+          <li><a href="/cuestionario_empresa">Cuestionario</a></li>
         </ul>            
       </div>
     
@@ -35,12 +36,4 @@
   </nav>
 </header>
 
-<div id="align-log-out">
-    <% if usuario_signed_in? %>
-      <%= current_usuario.email %>
-      <%= link_to "Cerrar sesión", destroy_usuario_session_path, method: :delete %>
-    <% else %>
-      <h3 id="align-title"><%= link_to "Logearse", new_usuario_session_path %></h3>
-    <% end %>
-  </div> 
 </div>

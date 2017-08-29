@@ -1,0 +1,101 @@
+<%= form_for(@competencias_empresa) do |f| %>
+  <% if @competencias_empresa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@competencias_empresa.errors.count, "error") %> prohibited this competencias_empresa from being saved:</h2>
+
+      <ul>
+      <% @competencias_empresa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :habilidad %><br>
+    <%= f.number_field :habilidad %>
+  </div>
+  <div class="field">
+    <%= f.label :orotografia %><br>
+    <%= f.number_field :orotografia %>
+  </div>
+  <div class="field">
+    <%= f.label :mejora_procesos %><br>
+    <%= f.number_field :mejora_procesos %>
+  </div>
+  <div class="field">
+    <%= f.label :trabajo_equipo %><br>
+    <%= f.number_field :trabajo_equipo %>
+  </div>
+  <div class="field">
+    <%= f.label :habilidad_tiempo %><br>
+    <%= f.number_field :habilidad_tiempo %>
+  </div>
+  <div class="field">
+    <%= f.label :seguridad_personal %><br>
+    <%= f.number_field :seguridad_personal %>
+  </div>
+  <div class="field">
+    <%= f.label :facilidad_palabra %><br>
+    <%= f.number_field :facilidad_palabra %>
+  </div>
+  <div class="field">
+    <%= f.label :gestion_proyecto %><br>
+    <%= f.number_field :gestion_proyecto %>
+  </div>
+  <div class="field">
+    <%= f.label :puntualidad %><br>
+    <%= f.number_field :puntualidad %>
+  </div>
+  <div class="field">
+    <%= f.label :cumplimiento %><br>
+    <%= f.number_field :cumplimiento %>
+  </div>
+  <div class="field">
+    <%= f.label :integracion %><br>
+    <%= f.number_field :integracion %>
+  </div>
+  <div class="field">
+    <%= f.label :creatividad %><br>
+    <%= f.number_field :creatividad %>
+  </div>
+  <div class="field">
+    <%= f.label :liderazgo %><br>
+    <%= f.number_field :liderazgo %>
+  </div>
+  <div class="field">
+    <%= f.label :adaptacion_cambios %><br>
+    <%= f.number_field :adaptacion_cambios %>
+  </div>
+  <div class="field">
+    <%= f.label :exelente %><br>
+    <%= f.number_field :exelente %>
+  </div>
+  <div class="field">
+    <%= f.label :muy_bueno %><br>
+    <%= f.number_field :muy_bueno %>
+  </div>
+  <div class="field">
+    <%= f.label :bueno %><br>
+    <%= f.number_field :bueno %>
+  </div>
+  <div class="field">
+    <%= f.label :regular %><br>
+    <%= f.number_field :regular %>
+  </div>
+  <div class="field">
+    <%= f.label :malo %><br>
+    <%= f.number_field :malo %>
+  </div>
+  <div class="field">
+    <%= f.label :sugerencia_mejora %><br>
+    <%= f.text_field :sugerencia_mejora %>
+  </div>
+  <div class="field">
+    <%= f.label :comentario %><br>
+    <%= f.text_field :comentario %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,24 @@
+<div class="container">
+	 <% if current_usuario.rol == 'empresa' %>
+        <%= render template: "siged/menuEmpresa" %>
+        <% end %>
+    <div id="marco">
+    <span class="label label-warning" style="font-size: 20px; color: #000" >Cuestionario para el sector productivo y de servicios</span> 
+    <br>
+    <br>
+     
+<h3 id="align-title">Seguimiento de egresados del Tecnológico Nacional de México/Instituto Tecnológico de Oaxaca</h3>
+<br>
+<br>
+<h4 id="align-title">
+<P ALIGN="justify" style="font-size: 18px;"><b>Estimado Empresario:</b>
+<br>
+El Seguimiento de Egresados es "el conjunto de acciones realizadas” por la institución tendientes a mantener una comunicación constante con los sectores de empleadores, con el propósito de conocer la pertinencia y la formación obtenida por nuestros egresados en su formación académica y su competencia laboral, para que a partir de ello se instrumenten las estrategias de mejora continua.
+Por lo antes expuesto agradecemos de antemano su valioso apoyo al respecto y le solicitamos de la manera más atenta, tenga a bien contestar el cuestionario adjunto, lo que nos permitirá retroalimentar la pertinencia de las carreras que se ofrecen y coadyuvar a constituir una estrategia que logre, con base en la situación laboral de los egresados adecuar los planes y programas de estudio que ofertamos.
+La información que nos proporcione será estrictamente confidencial y con fines únicamente estadísticos.
+Con nuestro agradecimiento por su amable cooperación, reciba un cordial saludo</P> </h4>
+       
+
+    </div>
+    <%= button_to "Continuar",  :class => 'btn btn-success'%>
+</div>
