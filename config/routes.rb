@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   
 
+  resources :competencias_empresas
+  resources :ubicacion_egresados_empresas
+  resources :datos_generales_empresas
+  get 'cuestionario_empresa/index'
+
+  resources :comentario_egresados
+  resources :participacion_sociales
+  resources :expectativas_egresados
+  resources :desem_laborales
   resources :ubicacion_laborales
   resources :aprendizaje_egresados
   resources :perfil_egresados
@@ -9,6 +18,7 @@ Rails.application.routes.draw do
   resources :tablapromedios
   resources :evaluacion_servicios
   resources :estadistica_servicios
+  resources :cuestionario_empresa
 
   resources :solicitudes
   resources :solicitud_observaciones
@@ -82,7 +92,7 @@ Rails.application.routes.draw do
     end
     
     resources :curso_materias do
-        resources :estadisticas
+        resources :estadisticas 
     end
     
     resources :actividad_docentes do

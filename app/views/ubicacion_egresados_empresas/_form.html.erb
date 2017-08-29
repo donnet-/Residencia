@@ -1,0 +1,65 @@
+<%= form_for(@ubicacion_egresados_empresa) do |f| %>
+  <% if @ubicacion_egresados_empresa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ubicacion_egresados_empresa.errors.count, "error") %> prohibited this ubicacion_egresados_empresa from being saved:</h2>
+
+      <ul>
+      <% @ubicacion_egresados_empresa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :num_prof %><br>
+    <%= f.text_field :num_prof %>
+  </div>
+  <div class="field">
+    <%= f.label :cant_mando_superior %><br>
+    <%= f.number_field :cant_mando_superior %>
+  </div>
+  <div class="field">
+    <%= f.label :cant_mando_intermedio %><br>
+    <%= f.number_field :cant_mando_intermedio %>
+  </div>
+  <div class="field">
+    <%= f.label :cant_mando_tecnico %><br>
+    <%= f.number_field :cant_mando_tecnico %>
+  </div>
+  <div class="field">
+    <%= f.label :otro_esp %><br>
+    <%= f.text_field :otro_esp %>
+  </div>
+  <div class="field">
+    <%= f.label :otro_can %><br>
+    <%= f.number_field :otro_can %>
+  </div>
+  <div class="field">
+    <%= f.label :completamente %><br>
+    <%= f.number_field :completamente %>
+  </div>
+  <div class="field">
+    <%= f.label :medianamente %><br>
+    <%= f.number_field :medianamente %>
+  </div>
+  <div class="field">
+    <%= f.label :ligeramente %><br>
+    <%= f.number_field :ligeramente %>
+  </div>
+  <div class="field">
+    <%= f.label :ninguna_relacion %><br>
+    <%= f.number_field :ninguna_relacion %>
+  </div>
+  <div class="field">
+    <%= f.label :requisitos %><br>
+    <%= f.text_field :requisitos %>
+  </div>
+  <div class="field">
+    <%= f.label :carreras_demandan %><br>
+    <%= f.text_field :carreras_demandan %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

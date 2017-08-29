@@ -1,0 +1,2 @@
+json.extract! competencias_empresa, :id, :habilidad, :orotografia, :mejora_procesos, :trabajo_equipo, :habilidad_tiempo, :seguridad_personal, :facilidad_palabra, :gestion_proyecto, :puntualidad, :cumplimiento, :integracion, :creatividad, :liderazgo, :adaptacion_cambios, :exelente, :muy_bueno, :bueno, :regular, :malo, :sugerencia_mejora, :comentario, :created_at, :updated_at
+json.url competencias_empresa_url(competencias_empresa, format: :json)

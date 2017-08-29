@@ -1,0 +1,67 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Competencias Empresas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Habilidad</th>
+      <th>Orotografia</th>
+      <th>Mejora procesos</th>
+      <th>Trabajo equipo</th>
+      <th>Habilidad tiempo</th>
+      <th>Seguridad personal</th>
+      <th>Facilidad palabra</th>
+      <th>Gestion proyecto</th>
+      <th>Puntualidad</th>
+      <th>Cumplimiento</th>
+      <th>Integracion</th>
+      <th>Creatividad</th>
+      <th>Liderazgo</th>
+      <th>Adaptacion cambios</th>
+      <th>Exelente</th>
+      <th>Muy bueno</th>
+      <th>Bueno</th>
+      <th>Regular</th>
+      <th>Malo</th>
+      <th>Sugerencia mejora</th>
+      <th>Comentario</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @competencias_empresas.each do |competencias_empresa| %>
+      <tr>
+        <td><%= competencias_empresa.habilidad %></td>
+        <td><%= competencias_empresa.orotografia %></td>
+        <td><%= competencias_empresa.mejora_procesos %></td>
+        <td><%= competencias_empresa.trabajo_equipo %></td>
+        <td><%= competencias_empresa.habilidad_tiempo %></td>
+        <td><%= competencias_empresa.seguridad_personal %></td>
+        <td><%= competencias_empresa.facilidad_palabra %></td>
+        <td><%= competencias_empresa.gestion_proyecto %></td>
+        <td><%= competencias_empresa.puntualidad %></td>
+        <td><%= competencias_empresa.cumplimiento %></td>
+        <td><%= competencias_empresa.integracion %></td>
+        <td><%= competencias_empresa.creatividad %></td>
+        <td><%= competencias_empresa.liderazgo %></td>
+        <td><%= competencias_empresa.adaptacion_cambios %></td>
+        <td><%= competencias_empresa.exelente %></td>
+        <td><%= competencias_empresa.muy_bueno %></td>
+        <td><%= competencias_empresa.bueno %></td>
+        <td><%= competencias_empresa.regular %></td>
+        <td><%= competencias_empresa.malo %></td>
+        <td><%= competencias_empresa.sugerencia_mejora %></td>
+        <td><%= competencias_empresa.comentario %></td>
+        <td><%= link_to 'Show', competencias_empresa %></td>
+        <td><%= link_to 'Edit', edit_competencias_empresa_path(competencias_empresa) %></td>
+        <td><%= link_to 'Destroy', competencias_empresa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Competencias empresa', new_competencias_empresa_path %>

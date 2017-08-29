@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre_empresa: MyString
+  calle: MyString
+  numero: 1
+  colonia: MyString
+  cp: 1
+  ciudad: MyString
+  estado: MyString
+  municipio: MyString
+  telefono: MyString
+  correo: MyString
+  tipo_empresa: MyString
+  tam_empresa: MyString
+  actividad_economica: MyString
+
+two:
+  nombre_empresa: MyString
+  calle: MyString
+  numero: 1
+  colonia: MyString
+  cp: 1
+  ciudad: MyString
+  estado: MyString
+  municipio: MyString
+  telefono: MyString
+  correo: MyString
+  tipo_empresa: MyString
+  tam_empresa: MyString
+  actividad_economica: MyString

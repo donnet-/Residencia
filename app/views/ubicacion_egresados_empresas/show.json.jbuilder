@@ -1,0 +1,1 @@
+json.partial! "ubicacion_egresados_empresas/ubicacion_egresados_empresa", ubicacion_egresados_empresa: @ubicacion_egresados_empresa

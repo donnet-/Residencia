@@ -294,6 +294,41 @@ ActiveRecord::Schema.define(version: 20170828192609) do
     t.datetime "updated_at",                null: false
   end
 
+<<<<<<< HEAD
+=======
+  create_table "comentario_egresados", force: :cascade do |t|
+    t.string   "opinion",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "competencias_empresas", force: :cascade do |t|
+    t.integer  "habilidad",          limit: 4
+    t.integer  "orotografia",        limit: 4
+    t.integer  "mejora_procesos",    limit: 4
+    t.integer  "trabajo_equipo",     limit: 4
+    t.integer  "habilidad_tiempo",   limit: 4
+    t.integer  "seguridad_personal", limit: 4
+    t.integer  "facilidad_palabra",  limit: 4
+    t.integer  "gestion_proyecto",   limit: 4
+    t.integer  "puntualidad",        limit: 4
+    t.integer  "cumplimiento",       limit: 4
+    t.integer  "integracion",        limit: 4
+    t.integer  "creatividad",        limit: 4
+    t.integer  "liderazgo",          limit: 4
+    t.integer  "adaptacion_cambios", limit: 4
+    t.integer  "exelente",           limit: 4
+    t.integer  "muy_bueno",          limit: 4
+    t.integer  "bueno",              limit: 4
+    t.integer  "regular",            limit: 4
+    t.integer  "malo",               limit: 4
+    t.string   "sugerencia_mejora",  limit: 255
+    t.string   "comentario",         limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+>>>>>>> ad40633cfdb50cb078235f54f61a92287e394fec
   create_table "configuraciones", force: :cascade do |t|
     t.string   "tipo",       limit: 255
     t.string   "contenido",  limit: 255
@@ -373,6 +408,24 @@ ActiveRecord::Schema.define(version: 20170828192609) do
   add_index "curso_materias", ["cat_materia_id"], name: "index_curso_materias_on_cat_materia_id", using: :btree
   add_index "curso_materias", ["docente_id"], name: "index_curso_materias_on_docente_id", using: :btree
   add_index "curso_materias", ["periodo_curs_materia_id"], name: "index_curso_materias_on_periodo_curs_materia_id", using: :btree
+
+  create_table "datos_generales_empresas", force: :cascade do |t|
+    t.string   "nombre_empresa",      limit: 255
+    t.string   "calle",               limit: 255
+    t.integer  "numero",              limit: 4
+    t.string   "colonia",             limit: 255
+    t.integer  "cp",                  limit: 4
+    t.string   "ciudad",              limit: 255
+    t.string   "estado",              limit: 255
+    t.string   "municipio",           limit: 255
+    t.string   "telefono",            limit: 255
+    t.string   "correo",              limit: 255
+    t.string   "tipo_empresa",        limit: 255
+    t.string   "tam_empresa",         limit: 255
+    t.string   "actividad_economica", limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   limit: 4,     default: 0, null: false
@@ -996,6 +1049,23 @@ ActiveRecord::Schema.define(version: 20170828192609) do
     t.float    "valor_max",   limit: 24
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "ubicacion_egresados_empresas", force: :cascade do |t|
+    t.string   "num_prof",              limit: 255
+    t.integer  "cant_mando_superior",   limit: 4
+    t.integer  "cant_mando_intermedio", limit: 4
+    t.integer  "cant_mando_tecnico",    limit: 4
+    t.string   "otro_esp",              limit: 255
+    t.integer  "otro_can",              limit: 4
+    t.integer  "completamente",         limit: 4
+    t.integer  "medianamente",          limit: 4
+    t.integer  "ligeramente",           limit: 4
+    t.integer  "ninguna_relacion",      limit: 4
+    t.string   "requisitos",            limit: 255
+    t.string   "carreras_demandan",     limit: 255
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "ubicacion_laborales", force: :cascade do |t|

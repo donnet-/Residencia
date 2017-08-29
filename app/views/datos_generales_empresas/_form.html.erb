@@ -1,0 +1,69 @@
+<%= form_for(@datos_generales_empresa) do |f| %>
+  <% if @datos_generales_empresa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@datos_generales_empresa.errors.count, "error") %> prohibited this datos_generales_empresa from being saved:</h2>
+
+      <ul>
+      <% @datos_generales_empresa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre_empresa %><br>
+    <%= f.text_field :nombre_empresa %>
+  </div>
+  <div class="field">
+    <%= f.label :calle %><br>
+    <%= f.text_field :calle %>
+  </div>
+  <div class="field">
+    <%= f.label :numero %><br>
+    <%= f.number_field :numero %>
+  </div>
+  <div class="field">
+    <%= f.label :colonia %><br>
+    <%= f.text_field :colonia %>
+  </div>
+  <div class="field">
+    <%= f.label :cp %><br>
+    <%= f.number_field :cp %>
+  </div>
+  <div class="field">
+    <%= f.label :ciudad %><br>
+    <%= f.text_field :ciudad %>
+  </div>
+  <div class="field">
+    <%= f.label :estado %><br>
+    <%= f.text_field :estado %>
+  </div>
+  <div class="field">
+    <%= f.label :municipio %><br>
+    <%= f.text_field :municipio %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono %><br>
+    <%= f.text_field :telefono %>
+  </div>
+  <div class="field">
+    <%= f.label :correo %><br>
+    <%= f.text_field :correo %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo_empresa %><br>
+    <%= f.text_field :tipo_empresa %>
+  </div>
+  <div class="field">
+    <%= f.label :tam_empresa %><br>
+    <%= f.text_field :tam_empresa %>
+  </div>
+  <div class="field">
+    <%= f.label :actividad_economica %><br>
+    <%= f.text_field :actividad_economica %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

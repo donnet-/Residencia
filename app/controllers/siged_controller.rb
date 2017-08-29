@@ -18,7 +18,6 @@ class SigedController < ApplicationController
         else
           render template: 'siged/menuEstudiante'
         end
-
       elsif current_usuario.rol == "empresa"
         emp = Empresa.find_by(email: current_usuario.email)
         execute_statement("UPDATE empresas SET usuario_id = " + emp.id.to_s + " where email = '"  + current_usuario.email + "'")
