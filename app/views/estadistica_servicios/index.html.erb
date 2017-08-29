@@ -31,21 +31,31 @@
     <table class="table" id="archivos">
         <thead>
             <tr>                            
-                <th class="info">Empresa</th> 
-                <th class="info">Alumnos</th> 
+                <th class="info">Empresa</th>                 
                 <th class="info">Primer bimestre</th>
                 <th class="info">Segundo bimestre</th>
                 <th class="info">Tercer bimestre</th>
-                <th class="info">Promedio Final</th> 
+                <th class="info">Promedio Final</th>
+                <th class="info">Estudiantes</th> 
                 <th class="info">Desempeño</th>
-            </tr>
-        </thead>        
-       <% @servicios.each do |s| %> 
 
+            </tr>
+        </thead> 
+        <% @nombres = "" %>       
+        <% @contador2 = 0 %>
+       <% @servicios.each do |s| %> 
+          
             <tbody>
-                <td class="active"><%= s.nombreE %></td>
+                <td class="active">
+                  <% if @nombres != s.nombreE %>
+                    <%= @nombres = s.nombreE %>
+                    <% @contador2 = 1 %>
+                  <% else %>
+                    <% @contador2 = @contador2 + 1 %>
+                  <% end %>            
+                </td>
                 <%# a = ServicioSocial.where(id_servicio_social:)%>
-                <td class="active"></td>  
+                               
                 <% x = EvaluacionServicio.where(id_servicio_social: s.id) %>
                 <% @q = [0,0,0] %>
                 <% @contador = 0 %> <%# criterios%>
@@ -71,9 +81,12 @@
                 </td>
                 
                 <% a=  Tablapromedio.where('valor_min <= ? and valor_max >= ?', promedio, promedio)%>
-                <%#binding.pry %>
                 
-                <%# sería algo así creo%>
+                
+                <%# sería algo así creo%>                
+                <% e = Empresa.find_by(nombreE: s.nombreE) %>
+                <td class="active"><%= link_to "ver", empresa_path(e.id, periodo: params[:periodo], anio: params[:anio] )%>
+                </td>
                 <td class="active">
                 <% if a[0].nivel_desem!='Insuficiente'%>
 

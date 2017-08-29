@@ -13,6 +13,7 @@ class SigedController < ApplicationController
              end
             elsif current_usuario.rol == "estudiante"
                 x = Estudiante.find_by(email: current_usuario.email)
+                binding.pry
                 if x.usuario_id == nil                    
                     redirect_to edit_estudiante_path(x)
                 else

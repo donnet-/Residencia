@@ -10,7 +10,7 @@ class EstadisticaServiciosController < ApplicationController
       a = a+params[:anio]
       per = Periodo.find_by(periodo: a)
       if per != nil
-        @servicios = ServicioSocial.where('fechaInicio >= ? and fechaTermino <= ?', per.fechaInicio, per.fechaTermino)
+        @servicios = ServicioSocial.where('fechaInicio >= ? and fechaTermino <= ?', per.fechaInicio, per.fechaTermino).order('nombreE')
       else 
         @servicios = [] 
       end

@@ -35,4 +35,13 @@
             </div>
         </div>
     </div>
+    <% if @servicios != nil %>
+        <div class="marco">
+        <h2>Estudiantes con servicio social en el periodo <%=params[:periodo]%><%= params[:anio]%></h2>
+            <% @servicios.each do |s| %>
+                <%= s.estudiante.numControl%> <%=s.estudiante.nombre%> <%=s.estudiante.apPaterno%> <%=s.estudiante.apMaterno%>
+                <br>
+            <% end %>
+        </div>
+    <% end %>
 </div>

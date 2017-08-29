@@ -83,7 +83,7 @@ Rails.application.routes.draw do
     end
     
     resources :curso_materias do
-        resources :estadisticas
+        resources :estadisticas 
     end
     
     resources :actividad_docentes do

@@ -9,6 +9,12 @@ class EmpresasController < ApplicationController
     
     def show
         @empresa = Empresa.find(params[:id])
+        if params[:periodo] != nil
+            a = params[:periodo]
+            a = a+params[:anio]
+            per = Periodo.find_by(periodo: a)
+            @servicios = ServicioSocial.where('fechaInicio >= ? and fechaTermino <= ?', per.fechaInicio, per.fechaTermino).where(nombreE: @empresa.nombreE )
+        end
     end
     
     def new
