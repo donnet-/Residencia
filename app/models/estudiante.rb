@@ -31,26 +31,40 @@ class Estudiante < ActiveRecord::Base
     end
     
 	def valid_curp_estudiante
-		if Estudiante.find_by(curpEstudiante: curpEstudiante) == nil		
-			n1 = nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split(//)[0]
-			@n2 = nil
-			if nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split()[1] != nil
-				@n2 = nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split()[1].split(//)[0]
-			end
+		#if Estudiante.find_by(curpEstudiante: curpEstudiante) == nil		
+		#	n1 = nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split(//)[0]
+		#	@n2 = nil
+		#	if nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split()[1] != nil
+		#		@n2 = nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split()[1].split(//)[0]
+		#	end
 
-			ap = apPaterno.upcase.split(//)[0,2]
-			am = apMaterno.upcase.split(//)[0]
-			cp = curpEstudiante.split(//)[0,2]
-			cm = curpEstudiante.split(//)[2]
-			cn = curpEstudiante.split(//)[3]
+		#	ap = apPaterno.upcase.split(//)[0,2]
+		#	am = apMaterno.upcase.split(//)[0]
+		#	cp = curpEstudiante.split(//)[0,2]
+		#	cm = curpEstudiante.split(//)[2]
+		#	cn = curpEstudiante.split(//)[3]
 
 			#if n1 != cn && ap != cp && am != cm || @n2 != cn && ap != cp && am != cm
 			#	errors.add(:curpEstudiante, "La curp que ha insertado es incorrecta, no coincide con algunos datos de su nombre.")
 			#end
-            if n1 != cn || ap != cp || am != cm || @n2 != cn
-               errors.add(:curpEstudiante, "La curp que ha insertado es incorrecta, no coincide con algunos datos de su nombre.")
-            end
-		end
+         #   if n1 != cn || ap != cp || am != cm || @n2 != cn
+         #      errors.add(:curpEstudiante, "La curp que ha insertado es incorrecta, no coincide con algunos datos de su nombre.")
+         #   end
+		#end
+        n1 = nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split(//)[0]
+                @n2 = nil
+                if nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split()[1] != nil
+                    @n2 = nombre.upcase.gsub(/\s?(DE|LA|LOS)\s/," ").split()[1].split(//)[0]
+                end
+                ap = apPaterno.upcase.split(//)[0,2]
+                am = apMaterno.upcase.split(//)[0]
+                cp = curpEstudiante.split(//)[0,2]
+                cm = curpEstudiante.split(//)[2]
+                cn = curpEstudiante.split(//)[3]
+                
+                if n1 != cn && ap != cp && am != cm || @n2 != cn && ap != cp && am != cm
+                    errors.add(:curp, "La curp que ha insertado es incorrecta, no coinde con algunos datos de su nombre.")
+                end
 	end
 	
     def self.import(file)

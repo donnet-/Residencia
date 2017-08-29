@@ -259,7 +259,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   delayed_job_active_record (= 4.0.3)
   devise (~> 4.2)
-  googlecharts (~> 1.6, >= 1.6.12)
+  googlecharts
   gretel
   jbuilder (~> 2.0)
   jquery-rails

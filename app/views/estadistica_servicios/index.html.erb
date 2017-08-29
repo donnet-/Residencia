@@ -44,7 +44,7 @@
         <% @nombres = "" %>       
         <% @contador2 = 0 %>
        <% @servicios.each do |s| %> 
-          
+        <% if @servicios != [] %> 
             <tbody>
                 <td class="active">
                   <% if @nombres != s.nombreE %>
@@ -61,15 +61,20 @@
                 <% @contador = 0 %> <%# criterios%>
                 <% contadorR = 0 %> <%# contador bimestres%>
                 <% x.each do |y| %>
-                    <% a = y.criterio_evalucion_servicios%>
+
+                  <% a = y.criterio_evaluacion_servicios%>
+                  <% if a != [] %>
                     <% if contadorR < 3 %>
                         <% a.each do |b| %>
                             <% @q[contadorR] = @q[contadorR]+ b.calificacion_criterio %>
                             <% @contador = @contador+1 %>                            
                         <% end %>
-                    <% @q[contadorR] = @q[contadorR].to_f/@contador.to_f %>                    
-                    <% contadorR = contadorR+1 %>
+                      <% @q[contadorR] = @q[contadorR].to_f/@contador.to_f %> 
+                      <% contadorR = contadorR+1 %>
                     <% end %>
+                  <% else %>
+                    <% @q = [0,0,0] %>
+                  <% end %>
                     
                 <% end %>
 
@@ -79,8 +84,8 @@
                 <td class="active">
                     <%= promedio = ((@q[0]+@q[1]+@q[2])/3).round(2) %>
                 </td>
-                
-                <% a=  Tablapromedio.where('valor_min <= ? and valor_max >= ?', promedio, promedio)%>
+                 
+                  <% a=  Tablapromedio.where('valor_min <= ? and valor_max >= ?', promedio, promedio)%>
                 
                 
                 <%# sería algo así creo%>                
@@ -88,8 +93,7 @@
                 <td class="active"><%= link_to "ver", empresa_path(e.id, periodo: params[:periodo], anio: params[:anio] )%>
                 </td>
                 <td class="active">
-                <% if a[0].nivel_desem!='Insuficiente'%>
-
+                <% if a[0].nivel_desem !='Insuficiente'%>
                  Competencia alcanzada
                  <%else %>
                  Competencia <STRONG>NO</STRONG> alcanzada
@@ -101,7 +105,11 @@
                  <td class="active">
                  </td>
             </tbody>
-            <% end %>
+        
+      <% end %>
+
+      <% end %>
+
         </table>
         <h6 id="align-title">Los valores de los promedios y el promedio final, muestran el nivel de desempeño del prestador del Servicio Social, de acuerdo a la siguiente tabla: </h6>
        
@@ -139,8 +147,28 @@
             <td class="tg-baqh">0.00 a 0.99</td>
           </tr>
         </table>
+         <% data_array_1 = [@q[0],@q[1],@q[2]] %>
+         <% data_array_2 = [@q[0],@q[1],@q[2]] %>
+      
+         <% @barv = Gchart.bar( 
+            :size => '600x400',
+            :bar_colors => ['0DBBD7', '0088FF'],
+            :title => "grafica de Barra- promedios por bimestre", 
+            :bg => 'EFEFEF', 
+            :legend => ['Empresa 1', 'Empresa 2'],
+            :data => [data_array_1 , data_array_2 ],
+            :stacked => false,
+            :legend_position => 'bottom',
+            :axis_with_labels => [['x'], ['y']],                         
+            :max_value => 4,
+            :min_value => 0,             
+            :axis_labels => [["A|B|C|D|E"]],
+            )  %>
+
+        <%= image_tag @barv%>
 
 
+        
         <%# will_paginate @archivos %>
     </div>
 </div>    

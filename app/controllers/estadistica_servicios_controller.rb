@@ -17,7 +17,7 @@ class EstadisticaServiciosController < ApplicationController
       #a = EvaluacionServicio.where(id_servicio_social: @servicios[0].id)      
     else
       @servicios = []
-    end
+    end    
   end
 
   # GET /estadistica_servicios/1

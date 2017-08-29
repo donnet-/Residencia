@@ -39,13 +39,13 @@
             </div></h5>          
           <% ca =CatCriterioEvalServicio.all%>
           <% for c in ca %>
-              <%= f.fields_for :criterio_evalucion_servicios, validate: true do |actdoc| %>
+              <%= f.fields_for :criterio_evaluacion_servicios, validate: true do |actdoc| %>
               <%# t.integer  "id_cat_criterio_eval",   limit: 4
                   t.integer  "calificacion_criterio",  limit: 4 %>
                   <div class="row">                  
                       <div class="col-md-10">
                           <%= c.nombre_criterio%>
-                          <%= actdoc.hidden_field :id_cat_criterio_eval, value: c.id %>
+                          <%= actdoc.hidden_field :id_cat_criterio_eva, value: c.id %>
                       </div>
                       <div class="col-md-2">
                       <%= actdoc.select :calificacion_criterio, options_for_select([["Insuficiente", "0"],["Suficiente","1"], ["Bueno", "2"], ["Notable", "3"],["Exelente", "4"]]),{include_blank: "Seleccione..."}, class: "form-control" %>

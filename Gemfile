@@ -45,7 +45,7 @@ gem 'gretel'
 gem 'puma'
 gem 'axlsx', '~> 2.0.1'
 gem "axlsx_rails"
-gem 'googlecharts', '~> 1.6', '>= 1.6.12'
+gem 'googlecharts'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
