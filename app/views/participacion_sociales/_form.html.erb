@@ -1,0 +1,47 @@
+<div class="container">
+<%= form_for(@participacion_social) do |f| %>
+  <% if @participacion_social.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@participacion_social.errors.count, "error") %> prohibited this participacion_social from being saved:</h2>
+
+      <ul>
+      <% @participacion_social.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div id="marco">
+<div class="container">
+<div class="row">
+  <span class="label label-warning" style="font-size: 20px; color: #000" >VI. Participación social de los egresados</span>
+</div>
+
+<p style="text-align: justify; font-size: 20px;">6.1. Participación
+</p>
+<div class="row">
+            <div class="col-xs-6 col-sm-4">1.¿Pertenece a organizaciones sociales?: 
+            <%= f.select :organizacion_social, options_for_select([["Si", "si"], ["No", "no"]]), validate: true%></div>       
+
+            </div>
+<div class="row">
+    <div class="col-xs-6 col-sm-4">2. ¿Pertenece a organismos de profesionistas?: <%= f.select :organismo_profesionistas, options_for_select([["Si", "si"], ["No", "no"]]), validate: true%></div>       
+
+</div>
+<div class="row">
+    <div class="col-xs-6 col-sm-4">3. ¿Pertenece a la asociación de egresados?: <%= f.select :asociacion_egresados, options_for_select([["Si", "si"], ["No", "no"]]), validate: true%></div>       
+
+</div>
+<div class="row">
+  <!--<div class="field">
+    <%= f.label :describir %><br>
+    <%= f.text_field :describir %>
+  </div>-->
+  <div class="actions">
+    <%= f.submit :Siguiente, :class => 'btn btn-success'%>
+  </div>
+  </div>
+<% end %>
+</div>
+</div>
+</div>

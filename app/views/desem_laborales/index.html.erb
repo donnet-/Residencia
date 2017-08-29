@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Desem Laborales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Eficincia</th>
+      <th>Calificacion academica</th>
+      <th>Utilidad residencia</th>
+      <th>Area estudio</th>
+      <th>Titulacion</th>
+      <th>Experiencia laboral</th>
+      <th>Posicionamiento</th>
+      <th>Conocimiento idioma</th>
+      <th>Recomendaciones</th>
+      <th>Personalidad actitud</th>
+      <th>Otros</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @desem_laborales.each do |desem_laboral| %>
+      <tr>
+        <td><%= desem_laboral.eficincia %></td>
+        <td><%= desem_laboral.calificacion_academica %></td>
+        <td><%= desem_laboral.utilidad_residencia %></td>
+        <td><%= desem_laboral.area_estudio %></td>
+        <td><%= desem_laboral.titulacion %></td>
+        <td><%= desem_laboral.experiencia_laboral %></td>
+        <td><%= desem_laboral.posicionamiento %></td>
+        <td><%= desem_laboral.conocimiento_idioma %></td>
+        <td><%= desem_laboral.recomendaciones %></td>
+        <td><%= desem_laboral.personalidad_actitud %></td>
+        <td><%= desem_laboral.otros %></td>
+        <td><%= link_to 'Show', desem_laboral %></td>
+        <td><%= link_to 'Edit', edit_desem_laboral_path(desem_laboral) %></td>
+        <td><%= link_to 'Destroy', desem_laboral, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Desem laboral', new_desem_laboral_path %>

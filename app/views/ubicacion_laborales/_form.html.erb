@@ -1,4 +1,5 @@
-<%= form_for(@ubicacion_laboral) do |f| %>
+<div class="container">
+<%= nested_form_for(@ubicacion_laboral) do |f| %>
   <% if @ubicacion_laboral.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@ubicacion_laboral.errors.count, "error") %> prohibited this ubicacion_laboral from being saved:</h2>
@@ -10,140 +11,351 @@
       </ul>
     </div>
   <% end %>
+<div id="marco">
+<div class="container">
+<div class="row">
+<span class="label label-warning" style="font-size: 20px; color: #000" >III.Ubicación laboral de los egresados</span>
+</div>
+<p style="text-align: justify;">Indique a cual de los siguientes puntos corresponde su situación actual</p>
+<div class="row">
+  <div class="col-xs-5 col-sm-4">3.1.
+    <%= f.label " Actividad a la que se dedica actualmente" %><br>
+    <%= f.radio_button :act_dedica, 'trabaja',:onclick => "estado('si_trabaja')" %> 
+    <%= f.label :act_dedica, 'Trabaja', :value => 'trabaja' %><br>
+    <%= f.radio_button :act_dedica, 'estudia', :onclick => "estado('si_estudia')" %>
+    <%= f.label :act_dedica, 'Estudia', :value => 'estudia' %><br>
+    <%= f.radio_button :act_dedica, 'trabaja y estudia', :onclick => "estado('trabaja_estudia')"%>
+    <%= f.label :act_dedica, 'Trabaja y estudia', :value => 'trabaja y estudia' %><br>
+    <%= f.radio_button :act_dedica, 'no trabaja ni estudia', :onclick => "estado('no_TE')"%>
+    <%= f.label :act_dedica, 'No trabaja ni estudia', :value => 'no trabaja ni estudia' %><br>
+  </div>
+  </div>
+   <div id="op_estudia" style=" display: none;">
+  <div class="row">
+  
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Por favor, indique que tipo de estudio realizar:" %><br>
+    <%= f.radio_button :estudia, 'especialidad'%>
+    <%= f.label :estudia, 'Especialidad', :value => 'especialidad' %><br>
+    <%= f.radio_button :estudia, 'maestria'%>
+    <%= f.label :estudia, 'Maestría', :value => 'maestria' %><br>
+    <%= f.radio_button :estudia, 'doctorado'%>
+    <%= f.label :estudia, 'Doctorado', :value => 'doctorado' %><br>
+    <%= f.radio_button :estudia, 'idiomas'%>
+    <%= f.label :estudia, 'Idiomas', :value => 'idiomas' %><br>
+  </div>
+  
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Indicar su especialidad e institución" %><br>
+</div>
+    <%= f.text_field :especialidad_institucion,:rows => 10, style: 'width:80%;' %>
+  
+  </div>
+  </div>
+  
+  <div id="op_trabajo" style=" display: none;">
+  <div class="row"> 
+  <div class="col-xs-7 col-sm-8">3.2.
+    <%= f.label "Tiempo Transcurrido para obtener el primer empleo:" %><br>
+     <%= f.radio_button :tiempo_empleo, 'Antes de egresar'%>
+    <%= f.label :tiempo_empleo, 'Antes de egresar', :value => 'Antes de egresar' %><br>
+    <%= f.radio_button :tiempo_empleo, 'Menos de 6 meses'%>
+    <%= f.label :tiempo_empleo, 'Menos de 6 meses', :value => 'Menos de 6 meses' %><br>
+    <%= f.radio_button :tiempo_empleo, 'Entre 6 meses y un año'%>
+    <%= f.label :tiempo_empleo, 'Entre 6 meses y un año', :value => 'Entre 6 meses y un año' %><br>
+    <%= f.radio_button :tiempo_empleo, 'Más de un año'%>
+    <%= f.label :tiempo_empleo, 'Más de un año', :value => 'Más de un año' %><br>
+  </div>
+  <div class="col-xs-5 col-sm-4">3.3.
+    <%= f.label "Medio para obtener el empleo" %><br>
+    <%= f.radio_button :medio_empleo, 'Bolsa de trabajo del plantel'%>
+    <%= f.label :medio_empleo, 'Bolsa de trabajo del plantel', :value => 'Bolsa de trabajo del plantel' %><br>
+    <%= f.radio_button :medio_empleo, 'Contactos personales'%>
+    <%= f.label :medio_empleo, 'Contactos personales', :value => 'Contactos personales' %><br>
+    <%= f.radio_button :medio_empleo, 'Residencia profesional'%>
+    <%= f.label :medio_empleo, 'Residencia profesional', :value => 'Residencia profesional' %><br>
+    <%= f.radio_button :medio_empleo, 'Medios masivos de comunicación'%>
+    <%= f.label :medio_empleo, 'Medios masivos de comunicación', :value => 'Medios masivos de comunicación' %><br>
+    
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">3.4.
+    <%= f.label "Requisitos de contratación" %><br>  
+  </div>
+   <%= f.text_field :requisitos_contratacion, :rows => 10, style: 'width:80%;'%>
+  </div>
 
-  <div class="field">
-    <%= f.label :act_dedica %><br>
-    <%= f.text_field :act_dedica %>
+  <div class="row">
+
+  <div class="col-xs-5 col-sm-8">
+   <%= f.label "En su trabajo actual solicitan dominio de algun idioma" %><br />
+    <%= f.label :idioma, "Si", :value => "true" %>
+    <%= f.radio_button :idioma, false, :checked =>true,:onclick => "reIdioma('si_requiere')"  %>
+    <%= f.label :idioma, "No", :value => "false" %>
+    <%= f.radio_button :idioma, false, :checked => true,:onclick => "reIdioma('no_requiere')" %>
+    </div>
+     </div>
+  <div id="op_idioma" style=" display: none;">  
+
+  <div class="col-xs-5 col-sm-4">3.5.
+    <%= f.label "Idioma que utiliza en su trabajo" %><br>
+    <%= f.select :idioma_trabajo, options_for_select([["Ingles","Ingles"],["Alemán","Alemán"],["Frances","Frances"],["Italiano","Italiano"],["Japones","Japones"],["Mandarin","Mandarin"]]), validate: true%>
+    
   </div>
-  <div class="field">
-    <%= f.label :estudia %><br>
-    <%= f.text_field :estudia %>
+ 
+  <div class="row">
+<div class="col-xs-5 col-sm-10">3.6.
+    <%= f.label "¿En qué proporción utiliza en el desempeño de sus actividades laborales cada una de las habilidades del idioma extranjero?"%>
+</div>
+</div>
+<div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Hablar (%)" %><br>
+    <%= f.number_field :hablar_idioma, min:0, max:100 %>
   </div>
-  <div class="field">
-    <%= f.label :especialidad_institucion %><br>
-    <%= f.text_field :especialidad_institucion %>
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Escribir (%)" %><br>
+    <%= f.number_field :escribir_idioma, min:0, max:100%>
   </div>
-  <div class="field">
-    <%= f.label :tiempo_empleo %><br>
-    <%= f.text_field :tiempo_empleo %>
   </div>
-  <div class="field">
-    <%= f.label :medio_empleo %><br>
-    <%= f.text_field :medio_empleo %>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Leer (%)" %><br>
+    <%= f.number_field :leer_idioma, min:0, max:100 %>
   </div>
-  <div class="field">
-    <%= f.label :requisitos_contratacion %><br>
-    <%= f.text_field :requisitos_contratacion %>
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Escuchar (%)" %><br>
+    <%= f.number_field :escuchar_idioma,min:0, max:100 %>
   </div>
-  <div class="field">
-    <%= f.label :idioma_trabajo %><br>
-    <%= f.text_field :idioma_trabajo %>
   </div>
-  <div class="field">
-    <%= f.label :hablar_idioma %><br>
-    <%= f.number_field :hablar_idioma %>
   </div>
-  <div class="field">
-    <%= f.label :escribir_idioma %><br>
-    <%= f.number_field :escribir_idioma %>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">3.7
+    <%= f.label "Antigüedad en el empleo"%><br>
+    <%= f.radio_button :anti_empleo , 'Menos de un año'%>
+    <%= f.label :anti_empleo , 'Menos de un año', :value => 'Menos de un año' %><br>
+    <%= f.radio_button :anti_empleo , 'Un año'%>
+    <%= f.label :anti_empleo , 'Un año', :value => 'Un año' %><br>
+    <%= f.radio_button :anti_empleo , 'Dos años'%>
+    <%= f.label :anti_empleo , 'Dos años', :value => 'Dos años' %><br>
+    <%= f.radio_button :anti_empleo , 'Tres años'%>
+    <%= f.label :anti_empleo , 'Tres años', :value => 'Tres años' %><br>
+    <%= f.radio_button :anti_empleo , 'Más de 3 años'%>
+    <%= f.label :anti_empleo , 'Más de 3 años', :value => 'Más de 3 años' %><br>
   </div>
-  <div class="field">
-    <%= f.label :leer_idioma %><br>
-    <%= f.number_field :leer_idioma %>
+    <div class="col-xs-5 col-sm-4">3.8.
+    <%= f.label "Ingreso (salario mínimo diario):" %><br>
+    <%= f.radio_button :ingreso , 'Menos de 5'%>
+    <%= f.label :ingreso , 'Menos de 5', :value => 'Menos de 5' %><br>
+    <%= f.radio_button :ingreso , 'Entre 5 y 7'%>
+    <%= f.label :ingreso , 'Entre 5 y 7', :value => 'Entre 5 y 7' %><br>
+    <%= f.radio_button :ingreso , 'Entre 8 y 10'%>
+    <%= f.label :ingreso , 'Entre 8 y 10', :value => 'Entre 8 y 10' %><br>
+    <%= f.radio_button :ingreso , 'Más de 10'%>
+    <%= f.label :ingreso , 'Más de 10', :value => 'Más de 10' %>
   </div>
-  <div class="field">
-    <%= f.label :escuchar_idioma %><br>
-    <%= f.number_field :escuchar_idioma %>
   </div>
-  <div class="field">
-    <%= f.label :anti_empleo %><br>
-    <%= f.text_field :anti_empleo %>
-  </div>
-  <div class="field">
-    <%= f.label :ano_ingreso %><br>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "año de ingreso" %><br>
     <%= f.text_field :ano_ingreso %>
   </div>
-  <div class="field">
-    <%= f.label :ingreso %><br>
-    <%= f.text_field :ingreso %>
   </div>
-  <div class="field">
-    <%= f.label :nivel_jerarquico %><br>
-    <%= f.text_field :nivel_jerarquico %>
+  <div class="row">
+
+ 
+  <div class="col-xs-5 col-sm-3">3.9.
+    <%= f.label "Nivel jerárquico en el trabajo" %><br>
+    <%= f.radio_button :nivel_jerarquico , 'Técnico'%>
+    <%= f.label :nivel_jerarquico, 'Técnico', :value => 'Técnico' %><br>
+    <%= f.radio_button :nivel_jerarquico, 'Supervisor'%>
+    <%= f.label :nivel_jerarquico, 'Supervisor', :value => 'Supervisor' %><br>
+    <%= f.radio_button :nivel_jerarquico, 'Jefe de área'%>
+    <%= f.label :nivel_jerarquico, 'Jefe de área', :value => 'Jefe de área' %><br>
+    <%= f.radio_button :nivel_jerarquico, 'Funcionario'%>
+    <%= f.label :nivel_jerarquico, 'Funcionario', :value => 'Funcionario' %><br>
+    <%= f.radio_button :nivel_jerarquico, 'Directivo'%>
+    <%= f.label :nivel_jerarquico, 'Directivo', :value => 'Directivo' %><br>
+    <%= f.radio_button :nivel_jerarquico, 'Empresario'%>
+    <%= f.label :nivel_jerarquico, 'Empresario', :value => 'Empresario' %><br>
   </div>
-  <div class="field">
-    <%= f.label :condicion %><br>
-    <%= f.text_field :condicion %>
+ 
+  <div class="col-xs-5 col-sm-4">3.10
+    <%= f.label "Condición de Trabajo" %><br>
+    <%= f.radio_button :condicion, 'Base'%>
+    <%= f.label :condicion, 'Base', :value => 'Base' %><br>
+    <%= f.radio_button :condicion, 'Eventual'%>
+    <%= f.label :condicion, 'Eventual', :value => 'Eventual' %><br>
+    <%= f.radio_button :condicion, 'Contrato'%>
+    <%= f.label :condicion, 'Contrato', :value => 'Contrato' %><br>
   </div>
-  <div class="field">
-    <%= f.label :relacion %><br>
-    <%= f.text_field :relacion %>
+
+  <div class="col-xs-5 col-sm-5">3.11.
+    <%= f.label "Relación del trabajo con su área de formación" %><br>
+    <%= f.radio_button :relacion, '0'%>
+    <%= f.label :relacion, '0%', :value => '0' %><br>
+    <%= f.radio_button :relacion, '20'%>
+    <%= f.label :relacion, '20%', :value => '20' %><br>
+    <%= f.radio_button :relacion, '40'%>
+    <%= f.label :relacion, '40%', :value => '40' %><br>
+    <%= f.radio_button :relacion, '60'%>
+    <%= f.label :relacion, '60%', :value => '60' %><br>
+    <%= f.radio_button :relacion, '80'%>
+    <%= f.label :relacion, '80%', :value => '80' %><br>
+    <%= f.radio_button :relacion, '100'%>
+    <%= f.label :relacion, '100%', :value => '100' %><br>
   </div>
-  <div class="field">
-    <%= f.label :organismo %><br>
-    <%= f.text_field :organismo %>
   </div>
-  <div class="field">
-    <%= f.label :giro %><br>
+  <div class="row">
+<div class="col-xs-5 col-sm-10">3.12
+    <%= f.label "Datos de la empresa u organismo"%>
+</div>
+</div>
+<div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Organismo" %><br>
+    <%= f.radio_button :organismo, 'Público'%>
+    <%= f.label :organismo, 'Público', :value => 'Público' %><br>
+    <%= f.radio_button :organismo, 'Privado'%>
+    <%= f.label :organismo, 'Privado', :value => 'Privado' %><br>
+    <%= f.radio_button :organismo, 'Social'%>
+    <%= f.label :organismo, 'Social', :value => 'Social' %><br>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-5 col-sm-7">
+    <%= f.label "Giro o actividad principal de la empresa u organismo:" %><br>
     <%= f.text_field :giro %>
   </div>
-  <div class="field">
-    <%= f.label :razon_social %><br>
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Razón social" %><br>
     <%= f.text_field :razon_social %>
   </div>
-  <div class="field">
-    <%= f.label :domicilio %><br>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Domicilio" %><br>
     <%= f.text_field :domicilio %>
   </div>
-  <div class="field">
-    <%= f.label :ciudad %><br>
+  
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Ciudad" %><br>
     <%= f.text_field :ciudad %>
   </div>
-  <div class="field">
-    <%= f.label :municipio %><br>
+  </div>
+ <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Municipio" %><br>
     <%= f.text_field :municipio %>
   </div>
-  <div class="field">
-    <%= f.label :estado %><br>
+ 
+ 
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Estado" %><br>
     <%= f.text_field :estado %>
   </div>
-  <div class="field">
-    <%= f.label :telefno %><br>
-    <%= f.text_field :telefno %>
   </div>
-  <div class="field">
-    <%= f.label :ext %><br>
-    <%= f.text_field :ext %>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Telefono"%><br>
+    <%= f.text_field :telefno, type: "number",class: 'form-control',placeholder: 'xxx-xxx-xxxx'%>
   </div>
-  <div class="field">
-    <%= f.label :fax %><br>
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Extensión"%><br>
+    <%= f.text_field :ext%>
+  </div>
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Fax" %><br>
     <%= f.text_field :fax %>
   </div>
-  <div class="field">
-    <%= f.label :email %><br>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "E-mail" %><br>
     <%= f.text_field :email %>
   </div>
-  <div class="field">
-    <%= f.label :pagina_web %><br>
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Página web" %><br>
     <%= f.text_field :pagina_web %>
   </div>
-  <div class="field">
-    <%= f.label :sector_primario %><br>
-    <%= f.text_field :sector_primario %>
   </div>
-  <div class="field">
-    <%= f.label :sector_secundario %><br>
-    <%= f.text_field :sector_secundario %>
+  <div class="row">
+<div class="col-xs-5 col-sm-10">3.13.
+    <%= f.label "Sector Económico de la Empresa u Organización"%></br>
+    <%= f.radio_button :sector, false, :checked =>true,:onclick => "selectSector('primario')"  %>
+    <%= f.label :sector, "Primario "%>
+    <%= f.radio_button :sector, false, :checked => true,:onclick => "selectSector('secundario')" %>
+    <%= f.label :sector, "Secundario " %>
+    <%= f.radio_button :sector, false, :checked => true,:onclick => "selectSector('terciario')" %>
+    <%= f.label :sector, "Terciario "%>
+</div>
+</div>
+<div class="row">
+<div id="op_primario" style=" display: none;">  
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Sector primario" %><br>
+    <%= f.radio_button :sector_primario, 'Agroindustria'%>
+    <%= f.label :sector_primario, 'Agroindustria', :value => 'Agroindustria' %><br>
+    <%= f.radio_button :sector_primario, 'Pesquero'%>
+    <%= f.label :sector_primario, 'Pesquero', :value => 'Pesquero' %><br>
+    <%= f.radio_button :sector_primario, 'Minero'%>
+    <%= f.label :sector_primario, 'Minero', :value => 'Minero' %><br>
   </div>
-  <div class="field">
-    <%= f.label :sector_terciario %><br>
-    <%= f.text_field :sector_terciario %>
   </div>
-  <div class="field">
-    <%= f.label :tam_empresa %><br>
-    <%= f.text_field :tam_empresa %>
+ 
+<div id="op_secundario" style=" display: none;">  
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Sector secundario" %><br>
+    <%= f.radio_button :sector_secundario, 'Industria'%>
+    <%= f.label :sector_secundario, 'Industria', :value => 'Industria' %><br>
+    <%= f.radio_button :sector_secundario, 'Construcción'%>
+    <%= f.label :sector_secundario, 'Construcción', :value => 'Construcción' %><br>
+    <%= f.radio_button :sector_secundario, 'Petrolero'%>
+    <%= f.label :sector_secundario, 'Petrolero', :value => 'Petrolero' %><br>
   </div>
+</div>
+ 
+ <div id="op_terciario" style=" display: none;"> 
+  <div class="col-xs-5 col-sm-4">
+    <%= f.label "Sector terciario" %><br>
+    <%= f.radio_button :sector_terciario, 'Educativo'%>
+    <%= f.label :sector_terciario, 'Educativo', :value => 'Educativo' %><br>
+    <%= f.radio_button :sector_terciario, 'Turismo'%>
+    <%= f.label :sector_terciario, 'Turismo', :value => 'Turismo' %><br>
+    <%= f.radio_button :sector_terciario, 'Comercio'%>
+    <%= f.label :sector_terciario, 'Comercio', :value => 'Comercio' %><br>
+    <%= f.radio_button :sector_terciario, 'Servicios financieros'%>
+    <%= f.label :sector_terciario, 'Servicios financieros', :value => 'Servicios financieros' %>
+    
+  </div>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-4">3.14
+    <%= f.label "Tamaño de la empresa u organización" %><br>
+    <%= f.radio_button :tam_empresa, 'Microempresa'%>
+    <%= f.label :tam_empresa, 'Microempresa (1-30)', :value => 'Microempresa' %><br>
+    <%= f.radio_button :tam_empresa, 'Pequeña'%>
+    <%= f.label :tam_empresa, 'Pequeña (31-100)', :value => 'Pequeña' %><br>
+    <%= f.radio_button :tam_empresa, 'Mediana'%>
+    <%= f.label :tam_empresa, 'Mediana (101-500)', :value => 'Mediana' %><br>
+    <%= f.radio_button :tam_empresa, 'Grande'%>
+    <%= f.label :tam_empresa, 'Grande (más de 500)', :value => 'Grande' %><br>
+  </div>
+  </div>
+  </div> 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit :Siguiente, :class => 'btn btn-success' %>
   </div>
 <% end %>
+<div class="row">
+  <% x = PerfilEgresado.where(Estudiante.find_by(email: current_usuario.email).numControl).last %>
+    <%#= button_to "Anterior", edit_aprendizaje_egresado_path(x), :class => 'btn btn-warning', :method => :get %>
+    <%# link_to "Anterior", edit_perfil_egresado_path(x) %>
+</div>
+</div>
+</div>
+</div>

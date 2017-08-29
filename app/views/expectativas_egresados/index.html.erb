@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Expectativas Egresados</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Cursos actualizacion</th>
+      <th>Tomar posgrado</th>
+      <th>Describir</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expectativas_egresados.each do |expectativas_egresado| %>
+      <tr>
+        <td><%= expectativas_egresado.cursos_actualizacion %></td>
+        <td><%= expectativas_egresado.tomar_posgrado %></td>
+        <td><%= expectativas_egresado.describir %></td>
+        <td><%= link_to 'Show', expectativas_egresado %></td>
+        <td><%= link_to 'Edit', edit_expectativas_egresado_path(expectativas_egresado) %></td>
+        <td><%= link_to 'Destroy', expectativas_egresado, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Expectativas egresado', new_expectativas_egresado_path %>

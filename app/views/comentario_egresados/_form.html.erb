@@ -1,0 +1,32 @@
+<div class="container">
+<%= form_for(@comentario_egresado) do |f| %>
+  <% if @comentario_egresado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@comentario_egresado.errors.count, "error") %> prohibited this comentario_egresado from being saved:</h2>
+
+      <ul>
+      <% @comentario_egresado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div id="marco">
+  <div class="container">
+  <div class="row">
+  <span class="label label-warning" style="font-size: 20px; color: #000" >VII. Comentarios y sugerencias</span>
+</div>
+
+<p style="text-align: justify; font-size: 20px;">Opinión o recomendación para mejorar la formación profesional de un egresado de su carrera
+</p>
+<div class="row">
+   <%= f.text_field :opinion,:rows => 10, style: 'width:80%;' %>
+
+  </div>
+  <div class="actions">
+    <%= f.submit :Finalizar, :class => 'btn btn-success' %>
+  </div>
+<% end %>
+</div>
+</div>
+</div>

@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  eficincia: MyString
+  calificacion_academica: MyString
+  utilidad_residencia: MyString
+  area_estudio: 1
+  titulacion: 1
+  experiencia_laboral: 1
+  posicionamiento: 1
+  conocimiento_idioma: 1
+  recomendaciones: 1
+  personalidad_actitud: 1
+  otros: 1
+
+two:
+  eficincia: MyString
+  calificacion_academica: MyString
+  utilidad_residencia: MyString
+  area_estudio: 1
+  titulacion: 1
+  experiencia_laboral: 1
+  posicionamiento: 1
+  conocimiento_idioma: 1
+  recomendaciones: 1
+  personalidad_actitud: 1
+  otros: 1

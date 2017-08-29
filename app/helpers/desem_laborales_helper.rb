@@ -1,0 +1,2 @@
+module DesemLaboralesHelper
+end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170828192609) do
+ActiveRecord::Schema.define(version: 20170829024045) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -294,6 +294,12 @@ ActiveRecord::Schema.define(version: 20170828192609) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "comentario_egresados", force: :cascade do |t|
+    t.string   "opinion",    limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
   create_table "configuraciones", force: :cascade do |t|
     t.string   "tipo",       limit: 255
     t.string   "contenido",  limit: 255
@@ -389,6 +395,23 @@ ActiveRecord::Schema.define(version: 20170828192609) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
+
+  create_table "desem_laborales", force: :cascade do |t|
+    t.string   "eficincia",              limit: 255
+    t.string   "calificacion_academica", limit: 255
+    t.string   "utilidad_residencia",    limit: 255
+    t.integer  "area_estudio",           limit: 4
+    t.integer  "titulacion",             limit: 4
+    t.integer  "experiencia_laboral",    limit: 4
+    t.integer  "posicionamiento",        limit: 4
+    t.integer  "conocimiento_idioma",    limit: 4
+    t.integer  "recomendaciones",        limit: 4
+    t.integer  "personalidad_actitud",   limit: 4
+    t.integer  "otros",                  limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "competencia_laboral",    limit: 4
+  end
 
   create_table "docentes", force: :cascade do |t|
     t.string   "curp",                limit: 255
@@ -516,6 +539,14 @@ ActiveRecord::Schema.define(version: 20170828192609) do
 
   add_index "examen_profesionales", ["actividad_id"], name: "index_examen_profesionales_on_actividad_id", using: :btree
   add_index "examen_profesionales", ["cat_tipo_examen_proyecto_id"], name: "index_examen_profesionales_on_cat_tipo_examen_proyecto_id", using: :btree
+
+  create_table "expectativas_egresados", force: :cascade do |t|
+    t.string   "cursos_actualizacion", limit: 255
+    t.string   "tomar_posgrado",       limit: 255
+    t.string   "describir",            limit: 255
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
 
   create_table "firmas", force: :cascade do |t|
     t.string   "cargo",      limit: 255
@@ -790,6 +821,15 @@ ActiveRecord::Schema.define(version: 20170828192609) do
 
   add_index "oficios", ["actividad_docente_id"], name: "index_oficios_on_actividad_docente_id", using: :btree
   add_index "oficios", ["actividad_id"], name: "index_oficios_on_actividad_id", using: :btree
+
+  create_table "participacion_sociales", force: :cascade do |t|
+    t.string   "organizacion_social",      limit: 255
+    t.string   "organismo_profesionistas", limit: 255
+    t.string   "asociacion_egresados",     limit: 255
+    t.string   "describir",                limit: 255
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
 
   create_table "perfil_egresados", force: :cascade do |t|
     t.string   "nombre",                limit: 255

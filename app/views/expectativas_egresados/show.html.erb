@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cursos actualizacion:</strong>
+  <%= @expectativas_egresado.cursos_actualizacion %>
+</p>
+
+<p>
+  <strong>Tomar posgrado:</strong>
+  <%= @expectativas_egresado.tomar_posgrado %>
+</p>
+
+<p>
+  <strong>Describir:</strong>
+  <%= @expectativas_egresado.describir %>
+</p>
+
+<%= link_to 'Edit', edit_expectativas_egresado_path(@expectativas_egresado) %> |
+<%= link_to 'Back', expectativas_egresados_path %>

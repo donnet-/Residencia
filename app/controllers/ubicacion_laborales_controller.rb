@@ -28,7 +28,7 @@ class UbicacionLaboralesController < ApplicationController
 
     respond_to do |format|
       if @ubicacion_laboral.save
-        format.html { redirect_to @ubicacion_laboral, notice: 'Ubicacion laboral was successfully created.' }
+        format.html { redirect_to new_desem_laboral_path, notice: 'Ubicacion laboral was successfully created.' }
         format.json { render :show, status: :created, location: @ubicacion_laboral }
       else
         format.html { render :new }
@@ -69,6 +69,6 @@ class UbicacionLaboralesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def ubicacion_laboral_params
-      params.require(:ubicacion_laboral).permit(:act_dedica, :estudia, :especialidad_institucion, :tiempo_empleo, :medio_empleo, :requisitos_contratacion, :idioma_trabajo, :hablar_idioma, :escribir_idioma, :leer_idioma, :escuchar_idioma, :anti_empleo, :ano_ingreso, :ingreso, :nivel_jerarquico, :condicion, :relacion, :organismo, :giro, :razon_social, :domicilio, :ciudad, :municipio, :estado, :telefno, :ext, :fax, :email, :pagina_web, :sector_primario, :sector_secundario, :sector_terciario, :tam_empresa)
+      params.require(:ubicacion_laboral).permit(:act_dedica, :estudia, :especialidad_institucion, :tiempo_empleo, :medio_empleo, :requisitos_contratacion, :idioma_trabajo, :hablar_idioma, :escribir_idioma, :leer_idioma, :escuchar_idioma, :anti_empleo, :ano_ingreso, :ingreso, :nivel_jerarquico, :condicion, :relacion, :organismo, :giro, :razon_social, :domicilio, :ciudad, :municipio, :estado, :telefno, :fax, :email, :pagina_web, :sector_primario, :sector_secundario, :sector_terciario, :tam_empresa)
     end
 end

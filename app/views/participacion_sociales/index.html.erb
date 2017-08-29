@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Participacion Sociales</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Organizacion social</th>
+      <th>Organismo profesionistas</th>
+      <th>Asociacion egresados</th>
+      <th>Describir</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @participacion_sociales.each do |participacion_social| %>
+      <tr>
+        <td><%= participacion_social.organizacion_social %></td>
+        <td><%= participacion_social.organismo_profesionistas %></td>
+        <td><%= participacion_social.asociacion_egresados %></td>
+        <td><%= participacion_social.describir %></td>
+        <td><%= link_to 'Show', participacion_social %></td>
+        <td><%= link_to 'Edit', edit_participacion_social_path(participacion_social) %></td>
+        <td><%= link_to 'Destroy', participacion_social, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Participacion social', new_participacion_social_path %>

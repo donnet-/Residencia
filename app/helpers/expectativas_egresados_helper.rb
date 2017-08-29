@@ -1,0 +1,2 @@
+module ExpectativasEgresadosHelper
+end

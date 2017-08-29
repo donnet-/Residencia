@@ -1,0 +1,54 @@
+<div class="container">
+<%= form_for(@expectativas_egresado) do |f| %>
+  <% if @expectativas_egresado.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@expectativas_egresado.errors.count, "error") %> prohibited this expectativas_egresado from being saved:</h2>
+
+      <ul>
+      <% @expectativas_egresado.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div id="marco">
+<div class="container">
+<div class="row">
+<span class="label label-warning" style="font-size: 20px; color: #000" >V. Expectativas de desarrollo, superación profesional y de actualización</span>
+<div class="row">
+  <div class="col-xs-5 col-sm-8">5.1
+    <%= f.label "5.1. Actualización de conocimientos"%><br>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-8">1.¿Le gustaría tomar cursos de actualización?<br>
+    <%= f.radio_button :cursos_actualizacion, 'Si'%>
+    <%= f.label :cursos_actualizacion, 'Si', :value => 'Si' %><br>
+    <%= f.radio_button :cursos_actualizacion, 'No'%>
+    <%= f.label :cursos_actualizacion, 'No', :value => 'No' %><br>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-8">2. ¿Le gustaría tomar algún Posgrado?<br>
+    <%= f.radio_button :tomar_posgrado, 'Si',:onclick => "posgrado('si_quiere2')"%>
+    <%= f.label :tomar_posgrado, 'Si', :value => 'Si' %><br>
+    <%= f.radio_button :tomar_posgrado, 'No',:onclick => "posgrado('no_quiere2')"%>
+    <%= f.label :tomar_posgrado, 'No', :value => 'No' %><br>
+  </div>
+  </div>
+  <div id="op_2" style=" display: none;">
+ <div class="field">
+ <div class="col-xs-5 col-sm-7"> ¿Describa cual?<br>
+    <%= f.text_field :describir %>
+    </div>
+  </div>
+  </div>
+
+  <div class="actions">
+     <%= f.submit :Siguiente, :class => 'btn btn-success'%>
+  </div>
+
+<% end %>
+</div>
+</div>
+</div>

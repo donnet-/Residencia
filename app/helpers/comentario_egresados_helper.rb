@@ -1,0 +1,2 @@
+module ComentarioEgresadosHelper
+end

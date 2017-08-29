@@ -1,0 +1,176 @@
+<div class="container">
+<%= form_for(@desem_laboral) do |f| %>
+  <% if @desem_laboral.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@desem_laboral.errors.count, "error") %> prohibited this desem_laboral from being saved:</h2>
+
+      <ul>
+      <% @desem_laboral.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div id="marco">
+<div class="container">
+<div class="row">
+  <span class="label label-warning" style="font-size: 20px; color: #000" >IV. Desempeño laboral de los egresados</span>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-11">
+  <p style="text-align: justify;">Califique su desempeño conforme al formulario anterior </p>
+  </div>
+</div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-8">4.1
+    <%= f.label "Eficiencia para realizar las actividades laborales, en relación con su formación académica"%><br>
+    <%= f.radio_button :eficincia, 'Muy eficiente'%>
+    <%= f.label :eficincia, 'Muy eficiente', :value => 'Muy eficiente' %><br>
+    <%= f.radio_button :eficincia, 'Eficiente'%>
+    <%= f.label :eficincia, 'Eficiente', :value => 'Eficiente' %><br>
+    <%= f.radio_button :eficincia, 'Poco eficiente'%>
+    <%= f.label :eficincia, 'Poco eficiente', :value => 'Poco eficiente' %><br>
+    <%= f.radio_button :eficincia, 'Deficiente'%>
+    <%= f.label :eficincia, 'Deficiente', :value => 'Deficiente' %><br>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-7">4.2.
+    <%= f.label "¿Cómo califica su formación académica con respecto a su desempeño laboral?" %><br>
+     <%= f.radio_button :calificacion_academica, 'Excelente'%>
+    <%= f.label :calificacion_academica, 'Excelente', :value => 'Excelente' %><br>
+    <%= f.radio_button :calificacion_academica, 'Bueno'%>
+    <%= f.label :calificacion_academica, 'Bueno', :value => 'Bueno' %><br>
+    <%= f.radio_button :calificacion_academica, 'Regular'%>
+    <%= f.label :calificacion_academica, 'Regular', :value => 'Regular' %><br>
+    <%= f.radio_button :calificacion_academica, 'Malo'%>
+    <%= f.label :calificacion_academica, 'Malo', :value => 'Malo' %><br>
+    <%= f.radio_button :calificacion_academica, 'Pésimo'%>
+    <%= f.label :calificacion_academica, 'Pésimo', :value => 'Pésimo' %><br>
+    
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-xs-5 col-sm-9">4.3.
+    <%= f.label "Utilidad de las residencias profesionales o prácticas profesionales para su desarrollo laboral y profesional" %><br>
+     <%= f.radio_button :utilidad_residencia, 'Excelente'%>
+    <%= f.label :utilidad_residencia, 'Excelente', :value => 'Excelente' %><br>
+    <%= f.radio_button :utilidad_residencia, 'Bueno'%>
+    <%= f.label :utilidad_residencia, 'Bueno', :value => 'Bueno' %><br>
+    <%= f.radio_button :utilidad_residencia, 'Regular'%>
+    <%= f.label :utilidad_residencia, 'Regular', :value => 'Regular' %><br>
+    <%= f.radio_button :utilidad_residencia, 'Malo'%>
+    <%= f.label :utilidad_residencia, 'Malo', :value => 'Malo' %><br>
+    <%= f.radio_button :utilidad_residencia, 'Pésimo'%>
+    <%= f.label :utilidad_residencia, 'Pésimo', :value => 'Pésimo' %><br>
+    
+  </div>
+</div>  
+  <div class="row">
+<div class="col-xs-5 col-sm-10">
+    <%= f.label "Aspectos que valora la empresa u organismo para la contratación de egresados:"%>
+</div>
+</div>
+<div class="row">
+<table class="te" style="undefined;table-layout: fixed; width: 761px">
+<colgroup>
+<col style="width: 204px">
+<col style="width: 104px">
+<col style="width: 109px">
+<col style="width: 107px">
+<col style="width: 141px">
+<col style="width: 96px">
+</colgroup>
+  <tr>
+    <th class="tg-rpey">Área o Campo de Estudio</th>
+    <th class="tg-147s">(poco)1</th>
+    <th class="tg-147s">    2    </th>
+    <th class="tg-147s">    3    </th>
+    <th class="tg-147s">    4    </th>
+    <th class="tg-147s">5 (mucho)</th>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Área o Campo de Estudio<br></td>
+    <td class="tg-y5bo"><%= f.radio_button  :area_estudio, '1'%>
+    <td class="tg-y5bo"><%= f.radio_button  :area_estudio, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :area_estudio, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :area_estudio, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :area_estudio, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Titulación<br></td>
+    <td class="tg-y5bo"><%= f.radio_button  :titulacion, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :titulacion, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :titulacion, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :titulacion, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :titulacion, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Experiencia Laboral/práctica (antes de egresar)</td>
+    <td class="tg-y5bo"><%= f.radio_button  :experiencia_laboral, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :experiencia_laboral, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :experiencia_laboral, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :experiencia_laboral, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :experiencia_laboral, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Competencia Laboral</td>
+    <td class="tg-y5bo"><%= f.radio_button  :competencia_laboral, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :competencia_laboral, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :competencia_laboral, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :competencia_laboral, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :competencia_laboral, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Posicionamiento de la Institución de Egreso</td>
+    <td class="tg-y5bo"><%= f.radio_button  :posicionamiento, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :posicionamiento, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :posicionamiento, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :posicionamiento, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :posicionamiento, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Conocimiento de Idiomas Extranjeros</td>
+    <td class="tg-y5bo"><%= f.radio_button  :conocimiento_idioma, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :conocimiento_idioma, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :conocimiento_idioma, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :conocimiento_idioma, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :conocimiento_idioma, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Recomendaciones/ referencias</td>
+    <td class="tg-y5bo"><%= f.radio_button  :recomendaciones, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :recomendaciones, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :recomendaciones, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :recomendaciones, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :recomendaciones, '5'%></td>
+  </tr>
+  <tr>
+    <td class="tg-4cxe">Personalidad/ Actitudes</td>
+    <td class="tg-y5bo"><%= f.radio_button  :personalidad_actitud, '1'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :personalidad_actitud, '2'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :personalidad_actitud, '3'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :personalidad_actitud, '4'%></td>
+    <td class="tg-y5bo"><%= f.radio_button  :personalidad_actitud, '5'%></td>
+  </tr>
+</table>
+
+  <!--<div class="col-xs-5 col-sm-4">
+    <%#= f.label :otros %><br>
+    <%#= f.number_field :otros %>
+  </div>-->
+
+  </div>
+
+  <div class="actions">
+    <%= f.submit :Siguiente, :class => 'btn btn-success' %>
+  </div>
+<% end %>
+<div class="row">
+  <% x = PerfilEgresado.where(Estudiante.find_by(email: current_usuario.email).numControl).last %>
+    <%#= button_to "Cancelar", edit_ubicacion_laboral_path(x), :class => 'btn btn-warning', :method => :get %>
+    <%# link_to "Anterior", edit_perfil_egresado_path(x) %>
+</div>
+</div>
+</div>
+</div>

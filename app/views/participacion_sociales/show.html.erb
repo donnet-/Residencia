@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Organizacion social:</strong>
+  <%= @participacion_social.organizacion_social %>
+</p>
+
+<p>
+  <strong>Organismo profesionistas:</strong>
+  <%= @participacion_social.organismo_profesionistas %>
+</p>
+
+<p>
+  <strong>Asociacion egresados:</strong>
+  <%= @participacion_social.asociacion_egresados %>
+</p>
+
+<p>
+  <strong>Describir:</strong>
+  <%= @participacion_social.describir %>
+</p>
+
+<%= link_to 'Edit', edit_participacion_social_path(@participacion_social) %> |
+<%= link_to 'Back', participacion_sociales_path %>

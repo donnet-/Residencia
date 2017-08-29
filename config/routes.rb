@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
 
+  resources :comentario_egresados
+  resources :participacion_sociales
+  resources :expectativas_egresados
+  resources :desem_laborales
   resources :ubicacion_laborales
   resources :aprendizaje_egresados
   resources :perfil_egresados
