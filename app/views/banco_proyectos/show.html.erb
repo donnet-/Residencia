@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>RFC de la Empresa/Institución:</strong>
+  <%= @banco_proyecto.fk_rfc_emp_inst %>
+</p>
+
+<p>
+  <strong>Nombre del Proyecto:</strong>
+  <%= @banco_proyecto.nombre_proyecto_b %>
+</p>
+
+<p>
+  <strong>Descripción del Proyecto:</strong>
+  <%= @banco_proyecto.descrip_proyecto_b %>
+</p>
+
+<p>
+  <strong>Tipo de Proyecto:</strong>
+  <%= @banco_proyecto.tipo_proyecto_b %>
+</p>
+
+<p>
+  <strong>Fecha de Inicio:</strong>
+  <%= @banco_proyecto.fecha_inicio_proyecto_b %>
+</p>
+
+<p>
+  <strong>Fecha de Término:</strong>
+  <%= @banco_proyecto.fecha_termino_proyecto_b %>
+</p>
+
+<p>
+  <strong>Núm. de Residentes:</strong>
+  <%= @banco_proyecto.num_residentes %>
+</p>
+
+<p>
+  <strong>Objetivo Esperado:</strong>
+  <%= @banco_proyecto.objetivo_esperado %>
+</p>
+
+<p>
+  <strong>PDF Solicitud:</strong>
+  <%= @banco_proyecto.pdf_solicitud %>
+</p>
+
+<%= link_to 'Editar', edit_banco_proyecto_path(@banco_proyecto) %> |
+<%= link_to 'Atrás', banco_proyectos_path %>

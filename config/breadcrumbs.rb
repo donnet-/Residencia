@@ -112,6 +112,51 @@ crumb :cat_viatico_edit do |viatico|
 	parent :cat_viaticos, viatico
 end
 
+
+# ---------------------------------------------
+#solicitud_observaciones/
+crumb :solicitud_observaciones do
+	link "Observaciones de solicitud", solicitud_observaciones_path
+	parent :solicitudes
+end
+#anteproyectos/new
+crumb :anteproyectos_new do
+	link "Nuevo", new_anteproyecto_path
+	parent :anteproyectos
+end
+#anteproyectos/
+crumb :anteproyectos do
+  link "Anteproyectos", anteproyectos_path
+end
+
+#banco_proyectos/new
+crumb :banco_proyectos_new do
+	link "Nuevo", new_banco_proyecto_path
+	parent :banco_proyectos
+end
+#banco_proyectos/
+crumb :banco_proyectos do
+  link "Proyectos en Banco", banco_proyectos_path
+end
+
+#solicitud/edit
+crumb :solicitud_edit do
+	link "Editar", edit_solicitud_path
+	parent :solicitudes
+end
+#solicitud/new
+crumb :solicitud_new do
+	link "Nuevo", new_solicitud_path
+	parent :solicitudes
+end
+#solicitudes/
+crumb :solicitudes do
+  link "Solicitudes", solicitudes_path
+end
+
+
+
+
 #cat_evidencias
 crumb :cat_evidencias do 
 	link "Catálogo de evidencias", cat_evidencias_path

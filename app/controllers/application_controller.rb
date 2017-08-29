@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
     
+  helper_method :execute_statement
+  
   before_action :configure_permitted_parameters, if: :devise_controller?
     
   rescue_from CanCan::AccessDenied do |exception|
@@ -19,6 +21,15 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_usuario!
   auto_session_timeout 20.minutes
     
+  def execute_statement(sql)
+    results = ActiveRecord::Base.connection.execute(sql)
+    if results.present?
+      return results
+    else
+      return nil
+    end
+  end
+  
   protected
     
     def configure_permitted_parameters

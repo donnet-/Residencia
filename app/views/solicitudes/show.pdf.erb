@@ -1,0 +1,55 @@
+<div class="mdl-cell">
+    <div class="demo-card-wide mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Solicitud</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
+        <h5>Nombre</h5>
+        <p><%= @solicitud.nombrep.solicitud%></p>
+        <h5>Fecha Inicio</h5>
+        <p><%= @solicutud.fechaini.solicitud%></p>
+        <h5>Fecha Termino</h5>
+        <p><%= @solicitud.fechater.solicitud%></p>
+        <h5>Asesor Externo o Coach del Proyecto</h5>
+        <p><%= @solicitud.aexterno.solicitud%></p>
+        <h5>Num de Telefono y ext</h5>
+        <p><%= @solicitud.telefono.solicitud%></p>
+        <h5>Correo Electronico</h5>
+        <p><%= @solicitud.correo.solicitud%></p>
+        <h5>Area</h5>
+        <p><%= @solicitud.area.solicitud%></p>
+        <h5>Num de residentes</h5>
+        <p><%= @solicitud.numrecidentes.solicitud%></p>
+        <h5>Carrera</h5>
+        <p><%= @solicitud.carrera.solicitud%></p>
+        <h5>Semestre</h5>
+        <p><%= @solicitud.semestre.solicitud%></p>
+        <h5>Ingles requerido</h5>
+        <p><%= @solicitud.ingles.solicitud%></p>
+        <h5>Descripcion de Proyecto</h5>
+        <p><%= @solicitud.desproyecto.solicitud%></p>
+        <h5>Objectivos</h5>
+        <p><%= @solicitud.objetivo.solicitud%></p>
+        <h5>Actividades a desempeñar</h5>
+        <p><%= @solicitud.actividades.solicitud%></p>
+        <h5>Desktop top</h5>
+        <p><%= @solicitud.pc.solicitud%></p>
+        <h5>Tel de escritorio</h5>
+        <p><%= @solicitud.tel_escritorio.solicitud%></p>
+        <h5>Lugar o cubiculo</h5>
+        <p><%= @solicitud.lugar.solicitud%></p>
+        <h5>Beca</h5>
+        <p><%= @solicitud.beca.solicitud%></p>
+        <h5>Observaciónes</h5>
+        <p><%= @solicitud.observaciones.solicitud%></p>
+      </div>
+      <div class="mdl-card__actions mdl-card--border">
+        <%= link_to "Imprimir PDF",solicitud_url(@solicitud, :format => :pdf)%>
+      </div>
+      <div class="mdl-card__menu">
+        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+          <i class="material-icons">account_circle</i>
+        </button>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Anteproyecto Observaciones</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Identificador</th>
+      <th>Observacion</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @anteproyecto_observaciones.each do |anteproyecto_observacion| %>
+      <tr>
+        <td><%= anteproyecto_observacion.identificador %></td>
+        <td><%= anteproyecto_observacion.observacion %></td>
+        <td><%= link_to 'Show', anteproyecto_observacion %></td>
+        <td><%= link_to 'Edit', edit_anteproyecto_observacion_path(anteproyecto_observacion) %></td>
+        <td><%= link_to 'Destroy', anteproyecto_observacion, method: :delete, data: { confirm: '¿Está segur@?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Anteproyecto observacion', new_anteproyecto_observacion_path %>

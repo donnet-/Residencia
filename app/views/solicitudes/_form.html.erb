@@ -1,0 +1,174 @@
+<div class="container">
+  <div id="align-forms">
+  
+    <%= nested_form_for @solicitud, validate: true do |act|%><%#@solicitud, validate: true do |act| %>
+      <div id="marco">
+      
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-5 col-md-20"> <%= act.label "Nombre de Proyecto"%>:
+            <%= act.text_area :nombrep, :class => 'col-xs-5 col-md-12', validate: true %></div>
+          </div>
+        </div>
+        
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-5 col-sm-4"> <%= act.label "Fecha de inicio"%>:
+            <%= act.text_field :fechaini, 'data-behaviour' => 'datepicker', :class => 'col-xs-4 col-md-11', validate: true %></div>
+            
+            <div class="col-xs-5 col-sm-4"><%= act.label "Fecha de término" %>:
+            <%= act.text_field :fechater, 'data-behaviour' => 'datepicker', :class => 'col-xs-4 col-md-11', validate: true %></div>
+          </div>
+        </div>
+        
+        <div id="marco">
+        <div class="row">
+          <% if current_usuario.rol == "empresa" %>
+            <%= act.hidden_field :rfc, :value => current_usuario.rfc, :class => 'col-xs-5 col-md-12', validate: true %>
+          <% else %>
+            <%= act.text_field :rfc, :class => 'col-xs-5 col-md-12', validate: true %>
+          <% end %>
+          
+          <div class="col-xs-5 col-sm-4"> <%= act.label "Asesor externo del proyecto"%>:
+          <%= act.text_field :aexterno, :class => 'col-xs-4 col-md-12', validate: true %></div>
+          
+          <div class="col-xs-10 col-sm-10">
+          </div>
+         
+          <div class="col-xs-5 col-sm-4"><%= act.label "Número de teléfono" %>:
+          <%= act.text_field :telefono, :class => 'col-xs-4 col-md-12', validate: true %></div>
+          
+          <div class="col-xs-5 col-sm-4"><%= act.label "Extensión" %>:
+          <%= act.text_field :extension, :class => 'col-xs-4 col-md-12', validate: true %></div>
+        </div>
+        
+        <div class="row">
+          <div class="col-xs-5 col-sm-4"><%= act.label "Correo electrónico el asesor Externo"%>:
+          <%= act.text_field :correo, :class => 'col-xs-4 col-md-12', validate: true %></div>
+          
+          <div class="col-xs-5 col-sm-4"><%= act.label "Área de labor" %>:
+          <%= act.text_field :area, :class => 'col-xs-4 col-md-12', validate: true %></div>
+        </div>
+        </div>
+        
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-5 col-sm-4"><%= act.label "Número de residentes" %>:
+            <% str = "" %>
+            <% str2 = "" %>
+            <% str = raw(str + "&nbsp;" * 60) %>
+            <% str2 = raw(str2 + "&nbsp;" * 3) %>
+            <%= act.select :numresidentes, options_for_select([[str2 + "1" + str, 1], [str2 + "2" + str, 2], [str2 + "3" + str, 3], [str2 + "4" + str, 4], [str2 + "5" + str, 5]]), :class => 'col-xs-4 col-md-12', validate: true%></div>
+            
+            <div class="col-xs-5 col-sm-4"> <%= act.label "Carrera" %>:
+            <% carr = [["Ingeniería en Sistemas Computacionales", "Ingeniería en Sistemas Computacionales"], ["Ingeniería en Electrónica", "Ingeniería en Electrónica"], ["Ingeniería Eléctrica", "Ingeniería Eléctrica"], ["Ingeniería Civil", "Ingeniería Civil"], ["Ingeniería Mecánica", "Ingeniería Mecánica"], ["Ingeniería Industrial", "Ingeniería Industrial"], ["Ingeniería Química", "Ingeniería Química"], ["Ingeniería en Gestión Empresarial", "Ingeniería en Gestión Empresarial"], ["Licenciatura en Administración", "Licenciatura en Administración"]] %>
+            <%= act.select :carrera, options_for_select(carr), :class => 'col-xs-4 col-md-12', validate: true%></div>
+          </div>
+        
+          <div class="row">
+            <div class="col-xs-5 col-sm-4"><%= act.label "Semestre" %>:
+            <%= act.select :semestre, options_for_select([[str2 + "8" + str, 8], [str2 + "9" + str, 9], [str2 + "10" + str, 10], [str2 + "11" + str, 11], [str2 + "12" + str, 12]]), :class => 'col-xs-4 col-md-12', validate: true%></div>
+            
+            <div class="col-xs-5 col-sm-4"><%= act.label "Inglés requerido" %>:
+            <%= act.select :ingles, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-12', validate: true%></div>
+          </div>
+         
+          <div class="row">
+            <div class="col-xs-5 col-sm-4"> <%= act.label "Hora de entrada" %>:
+            <%= act.text_field :horaentrada, :placeholder => "HH:MM", :class => 'col-xs-4 col-md-12', validate: true %></div>
+            
+            <div class="col-xs-5 col-sm-4"> <%= act.label "Hora de salida" %>:
+            <%= act.text_field :horasalida, :placeholder => "HH:MM", :class => 'col-xs-4 col-md-12', validate: true %></div>
+          </div>
+        </div>
+       
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-4 col-md-3">
+              <%= act.label "Descripción del proyecto:" %>
+              <%= act.text_area :desproyecto, :class => 'col-xs-4 col-md-4', validate: true %>
+            </div>
+          </div>
+         
+          <div class="row">
+            <div class="col-xs-4 col-md-3">
+              <%= act.label "Objetivos esperados:" %>
+              <%= act.text_area :objetivo, :class => 'col-xs-4 col-md-4', validate: true %>
+            </div>
+          </div>
+         
+          <div class="row">
+            <div class="col-xs-4 col-md-3">
+              <%= act.label "Actividades a desempeñar:" %>
+              <%= act.text_area :actividades, :class => 'col-xs-4 col-md-4', validate: true %>
+            </div>
+          </div>
+        </div>
+       
+        <div id="marco">
+          <div class="row">
+            <h4>
+              <%= act.label "Recursos:", :class => 'col-xs-10 col-sm-0' %>
+            </h4>
+            <h5>
+              <%= act.label "Anotar (Sí /No) en cada recuadro si la Empresa asignará al Estudiante los recursos mostrados a continuación, mientras dure su Residencia.", :class => 'col-xs-10 col-sm-0' %>
+              <%= act.label "En caso de Beca, anotar el monto", :class => 'col-xs-10 col-sm-0' %>
+              <%= act.label "Podrá incluir alguna observación extra", :class => 'col-xs-10 col-sm-0' %>
+            </h5>
+          </div>
+          
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          
+          <div class="row">
+            <%= act.label "Desktop top:", :class => 'col-xs-4 col-md-3' %>
+            <%= act.select :pc, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+          </div>
+         
+          <div class="row">
+            <%= act.label "Teléfono de escritorio:", :class => 'col-xs-4 col-md-3' %>
+            <%= act.select :tel_escritorio, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+          </div>
+         
+          <div class="row">
+            <%= act.label "Lugar o cubículo:", :class => 'col-xs-4 col-md-3' %>
+            <%= act.select :lugar, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+          </div>
+         
+          <div class="row">
+            <%= act.label "Beca:", :class => 'col-xs-4 col-md-3' %>
+            <%= act.number_field :beca, :class => 'col-xs-4 col-md-4', validate: true %>
+          </div>
+          
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          
+          <div class="row">
+            <%= act.label "Observaciones:", :class => 'col-xs-4 col-md-3' %>
+            <%= act.text_area :observacion, :class => 'col-xs-4 col-md-4', validate: true %>
+            
+            <%= act.hidden_field :estado, :value => "En revisión", :class => 'col-xs-4 col-md-4', validate: true %>
+          </div>
+        </div>
+          
+        <div class="row">
+          <div class="col-xs-2 col-md-3" id="btn-cancelar">
+          <%= act.submit :Guardar, :class => 'btn btn-success' %>
+        </div>  
+      </div>
+    <% end %>
+    
+  </div>
+</div>

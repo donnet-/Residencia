@@ -110,6 +110,34 @@ ActiveRecord::Schema.define(version: 20170829094736) do
     t.integer "anexo_id",               limit: 4, null: false
   end
 
+  create_table "anteproyecto_estudiantes", force: :cascade do |t|
+    t.integer  "numControl",      limit: 4
+    t.integer  "anteproyecto_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "anteproyecto_estudiantes", ["anteproyecto_id"], name: "index_anteproyecto_estudiantes_on_anteproyecto_id", using: :btree
+
+  create_table "anteproyecto_observaciones", force: :cascade do |t|
+    t.string   "identificador",   limit: 255
+    t.text     "observacion",     limit: 65535
+    t.integer  "anteproyecto_id", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "anteproyecto_observaciones", ["anteproyecto_id"], name: "index_anteproyecto_observaciones_on_anteproyecto_id", using: :btree
+
+  create_table "anteproyectos", force: :cascade do |t|
+    t.integer  "fk_id_proyecto_b", limit: 4
+    t.string   "nombre_anteproy",  limit: 255
+    t.string   "asesor_externo",   limit: 255
+    t.string   "status_anteproy",  limit: 255
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
   create_table "aprendizaje_egresados", force: :cascade do |t|
     t.string   "calidad_docente",        limit: 255
     t.string   "plan_estudio",           limit: 255
@@ -151,6 +179,20 @@ ActiveRecord::Schema.define(version: 20170829094736) do
   end
 
   add_index "archivo_prodep_docentes", ["docente_id"], name: "index_archivo_prodep_docentes_on_docente_id", using: :btree
+
+  create_table "banco_proyectos", force: :cascade do |t|
+    t.string   "fk_rfc_emp_inst",          limit: 255
+    t.string   "nombre_proyecto_b",        limit: 255
+    t.text     "descrip_proyecto_b",       limit: 65535
+    t.string   "tipo_proyecto_b",          limit: 255
+    t.date     "fecha_inicio_proyecto_b"
+    t.date     "fecha_termino_proyecto_b"
+    t.integer  "num_residentes",           limit: 4
+    t.text     "objetivo_esperado",        limit: 65535
+    t.string   "pdf_solicitud",            limit: 255
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
 
   create_table "cat_criterio_academias", force: :cascade do |t|
     t.integer  "numero",     limit: 4
@@ -1054,6 +1096,15 @@ ActiveRecord::Schema.define(version: 20170829094736) do
     t.string   "hora",       limit: 255
   end
 
+  create_table "revisa_anteproyectos", force: :cascade do |t|
+    t.date     "fecha_revicion"
+    t.text     "observaciones_revision", limit: 65535
+    t.string   "fk_curp",                limit: 255
+    t.integer  "fk_id_anteproy",         limit: 4
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
   create_table "servicio_sociales", force: :cascade do |t|
     t.integer  "calificacion",    limit: 4
     t.date     "fechaInicio"
@@ -1073,6 +1124,49 @@ ActiveRecord::Schema.define(version: 20170829094736) do
 
   add_index "servicio_sociales", ["empresa_id"], name: "index_servicio_sociales_on_empresa_id", using: :btree
   add_index "servicio_sociales", ["estudiante_id"], name: "index_servicio_sociales_on_estudiante_id", using: :btree
+
+  create_table "solicitud_observaciones", force: :cascade do |t|
+    t.string   "rfc",          limit: 255
+    t.text     "observacion",  limit: 65535
+    t.integer  "solicitud_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "solicitud_observaciones", ["solicitud_id"], name: "index_solicitud_observaciones_on_solicitud_id", using: :btree
+
+  create_table "solicitudes", force: :cascade do |t|
+    t.string   "nombrep",                 limit: 255
+    t.date     "fechaini"
+    t.date     "fechater"
+    t.string   "aexterno",                limit: 255
+    t.string   "telefono",                limit: 255
+    t.string   "extension",               limit: 255
+    t.string   "correo",                  limit: 255
+    t.string   "area",                    limit: 255
+    t.integer  "numresidentes",           limit: 4
+    t.string   "carrera",                 limit: 255
+    t.string   "semestre",                limit: 255
+    t.string   "ingles",                  limit: 255
+    t.string   "horaentrada",             limit: 255
+    t.string   "horasalida",              limit: 255
+    t.string   "desproyecto",             limit: 255
+    t.string   "objetivo",                limit: 255
+    t.string   "actividades",             limit: 255
+    t.string   "pc",                      limit: 255
+    t.string   "tel_escritorio",          limit: 255
+    t.string   "lugar",                   limit: 255
+    t.string   "beca",                    limit: 255
+    t.string   "observacion",             limit: 255
+    t.string   "estado",                  limit: 255
+    t.string   "rfc",                     limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "periodo",                 limit: 255
+    t.string   "rfc_docente_revisor",     limit: 255
+    t.string   "estado_revision_docente", limit: 255
+    t.string   "clave_solicitud",         limit: 255
+  end
 
   create_table "tablapromedios", force: :cascade do |t|
     t.string   "nivel_desem", limit: 255
@@ -1203,6 +1297,8 @@ ActiveRecord::Schema.define(version: 20170829094736) do
   add_foreign_key "actualizaciones", "actividades"
   add_foreign_key "anexos", "proyectos"
   add_foreign_key "anexos", "reuniones"
+  add_foreign_key "anteproyecto_estudiantes", "anteproyectos"
+  add_foreign_key "anteproyecto_observaciones", "anteproyectos"
   add_foreign_key "archivo_docentes", "docentes"
   add_foreign_key "archivo_periodos", "periodo_curs_materias"
   add_foreign_key "archivo_prodep_docentes", "docentes"
@@ -1253,6 +1349,7 @@ ActiveRecord::Schema.define(version: 20170829094736) do
   add_foreign_key "puestos", "docentes"
   add_foreign_key "requisito_evidencias", "cat_evidencias"
   add_foreign_key "servicio_sociales", "estudiantes"
+  add_foreign_key "solicitud_observaciones", "solicitudes"
   add_foreign_key "viaje_grupos", "actividades"
   add_foreign_key "viaje_grupos", "curso_materias"
   add_foreign_key "viaje_itinerario_empresas", "visitas"

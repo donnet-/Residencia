@@ -1,0 +1,102 @@
+<div class="container">
+  <% if current_usuario.rol == 'admin' %>
+    <%= render template: "siged/menuAdmin" %>
+  <% elsif current_usuario.rol == 'empresa' %>
+    <%= render template: "siged/menuEmpresa" %>
+  <% end %>
+  <% breadcrumb :solicitudes, @solicitud%>
+    
+  <h2 id="align-title">Solicitud de Proyecto de Residencia</h2>
+  <div id="marco">   
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
+      </div>
+      
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
+      </div>
+      
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
+      </div>
+      
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Nombre de la empresa: </b>
+              <% @empresa = Empresa.where(:rfcEmpresa => @solicitud.rfc).first %>
+              <%= @empresa.nombreE %>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-4"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Extensión: </b><%= @solicitud.extension %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Correo: </b><%= @solicitud.correo %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Área: </b><%= @solicitud.area %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Carrera: </b><%= @solicitud.carrera %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Semestre: </b><%= @solicitud.semestre %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
+      </div>
+    
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Lugar: </b><%= @solicitud.lugar %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
+      </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Estado (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
+      </div>
+    
+    <div class="row">
+      <div class="col-xs-6 col-sm-6" align="right">
+        <%= button_to edit_solicitud_path(@solicitud), :method => :get do %><span class="glyphicon glyphicon-pencil green"></span> Editar<div class="tip" id="action2">Editar</div><% end %>
+      </div>
+      <div class="col-xs-6 col-sm-1" align="right">
+        <%= link_to "Imprimir", solicitud_url(@solicitud, :format => :pdf) %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

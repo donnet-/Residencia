@@ -1,0 +1,80 @@
+
+<div class="container">
+  <div id="align-anteproyecto.rms">
+    <%= nested_form_for @anteproyecto, validate: true do |anteproyecto| %>
+      <% proy_banco = BancoProyecto.order("updated_at DESC").first %>
+      <% asesor_ext = Solicitud.find_by(:rfc => proy_banco.fk_rfc_emp_inst).aexterno %>
+      <% nombreE = Empresa.find_by(:rfcEmpresa => proy_banco.fk_rfc_emp_inst).nombreE %>
+      
+      <div id="marco">
+        <div class="row">
+          <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id,:class => 'col-xs-4 col-md-4', validate: true %>
+        </div>
+          
+        <div class="row">
+          <%= anteproyecto.label 'Nombre del Proyecto', :class => 'col-xs-4 col-md-3' %><br>
+          <%= anteproyecto.text_field :nombre_anteproy, :value => proy_banco.nombre_proyecto_b,:class => 'col-xs-4 col-md-4', validate: true %>
+        </div>
+          
+        <div class="row">
+          <%= anteproyecto.label 'Nombre de la Empresa', :class => 'col-xs-4 col-md-3' %><br>
+          <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-4 col-md-4', validate: true %>
+        </div>
+          
+        <div class="row">
+          <%= anteproyecto.label 'Nombre del Asesor Externo', :class => 'col-xs-4 col-md-3' %><br>
+          <%= anteproyecto.text_field :asesor_externo, :value => asesor_ext, :class => 'col-xs-4 col-md-4', validate: true %>
+        </div>
+          
+        <fieldset id="poryectoestudiante">
+          <div id="marco">
+            <h5><strong>Agregar estudiantes</strong></h5>
+            <%= anteproyecto.fields_for :anteproyecto_estudiantes, validate: true do |proyes| %>
+              <div class="row">
+                <div class="col-md-2"><%= proyes.label :Núm_de_control%></div>
+                <div class="col-md-4">
+                  <%= proyes.text_field :numControl, :placeholder => "Número de control", class: 'form-control' %></div>
+                <div class="col-xs-6 col-sm-1">
+                  <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
+              </div>
+            <% end %>           
+            <div class="row"><%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+          </div>
+        </fieldset>
+    
+        <% if current_usuario.rol == "admin" %>
+          <fieldset id="observaciones">
+            <div id="marco">
+              <h5><strong>Realizar Observación</strong></h5>
+              <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
+                <div class="row">
+                  <div class="col-md-2"><%= observ.label :Observaciones%></div>
+                  <div class="col-md-10">
+                    <%= observ.text_area :observacion, :placeholder => "Observaciones ...", class: 'form-control' %></div>
+                    <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %></div>
+                  <div class="col-xs-6 col-sm-1">
+                    <%= observ.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
+                </div>
+              <% end %>           
+              <div class="row"><%= anteproyecto.link_to_add :anteproyecto_observaciones, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+            </div>
+          </fieldset>
+        <% end %>
+        
+        <div class="row">
+          <%= anteproyecto.hidden_field :status_anteproy, :value => "En revisión",:class => 'col-xs-4 col-md-4', validate: true %>
+        </div>
+          
+        <div class="row" id="btn-cancelar">
+          <div class="col-xs-6 col-md-4" id="btn">
+            <%= anteproyecto.submit :Guardar, :class => 'btn btn-success' %>
+          </div>
+        </div>
+     
+        <div class="col-xs-6 col-md-4">
+          <%= button_to "Cancelar", anteproyectos_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

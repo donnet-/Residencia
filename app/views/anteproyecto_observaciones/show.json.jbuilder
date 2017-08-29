@@ -1,0 +1,1 @@
+json.partial! "anteproyecto_observaciones/anteproyecto_observacion", anteproyecto_observacion: @anteproyecto_observacion

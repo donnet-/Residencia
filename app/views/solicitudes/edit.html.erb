@@ -1,0 +1,106 @@
+<div class="container">
+  <% if current_usuario.rol == 'admin' %>
+      <%= render template: "siged/menuAdmin" %>
+  <% elsif current_usuario.rol == 'docente' %>
+      <%= render template: "siged/menuDocente" %>    
+  <% elsif current_usuario.rol == 'empresa' %>
+      <%= render template: "siged/menuEmpresa" %>
+  <% end %>
+  <% breadcrumb :solicitud_edit, @solicitud %>
+  
+  <% if current_usuario.rol == "admin" %>
+    <h3 id="align-title">Observaciones o Aprobación de Solicitud de Residencia Profesional</h3>
+  <% else %>
+    <h3 id="align-title">Observaciones de Solicitud de Residencia Profesional</h3>
+  <% end %>
+ 
+  <div id="marco">
+    <%= nested_form_for @solicitud, validate: true do |solicitud| %>
+      <div class="row">
+          <div class="col-xs-6 col-sm-10"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
+      
+          <div class="col-xs-6 col-sm-10"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
+      
+          <div class="col-xs-6 col-sm-10"><b>Nombre de la empresa: </b>
+              <% @empresa = Empresa.where(:rfcEmpresa => @solicitud.rfc).first %>
+              <%= @empresa.nombreE %>
+          </div>
+          
+          <div class="col-xs-6 col-sm-4"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Teléfono: </b><%= @solicitud.telefono %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Extensión: </b><%= @solicitud.extension %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Correo: </b><%= @solicitud.correo %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Área: </b><%= @solicitud.area %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Carrera: </b><%= @solicitud.carrera %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Semestre: </b><%= @solicitud.semestre %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Inglés: </b><%= @solicitud.ingles %></div>
+      
+          <div class="col-xs-6 col-sm-10"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>PC: </b><%= @solicitud.pc %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
+          
+          <div class="col-xs-6 col-sm-10"><b>Lugar: </b><%= @solicitud.lugar %></div>
+   
+          <div class="col-xs-6 col-sm-10"><b>Beca: </b><%= @solicitud.beca %></div>
+      </div>
+      
+        <fieldset id="poryectoestudiante">
+          <div id="marco">
+            <h5><strong>Agregar observaciones</strong></h5>
+            <%= solicitud.fields_for :solicitud_observaciones, validate: true do |observ| %>
+              <div class="row">
+                <div class="col-md-2"><%= observ.label :Observaciones %></div>
+                <div class="col-md-10">
+                  <%= observ.text_area :observacion, class: 'form-control', validate: true %></div>                
+                <%= observ.hidden_field :rfc, :value => current_usuario.rfc, class: 'form-control' %>
+              </div>
+            <% end %>           
+            <div class="row"><%= solicitud.link_to_add :solicitud_observaciones, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+          </div>
+        </fieldset>
+        
+      <div id="marco">
+        <div class="row">
+          
+          <% if current_usuario.rol == "admin" %>
+            <%= solicitud.label :estado, "Estado", class: 'col-md-6' %>
+            <div class="col-md-10">
+            <%= solicitud.select :estado, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @solicitud.estado), class: 'form-control', validate: true %></div>
+          <% end %>
+        </div>
+      </div>
+        
+      <div class="row" id="btn-guardar">
+        <div class="col-xs-6 col-md-6" id="btn">
+          <%= solicitud.submit :Guardar, :class => 'btn btn-success' %>
+        </div>   
+      </div>
+      <div class="row" id="btn-cancelar">
+        <div class="col-xs-6 col-md-6" id="btn">
+          <%= button_to "Cancelar", solicitudes_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

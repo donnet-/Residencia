@@ -5,19 +5,13 @@
         <%= render 'formDocente' %>
     <% elsif @rol == 'estudiante' %>
         <%= render 'formEstudiante' %>
-
     <% elsif @rol == 'empresa' %>
         <%= render 'formEmpresa' %>
-
     <% else %>
         <div class="marco">
             <br><br>
             <h3 align="center">Su usuario no está registrado en el sistema</h3>
-
-            <p align="center"> <strong>Verifique sus datos o Acuda con el administrador</strong> </p>
-
             <p align="center"> <strong>Verifique sus datos o acuda con el administrador</strong> </p>
-
             <br><br>
             <form method="get" action="usuarios/sign_in">
                 <div class="row" align="center">
@@ -29,8 +23,4 @@
 
         <br />
         <%#= render "devise/shared/links" %>
-
 </div>
-
-</div>
-

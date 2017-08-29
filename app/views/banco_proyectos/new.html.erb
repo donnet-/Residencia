@@ -1,0 +1,14 @@
+<div class="container">
+  <% if current_usuario.rol == 'admin' %>
+      <%= render template: "siged/menuAdmin" %>
+  <% elsif current_usuario.rol == 'docente' %>
+      <%= render template: "siged/menuDocente" %>    
+  <% elsif current_usuario.rol == 'empresa' %>
+      <%= render template: "siged/menuEmpresa" %>
+  <% end %>
+    
+  <% breadcrumb :banco_proyectos_new %>
+
+  <h3 id="align-title">Nuevo Proyecto de Residencia en Banco</h3>
+  <%= render 'form' %>
+</div>
