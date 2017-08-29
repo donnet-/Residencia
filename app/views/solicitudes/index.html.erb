@@ -1,0 +1,87 @@
+<div class="container">
+  <% if current_usuario.rol == 'admin' %>
+    <%= render template: "siged/menuAdmin" %>
+  <% else %>
+    <%= render template: "siged/menuEmpresa" %>
+  <% end %>
+  <% breadcrumb :solicitudes %>
+    
+  <h3 id="align-title">Solicitudes de Residencia Profesional</h3>
+  <div class="container row"></div>
+  <div class="container row">
+    <div class="col-xs-6 col-sm-0">
+      <%= button_to new_solicitud_path, :class => "btn btn-primary", :method => :get do %>
+        <span class="glyphicon glyphicon-plus"></span>
+      <% end %>
+    </div>
+    
+    <div class="col-xs-6 col-sm-11">
+      <%= form_tag solicitudes_path, method: :get do %>
+        <%= text_field_tag :search, params[:search], placeholder: "Buscar..." %>
+        Filtrar por estado:
+        <%= select_tag :estado, options_for_select([["Aprobado", "Aprobado"], ["No aprobado", "No Aprobado"], ["En revisión", "En revisión"]], params[:estado]), include_blank: true %>
+        
+        Filtrar por periodo:
+        <%= select_tag :periodo, options_for_select([["FEB-JUN", "FEBRERO-JUNIO"], ["AGO-DIC", "AGOSTO-DICIEMBRE"]], params[:periodo]), include_blank: true %>
+        
+        Filtrar por año:
+        <%= number_field_tag :anio, params[:anio], placeholder: "Año" %>
+                
+        <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %>
+          <span class="glyphicon glyphicon-search"></span>
+        <% end %>
+      <% end %>
+    </div>
+    
+  </div>
+    
+  <div id="table-responsive">
+    <table class="table table-sm">
+      <thead>
+        <th class="info"><%= sortable "clave_solicitud" %></th>
+        <th class="info"><%= sortable "nombrep" %></th>
+        <th class="info"><%= sortable "estado" %></th>  
+        <th class="info"><%= %></th>  
+      </thead>
+      <% @solicitudes.each do |solicitud| %>
+        <tbody>
+          <% if current_usuario.rol == "empresa" %>
+            <% if current_usuario.rfc == solicitud.rfc %>
+              <td class="active"><%= solicitud.clave_solicitud%></td>
+              <td class="active"><%= solicitud.nombrep %></td>
+              <td class="active"><%= solicitud.estado %></td>
+              <td class="active"><%= link_to "Observaciones", solicitud_observaciones_path %></p>
+              <td class="active">
+                <p>
+                  <%= link_to solicitud_path(solicitud) do %>
+                    <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                  <% end %>
+                </p>
+              </td>
+            <% end %>
+          <% else %>
+            <td class="active"><%= solicitud.clave_solicitud %></td>
+            <td class="active"><%= solicitud.nombrep %></td>
+            <td class="active"><%= solicitud.estado %></td>
+            <td class="active"><%= link_to "Observaciones", solicitud_observaciones_path %></p>
+            <td class="active">
+              <p>
+                <%= link_to solicitud_path(solicitud) do %>
+                  <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                <% end %>
+              </p>
+              <p>
+                <% if can? :update, solicitud %>
+                  <%= link_to edit_solicitud_path(solicitud) do %>
+                    <span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div>
+                  <% end %>
+                <% end %>
+              </p>
+            </td>
+          <% end %>
+        </tbody>
+      <% end %>
+    </table>
+    <%= will_paginate @solicitudes %>
+  </div>
+</div>

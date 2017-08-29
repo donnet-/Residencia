@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Rfc:</strong>
+  <%= @solicitud_observacion.rfc %>
+</p>
+
+<p>
+  <strong>Observacion:</strong>
+  <%= @solicitud_observacion.observacion %>
+</p>
+
+
+<%= link_to 'Edit', edit_solicitud_observacion_path(@solicitud_observacion) %> |
+<%= link_to 'Back', solicitud_observaciones_path %>

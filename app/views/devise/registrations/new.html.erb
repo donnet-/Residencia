@@ -5,20 +5,13 @@
         <%= render 'formDocente' %>
     <% elsif @rol == 'estudiante' %>
         <%= render 'formEstudiante' %>
-<<<<<<< HEAD
-=======
     <% elsif @rol == 'empresa' %>
         <%= render 'formEmpresa' %>
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
     <% else %>
         <div class="marco">
             <br><br>
             <h3 align="center">Su usuario no está registrado en el sistema</h3>
-<<<<<<< HEAD
-            <p align="center"> <strong>Verifique sus datos o Acuda con el administrador</strong> </p>
-=======
             <p align="center"> <strong>Verifique sus datos o acuda con el administrador</strong> </p>
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae
             <br><br>
             <form method="get" action="usuarios/sign_in">
                 <div class="row" align="center">
@@ -30,8 +23,4 @@
 
         <br />
         <%#= render "devise/shared/links" %>
-<<<<<<< HEAD
 </div>
-=======
-</div>
->>>>>>> d937eca8b026c1b24d3e9d099d373ac3003575ae

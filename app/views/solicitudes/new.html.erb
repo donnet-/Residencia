@@ -1,0 +1,12 @@
+<% if current_usuario.rol == 'admin' %>
+  <%= render template: "siged/menuAdmin" %>
+<% elsif current_usuario.rol == 'empresa' %>
+  <%= render template: "siged/menuEmpresa" %>
+<% end %>
+
+<% breadcrumb :solicitud_new %>
+    
+    
+<h3 id="align-title">Solicitud de Residencia</h3>
+    
+<%= render 'form' %>
