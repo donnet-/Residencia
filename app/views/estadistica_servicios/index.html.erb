@@ -106,7 +106,7 @@
                  </td>
             </tbody>
         
-      <% end %>
+          <% end %>
 
       <% end %>
 
@@ -147,6 +147,7 @@
             <td class="tg-baqh">0.00 a 0.99</td>
           </tr>
         </table>
+        <% if @q != nil %>
          <% data_array_1 = [@q[0],@q[1],@q[2]] %>
          <% data_array_2 = [@q[0],@q[1],@q[2]] %>
       
@@ -166,9 +167,9 @@
             )  %>
 
         <%= image_tag @barv%>
+        <% end %>
 
 
-        
         <%# will_paginate @archivos %>
     </div>
 </div>    
