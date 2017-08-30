@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-xs-6 col-sm-4"><%= f.label "Numero de Reporte" %><br>
           
-          <%= f.number_field :num_reporte , value: q %></div>
+          <%= f.number_field :num_reporte , value: q,:readonly => true,style: 'width:10%;' %></div>
       </div>
       <div class="row">
         <div class="col-xs-6 col-sm-4"><p><%= f.label :Pdf,"Pdf Evalucion del Serivicio" %>: <%= f.file_field :pdf_eval_servicio , validate: true,accept: 'application/pdf'%></p></div>

@@ -595,6 +595,12 @@ crumb :actividad_academica do |act|
 	parent :actividad_academicas
 end
 
+#------Residencia------
+crumb :perfil_egresados_new do
+	link "Perfil", new_perfil_egresado_path
+	parent :estudiante
+end
+
 # crumb :projects do
 #   link "Projects", projects_path
 # end

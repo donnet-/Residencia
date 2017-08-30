@@ -1,7 +1,8 @@
 class Empresa < ActiveRecord::Base
     has_many :viaje_itinerario_empresas
     has_one :servicio_social
-    
+    has_many :criterio_evalucion_servicios
+
     validates :rfcEmpresa, presence: {message: " El rfc es requerido"}, uniqueness: true, length: {is: 12,  message: "El rfc debe tener 12 caracteres"}, format: { with: /\A[A-ZÑ&]{3,4}[0-9]{2}[0-1][0-9][0-3][0-9]([A-Z0-9]{3})?\z/i, message: 'No es un formato de RFC válido'}
     validates :nombreE, presence: {message: " El nombre es requerido"}, length: {maximum: 250, message: "Maximo de caracteres 60"}, format: {with: /\A[a-z[-,á,é,í,ó,ú,Á,É,Í,Ó,Ú]A-Z\s]+\z/, message: "Sólo se aceptan letras y guiones!"}
     mount_uploader :pdfConvenio, PdfUploader

@@ -1,7 +1,14 @@
 <div class="container">
 
 
-<%= form_for(@perfil_egresado) do |f| %>
+<%= nested_form_for @perfil_egresado,validate: true  do |f| %>
+
+    <div class="row">
+        <% if current_usuario.rol == "estudiante" %>
+            <% @est = Estudiante.find_by(email: current_usuario.email) %>
+            <%#= servicio.hidden_field :estudiante_id, :value => @est.id %>
+        <% end %>
+    </div>  
   <% if @perfil_egresado.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@perfil_egresado.errors.count, "error") %> prohibited this perfil_egresado from being saved:</h2>
@@ -21,19 +28,23 @@
   <p class="text-danger">*Campos obligatorios</p>
  
   <div class="row">
-  <div class="col-xs-5 col-sm-4">*<%= f.label "Nombre del Egresado: "%><%= f.text_field :nombre %></div>
-  <div class="col-xs-6 col-sm-3"><%= f.label "Numero Control" %><%= f.number_field :fk_numControl %>
+    <% if current_usuario.rol == "estudiante" %>
+            <% @est = Estudiante.find_by(email: current_usuario.email) %>
+            <%#= servicio.hidden_field :estudiante_id, :value => @est.id %>
+        
+  <div class="col-xs-5 col-sm-4">*<%= f.label "Nombre del Egresado: "%><%= f.text_field :nombre,:value => @est.nombre, :readonly => true%></div>
+  <div class="col-xs-6 col-sm-3"><%= f.label "Numero Control" %><%= f.number_field :fk_numControl, :value => @est.numControl,:readonly => true%>
   </div>
   <div class="col-xs-6 col-sm-3"><%= f.label "Fecha de nacimiento:" %><%= f.date_field :fecha_nac %>
   </div>
+ 
   </div>
   <div class="row">
     <div class="col-xs-5 col-sm-4"><%= f.label "CURP: " %><br>
-  <%= f.text_field :curp %></div>
-  <div class="col-xs-5 col-sm-4"><%= f.label "Sexo: " %><br>
-  <%= f.text_field :sexo %></div>
-  <div class="col-xs-5 col-sm-4"><%= f.label "Estado civil" %><br>
-  <%= f.text_field :edo_civil %>
+  <%= f.text_field :curp,:value => @est.curpEstudiante, :readonly => true %></div>
+  <div class="col-md-3"><%= f.label "Genero " %><br><%= f.select :sexo, options_for_select([["Femenino", "F"], ["Masculino", "M"]]),{}, class: 'form-control', validate: true %></div>
+  <div class="col-xs-5 col-sm-3"><%= f.label "Estado civil" %><br>
+  <%= f.select :edo_civil, options_for_select([["Solter@", "S"], ["Casad@", "C"]]),{}, class: 'form-control', validate: true %>
   </div>
   </div>
   <div class="row">
@@ -42,7 +53,7 @@
  <div class="col-xs-5 col-sm-4"><%= f.label "Telefono" %>:<br>
   <%= f.number_field :telefon %></div>
   <div class="col-xs-5 col-sm-4"><%= f.label "E-mail" %>:<br>
-  <%= f.text_field :email %> </div>
+  <%= f.text_field :email, :value => @est.email%> </div>
   </div>
   <div class="row">
   <div class="col-xs-5 col-sm-4"><%= f.label "Especialidad"%>:<br>
@@ -53,13 +64,14 @@
     <%= f.text_field :titulo %></div>
   </div>
   <div class="row">
-  <div class="col-xs-5 col-sm-4"><%= f.label "Dominio de ingles" %>:<br>
+  <div class="col-xs-5 col-sm-4"><%= f.label "Dominio de ingles %" %>:<br>
   <%= f.number_field :dominio_ingles %></div>
-  <div class="col-xs-5 col-sm-4"><%= f.label "Otro idioma" %>:<br>
-    <%= f.number_field :idioma_otro %></div>
+  <!-- <div class="col-xs-5 col-sm-4"><%#= f.label "Otro idioma" %>:<br>
+    <%#= f.number_field :idioma_otro %></div>-->
   <div class="col-xs-5 col-sm-4"><%= f.label "Manejo de Software" %>:<br>
     <%= f.text_field :m_software %></div>
   </div>
+   <% end %>
   <div class="actions">
      <%= f.submit :Siguiente, :class => 'btn btn-success'%>
   </div>

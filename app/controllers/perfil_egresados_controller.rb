@@ -1,5 +1,6 @@
 class PerfilEgresadosController < ApplicationController
   before_action :set_perfil_egresado, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_usuario!
 
   # GET /perfil_egresados
   # GET /perfil_egresados.json
