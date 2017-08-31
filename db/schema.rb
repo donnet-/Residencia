@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829094736) do
+ActiveRecord::Schema.define(version: 20170830181702) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -136,6 +136,8 @@ ActiveRecord::Schema.define(version: 20170829094736) do
     t.string   "status_anteproy",  limit: 255
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "revisor",          limit: 255
+    t.string   "clave",            limit: 255
   end
 
   create_table "aprendizaje_egresados", force: :cascade do |t|
@@ -192,6 +194,10 @@ ActiveRecord::Schema.define(version: 20170829094736) do
     t.string   "pdf_solicitud",            limit: 255
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "clave",                    limit: 255
+    t.string   "estado",                   limit: 255
+    t.string   "revisor",                  limit: 255
+    t.string   "asesor_externo",           limit: 255
   end
 
   create_table "cat_criterio_academias", force: :cascade do |t|

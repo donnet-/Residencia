@@ -1,3 +1,76 @@
+
+<div class="container">
+    <div>
+      <% if current_usuario.rol == 'admin' %>
+        <%= render template: "siged/menuAdmin" %>
+      <% elsif current_usuario.rol == 'docente' %>
+        <%= render template: "siged/menuDocente" %>
+      <% elsif current_usuario.rol == 'estudiante' %>
+        <%= render template: "siged/menuEstudiante" %>
+      <% end %>
+    </div>
+    
+    <h3 id="align-title">Proyecto de Residencia en Banco</h3>
+    
+    <div id="marco">
+    <div class="row">
+      <div class="col-xs-6 col-sm-2">
+        <div class="btn-group-vertical" role="group" aria-label="...">
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos Generales</button>
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Residentes</button>
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="docent">Observaciones</button>
+        </div>
+      </div>
+      
+      <div class="col-xs-6 col-sm-10">
+        <div id="proyectoG" style="display:block;">
+					<h5 id="align-title"><b>Datos generales</b></h5>
+			</div>
+					
+      <div class="row">
+        <div class="col-xs-6 col-sm-6" align="justify"><b>Nombre del proyecto: </b><%= @banco_proyecto.nombre_proyecto_b%></div>
+      </div>
+			
+			<div class="row">
+        <% @empresa = Empresa.where(:rfcEmpresa => @banco_proyecto.fk_rfc_emp_inst).first %>
+        <div class="col-xs-6 col-sm-6" align="justify"><b>Nombre de la Empresa: </b><%= @empresa.nombreE %></div>
+      </div>
+    </div>
+  </div>
+           
+  <div id="residentes" style="display:none;">
+    <div id="marco">
+      <h5 id="align-title"><b>Residentes</b></h5>
+      <% @banco_proyecto.banco_proyecto_estudiantes.each do |est| %>
+        <div class="col-xs-6 col-sm-4"><b>Número de control</b> <%= est.numControl %></div>
+        <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
+        <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+      <% end %>
+      <br/>
+    </div>
+  </div>
+  
+  <div id="docentes" style="display:none;">
+    <div id="marco">
+      <h5 id="align-title"><b>Observaciones</b></h5>
+      <% @banco_proyecto.anteproyecto_observaciones.each do |est| %>
+        <div class="col-xs-6 col-sm-4"><b>RFC del revisor:</b> <%= est.identificador %></div>
+        <% docente = Docente.find_by(rfc: est.identificador) %>
+        <% if docente == nil %>
+          <div class="col-xs-6 col-sm-6"><b>Revisor: </b>Jefatura de Vinculación y Extensión de Ing. en Sistemas y Computación</div>
+        <% else %>
+          <div class="col-xs-6 col-sm-6"><b>Nombre el revisor: </b><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></div>
+        <% end %>
+        
+        <div class="col-xs-6 col-sm-4"><b>Observación:</b> <%= est.observacion %></div>
+        <div class="col-xs-6 col-sm-4"><b>Fecha y hora:</b> <%= est.updated_at %></div>
+      <% end %>
+      <br/>
+    </div>
+    </div>
+  </div>
+</div>     
+
 <p id="notice"><%= notice %></p>
 
 <p>

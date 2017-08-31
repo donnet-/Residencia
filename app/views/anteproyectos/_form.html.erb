@@ -3,14 +3,12 @@
   <div id="align-anteproyecto.rms">
     <%= nested_form_for @anteproyecto, validate: true do |anteproyecto| %>
       <% proy_banco = BancoProyecto.order("updated_at DESC").first %>
-      <% asesor_ext = Solicitud.find_by(:rfc => proy_banco.fk_rfc_emp_inst).aexterno %>
       <% nombreE = Empresa.find_by(:rfcEmpresa => proy_banco.fk_rfc_emp_inst).nombreE %>
       
       <div id="marco">
-        <div class="row">
-          <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id,:class => 'col-xs-4 col-md-4', validate: true %>
-        </div>
-          
+        <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id,:class => 'col-xs-4 col-md-4', validate: true %>
+        <%= anteproyecto.hidden_field :clave, :value => proy_banco.clave,:class => 'col-xs-4 col-md-4', validate: true %>
+        
         <div class="row">
           <%= anteproyecto.label 'Nombre del Proyecto', :class => 'col-xs-4 col-md-3' %><br>
           <%= anteproyecto.text_field :nombre_anteproy, :value => proy_banco.nombre_proyecto_b,:class => 'col-xs-4 col-md-4', validate: true %>
@@ -23,7 +21,7 @@
           
         <div class="row">
           <%= anteproyecto.label 'Nombre del Asesor Externo', :class => 'col-xs-4 col-md-3' %><br>
-          <%= anteproyecto.text_field :asesor_externo, :value => asesor_ext, :class => 'col-xs-4 col-md-4', validate: true %>
+          <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-4 col-md-4', validate: true %>
         </div>
           
         <fieldset id="poryectoestudiante">
@@ -33,9 +31,11 @@
               <div class="row">
                 <div class="col-md-2"><%= proyes.label :Núm_de_control%></div>
                 <div class="col-md-4">
-                  <%= proyes.text_field :numControl, :placeholder => "Número de control", class: 'form-control' %></div>
-                <div class="col-xs-6 col-sm-1">
-                  <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
+                  <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
+                  <div class="col-xs-6 col-sm-2">
+                    <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
+                  </div>
+                </div>
               </div>
             <% end %>           
             <div class="row"><%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>

@@ -25,3 +25,14 @@ en:
     messages:
       less_than: Debe ser menor que %{count}
       greater_than: Debe ser mayor que %{count}
+
+en:
+  activerecord:
+    errors:
+      models:
+        banco_proyecto:
+          attributes:
+            fecha_inicio_proyecto_b:
+              invalid_date: Fecha inválida
+            fecha_termino_proyecto_b:
+              invalid_date: Fecha inválida

@@ -60,9 +60,12 @@ class SolicitudesController < ApplicationController
     
     ultima_solic = Solicitud.order("id DESC").first
     if ultima_solic != nil
-      id_nueva = (ultima_solic.id + 1).to_s
+      id_nueva = (ultima_solic.id + 1)
+      if id_nueva < 10
+        id_nueva = '0' + id_nueva.to_s
+      end
     else
-      id_nueva = 1.to_s
+      id_nueva = '01'
     end
     
     t = @solicitud.fechaini
