@@ -1,12 +1,12 @@
 <div class="container">
     <%= render template: "siged/menuAdmin" %>
 
-    <h3 id="align-title">Cátalogo de Criterios para la evaluacion del Servicio Social</h3>
+    <h3 id="align-title">Cátalogo de Criterios para la evaluacion de Residencias</h3>
     
     <div class="row">
         <div class="col-xs-6 col-sm-1">
-            <% if can? :create, CatCriterioEvalServicio %>
-                <%= button_to new_cat_criterio_eval_servicio_path, :class => "btn btn-primary", :method => :get do %>
+            <% if can? :create, CatCriterioEvalResidencia %>
+                <%= button_to new_cat_criterio_eval_residencia_path, :class => "btn btn-primary", :method => :get do %>
                      <span class="glyphicon glyphicon-plus"></span>
                 <% end %>
             <% end %>
@@ -16,14 +16,17 @@
             <table class="table table-bordered">
                 <thead>
                     <th class="info"><%= sortable "Nombre del criterio" %></th>
+                    <th class="info"><%= sortable "Valor Asignado" %></th>
+                    <th class="info"><%= sortable "Status" %></th>
                 </thead>
-                <% @cat_criterio_eval_servicios.each do |cat_criterio_eval_servicio| %>
+                <% @cat_criterio_eval_residencias.each do |residencia| %>
                     <tbody>
-                        <td class="active"><%= cat_criterio_eval_servicio.nombre_criterio %></td>
-                
+                        <td class="active"><%= residencia.criterio_eval %></td>
+                        <td class="active"><%= residencia.valor %></td>
+                        <td class="active"><%= residencia.status %></td>
                         
                         <td class="active">
-                            <%= link_to edit_cat_criterio_eval_servicio_path(cat_criterio_eval_servicio) do %>
+                            <%= link_to edit_cat_criterio_eval_residencia_path(residencia) do %>
                                 <span class="glyphicon glyphicon-pencil green"></span>
                                 <div class="tip" id="action2">Editar</div>
                                

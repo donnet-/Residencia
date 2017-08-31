@@ -123,23 +123,24 @@
         </div>
       <div class="row">
         <% if @q != nil %>
-         <% data_array_1 = [@q[0],@q[1],@q[2]] %>
+         <% data_array_1 = [@promedio] %>
          <% data_array_2 = [3.29,3.57,3.86] %>
       
          <% @barv = Gchart.bar( 
             :size => '700x400',
-            :bar_colors => ['0DBBD7', '0088FF'],
-            :title => "Grafica de Promedios por bimestre", 
+          
+            :bar_colors => ['F71414', '0EABCB'],
+            :title => "Gráfica de Promedios por bimestre", 
+              :stacked => false,
             :bg => 'EFEFEF', 
-            :stacked => true,
             :legend => ['Empresa 1', 'Empresa 2'],
             :bar_width_and_spacing => {:spacing => 100, :group_spacing => 150},
-            :data => [data_array_2,data_array_1],
+            :data => [[4.0], [3.29]],
             :legend_position => 'bottom',
             :axis_with_labels => [['x'], ['y'],['r']],                         
             :max_value => 4,
             :min_value => 0,            
-            :axis_labels => [["1° bimestre|2° bimestre|3° bimestre"],["0.00|1.00|1.50|2.50|3.50|4.0"],["|Insuficiente|Suficiente|Bueno|Notable|Excelente"]],
+            :axis_labels => [["Promedio Bimestral"],["0.00|1.00|1.50|2.50|3.50|4.0"],["|Insuficiente|Suficiente|Bueno|Notable|Excelente"]],
             )  %>
 
      

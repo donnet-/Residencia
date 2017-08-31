@@ -84,6 +84,6 @@ end
     def evaluacion_servicio_params
       params.require(:evaluacion_servicio).permit(:id_servicio_social, :num_reporte, :pdf_eval_servicio, 
                                     :fecha_registro_servicio, criterio_evaluacion_servicios_attributes:
-                                    [:id,:id_cat_criterio_eva, :calificacion_criterio, :_destroy ])      
+                                    [:id,:id_cat_criterio_eva, :califiacion_criterio, :_destroy ])      
     end
 end

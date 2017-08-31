@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829094736) do
+ActiveRecord::Schema.define(version: 20170830165605) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -200,6 +200,14 @@ ActiveRecord::Schema.define(version: 20170829094736) do
     t.string   "estado",     limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "cat_criterio_eval_residencias", force: :cascade do |t|
+    t.string   "criterio_eval", limit: 255
+    t.integer  "valor",         limit: 4
+    t.string   "status",        limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "cat_criterio_eval_servicios", force: :cascade do |t|
@@ -395,6 +403,15 @@ ActiveRecord::Schema.define(version: 20170829094736) do
   end
 
   add_index "convenio_honorarios", ["docente_id"], name: "index_convenio_honorarios_on_docente_id", using: :btree
+
+  create_table "criterio_evaluacion_residencias", force: :cascade do |t|
+    t.integer  "id_evaluacion",            limit: 4
+    t.integer  "id_cat_criterio_eva",      limit: 4
+    t.integer  "califiacion_criterio",     limit: 4
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "evaluacion_residencia_id", limit: 4
+  end
 
   create_table "criterio_evaluacion_servicios", force: :cascade do |t|
     t.integer  "id_evalucacion",         limit: 4
@@ -603,6 +620,15 @@ ActiveRecord::Schema.define(version: 20170829094736) do
   end
 
   add_index "estudiantes", ["cat_especialidad_id"], name: "index_estudiantes_on_cat_especialidad_id", using: :btree
+
+  create_table "evaluacion_residencias", force: :cascade do |t|
+    t.string   "id_residencia",  limit: 255
+    t.integer  "num_reporte",    limit: 4
+    t.date     "fecha_registro"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "pdf",            limit: 255
+  end
 
   create_table "evaluacion_servicios", force: :cascade do |t|
     t.integer  "id_servicio_social",      limit: 4
