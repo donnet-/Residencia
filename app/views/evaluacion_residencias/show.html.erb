@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Id residencia:</strong>
+  <%= @evaluacion_residencia.id_residencia %>
+</p>
+
+<p>
+  <strong>Num reporte:</strong>
+  <%= @evaluacion_residencia.num_reporte %>
+</p>
+
+<p>
+  <strong>Fecha registro:</strong>
+  <%= @evaluacion_residencia.fecha_registro %>
+</p>
+
+<%= link_to 'Edit', edit_evaluacion_residencia_path(@evaluacion_residencia) %> |
+<%= link_to 'Back', evaluacion_residencias_path %>

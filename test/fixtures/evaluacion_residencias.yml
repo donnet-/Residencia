@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id_residencia: MyString
+  num_reporte: 1
+  fecha_registro: 2017-08-30
+
+two:
+  id_residencia: MyString
+  num_reporte: 1
+  fecha_registro: 2017-08-30

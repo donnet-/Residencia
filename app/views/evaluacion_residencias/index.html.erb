@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Evaluacion Residencias</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Id residencia</th>
+      <th>Num reporte</th>
+      <th>Fecha registro</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @evaluacion_residencias.each do |evaluacion_residencia| %>
+      <tr>
+        <td><%= evaluacion_residencia.id_residencia %></td>
+        <td><%= evaluacion_residencia.num_reporte %></td>
+        <td><%= evaluacion_residencia.fecha_registro %></td>
+        <td><%= link_to 'Show', evaluacion_residencia %></td>
+        <td><%= link_to 'Edit', edit_evaluacion_residencia_path(evaluacion_residencia) %></td>
+        <td><%= link_to 'Destroy', evaluacion_residencia, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Evaluacion residencia', new_evaluacion_residencia_path %>

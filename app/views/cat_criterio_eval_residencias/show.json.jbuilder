@@ -1,0 +1,1 @@
+json.partial! "cat_criterio_eval_residencias/cat_criterio_eval_residencia", cat_criterio_eval_residencia: @cat_criterio_eval_residencia

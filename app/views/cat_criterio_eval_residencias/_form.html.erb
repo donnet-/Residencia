@@ -1,0 +1,31 @@
+<div class="container">
+    <div id="marco">
+        <%= nested_form_for  (@cat_criterio_eval_residencia), validate: true do |f| %>
+           
+            <div class="row">
+                <div class="col-xs-6 col-sm-9"><%= f.label "Nombre del Criterio:" %>
+                <%= f.text_field :criterio_eval , validate: true,style: 'width:90%;'%>
+                  </div>
+                </div>
+                 <div class="row">
+                <div class="col-xs-6 col-sm-7"><%= f.label "Nombre del Criterio:" %>
+                <%= f.number_field :valor , max: 10, min:1,validate: true,style: 'width:10%;'%>
+                  </div>
+                   <div class="col-xs-6 col-sm-7"><%= f.label "Nombre del Criterio:" %>
+                  <%= f.select :status, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, class: 'form-control', validate: true,style: 'width:20%;' %>
+                  </div>
+                </div>
+            
+            
+            
+            <div class="row id btn-cancelar">
+                <div class="col-xs-6 col-md-4" id="btn">
+                    <%= f.submit :Guardar, :class => 'btn btn-success' %>
+                </div>   
+        <% end %>
+                <div class="col-xs-6 col-md-4">
+                    <%= button_to "Cancelar", cat_criterio_eval_residencias_path, :class => 'btn btn-warning', :method => :get %>
+                </div>
+            </div>
+    </div>
+</div>

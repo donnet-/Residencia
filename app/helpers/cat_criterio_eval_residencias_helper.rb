@@ -1,0 +1,2 @@
+module CatCriterioEvalResidenciasHelper
+end

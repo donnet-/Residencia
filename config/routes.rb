@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   
 
+  resources :criterio_evaluacion_residencias
+  resources :evaluacion_residencias
+  resources :cat_criterio_eval_residencias
   resources :competencias_empresas
   resources :ubicacion_egresados_empresas
   resources :datos_generales_empresas
