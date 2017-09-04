@@ -411,12 +411,11 @@ ActiveRecord::Schema.define(version: 20170830181702) do
   add_index "convenio_honorarios", ["docente_id"], name: "index_convenio_honorarios_on_docente_id", using: :btree
 
   create_table "criterio_evaluacion_residencias", force: :cascade do |t|
-    t.integer  "id_evaluacion",            limit: 4
-    t.integer  "id_cat_criterio_eva",      limit: 4
-    t.integer  "califiacion_criterio",     limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "evaluacion_residencia_id", limit: 4
+    t.integer  "id_evaluacion",        limit: 4
+    t.integer  "id_cat_criterio_eva",  limit: 4
+    t.integer  "califiacion_criterio", limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "criterio_evaluacion_servicios", force: :cascade do |t|
