@@ -16,6 +16,11 @@
             <% if @a != nil %>
               <li><%= link_to "Datos generales", estudiante_path(@a) %></li>
               <li><a href="/servicio_sociales">Servicio social</a></li>
+              <% @residente = Estudiante.where("numControl <=", "((" + Time.current.year.to_s + " - 2006) * 100000) + 10000000") %>
+              <% if @residente != nil %>
+                <li><a href="/banco_proyectos">Banco de proyectos de residencia</a></li>
+                <li><a href="/anteproyectos">Anteproyectos</a></li>
+              <% end %>
               <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Residencia<span class="caret"></span></a>
             <ul class="dropdown-menu">

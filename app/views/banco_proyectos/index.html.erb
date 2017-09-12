@@ -1,4 +1,3 @@
-
 <div class = "container" >
 
   <% if current_usuario.rol == 'admin' %>
@@ -15,33 +14,47 @@
   <h3 id = "aling-title"> </h3>
   <h3 id="align-title">Proyectos de Residencia en Banco</h3>
   <div class = "row">
-    
     <div class="col-xs-6 col-sm-11">
-        <table class="table table-bordered">
-            <thead>
-                <th class="info"><%= sortable "Nombre del Proyecto" %></th>
-                <th class="info"><%= sortable "Nombre Empresa/Institución" %></th>
-            </thead>
-            <% @banco_proyectos.each do |banco_proyecto| %>
-                <tbody>
-                    <td class="active"><%= banco_proyecto.nombre_proyecto_b %></td>
-                    <% @empresa = Empresa.where(:rfcEmpresa =>  banco_proyecto.fk_rfc_emp_inst).first %>
-                    <td class="active"><%= @empresa.nombreE %></td>
-                    <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
-                    <td class="active">
-                        <%= link_to edit_banco_proyecto_path(banco_proyecto) do %>
-                            <span class="glyphicon glyphicon-pencil green"></span>
-                            <div class="tip" id="action2">Editar</div>
-                        <% end %>
-                        <%= link_to banco_proyecto_path(banco_proyecto), method: :delete, data: { confirm: '¿Está segur@ que desa eliminar este proyecto?' }, remote: true do %>
-                            <span class="glyphicon glyphicon-trash green"></span>
-                            <div class="tip" id="action2">Eliminar</div>
-                        <% end %>
-                    </td>
-                </tbody>
+      <table class="table table-bordered">
+        <thead>
+          <th class="info"><%= sortable "Clave" %></th>
+          <th class="info"><%= sortable "Nombre del Proyecto" %></th>
+          <th class="info"><%= sortable "Nombre Empresa/Institución" %></th>
+        </thead>
+     
+        <% @banco_proyectos.each do |banco_proyecto| %>
+          <tbody>
+            <% @anteproy = Anteproyecto.where(:clave => banco_proyecto.clave).first %>
+                    
+            <td class="active"><%= banco_proyecto.clave%></td>
+            <td class="active"><%= banco_proyecto.nombre_proyecto_b %></td>
+            <% @empresa = Empresa.where(:rfcEmpresa =>  banco_proyecto.fk_rfc_emp_inst).first %>
+            <td class="active"><%= @empresa.nombreE %></td>
+            <% if @anteproy == nil %>
+              <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
             <% end %>
-        </table>
-        <%= will_paginate @banco_proyectos %>
-      </div>
+            <td class="active">
+              <% if current_usuario.rol != "estudiante" %>
+                <%= link_to edit_banco_proyecto_path(banco_proyecto) do %>
+                    <span class="glyphicon glyphicon-pencil green"></span>
+                    <div class="tip" id="action2">Editar</div>
+                <% end %>
+                <%= link_to banco_proyecto_path(banco_proyecto), method: :delete, data: { confirm: '¿Está segur@ que desa eliminar este proyecto?' }, remote: true do %>
+                    <span class="glyphicon glyphicon-trash green"></span>
+                    <div class="tip" id="action2">Eliminar</div>
+                <% end %>
+              <% end %>
+              <% if @anteproy != nil %>
+                <%= link_to banco_proyecto_path(banco_proyecto) do %>
+                  <span class="glyphicon glyphicon-eye-open green"></span>
+                  <div class="tip" id="action1">Ver</div>
+                <% end %>
+              <% end %>
+            </td>
+          </tbody>
+        <% end %>
+      </table>
+      <%= will_paginate @banco_proyectos %>
     </div>
+  </div>
 </div>

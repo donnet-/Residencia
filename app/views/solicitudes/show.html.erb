@@ -3,6 +3,8 @@
     <%= render template: "siged/menuAdmin" %>
   <% elsif current_usuario.rol == 'empresa' %>
     <%= render template: "siged/menuEmpresa" %>
+  <% elsif current_usuario.rol == 'docente' %>
+    <%= render template: "siged/menuDocente" %>
   <% end %>
   <% breadcrumb :solicitudes, @solicitud%>
     
@@ -10,45 +12,36 @@
   <div id="marco">   
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
-      </div>
-      
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
-      </div>
-      
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
-      </div>
-      
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Nombre de la empresa: </b>
+          <div class="col-xs-6 col-sm-4"><b>Nombre de la empresa: </b>
               <% @empresa = Empresa.where(:rfcEmpresa => @solicitud.rfc).first %>
               <%= @empresa.nombreE %>
           </div>
+          <div class="col-xs-6 col-sm-3"><b>Área: </b><%= @solicitud.area %></div>
       </div>
       <div class="row">
-          <div class="col-xs-6 col-sm-4"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
+          <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
+          <div class="col-xs-6 col-sm-4"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
+      </div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
+          <div class="col-xs-6 col-sm-4"><b>Correo: </b><%= @solicitud.correo %></div>
       </div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
+          <div class="col-xs-6 col-sm-4"><b>Extensión: </b><%= @solicitud.extension %></div>
       </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Extensión: </b><%= @solicitud.extension %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Correo: </b><%= @solicitud.correo %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Área: </b><%= @solicitud.area %></div>
-      </div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Carrera: </b><%= @solicitud.carrera %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Semestre: </b><%= @solicitud.semestre %></div>
+          <div class="col-xs-6 col-sm-4"><b>Carrera: </b><%= @solicitud.carrera %></div>
+          <div class="col-xs-6 col-sm-3"><b>Semestre: </b><%= @solicitud.semestre %></div>
       </div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
@@ -56,10 +49,12 @@
     
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
+          <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
       </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
-      </div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
       </div>
@@ -69,18 +64,22 @@
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
       </div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Lugar: </b><%= @solicitud.lugar %></div>
+          <div class="col-xs-6 col-sm-4"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
+          <div class="col-xs-6 col-sm-3"><b>Lugar: </b><%= @solicitud.lugar %></div>
       </div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
       </div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
+      <div class="row"></div>
       <div class="row">
           <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
       </div>
@@ -90,10 +89,10 @@
     
     <div class="row">
       <div class="col-xs-6 col-sm-6" align="right">
-        <%= button_to edit_solicitud_path(@solicitud), :method => :get do %><span class="glyphicon glyphicon-pencil green"></span> Editar<div class="tip" id="action2">Editar</div><% end %>
+        <%= button_to edit_solicitud_path(@solicitud), :method => :get do %><span class="glyphicon glyphicon-pencil green"></span>Observaciones/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
       </div>
-      <div class="col-xs-6 col-sm-1" align="right">
-        <%= link_to "Imprimir", solicitud_url(@solicitud, :format => :pdf) %>
+      <div class="col-xs-6 col-sm-2" align="right">
+        <%= button_to solicitud_url(@solicitud, :format => :pdf), :method => :get do %><span class="glyphicon glyphicon-print green"></span>Imprimir<div class="tip" id="action2">Imprimir</div><% end %>
       </div>
     </div>
   </div>

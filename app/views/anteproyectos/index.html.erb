@@ -1,56 +1,70 @@
 
 <div class="container">
-    <div align="left">
-       <% if current_usuario.rol == 'admin' %>
-        <%= render template: "siged/menuAdmin" %>
+  <div align="left">
+    <% if current_usuario.rol == 'admin' %>
+      <%= render template: "siged/menuAdmin" %>
     <% elsif current_usuario.rol == 'docente' %>
-        <%= render template: "siged/menuDocente" %>
+      <%= render template: "siged/menuDocente" %>
+    <% elsif current_usuario.rol == 'estudiante' %>
+      <%= render template: "siged/menuEstudiante" %>
     <% end %>
     </div>
     
     <h3 id="align-title">Anteproyectos de Residencia Profesional</h3>
     
     <div class="row">
-        <div class="col-xs-6 col-sm-1">
-        </div>
-        <div class="col-xs-6 col-sm-11" align="right">
-            <%= form_tag proyectos_path, method: :get do %>
-                <%= text_field_tag :search, params[:search], placeholder: "Buscar..." %>
-				<%= select_tag :periodo, options_for_select([["FEB-JUN", "FEBRERO-JUNIO"], ["AGO-DIC", "AGOSTO-DICIEMBRE"]], params[:periodo]), include_blank: true %>
-                <%= number_field_tag :anio, params[:anio], placeholder: "año" %>
-                <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %> <span class="glyphicon glyphicon-search"></span> <% end %>
-            <% end %>
-        </div>
+      <div class="col-xs-6 col-sm-1">
+      </div>
+      <div class="col-xs-6 col-sm-11" align="right">
+        <%= form_tag proyectos_path, method: :get do %>
+          <%= text_field_tag :search, params[:search], placeholder: "Buscar..." %>
+          <%= select_tag :periodo, options_for_select([["FEB-JUN", "FEBRERO-JUNIO"], ["AGO-DIC", "AGOSTO-DICIEMBRE"]], params[:periodo]), include_blank: true %>
+          <%= number_field_tag :anio, params[:anio], placeholder: "año" %>
+          <%= button_tag(type: 'submit', class: "btn btn-default", title: "Buscar") do %> <span class="glyphicon glyphicon-search"></span> <% end %>
+        <% end %>
+      </div>
     </div>
     
     <table class="table">
-        <thead>
-            <tr>
-                <th class="info"><%= sortable "nombre_anteproy" %></th>
-                <th class="info"><%= sortable "asesor_externo" %></th>
-                <th class="info"><%= sortable "status_anteproy" %></th>
-            </tr>
-        </thead>
+      <thead>
+        <tr>
+          <th class="info"><%= sortable "clave" %></th>
+          <th class="info"><%= sortable "nombre_anteproy" %></th>
+          <th class="info"><%= sortable "asesor_externo" %></th>
+          <th class="info"><%= sortable "status_anteproy" %></th>
+        </tr>
+      </thead>
         <% @anteproyectos.each do |proy| %>
-            <% if current_usuario.rol == 'admin' %>
-                <tbody>
-                    <td class="active"><%= proy.nombre_anteproy %></td>
-                    <td class="active"><%= proy.asesor_externo %></td>
-                    <td class="active"><%= proy.status_anteproy %></td>
-                    <td class="active">
-                        <% if can? :read, proy %>
-                            <%= link_to anteproyecto_path(proy), :title => "Ver" do %>
-                                <span class="glyphicon glyphicon-eye-open blue"></span> <% end %>
-                        <% end %> 
-                        <% if can? :update, proy %>
-                            <%= link_to edit_anteproyecto_path(proy), :title => "Editar" do %><span class="glyphicon glyphicon-pencil green"></span> <% end %>
-                        <% end %>
-                    </td>
-                </tbody>
-            <% elsif current_usuario.rol == 'docente' %>
-                
-            <% end %>
+          <% if current_usuario.rol == 'docente' %>
+            <% @docente = Docente.where(:rfc => current_usuario.rfc).first %>
+            <% @puesto = Puesto.where(:docente_id => @docente.id).first %>
+          <% end %>
+          
+          <% if current_usuario.rol == 'admin' or @puesto.cat_tipo_puesto_id.to_s == '4' %>
+            <tbody>
+              <td class="active"><%= proy.clave%></td>
+              <td class="active"><%= proy.nombre_anteproy %></td>
+              <td class="active"><%= proy.asesor_externo %></td>
+              <td class="active"><%= proy.status_anteproy %></td>
+              <td class="active">
+                <%= link_to anteproyecto_path(proy), :title => "Ver" do %>
+                <span class="glyphicon glyphicon-eye-open blue"></span> <% end %>
+                <%= link_to edit_anteproyecto_path(proy), :title => "Editar" do %><span class="glyphicon glyphicon-pencil green"></span> <% end %>
+              </td>
+            </tbody>
+          
+          <% elsif current_usuario.rol == 'docente' and current_usuario.rfc == proy.revisor %>
+            <tbody>
+              <td class="active"><%= proy.clave %></td>
+              <td class="active"><%= proy.nombre_anteproy %></td>
+              <td class="active"><%= proy.asesor_externo %></td>
+              <td class="active"><%= proy.status_anteproy %></td>
+              <td class="active">
+                <%= link_to anteproyecto_path(proy), :title => "Ver" do %><span class="glyphicon glyphicon-eye-open blue"></span> <% end %>
+                <%= link_to edit_anteproyecto_path(proy), :title => "Editar" do %><span class="glyphicon glyphicon-pencil green"></span> <% end %>
+              </td>
+            </tbody>
         <% end %>
-    </table>
-    <%= will_paginate @proyectos %>
+      <% end %>
+    </table><%= will_paginate @proyectos %>
 </div>

@@ -13,11 +13,11 @@ class BancoProyecto < ActiveRecord::Base
   
   validates_date :fecha_inicio_proyecto_b, :presence => { :message => "no puede quedar en blanco" },
                 :on_or_after => lambda { Date.today },
-		:on_or_after_message => "Debe ser la fecha de hoy o posterior"
+                :on_or_after_message => "Debe ser la fecha de hoy o posterior"
   
   validates_date :fecha_termino_proyecto_b,:presence => { :message => "no puede quedar en blanco" },
                 :on_or_after => :fecha_inicio_proyecto_b,
-		:on_or_after_message => "Debe ser posterior a la fecha de inicio" 
+                :on_or_after_message => "Debe ser posterior a la fecha de inicio" 
   
   validates :num_residentes,:presence => { :message => "no puede quedar en blanco" },
                 length: { maximum: 2, message: "no debe contener más de 2 numeros" },

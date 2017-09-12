@@ -2,14 +2,16 @@ class Solicitud < ActiveRecord::Base
   has_many :solicitud_observaciones
   accepts_nested_attributes_for :solicitud_observaciones, allow_destroy: true
   
-  validates :nombrep, :presence => { :message => "No puede quedar en blanco" }
+  validates_uniqueness_of :nombrep
+  
+  validates :nombrep, :presence => { :message => "No puede quedar en blanco" }, format: {with: /\A[a-z[á,é,í,ó,ú,Á,É,Í,Ó,Ú][0-9][\.,\,,\:,\;,\-,\_,\/,\\,\(,\),\",\',\¿,\?,\¡,\!]A-Z\s]+\z/, message: "Sólo se aceptan letras, números, diagonales y signos de puntuación"}
   
   validates_date :fechaini, :presence => { :message => "No puede quedar en blanco" },
                 :on_or_after => lambda { Date.today },
                 :on_or_after_message => "Debe ser la fecha de hoy o posterior"
       
   validates_date :fechater,:presence => { :message => "No puede quedar en blanco" },
-                :on_or_after => :fecha_inicio_proyecto_b,
+                :on_or_after => :fechaini,
                 :on_or_after_message => "Debe ser posterior a la fecha de inicio" 
   
   validates :rfc, :presence => { :message => "No puede quedar en blanco" },

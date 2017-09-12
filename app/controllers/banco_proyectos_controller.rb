@@ -79,7 +79,7 @@ class BancoProyectosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def banco_proyecto_params
-      params.require(:banco_proyecto).permit(:fk_rfc_emp_inst, :nombre_proyecto_b, :descrip_proyecto_b, :tipo_proyecto_b, :tipo_proyecto_b, :fecha_inicio_proyecto_b, :fecha_termino_proyecto_b, :num_residentes, :objetivo_esperado, :pdf_solicitud)
+      params.require(:banco_proyecto).permit(:fk_rfc_emp_inst, :nombre_proyecto_b, :descrip_proyecto_b, :tipo_proyecto_b, :tipo_proyecto_b, :fecha_inicio_proyecto_b, :fecha_termino_proyecto_b, :num_residentes, :objetivo_esperado, :pdf_solicitud, :asesor_externo)
     end
     
 end
