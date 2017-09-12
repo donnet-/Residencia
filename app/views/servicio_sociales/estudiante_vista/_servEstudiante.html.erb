@@ -10,7 +10,9 @@
 	</thead>
 	<tbody>
 		<% @servicios.each do |servicio| %>
+		<%# binding.pry %>
 			<% if current_usuario.email == Estudiante.find(servicio.estudiante_id).email %>
+
         		<tr>  
 					<td class="active"><%= servicio.fechaInicio.strftime('%d-%m-%Y') %> al <%= servicio.fechaTermino.strftime('%d-%m-%Y') %></td>
 					<td class="active"><%= servicio.horas %></td>

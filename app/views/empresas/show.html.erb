@@ -44,7 +44,9 @@
             <tr>                           
                 <th class="info">Num. Control</th> 
                 <th class="info">Prestador de Servicio</th>
-
+                <th class="info">Promedio 1° Bimestre</th>
+                <th class="info">Promedio 2° Bimestre</th>
+                <th class="info">Promedio 3° Bimestre</th>
                 <th class="info">Promedio Final</th> 
                 <th class="info">Desempeño</th>
             </tr>
@@ -59,28 +61,53 @@
                 
                   <% x = EvaluacionServicio.where(id_servicio_social: s.id) %>
                 <% @q = [0,0,0] %>
-                <% @contador = 0 %> <%# criterios%>
+                 <%# criterios%>
                 <% contadorR = 0 %> <%# contador bimestres%>
                 <% x.each do |y| %>
-
+                <% @contador = 0 %>
                   <% a = y.criterio_evaluacion_servicios%>
                   <% if a != [] %>
                     <% if contadorR < 3 %>
                         <% a.each do |b| %>
                             <% @q[contadorR] = @q[contadorR]+ b.calificacion_criterio %>
                             <% @contador = @contador+1 %>                            
-                        <% end %>
+                        <% end %>                        
                       <% @q[contadorR] = @q[contadorR].to_f/@contador.to_f %> 
                       <% contadorR = contadorR+1 %>
                     <% end %>
                   <% else %>
-                    <% @q = [0,0,0] %>
+                    <% @q = [0,0,0] %>                    
                   <% end %>
-                    
+                    <%#binding.pry%>
                 <% end %>
-                            
                 <td class="active">
-                    <%= promedio = ((@q[0]+@q[1]+@q[2])/3).round(2) %>
+                    <% if @q[0]!=0%>
+                    <%= (@q[0]).round(2)%>
+                    <%else%>
+                    No existe Registro
+                    <%end %>
+                </td>
+                <td class="active"> 
+                    <% if @q[1]!=0%>
+                    <%= (@q[1]).round(2)%>
+                    <%else%>
+                    No existe Registro
+                    <%end %>
+                </td>
+                <td class="active">
+                    <% if @q[2]!=0%>
+                    <%= (@q[2]).round(2)%>
+                    <%else%>
+                    No existe Registro
+                    <%end %>
+                </td>            
+                <td class="active">
+                  <% promedio = ((@q[0]+@q[1]+@q[2])/3).round(2) %>
+                  <% if promedio !=0%>
+                  <%=promedio%>
+                  <%else%>
+                  No existe Registro
+                  <% end %>
                 </td>
                  
                   <% a=  Tablapromedio.where('valor_min <= ? and valor_max >= ?', promedio, promedio)%>
@@ -97,7 +124,7 @@
             <% end %>
         </table>
     
-        <!--<h2>Estudiantes con servicio social en el periodo <%=params[:periodo]%><%= params[:anio]%></h2>
+        <!--<h2>Estudiantes con servicio social en el periodo <#%=params[:periodo]%><#%= params[:anio]%></h2>
             <%# @servicios.each do |s| %>
                 <%#= s.estudiante.numControl%> <%#=s.estudiante.nombre%> <%#=s.estudiante.apPaterno%> <%#=s.estudiante.apMaterno%>
                 <br>-->

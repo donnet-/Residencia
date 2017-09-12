@@ -1,4 +1,16 @@
-<%= form_for(@ubicacion_egresados_empresa) do |f| %>
+
+<div class="container">
+
+
+<%= nested_form_for @ubicacion_egresados_empresa,validate: true  do |f| %>
+
+    <div class="row">
+        <% if current_usuario.rol == "estudiante" %>
+            <% @est = Estudiante.find_by(email: current_usuario.email) %>
+            <%#= servicio.hidden_field :estudiante_id, :value => @est.id %>
+        <% end %>
+    </div>  
+  <%= form_for(@ubicacion_egresados_empresa) do |f| %>
   <% if @ubicacion_egresados_empresa.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@ubicacion_egresados_empresa.errors.count, "error") %> prohibited this ubicacion_egresados_empresa from being saved:</h2>
@@ -11,55 +23,113 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :num_prof %><br>
-    <%= f.text_field :num_prof %>
-  </div>
-  <div class="field">
-    <%= f.label :cant_mando_superior %><br>
-    <%= f.number_field :cant_mando_superior %>
-  </div>
-  <div class="field">
-    <%= f.label :cant_mando_intermedio %><br>
-    <%= f.number_field :cant_mando_intermedio %>
-  </div>
-  <div class="field">
-    <%= f.label :cant_mando_tecnico %><br>
-    <%= f.number_field :cant_mando_tecnico %>
-  </div>
-  <div class="field">
-    <%= f.label :otro_esp %><br>
-    <%= f.text_field :otro_esp %>
-  </div>
-  <div class="field">
-    <%= f.label :otro_can %><br>
-    <%= f.number_field :otro_can %>
-  </div>
-  <div class="field">
-    <%= f.label :completamente %><br>
-    <%= f.number_field :completamente %>
-  </div>
-  <div class="field">
-    <%= f.label :medianamente %><br>
-    <%= f.number_field :medianamente %>
-  </div>
-  <div class="field">
-    <%= f.label :ligeramente %><br>
-    <%= f.number_field :ligeramente %>
-  </div>
-  <div class="field">
-    <%= f.label :ninguna_relacion %><br>
-    <%= f.number_field :ninguna_relacion %>
-  </div>
-  <div class="field">
-    <%= f.label :requisitos %><br>
-    <%= f.text_field :requisitos %>
-  </div>
-  <div class="field">
-    <%= f.label :carreras_demandan %><br>
-    <%= f.text_field :carreras_demandan %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+ <div id="marco">
+ <div class="container">
+ <div class="row">
+   <span class="label label-warning" style="font-size: 20px; color: #000" >II. B. Ubicación laboral de los egresados en Ingeniería en Sistemas Computacionales del Instituto Tecnológico de Oaxaca</span>
+ </div>
+   <p class="text-danger">*Campos obligatorios</p>
+
+   <div class="row">
+     <P ALIGN="justify" style="font-size: 18px;"><b>Dirección</b></P></br>
+        <div class="col-xs-6 col-sm-8">
+          <%= f.label "Número de profesionistas con nivel de licenciatura que laboran en la empresa u organismo " %>         
+        <br>
+        <%= f.radio_button :num_prof, '1'%>
+        <%= f.label :num_prof, '1', :value => '1' %><br>
+        <%= f.radio_button :num_prof, '2 a 5'%>
+        <%= f.label :num_prof, '2 a 5', :value => '2 a 5' %><br>
+        <%= f.radio_button :num_prof, '6 a 8'%>
+        <%= f.label :num_prof, '6 a 8', :value => '6 a 8' %><br>
+        <%= f.radio_button :num_prof, '9 a 10'%>
+        <%= f.label :num_prof, '9 a 10', :value => '9 a 10' %><br>
+        <%= f.radio_button :num_prof, 'mas de 10'%>
+        <%= f.label :num_prof, 'mas de 10', :value => 'mas de 10' %><br>
+        </div>
+   </div>
+
+   <div class="row">
+        <br><P ALIGN="justify" style="font-size: 18px;"><b>II.I  Número de ingenieros en Sistemas Computacionales, egresados del Instituto Tecnológico y nivel jerárquico que ocupan <br> en su organización.</b></br></P>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Mando superior (cantidad de egresados)" %></br>
+          <%= f.number_field :cant_mando_superior, min: 0%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Mando intermedio (cantidad de egresados)" %></br>
+           <%= f.number_field :cant_mando_intermedio, min:0 %>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+         <%= f.label "Supervisor o equivalente (cantidad de egresados)" %></br>
+         <%= f.number_field :cant_mando_intermedio, min:0%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Técnico o auxiliar (cantidad de egresados)" %></br>
+          <%= f.number_field :cant_mando_tecnico, min:0 %>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Otro (especifique y cantidad de egresados): " %></br>
+          <%= f.text_field :otro_esp, min:0 %>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.number_field :otro_can %>
+        </div>
+   </div>
+
+   <div class="row">
+   <br>
+      <P ALIGN="justify" style="font-size: 18px;"><b>II.II Congruencia entre perfil profesional y función que desarrollan los egresados del Instituto Tecnológico en su empresa u <br>organización. Del total de egresados anote el porcentaje que corresponda</b></br></P>
+
+      <div class="col-xs-6 col-sm-3">
+          <%= f.label "Completamente (%)" %></br>
+          <%= f.number_field :completamente, min:0, max:100 %>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+          <%= f.label "Medianamente (%)" %></br>
+          <%= f.number_field :medianamente, min:0, max:100 %>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+          <%= f.label "Ligeramente (%)" %></br>
+          <%= f.number_field :ligeramente, min:0, max:100 %>
+      </div>
+      <div class="col-xs-6 col-sm-3">
+          <%= f.label "Ninguna relación (%)" %></br>
+          <%= f.number_field :ninguna_relacion, min:0, max:100 %>
+      </div>
+
+   </div>
+   <div class="row">
+   <br>
+      <P ALIGN="justify" style="font-size: 18px;"><b>II.III Requisitos que establece su empresa u organización para la contratación de personal con nivel de licenciatura.</b></br></P>
+
+      <div class="col-xs-6 col-sm-3">
+          <%= f.label "Requisitos" %></br>
+          <%= f.text_field :requisitos , min:0, max:100 %>
+      </div>
+   </div>
+
+   <div class="row">
+   <br>
+      <P ALIGN="justify" style="font-size: 18px;"><b>II.IV Carreras que demanda preferentemente su empresa u organismo.</b></br></P>
+
+      <div class="col-xs-6 col-sm-3">
+          <%= f.label "Carreras que demandan " %></br>
+          <%= f.number_field :carreras_demandan  , min:0, max:100 %>
+      </div>
+   </div>
+   
+
+
+    <div class="actions">
+     <%= f.submit :Siguiente, :class => 'btn btn-success'%>
+    </div> 
+    <% end %>
+
+ </div>
+ <%end%>
+ </div> 

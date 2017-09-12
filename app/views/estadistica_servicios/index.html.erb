@@ -8,13 +8,7 @@
 
     <h3 id="align-title">Estadísticas de Valoración del Servicio Social</h3>
     <div class="row">
-        <div class="col-md-7">
-             <% if can? :create, EstadisticaServicio %>
-                <%= button_to new_estadistica_servicio_path, :class => "btn btn-primary", title: "Nuevo periodo", :method => :get do %>
-                    <span class="glyphicon glyphicon-plus"></span>
-                <% end %>
-             <% end %>
-        </div>
+        
         <%= form_tag estadistica_servicios_path, :method => 'get' do %>
         <div class="col-md-2">
           <%= select_tag :periodo, options_for_select([["",""],["FEB-JUN", "FEB-JUN/"], ["AGOS-DIC", "AGOS-DIC/"]], params[:periodo]), class: "form-control" %>
@@ -44,11 +38,13 @@
         <% @nombres = "" %>       
         <% @contador2 = 0 %>        
         <% @q = [0,0,0] %>
-       <% @servicios.each do |s| %> 
+        <% cont = 0 %>
+       <% @servicios.each do |s| %>  
+       <% cont = cont + 1%>            
         <% if @servicios != [] %> 
           <% if @nombres == ""%>
               <% @nombres = s.nombreE %>
-          <% elsif @nombres != s.nombreE %>            
+          <% elsif @nombres != s.nombreE  %>  
             <tbody>
               <%if @contadorR != 0 %>
                 <% @contador2 = @contador2/3 %>
@@ -95,8 +91,8 @@
               <% @contador2 = 0 %>
               <% @nombres = s.nombreE %>
               <% @q = [0,0,0] %>
-            </td>
-          <% else %>             
+            </td>  
+            </tbody>        
           <% end %>
           <% x = EvaluacionServicio.where(id_servicio_social: s.id) %>                                
                 <% contadorR = 0 %> <%# contador bimestres%>
@@ -105,17 +101,70 @@
                   <% if a != [] %>
                     <% if contadorR < 3 %>
                         <% a.each do |b| %>                        
-                            <% @q[contadorR] = @q[contadorR]+ b.calificacion_criterio %>
+                            <% @q[contadorR] = @q[contadorR] + b.calificacion_criterio %>
                             <% @contador2 = @contador2 + 1 %> 
                         <% end %>
-                        <% contadorR = contadorR+1 %> 
-                        
+                        <% contadorR = contadorR+1 %>                         
                     <% end %>
 
                   <% end %>
                   <%# @contador2 = @contador2 + 1 %> 
                 <% end %>
-                       
+          <% end %>
+          
+          <% if cont == @servicios.count %> 
+              <%if @contadorR != 0 %>
+                <% @contador2 = @contador2/3 %>
+              <% end %>
+              <td class="active"><%= @nombres %></td>
+              <td class="active">
+                <% if  @q[0] !=0 %>
+                  <%= promedio = (@q[0].to_f / @contador2.to_f).round(2) %>              
+                <% else %>
+                  <%= promedio = 0 %>
+                  <% end %>
+              </td>
+              <td class="active">
+                <% if @q[1] != 0 %>
+                  <%= ((@q[1].to_f / @contador2.to_f)).round(2) %> 
+                  <% promedio =promedio + (@q[1].to_f / @contador2.to_f) %>                
+                <% else %>
+                  No hay Registros
+                <% end %>
+
+              </td>
+              <td class="active">
+                <% if @q[2] != 0 %>
+                  <%= ((@q[2].to_f / @contador2.to_f)).round(2) %> 
+                  <% promedio =promedio +(@q[2].to_f / @contador2.to_f) %>                
+                <% else %>
+                 No hay Registros
+                <% end %>
+              </td>
+              <td class="active">
+                
+                <% if promedio != 0 %>
+                <%= promedio = (promedio.to_f/3).round(2) %>
+                <%else%>
+                   No hay Registros
+                <%end%>
+              </td>
+              <% a=  Tablapromedio.where('valor_min <= ? and valor_max >= ?', promedio, promedio)%>
+              <%# sería algo así creo%>                
+              <% e = Empresa.find_by(nombreE: @nombres) %>
+              <td class="active"><%= link_to "ver", empresa_path(e.id, periodo: params[:periodo], anio: params[:anio] )%></td>
+              <td class="active">
+              <%# binding.pry %>
+              <% if a[0].nivel_desem !='Insuficiente'%>
+                Competencia alcanzada
+              <% else %>
+                Competencia <STRONG>NO</STRONG> alcanzada
+              <% end%>
+              <% @contador2 = 0 %>
+              <% @nombres = s.nombreE %>
+              <% @q = [0,0,0] %>
+            </td>  
+            </tbody>
           <% end %>
 
       <% end %>
@@ -127,15 +176,14 @@
          <% data_array_2 = [3.29,3.57,3.86] %>
       
          <% @barv = Gchart.bar( 
+            :stacking =>true,
             :size => '700x400',
-          
             :bar_colors => ['F71414', '0EABCB'],
             :title => "Gráfica de Promedios por bimestre", 
-              :stacked => false,
             :bg => 'EFEFEF', 
             :legend => ['Empresa 1', 'Empresa 2'],
             :bar_width_and_spacing => {:spacing => 100, :group_spacing => 150},
-            :data => [[4.0], [3.29]],
+            :data => [[3.29],[4.0]],
             :legend_position => 'bottom',
             :axis_with_labels => [['x'], ['y'],['r']],                         
             :max_value => 4,

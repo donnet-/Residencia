@@ -36,6 +36,7 @@ gem 'puma'
 gem 'axlsx', '~> 2.0.1'
 gem "axlsx_rails"
 gem 'googlecharts'
+gem "chartkick"
 gem 'bootstrap-chosen-rails'
 gem 'ckeditor'
 gem'delayed_job_active_record', '4.0.3'

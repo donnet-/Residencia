@@ -1,69 +1,129 @@
-<%= form_for(@datos_generales_empresa) do |f| %>
+
+<div class="container">
+
+
+<%= nested_form_for @datos_generales_empresa,validate: true  do |f| %>
+
+    <div class="row">
+        <% if current_usuario.rol == "estudiante" %>
+            <% @est = Estudiante.find_by(email: current_usuario.email) %>
+            <%#= servicio.hidden_field :estudiante_id, :value => @est.id %>
+        <% end %>
+    </div>  
   <% if @datos_generales_empresa.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@datos_generales_empresa.errors.count, "error") %> prohibited this datos_generales_empresa from being saved:</h2>
+      <h2><%= pluralize(@perfil_egresado.errors.count, "error") %> prohibited this perfil_egresado from being saved:</h2>
 
       <ul>
-      <% @datos_generales_empresa.errors.full_messages.each do |message| %>
+      <% @datos_generales_empresas.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nombre_empresa %><br>
-    <%= f.text_field :nombre_empresa %>
-  </div>
-  <div class="field">
-    <%= f.label :calle %><br>
-    <%= f.text_field :calle %>
-  </div>
-  <div class="field">
-    <%= f.label :numero %><br>
-    <%= f.number_field :numero %>
-  </div>
-  <div class="field">
-    <%= f.label :colonia %><br>
-    <%= f.text_field :colonia %>
-  </div>
-  <div class="field">
-    <%= f.label :cp %><br>
-    <%= f.number_field :cp %>
-  </div>
-  <div class="field">
-    <%= f.label :ciudad %><br>
-    <%= f.text_field :ciudad %>
-  </div>
-  <div class="field">
-    <%= f.label :estado %><br>
-    <%= f.text_field :estado %>
-  </div>
-  <div class="field">
-    <%= f.label :municipio %><br>
-    <%= f.text_field :municipio %>
-  </div>
-  <div class="field">
-    <%= f.label :telefono %><br>
-    <%= f.text_field :telefono %>
-  </div>
-  <div class="field">
-    <%= f.label :correo %><br>
-    <%= f.text_field :correo %>
-  </div>
-  <div class="field">
-    <%= f.label :tipo_empresa %><br>
-    <%= f.text_field :tipo_empresa %>
-  </div>
-  <div class="field">
-    <%= f.label :tam_empresa %><br>
-    <%= f.text_field :tam_empresa %>
-  </div>
-  <div class="field">
-    <%= f.label :actividad_economica %><br>
-    <%= f.text_field :actividad_economica %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+ <div id="marco">
+ <div class="container">
+ <div class="row">
+   <span class="label label-warning" style="font-size: 20px; color: #000" >I. Datos generales de la empresa u organismo</span>
+ </div>
+   <p class="text-danger">*Campos obligatorios</p>
+
+   <div class="row">
+     <% if current_usuario.rol == "estudiante" %>
+            <% @est = Estudiante.find_by(email: current_usuario.email) %>
+      <div class="col-xs-5 col-sm-4">*<%= f.label "Nombre comercial de la empresa: "%>
+       <%= f.text_field :nombre_empresa, :readonly => true%></br>
+      </div>
+      <% end %>       
+   </div>
+
+   <div class="row">
+     <P ALIGN="justify" style="font-size: 18px;"><b>Dirección</b></P></br>
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Calle: " %></br>
+          <%= f.text_field :calle%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Número: " %></br>
+          <%= f.text_field :numero%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Colonia: " %></br>
+          <%= f.text_field :colonia%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+         <%= f.label "Codigo Postal " %></br>
+         <%= f.number_field :cp%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Ciudad: " %></br>
+          <%= f.text_field :ciudad%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Estado: " %></br>
+          <%= f.text_field :estado%>
+        </div>
+
+        <div class="col-xs-6 col-sm-3">
+          <%= f.label "Municipio: " %></br>
+          <%= f.text_field :municipio%>
+        </div>
+   </div>
+
+   <div class="row">
+      <P ALIGN="justify" style="font-size: 18px;"><b>Contacto</b></br></P>
+      <div class="col-xs-5 col-sm-4">
+        <%= f.label "Telefono"%><br>
+        <%= f.text_field :telefono, type: "number",class: 'form-control',placeholder: 'xxx-xxx-xxxx'%>
+      </div>
+      <div class="col-xs-5 col-sm-4">
+        <%= f.label "E-mail" %><br>
+        <%= f.text_field :correo,class: 'form-control',placeholder: 'nombre@email.com' %>
+      </div>
+   </div>
+
+   <div class="row">
+     <P ALIGN="justify" style="font-size: 18px;"><b>Tipo de empresa</b></br></P>
+     <div class="col-xs-5 col-sm-4">
+        <%= f.label "Su empresa u organismo es:"%>
+        <br>
+        <%= f.radio_button :tipo_empresa, 'Pública'%>
+        <%= f.label :tipo_empresa, 'Pública', :value => 'Pública' %><br>
+        <%= f.radio_button :tipo_empresa, 'Privada'%>
+        <%= f.label :tipo_empresa, 'Privada', :value => 'Privada' %><br>
+        <%= f.radio_button :tipo_empresa, 'Social'%>
+        <%= f.label :tipo_empresa, 'Social', :value => 'Social' %><br>
+     </div>
+
+     <div class="col-xs-5 col-sm-4">
+        <%= f.label "Tamaño de la empresa u organismo" %><br>
+        <%= f.radio_button :tam_empresa, 'Microempresa (De 1 a 30)'%>
+        <%= f.label :tam_empresa, 'Microempresa (De 1 a 30)', :value => 'Microempresa (De 1 a 30)' %><br>
+        <%= f.radio_button :tam_empresa, 'Pequeña (De 31 a 100)'%>
+        <%= f.label :tam_empresa, 'Pequeña (De 31 a 100)', :value => 'Pequeña (De 31 a 100)' %><br>
+        <%= f.radio_button :tam_empresa, 'Mediana (De 101 a 500)'%>
+        <%= f.label :tam_empresa, 'Mediana (De 101 a 500)', :value => 'Mediana (De 101 a 500)' %><br>
+        <%= f.radio_button :tam_empresa, 'Mediana (De 101 a 500)'%>
+        <%= f.label :tam_empresa, 'Mediana (De 101 a 500)', :value => 'Mediana (De 101 a 500)' %><br>
+     </div>
+
+    <div class="col-xs-5 col-sm-4">
+        <%= f.label "Actividad económica de la empresa u organismo, Indique a cual clasificación corresponde su empresa" %><br>
+        <%= f.text_field :actividad_economica %>
+    </div>
+   </div>
+
+
+    <div class="actions">
+     <%= f.submit :Siguiente, :class => 'btn btn-success'%>
+    </div> 
+    <% end %>
+
+ </div>
+ </div> 
