@@ -134,6 +134,7 @@ class Ability
 					elsif @tipoP.nombrePuesto == 'Jefe de la Oficina de Vinculación de Sistemas'
 					   can [:create, :read, :update], Proyecto
 					   can [:creaste, :read, :update], Empresa
+             can [:create, :read, :update, :import, :destroy], CatDocumento
 					 end
             	end
 		   end

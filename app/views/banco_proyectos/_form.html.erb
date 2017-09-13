@@ -10,8 +10,8 @@
         <%= banco_proyecto.text_field :fk_rfc_emp_inst, :value => nombreE,:class => 'col-xs-4 col-md-5', validate: true, :readonly => true %>
       </div>
       
-      <%= banco_proyecto.hidden_field :fk_rfc_emp_inst, :value => solicitud.rfc,:class => 'col-xs-4 col-md-5', validate: true %>
       <%= banco_proyecto.hidden_field :clave, :value => solicitud.clave_solicitud,:class => 'col-xs-4 col-md-5', validate: true %>
+      <%= banco_proyecto.hidden_field :fk_rfc_emp_inst, :value => solicitud.rfc,:class => 'col-xs-4 col-md-5', validate: true %>
       <%= banco_proyecto.hidden_field :tipo_proyecto_b, :value => "Residencia",:class => 'col-xs-4 col-md-5', validate: true %>
       <%= banco_proyecto.hidden_field :asesor_externo, :value => solicitud.aexterno,:class => 'col-xs-4 col-md-5', validate: true %>
       

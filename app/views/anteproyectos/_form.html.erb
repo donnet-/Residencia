@@ -11,17 +11,17 @@
         
         <div class="row">
           <%= anteproyecto.label 'Nombre del Proyecto', :class => 'col-xs-4 col-md-3' %><br>
-          <%= anteproyecto.text_field :nombre_anteproy, :value => proy_banco.nombre_proyecto_b,:class => 'col-xs-4 col-md-4', validate: true %>
+          <%= anteproyecto.text_field :nombre_anteproy, :value => proy_banco.nombre_proyecto_b,:class => 'col-xs-4 col-md-4', validate: true, :readonly => true %>
         </div>
           
         <div class="row">
           <%= anteproyecto.label 'Nombre de la Empresa', :class => 'col-xs-4 col-md-3' %><br>
-          <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-4 col-md-4', validate: true %>
+          <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-4 col-md-4', validate: true, :readonly => true %>
         </div>
           
         <div class="row">
           <%= anteproyecto.label 'Nombre del Asesor Externo', :class => 'col-xs-4 col-md-3' %><br>
-          <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-4 col-md-4', validate: true %>
+          <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-4 col-md-4', validate: true, :readonly => true %>
         </div>
           
         <fieldset id="poryectoestudiante">
@@ -30,11 +30,9 @@
             <%= anteproyecto.fields_for :anteproyecto_estudiantes, validate: true do |proyes| %>
               <div class="row">
                 <div class="col-md-2"><%= proyes.label :Núm_de_control%></div>
-                <div class="col-md-4">
-                  <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
+                  <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
                   <div class="col-xs-6 col-sm-2">
                     <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
-                  </div>
                 </div>
               </div>
             <% end %>           

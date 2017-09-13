@@ -29,6 +29,7 @@ class AnteproyectosController < ApplicationController
 
   # GET /anteproyectos/1/edit
   def edit
+    @anteproyecto= Anteproyecto.find(params[:id])
   end
 
   # POST /anteproyectos

@@ -1,0 +1,17 @@
+
+<style type="text/css">
+	.button{
+		text-align: left;
+	}
+</style>
+<div class="container">
+  <div class="col-xs-6">	
+    <% @empresa = Empresa.find_by(email: current_usuario.email) %>
+    <% if @empresa.pdfConvenio.file == nil %>
+      <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">No se encuentra registrado su convenio.</button>
+      <div class="panel" id="1">
+        Acuda con el administrador del sistema para completar su registro.
+      </div>
+    <% end %>
+  </div>
+</div>

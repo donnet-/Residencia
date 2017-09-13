@@ -41,15 +41,140 @@ RSpec.describe Solicitud, type: :model do
       expect(solicitud).to be_valid
     end
     
-    xit 'is valid if belongs to :empresa' do
+    it 'is valid if belongs to :empresa' do
       relacion = Solicitud.reflect_on_association(:empresa)
       expect(relacion.macro).to be(:belongs_to)
     end
     
-    xit 'is valid if has many :anteproyectos' do
+    it 'is valid if has many :banco_proyectos' do
       relacion = Solicitud.reflect_on_association(:banco_proyectos)
       expect(relacion.macro).to be(:has_many)
     end
     
+    it 'is valid if has many :solicitud_observaciones' do
+      relacion = Solicitud.reflect_on_association(:solicitud_observaciones)
+      expect(relacion.macro).to be(:has_many)
+    end
+    
     # -------------------------------------------------------------
+    
+    describe '#nombre del proyecto' do
+      context 'with valid data' do
+        it 'accepts nombrep (con letras)' do
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+        
+        it 'accepts nombrep (con una letra y un número)' do
+          @attributes.merge!(nombrep: 'a1')
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+        
+        it 'accepts nombrep (con una letra y diagonales [\ /])' do
+          @attributes.merge!(nombrep: 'a\\/')
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+        
+        it 'accepts nombrep (con una letra y signos de puntuación [. , ; : ¿ ? - _ \' " ¡! ()])' do
+          @attributes.merge!(nombrep: 'a.,;:¿?-_\'"¡!()')
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+        
+        it 'accepts nombrep (con 255 caracteres admitidos)' do
+          @attributes.merge!(nombrep: 'a' * 255)
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+      end # valid nombrep
+      
+      context 'with invalid data' do
+        it 'refuses nombrep (vacío)' do
+          @attributes.merge!(nombrep: '')
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+        
+        it 'refuses nombrep (sin letra como caracter inicial)' do
+          @attributes.merge!(nombrep: '1.')
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+        
+        it 'refuses nombrep (con caracteres no admitidos)' do
+          @attributes.merge!(nombrep: '#$%&')
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+        
+        it 'refuses nombrep (con más de 255 caracteres admitidos)' do
+          @attributes.merge!(nombrep: 'a' * 256)
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+        
+        it 'refuses nombrep (si el nombre de proyecto ya había sido registrado)' do
+          @attributes.merge!(nombrep: 'a')
+          solicitud = Solicitud.new @attributes
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+      end # invalid nombrep
+    end # nombrep description
+    
+    # -------------------------------------------------------------
+    
+    describe '#fecha de inicio' do
+      context 'with valid data' do
+        it 'accepts fechaini (en blanco)' do
+          @attributes.merge!(fechaini: "")
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+        
+        it 'accepts fechaini (con la fecha de hoy)' do
+          @attributes.merge!(fechaini: Date.today.strftime('%d/%m/%Y'))
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+      end # valid fechaini
+      
+      context 'with invalid data' do
+        it 'refuses fechaini (anterior a la fecha de hoy)' do
+          @attributes.merge!(fechaini: Date.yesterday.strftime('%d/%m/%Y'))
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+      end # invalid fechaini
+    end # fechaini description
+    
+    # -------------------------------------------------------------
+    
+    describe '#fecha de termino' do
+      context 'with valid data' do
+        it 'accepts termino (en blanco)' do
+          @attributes.merge!(fechater: "")
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+        
+        it 'accepts fechater (con fecha de 4 meses a partir de fechaini)' do
+          @attributes.merge!(fechaini: Date.today.strftime('%d/%m/%Y'))
+          @attributes.merge!(fechater: 4.months.from_now.strftime('%d/%m/%Y'))
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_valid
+        end
+      end # valid fechater
+      
+      context 'with invalid data' do
+        it 'accepts fechater (con fecha anterior a 4 meses a partir de fechaini)' do
+          @attributes.merge!(fechaini: Date.today.strftime('%d/%m/%Y'))
+          @attributes.merge!(fechater: 110.days.from_now.strftime('%d/%m/%Y'))
+          solicitud = Solicitud.new @attributes
+          expect(solicitud).to be_invalid
+        end
+      end # invalid fechater
+    end # fechater description
 end

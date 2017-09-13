@@ -79,8 +79,17 @@ class SolicitudesController < ApplicationController
       @solicitud.clave_solicitud = 'AGDI' + @anio.to_s + id_nueva
     end
     
-    @solicitud.save
-    redirect_to @solicitud 
+    respond_to do |format|
+      if @solicitud.save
+        format.html { redirect_to solicitudes_path, notice: 'La solicitud fue satisfactoriamente almacenada.' }
+        format.json { render :show, status: :created, location: @solicitud }
+      else
+        format.html { render :new }
+        format.json { render json: @solicitud.errors, status: :unprocessable_entity }
+      end
+    end
+    #@solicitud.save
+    #redirect_to @solicitud 
   end
   
   private

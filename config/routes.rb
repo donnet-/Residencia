@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
   
 
+  resources :banco_proyecto_estudiantes
+  resources :banco_proyecto_estudiantes
+  resources :expedientes
+  resources :cat_documentos
+  resources :documentos
   resources :criterio_evaluacion_residencias
   resources :evaluacion_residencias
   resources :cat_criterio_eval_residencias

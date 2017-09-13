@@ -49,6 +49,8 @@
 			  <%= render "siged/notificaciones" %>          
 			<% elsif current_usuario.rol == "docente" %>        
 			  <%= render "siged/notificacionesDocente" %>
+			<% elsif current_usuario.rol == "empresa" %>        
+			  <%= render "siged/notificacionesEmpresa" %>
 			<% end %>
 		  <% end %>
 		<% end %>

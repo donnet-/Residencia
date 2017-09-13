@@ -1,11 +1,7 @@
 <div class="container">
-  <% if current_usuario.rol == 'admin' %>
-      <%= render template: "siged/menuAdmin" %>
-  <% elsif current_usuario.rol == 'docente' %>
-      <%= render template: "siged/menuDocente" %>    
-  <% elsif current_usuario.rol == 'empresa' %>
-      <%= render template: "siged/menuEmpresa" %>
-  <% end %>
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
   <% breadcrumb :solicitud_edit, @solicitud %>
   
   <% if current_usuario.rol == "docente" %>
@@ -15,84 +11,90 @@
   <% end %>
  
   <div id="marco">
-    <%= nested_form_for @solicitud, validate: true do |solicitud| %>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
-          <div class="col-xs-6 col-sm-4"><b>Nombre de la empresa: </b>
+      <%= nested_form_for @solicitud, validate: true do |solicitud| %>
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
+            <div class="col-xs-6 col-sm-4"><b>Nombre de la empresa: </b>
               <% @empresa = Empresa.where(:rfcEmpresa => @solicitud.rfc).first %>
               <%= @empresa.nombreE %>
+            </div>
+            <div class="col-xs-6 col-sm-3"><b>Área: </b><%= @solicitud.area %></div>
           </div>
-          <div class="col-xs-6 col-sm-3"><b>Área: </b><%= @solicitud.area %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
-          <div class="col-xs-6 col-sm-4"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
-          <div class="col-xs-6 col-sm-4"><b>Correo: </b><%= @solicitud.correo %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
-          <div class="col-xs-6 col-sm-4"><b>Extensión: </b><%= @solicitud.extension %></div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
-          <div class="col-xs-6 col-sm-4"><b>Carrera: </b><%= @solicitud.carrera %></div>
-          <div class="col-xs-6 col-sm-3"><b>Semestre: </b><%= @solicitud.semestre %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
-      </div>
-    
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
-          <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
-          <div class="col-xs-6 col-sm-4"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
-          <div class="col-xs-6 col-sm-3"><b>Lugar: </b><%= @solicitud.lugar %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
-      </div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row"></div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Estado (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
-      </div>
-    
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
+            <div class="col-xs-6 col-sm-4"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
+          </div>
+        </div>
+        
+        </br>
+        
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
+            <div class="col-xs-6 col-sm-4"><b>Correo: </b><%= @solicitud.correo %></div>
+          </div>
+          <div class="row">
+              <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
+              <div class="col-xs-6 col-sm-4"><b>Extensión: </b><%= @solicitud.extension %></div>
+          </div>
+        </div>
+        
+        </br>
+        
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
+            <div class="col-xs-6 col-sm-4"><b>Carrera: </b><%= @solicitud.carrera %></div>
+            <div class="col-xs-6 col-sm-3"><b>Semestre: </b><%= @solicitud.semestre %></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
+          </div>
+        
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
+            <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
+          </div>
+        </div>
+        
+        </br>
+
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-6 col-sm-12" align="justify"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-12" align="justify"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-12" align="justify"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
+          </div>
+        </div>
+        
+        </br>
+        
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
+            <div class="col-xs-6 col-sm-4"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
+            <div class="col-xs-6 col-sm-3"><b>Lugar: </b><%= @solicitud.lugar %></div>
+          </div>
+          <div class="row">
+              <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
+          </div>
+        </br>
+        
+        </div>
+
+        <div id="marco">
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-5"><b>Estado (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
+          </div>
+        </div>
       
         <fieldset id="poryectoestudiante">
           <div id="marco">
@@ -108,28 +110,26 @@
             <div class="row"><%= solicitud.link_to_add :solicitud_observaciones, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
           </div>
         </fieldset>
-        
-      <div id="marco">
-        <div class="row">
           
-          <% if current_usuario.rol == "docente" %>
-            <%= solicitud.label :estado, "Estado", class: 'col-md-6' %>
-            <div class="col-md-10">
-            <%= solicitud.select :estado, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @solicitud.estado), class: 'form-control', validate: true %></div>
-          <% end %>
+        <div id="marco">
+          <div class="row">
+            
+            <% if current_usuario.rol == "docente" %>
+              <%= solicitud.label :estado, "Estado", class: 'col-md-6' %>
+              <div class="col-md-10">
+              <%= solicitud.select :estado, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @solicitud.estado), class: 'form-control', validate: true %></div>
+            <% end %>
+          </div>
         </div>
-      </div>
-        
-      <div class="row" id="btn-guardar">
-        <div class="col-xs-6 col-md-6" id="btn">
-          <%= solicitud.submit :Guardar, :class => 'btn btn-success' %>
-        </div>   
-      </div>
-      <div class="row" id="btn-cancelar">
-        <div class="col-xs-6 col-md-6" id="btn">
-          <%= button_to "Cancelar", solicitudes_path, :class => 'btn btn-warning', :method => :get %>
+          
+        <div class="row" id="btn-guardar">
+          <div class="col-xs-6 col-md-6" id="btn">
+            <%= solicitud.submit :Guardar, :class => 'btn btn-success' %>
+          </div>   
+      <% end %>
+          <div class="col-xs-6 col-md-6" id="btn">
+            <%= button_to "Cancelar", solicitudes_path, :class => 'btn btn-warning', :method => :get %>
+          </div>
         </div>
-      </div>
-    <% end %>
   </div>
 </div>

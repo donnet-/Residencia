@@ -1,0 +1,57 @@
+<div class="container">
+  <div id="align-forms">
+    <%= nested_form_for @banco_proyecto, validate: true do |banco_proyecto| %>
+      <% solicitud = Solicitud.order("updated_at DESC").first %>
+      
+      <div id="marco">
+      <div class="row">
+        <%= banco_proyecto.label "Nombre de la Empresa/Institución", :class => 'col-xs-4 col-md-3' %>
+        <% nombreE = Empresa.find_by(:rfcEmpresa => solicitud.rfc).nombreE %>
+        <%= banco_proyecto.text_field :fk_rfc_emp_inst, :value => nombreE,:class => 'col-xs-4 col-md-5', validate: true, :readonly => true %>
+      </div>
+      
+      <%= banco_proyecto.hidden_field :fk_rfc_emp_inst, :value => solicitud.rfc,:class => 'col-xs-4 col-md-5', validate: true %>
+      <%= banco_proyecto.hidden_field :clave, :value => solicitud.clave_solicitud,:class => 'col-xs-4 col-md-5', validate: true %>
+      <%= banco_proyecto.hidden_field :tipo_proyecto_b, :value => "Residencia",:class => 'col-xs-4 col-md-5', validate: true %>
+      <%= banco_proyecto.hidden_field :asesor_externo, :value => solicitud.aexterno,:class => 'col-xs-4 col-md-5', validate: true %>
+      
+      <div class="row">
+        <%= banco_proyecto.label "Nombre del Proyecto", :class => 'col-xs-4 col-md-3' %>
+        <%= banco_proyecto.text_field :nombre_proyecto_b, :value => solicitud.nombrep ,:class => 'col-xs-4 col-md-5', validate: true %>
+      </div>
+      
+      <div class="row">
+        <%= banco_proyecto.label "Descripción del Proyecto", :class => 'col-xs-4 col-md-3' %>
+        <%= banco_proyecto.text_field :descrip_proyecto_b, :value => solicitud.desproyecto, :class => 'col-xs-4 col-md-5', validate: true %>
+      </div>
+      
+      
+      <div class="row">
+        <%= banco_proyecto.label "Fecha de Inicio", :class => 'col-xs-4 col-md-3' %>
+        <%= banco_proyecto.text_field :fecha_inicio_proyecto_b, :value => solicitud.fechaini.strftime("%d/%m/%Y"), 'data-behaviour' => 'datepicker', validate: true, :size => 49 %>
+      </div>
+  
+      <div class="row">
+        <%= banco_proyecto.label "Fecha de Término", :class => 'col-xs-4 col-md-3' %>
+        <%= banco_proyecto.text_field :fecha_termino_proyecto_b, :value => solicitud.fechater.strftime("%d/%m/%Y"), 'data-behaviour' => 'datepicker', validate: true, :size => 49 %>
+      </div>
+      
+      <div class="row">
+        <%= banco_proyecto.label "Número de Residentes", :class => 'col-xs-4 col-md-3' %>
+        <%= banco_proyecto.text_field :num_residentes, :value => solicitud.numresidentes, :class => 'col-xs-4 col-md-5', validate: true %>
+      </div>
+      
+      <div class="row">
+        <%= banco_proyecto.label "Objetivo Esperado", :class => 'col-xs-4 col-md-3' %>
+        <%= banco_proyecto.text_field :objetivo_esperado, :value => solicitud.objetivo, :class => 'col-xs-4 col-md-5', validate: true %>
+      </div>
+      
+      <div class="row" id="btn-cancelar">
+        <div class="col-xs-6 col-md-5" id="btn">
+          <%= banco_proyecto.submit :Guardar, :class => 'btn btn-success' %>
+        </div>   
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -25,6 +25,7 @@ class BancoProyectosController < ApplicationController
   # GET /banco_proyectos/new
   def new
     @banco_proyecto = BancoProyecto.new
+      1.times { @banco_proyecto.banco_proyecto_estudiantes.build }
   end
 
   # GET /banco_proyectos/1/edit
@@ -79,7 +80,8 @@ class BancoProyectosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def banco_proyecto_params
-      params.require(:banco_proyecto).permit(:fk_rfc_emp_inst, :nombre_proyecto_b, :descrip_proyecto_b, :tipo_proyecto_b, :tipo_proyecto_b, :fecha_inicio_proyecto_b, :fecha_termino_proyecto_b, :num_residentes, :objetivo_esperado, :pdf_solicitud, :asesor_externo)
+      params.require(:banco_proyecto).permit(:clave, :fk_rfc_emp_inst, :nombre_proyecto_b, :descrip_proyecto_b, :tipo_proyecto_b, :tipo_proyecto_b, :fecha_inicio_proyecto_b, :fecha_termino_proyecto_b, :num_residentes, :objetivo_esperado, :pdf_solicitud, :asesor_externo,
+                                             banco_proyecto_estudiantes_attributes: [:id, :numControl, :estado, :observacion, :_destroy])
     end
     
 end

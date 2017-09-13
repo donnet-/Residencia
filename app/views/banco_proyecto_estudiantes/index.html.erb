@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Banco Proyecto Estudiantes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Numcontrol</th>
+      <th>Estado</th>
+      <th>Observacion</th>
+      <th>Banco proyecto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @banco_proyecto_estudiantes.each do |banco_proyecto_estudiante| %>
+      <tr>
+        <td><%= banco_proyecto_estudiante.numControl %></td>
+        <td><%= banco_proyecto_estudiante.estado %></td>
+        <td><%= banco_proyecto_estudiante.observacion %></td>
+        <td><%= banco_proyecto_estudiante.banco_proyecto %></td>
+        <td><%= link_to 'Show', banco_proyecto_estudiante %></td>
+        <td><%= link_to 'Edit', edit_banco_proyecto_estudiante_path(banco_proyecto_estudiante) %></td>
+        <td><%= link_to 'Destroy', banco_proyecto_estudiante, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Banco proyecto estudiante', new_banco_proyecto_estudiante_path %>

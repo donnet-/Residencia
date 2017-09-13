@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Expedientes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Clave</th>
+      <th>Documento</th>
+      <th>Proyecto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expedientes.each do |expediente| %>
+      <tr>
+        <td><%= expediente.clave %></td>
+        <td><%= expediente.documento_id %></td>
+        <td><%= expediente.proyecto_id %></td>
+        <td><%= link_to 'Show', expediente %></td>
+        <td><%= link_to 'Edit', edit_expediente_path(expediente) %></td>
+        <td><%= link_to 'Destroy', expediente, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Expediente', new_expediente_path %>

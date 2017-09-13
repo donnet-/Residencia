@@ -1,122 +1,99 @@
-
 <div class="container">
-    <div>
-      <% if current_usuario.rol == 'admin' %>
-        <%= render template: "siged/menuAdmin" %>
-      <% elsif current_usuario.rol == 'docente' %>
-        <%= render template: "siged/menuDocente" %>
-      <% elsif current_usuario.rol == 'estudiante' %>
-        <%= render template: "siged/menuEstudiante" %>
-      <% end %>
-    </div>
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
     
-    <h3 id="align-title">Proyecto de Residencia en Banco</h3>
+  <% breadcrumb :banco_proyectos, @banco_proyecto %>
+  
+  <h3 id="align-title">Proyecto de Residencia en Banco</h3>
     
-    <div id="marco">
+  <div id="marco">
     <div class="row">
       <div class="col-xs-6 col-sm-2">
         <div class="btn-group-vertical" role="group" aria-label="...">
-          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos Generales</button>
-          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Residentes</button>
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos del Proyecto</button>
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Solicitar Proyecto</button>
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="docent">Observaciones</button>
         </div>
       </div>
-      
+        
       <div class="col-xs-6 col-sm-10">
         <div id="proyectoG" style="display:block;">
-					<h5 id="align-title"><b>Datos generales</b></h5>
-			</div>
-					
-      <div class="row">
-        <div class="col-xs-6 col-sm-6" align="justify"><b>Nombre del proyecto: </b><%= @banco_proyecto.nombre_proyecto_b%></div>
+          <h5 id="align-title"><b>Datos del Proyecto</b></h5>
+          <div id="marco">
+            <div class="row">
+              <div class="col-xs-6 col-sm-12" align="justify"><b>Nombre del proyecto: </b>
+                <%= @banco_proyecto.nombre_proyecto_b%></div>
+            </div>
+            
+            <div class="row">
+              <% @empresa = Empresa.where(:rfcEmpresa => @banco_proyecto.fk_rfc_emp_inst).first %>
+              <div class="col-xs-6 col-sm-12" align="justify"><b>Nombre de la Empresa: </b><%= @empresa.nombreE %></div>
+            </div>
+            
+            </br>
+            </br>
+            <div class="row">
+              <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @banco_proyecto.fecha_inicio_proyecto_b %></div>
+              <div class="col-xs-6 col-sm-4"><b>Fecha de término: </b><%= @banco_proyecto.fecha_termino_proyecto_b %></div>
+            </div>
+            
+            </br>
+            <div class="row">
+              <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @banco_proyecto.num_residentes %></div>
+            </div>
+            
+            </br>
+            <div class="row">
+              <div class="col-xs-6 col-sm-12" align="justify"><b>Descripción del proyecto: </b><%= @banco_proyecto.descrip_proyecto_b %></div>
+            </div>
+            
+            </br>
+            <div class="row">
+              <div class="col-xs-6 col-sm-12" align="justify"><b>Objetivo del proyecto: </b><%= @banco_proyecto.objetivo_esperado %></div>
+            </div>
+          </div>
+        </div>
       </div>
-			
-			<div class="row">
-        <% @empresa = Empresa.where(:rfcEmpresa => @banco_proyecto.fk_rfc_emp_inst).first %>
-        <div class="col-xs-6 col-sm-6" align="justify"><b>Nombre de la Empresa: </b><%= @empresa.nombreE %></div>
+            
+      <div class="col-xs-6 col-sm-10">
+        <div id="residentes" style="display:none;">
+          <div id="marco">
+            <h5 id="align-title"><b>Estudiantes que solicitaron realizar este Proyecto de Residencia Profesional:</b></h5>
+            <% @num_solicitudes = 0 %>
+            <%= nested_form_for @banco_proyecto.banco_proyecto_estudiantes, validate: true do |act|%>
+              <div class="col-xs-6 col-sm-4"><b>Número de control</b><%= est.numControl %></div>
+              <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
+              <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+              <% @num_solicitudes = @num_solicitudes + 1 %>
+              <% if current_usuario.numControl == est.numControl %>
+                Ya realizó su solicitud de este Proyecto.
+              <% else %>
+              <% require 'pry'; binding.pry %>
+                <% est.text_field :numControl %>
+                <% est.text_field :estado %>
+                
+                <div class="row">
+                  <div class="col-xs-2 col-md-3" id="btn-cancelar">
+                    <%= act.submit :Guardar, :class => 'btn btn-success' %>
+                  </div>  
+                </div>
+              <% end %>
+            <% end %>
+            </br>
+            <% if @num_solicitudes >= @banco_proyecto.num_residentes %>
+              Las solicitudes para este proyecto han alcanzado el cupo máximo.
+            <% else %>
+              <%= button_to new_banco_proyecto_estudiante_path, :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    
+    <div id="docentes" style="display:none;">
+      <div id="marco">
       </div>
     </div>
-  </div>
-           
-  <div id="residentes" style="display:none;">
-    <div id="marco">
-      <h5 id="align-title"><b>Residentes</b></h5>
-      <% @banco_proyecto.banco_proyecto_estudiantes.each do |est| %>
-        <div class="col-xs-6 col-sm-4"><b>Número de control</b> <%= est.numControl %></div>
-        <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
-        <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-      <% end %>
-      <br/>
-    </div>
-  </div>
-  
-  <div id="docentes" style="display:none;">
-    <div id="marco">
-      <h5 id="align-title"><b>Observaciones</b></h5>
-      <% @banco_proyecto.anteproyecto_observaciones.each do |est| %>
-        <div class="col-xs-6 col-sm-4"><b>RFC del revisor:</b> <%= est.identificador %></div>
-        <% docente = Docente.find_by(rfc: est.identificador) %>
-        <% if docente == nil %>
-          <div class="col-xs-6 col-sm-6"><b>Revisor: </b>Jefatura de Vinculación y Extensión de Ing. en Sistemas y Computación</div>
-        <% else %>
-          <div class="col-xs-6 col-sm-6"><b>Nombre el revisor: </b><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></div>
-        <% end %>
-        
-        <div class="col-xs-6 col-sm-4"><b>Observación:</b> <%= est.observacion %></div>
-        <div class="col-xs-6 col-sm-4"><b>Fecha y hora:</b> <%= est.updated_at %></div>
-      <% end %>
-      <br/>
-    </div>
-    </div>
+    
   </div>
 </div>     
-
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>RFC de la Empresa/Institución:</strong>
-  <%= @banco_proyecto.fk_rfc_emp_inst %>
-</p>
-
-<p>
-  <strong>Nombre del Proyecto:</strong>
-  <%= @banco_proyecto.nombre_proyecto_b %>
-</p>
-
-<p>
-  <strong>Descripción del Proyecto:</strong>
-  <%= @banco_proyecto.descrip_proyecto_b %>
-</p>
-
-<p>
-  <strong>Tipo de Proyecto:</strong>
-  <%= @banco_proyecto.tipo_proyecto_b %>
-</p>
-
-<p>
-  <strong>Fecha de Inicio:</strong>
-  <%= @banco_proyecto.fecha_inicio_proyecto_b %>
-</p>
-
-<p>
-  <strong>Fecha de Término:</strong>
-  <%= @banco_proyecto.fecha_termino_proyecto_b %>
-</p>
-
-<p>
-  <strong>Núm. de Residentes:</strong>
-  <%= @banco_proyecto.num_residentes %>
-</p>
-
-<p>
-  <strong>Objetivo Esperado:</strong>
-  <%= @banco_proyecto.objetivo_esperado %>
-</p>
-
-<p>
-  <strong>PDF Solicitud:</strong>
-  <%= @banco_proyecto.pdf_solicitud %>
-</p>
-
-<%= link_to 'Editar', edit_banco_proyecto_path(@banco_proyecto) %> |
-<%= link_to 'Atrás', banco_proyectos_path %>

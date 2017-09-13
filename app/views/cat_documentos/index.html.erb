@@ -1,0 +1,36 @@
+<div>
+  <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+</div>
+<% breadcrumb :cat_documentos%>
+
+<div class="container"> 
+  <h3 id="align-title">Cátalogo de Documentos de Residencia Profesional</h3>
+    
+  <%= button_to new_cat_documento_path, :class => "btn btn-primary", :method => :get do %>
+    <span class="glyphicon glyphicon-plus"></span>
+  <% end %>
+  <br/>
+  <div>
+    <table class="table table-bordered">
+      <thead>
+        <th class="info"><%= sortable "nom_documento" %></th>
+        <th class="info"><%= sortable "etapa"%></th>
+        <th class="info"><%= sortable "estado" %></th>
+      </thead>
+      <% @cat_documentos.each do |docum| %>
+        <tbody>
+          <td class="active"><%= docum.nom_documento%></td>
+          <td class="active"><%= docum.etapa %></td>
+          <td class="active"><%= docum.estado %></td>
+          <td class="active">
+            <%= link_to edit_cat_documento_path(docum) do %>
+                <span class="glyphicon glyphicon-pencil green"></span>
+                <div class="tip" id="action2">Editar</div>
+            <% end %>
+          </td>
+        </tbody>
+      <% end %>
+    </table>
+    <%= will_paginate @cat_documentos %>
+  </div>
+</div>

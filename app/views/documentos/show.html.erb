@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cat documentos:</strong>
+  <%= @documento.cat_documentos_id %>
+</p>
+
+<p>
+  <strong>Pdf documento:</strong>
+  <%= @documento.pdf_documento %>
+</p>
+
+<p>
+  <strong>Proyecto:</strong>
+  <%= @documento.proyecto %>
+</p>
+
+<%= link_to 'Edit', edit_documento_path(@documento) %> |
+<%= link_to 'Back', documentos_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Clave:</strong>
+  <%= @expediente.clave %>
+</p>
+
+<p>
+  <strong>Documento:</strong>
+  <%= @expediente.documento_id %>
+</p>
+
+<p>
+  <strong>Proyecto:</strong>
+  <%= @expediente.proyecto_id %>
+</p>
+
+<%= link_to 'Edit', edit_expediente_path(@expediente) %> |
+<%= link_to 'Back', expedientes_path %>

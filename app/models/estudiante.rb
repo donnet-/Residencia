@@ -4,6 +4,7 @@ class Estudiante < ActiveRecord::Base
     has_many :servicio_sociales, dependent: :destroy 
     has_many :curso_materia_estudiantes
     has_many :grupo_act_complementarias
+    has_and_belongs_to_many :banco_proyecto_estudiantes
     
     validates :curpEstudiante, presence: {message: " La CURP es requerida"}, length: {is: 18, message: "Sólo debe tener 18 caracteres"}, format: { with: /\A[A-Z][AEIOUX][A-Z]{2}[0-9]{2}[0-1][0-9][0-3][0-9][MH][A-Z][BCDFGHJKLMNÑPQRSTVWXYZ]{4}[0-9A-Z][0-9]\z/i, message: 'No es un formato de CURP válido' }, uniqueness: {message: "La CURP ya se encuentra registrada"}
     validates :numControl, presence: {message: "El número de control es requerido"}, numericality: { only_integer: true, message: "Sólo números" }, length: {minimum: 8, maximum: 12, message: 'Mínimo 8 digitos, Maximo 12'}, uniqueness: {message: "El número ya se encuentra registrado"}
