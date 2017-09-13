@@ -61,30 +61,29 @@
           <div id="marco">
             <h5 id="align-title"><b>Estudiantes que solicitaron realizar este Proyecto de Residencia Profesional:</b></h5>
             <% @num_solicitudes = 0 %>
-            <%= nested_form_for @banco_proyecto.banco_proyecto_estudiantes, validate: true do |act|%>
+            <% @solicitud_realizada = false %>
+            <% @banco_proyecto.banco_proyecto_estudiantes.each do |est| %>
               <div class="col-xs-6 col-sm-4"><b>Número de control</b><%= est.numControl %></div>
               <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
               <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
               <% @num_solicitudes = @num_solicitudes + 1 %>
               <% if current_usuario.numControl == est.numControl %>
-                Ya realizó su solicitud de este Proyecto.
-              <% else %>
-              <% require 'pry'; binding.pry %>
-                <% est.text_field :numControl %>
-                <% est.text_field :estado %>
-                
-                <div class="row">
-                  <div class="col-xs-2 col-md-3" id="btn-cancelar">
-                    <%= act.submit :Guardar, :class => 'btn btn-success' %>
-                  </div>  
-                </div>
+                </br></br>Ya realizó su solicitud de este Proyecto.
+                <% @solicitud_realizada = true %>
+                <%= button_to banco_proyecto_estudiante_path(est), :method => :delete, data: { confirm: '¿Está segur@ que desa eliminar esta solicitud?' }, remote: true do %>
+                    <span class="glyphicon glyphicon-trash green"></span>Eliminar solicitud
+                    <div class="tip" id="action2">Eliminar solicitud</div>
+                <% end %>
               <% end %>
             <% end %>
             </br>
             <% if @num_solicitudes >= @banco_proyecto.num_residentes %>
               Las solicitudes para este proyecto han alcanzado el cupo máximo.
             <% else %>
-              <%= button_to new_banco_proyecto_estudiante_path, :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
+                <% if @solicitud_realizada == false %>
+                  <%= button_to new_banco_proyecto_estudiante_path, :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
+                <% else %>
+                <% end %>
             <% end %>
           </div>
         </div>

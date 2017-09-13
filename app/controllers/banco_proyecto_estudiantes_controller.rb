@@ -54,13 +54,15 @@ class BancoProyectoEstudiantesController < ApplicationController
   # DELETE /banco_proyecto_estudiantes/1
   # DELETE /banco_proyecto_estudiantes/1.json
   def destroy
-    @banco_proyecto_estudiante.destroy
+    # @banco_proyecto_estudiante.destroy
+    @banco = BancoProyectoEstudiante.find(params[:id])
+    execute_statement("delete from banco_proyecto_estudiantes where id = " + params[:id])
     respond_to do |format|
-      format.html { redirect_to banco_proyecto_estudiantes_url, notice: 'Banco proyecto estudiante was successfully destroyed.' }
+      format.html { redirect_to banco_proyecto_path(@banco.banco_proyecto.id), notice: 'Su solicitud ha sido satisfactoriamente eliminada.' }
       format.json { head :no_content }
     end
   end
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_banco_proyecto_estudiante
