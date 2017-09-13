@@ -36,3 +36,8 @@ en:
               invalid_date: Fecha inválida
             fecha_termino_proyecto_b:
               invalid_date: Fecha inválida
+
+en:
+  errors:
+    messages:
+      email: Debe cumplir con el formato para correo

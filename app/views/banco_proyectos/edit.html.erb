@@ -1,6 +1,10 @@
-<h1>Edición de Proyecto de Residencia en Banco</h1>
+<div class="container">
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
+    
+  <% breadcrumb :banco_proyectos_new %>
 
-<%= render 'form' %>
-
-<%= link_to 'Mostrar', @banco_proyecto %> |
-<%= link_to 'Atrás', banco_proyectos_path %>
+  <h3 id="align-title">Nuevo Proyecto de Residencia en Banco</h3>
+  <%= render 'formEdit' %>
+</div>

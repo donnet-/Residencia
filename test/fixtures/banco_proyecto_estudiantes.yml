@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  numControl: 1
+  estado: MyString
+  observacion: MyString
+  banco_proyecto_id: 
+
+two:
+  numControl: 1
+  estado: MyString
+  observacion: MyString
+  banco_proyecto_id: 

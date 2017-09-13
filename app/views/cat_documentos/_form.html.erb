@@ -1,0 +1,36 @@
+<div class="container">
+  <div id="align-forms">
+    <%= nested_form_for @cat_documento, validate: true do |cat_documento| %>
+      <div class="row">
+        <%= cat_documento.label :Nombre_del_documento, :class => 'col-md-3' %>
+        <div class="col-md-4">
+          <%= cat_documento.text_field :nom_documento, :class => 'form-control', :maxlength => 200, validate: true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <%= cat_documento.label :Estado, :class => 'col-md-3' %>
+        <div class="col-md-4">
+          <%= cat_documento.select :estado, options_for_select([["Activo", "Activo"], ["Inactivo", "Inactivo"]]),{}, :class => 'form-control', validate: true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <%= cat_documento.label :Etapa, :class => 'col-md-3' %>
+        <div class="col-md-4">
+          <%= cat_documento.select :etapa, options_for_select([["Al inicio de la residencia", "Inicio"], ["Durante la residencia", "Durante"], ["Al finalizar la residencia", "Final"], ["En caso de solicitar prórroga", "Prórroga"]]),{}, :class => 'form-control', validate: true %>
+        </div>
+      </div>
+    
+      <div class="row" id="btn-cancelar">
+        <div class="col-md-5" align="right">
+          <%= cat_documento.submit :Guardar, :class => 'btn btn-success' %>              
+        </div>   
+    <% end %>
+   
+        <div class="col-md-4">
+          <%= button_to "Cancelar", cat_documentos_path, :class => 'btn btn-warning', :method => :get %>
+        </div>
+      </div>
+  </div>
+</div>

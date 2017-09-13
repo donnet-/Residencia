@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Numcontrol:</strong>
+  <%= @banco_proyecto_estudiante.numControl %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @banco_proyecto_estudiante.estado %>
+</p>
+
+<p>
+  <strong>Observacion:</strong>
+  <%= @banco_proyecto_estudiante.observacion %>
+</p>
+
+<p>
+  <strong>Banco proyecto:</strong>
+  <%= @banco_proyecto_estudiante.banco_proyecto %>
+</p>
+
+<%= link_to 'Edit', edit_banco_proyecto_estudiante_path(@banco_proyecto_estudiante) %> |
+<%= link_to 'Back', banco_proyecto_estudiantes_path %>

@@ -18,6 +18,7 @@
 //= require turbolinks
 //= require jquery_nested_form
 //= require rails.validations
+//= require rails.validations.custom
 //= require rails.validations.nested_form
 //= require chosen-jquery
 //= require scaffold

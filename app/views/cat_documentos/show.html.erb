@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nom documento:</strong>
+  <%= @cat_documento.nom_documento %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @cat_documento.estado %>
+</p>
+
+<p>
+  <strong>Etapa:</strong>
+  <%= @cat_documento.etapa %>
+</p>
+
+<%= link_to 'Edit', edit_cat_documento_path(@cat_documento) %> |
+<%= link_to 'Back', cat_documentos_path %>

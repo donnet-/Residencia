@@ -114,6 +114,16 @@ end
 
 
 # ---------------------------------------------
+#cat_documentos/new
+crumb :cat_documentos_new do
+	link "Nuevo", new_cat_documento_path
+	parent :cat_documentos
+end
+#cat_documentos/
+crumb :cat_documentos do
+  link "Cat Documentos", cat_documentos_path
+end
+
 #solicitud_observaciones/
 crumb :solicitud_observaciones do
 	link "Observaciones de solicitud", solicitud_observaciones_path

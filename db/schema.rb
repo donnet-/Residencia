@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170830181702) do
+ActiveRecord::Schema.define(version: 20170912060717) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -182,6 +182,17 @@ ActiveRecord::Schema.define(version: 20170830181702) do
 
   add_index "archivo_prodep_docentes", ["docente_id"], name: "index_archivo_prodep_docentes_on_docente_id", using: :btree
 
+  create_table "banco_proyecto_estudiantes", force: :cascade do |t|
+    t.integer  "numControl",        limit: 4
+    t.string   "estado",            limit: 255
+    t.string   "observacion",       limit: 255
+    t.integer  "banco_proyecto_id", limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "banco_proyecto_estudiantes", ["banco_proyecto_id"], name: "index_banco_proyecto_estudiantes_on_banco_proyecto_id", using: :btree
+
   create_table "banco_proyectos", force: :cascade do |t|
     t.string   "fk_rfc_emp_inst",          limit: 255
     t.string   "nombre_proyecto_b",        limit: 255
@@ -195,7 +206,6 @@ ActiveRecord::Schema.define(version: 20170830181702) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.string   "clave",                    limit: 255
-    t.string   "estado",                   limit: 255
     t.string   "revisor",                  limit: 255
     t.string   "asesor_externo",           limit: 255
   end
@@ -239,6 +249,14 @@ ActiveRecord::Schema.define(version: 20170830181702) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "encargado",  limit: 255
+  end
+
+  create_table "cat_documentos", force: :cascade do |t|
+    t.string   "nom_documento", limit: 255
+    t.string   "estado",        limit: 255
+    t.string   "etapa",         limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "cat_especialidades", force: :cascade do |t|
@@ -550,6 +568,16 @@ ActiveRecord::Schema.define(version: 20170830181702) do
   add_index "docentes", ["cat_departamento_id"], name: "index_docentes_on_cat_departamento_id", using: :btree
   add_index "docentes", ["usuario_id"], name: "index_docentes_on_usuario_id", using: :btree
 
+  create_table "documentos", force: :cascade do |t|
+    t.string   "cat_documentos_id", limit: 255
+    t.string   "pdf_documento",     limit: 255
+    t.integer  "proyecto_id",       limit: 4
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "documentos", ["proyecto_id"], name: "index_documentos_on_proyecto_id", using: :btree
+
   create_table "egresados", force: :cascade do |t|
     t.integer  "numControl",            limit: 4
     t.string   "opcion",                limit: 255
@@ -663,6 +691,14 @@ ActiveRecord::Schema.define(version: 20170830181702) do
     t.string   "describir",            limit: 255
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+  end
+
+  create_table "expedientes", force: :cascade do |t|
+    t.string   "clave",        limit: 255
+    t.integer  "documento_id", limit: 4
+    t.integer  "proyecto_id",  limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "firmas", force: :cascade do |t|
@@ -1181,9 +1217,9 @@ ActiveRecord::Schema.define(version: 20170830181702) do
     t.string   "ingles",                  limit: 255
     t.string   "horaentrada",             limit: 255
     t.string   "horasalida",              limit: 255
-    t.string   "desproyecto",             limit: 255
-    t.string   "objetivo",                limit: 255
-    t.string   "actividades",             limit: 255
+    t.text     "desproyecto",             limit: 65535
+    t.text     "objetivo",                limit: 65535
+    t.text     "actividades",             limit: 65535
     t.string   "pc",                      limit: 255
     t.string   "tel_escritorio",          limit: 255
     t.string   "lugar",                   limit: 255
@@ -1191,8 +1227,8 @@ ActiveRecord::Schema.define(version: 20170830181702) do
     t.string   "observacion",             limit: 255
     t.string   "estado",                  limit: 255
     t.string   "rfc",                     limit: 255
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "periodo",                 limit: 255
     t.string   "rfc_docente_revisor",     limit: 255
     t.string   "estado_revision_docente", limit: 255
@@ -1333,6 +1369,7 @@ ActiveRecord::Schema.define(version: 20170830181702) do
   add_foreign_key "archivo_docentes", "docentes"
   add_foreign_key "archivo_periodos", "periodo_curs_materias"
   add_foreign_key "archivo_prodep_docentes", "docentes"
+  add_foreign_key "banco_proyecto_estudiantes", "banco_proyectos"
   add_foreign_key "cat_materias", "cat_plan_cursos"
   add_foreign_key "convenio_honorarios", "docentes"
   add_foreign_key "criterio_evaluacion_servicios", "evaluacion_servicios"
@@ -1343,6 +1380,7 @@ ActiveRecord::Schema.define(version: 20170830181702) do
   add_foreign_key "curso_materias", "periodo_curs_materias"
   add_foreign_key "docentes", "cat_departamentos"
   add_foreign_key "docentes", "usuarios"
+  add_foreign_key "documentos", "proyectos"
   add_foreign_key "egresados", "cat_plan_cursos"
   add_foreign_key "egresados", "examen_profesionales"
   add_foreign_key "estadisticas", "curso_materias"

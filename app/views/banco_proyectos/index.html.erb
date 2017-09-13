@@ -1,14 +1,7 @@
 <div class = "container" >
-
-  <% if current_usuario.rol == 'admin' %>
-      <%= render template: "siged/menuAdmin" %>
-  <% elsif current_usuario.rol == 'docente' %>
-      <%= render template: "siged/menuDocente" %>    
-  <% elsif current_usuario.rol == 'empresa' %>
-      <%= render template: "siged/menuEmpresa" %>
-  <% elsif current_usuario.rol == 'estudiante' %>
-      <%= render template: "siged/menuEstudiante" %>
-  <% end %>
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
   <% breadcrumb :banco_proyectos %>
   
   <h3 id = "aling-title"> </h3>
@@ -26,15 +19,15 @@
           <tbody>
             <% @anteproy = Anteproyecto.where(:clave => banco_proyecto.clave).first %>
                     
-            <td class="active"><%= banco_proyecto.clave%></td>
+            <td class="active"><%= banco_proyecto.clave %></td>
             <td class="active"><%= banco_proyecto.nombre_proyecto_b %></td>
             <% @empresa = Empresa.where(:rfcEmpresa =>  banco_proyecto.fk_rfc_emp_inst).first %>
             <td class="active"><%= @empresa.nombreE %></td>
-            <% if @anteproy == nil %>
-              <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
-            <% end %>
             <td class="active">
               <% if current_usuario.rol != "estudiante" %>
+                <% if @anteproy == nil %>
+                  <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
+                <% end %>
                 <%= link_to edit_banco_proyecto_path(banco_proyecto) do %>
                     <span class="glyphicon glyphicon-pencil green"></span>
                     <div class="tip" id="action2">Editar</div>
@@ -44,11 +37,8 @@
                     <div class="tip" id="action2">Eliminar</div>
                 <% end %>
               <% end %>
-              <% if @anteproy != nil %>
-                <%= link_to banco_proyecto_path(banco_proyecto) do %>
+                <%= link_to banco_proyecto_path(banco_proyecto), title: "Ver" do %>
                   <span class="glyphicon glyphicon-eye-open green"></span>
-                  <div class="tip" id="action1">Ver</div>
-                <% end %>
               <% end %>
             </td>
           </tbody>
