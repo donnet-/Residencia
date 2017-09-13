@@ -13,11 +13,14 @@ class SigedController < ApplicationController
         end
       elsif current_usuario.rol == "estudiante"
         x = Estudiante.find_by(email: current_usuario.email)
-        if x.usuario_id == nil                    
+        if x != nil
+        #binding.pry
+         if x.usuario_id == nil                    
           redirect_to edit_estudiante_path(x)
-        else
+         else
           render template: 'siged/menuEstudiante'
         end
+      end
       elsif current_usuario.rol == "empresa"
         emp = Empresa.find_by(email: current_usuario.email)
         execute_statement("UPDATE empresas SET usuario_id = " + emp.id.to_s + " where email = '"  + current_usuario.email + "'")
