@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :solicitud_observaciones
   resources :banco_proyectos
   resources :anteproyectos
+  resources :anteproyectos_observaciones
   
   get 'estudiantes/import'
 
