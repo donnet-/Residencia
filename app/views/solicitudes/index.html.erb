@@ -59,6 +59,7 @@
                     <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
                   <% end %>
                 </p>
+               
               </td>
             <% end %>
           <% else %>
@@ -70,6 +71,10 @@
               <p>
                 <%= link_to solicitud_path(solicitud) do %>
                   <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                <% end %>
+            
+                <%= link_to edit_solicitud_path(solicitud) do %>
+                  <span class="glyphicon glyphicon-user green"></span><div class="tip" id="action1">Revisor</div>
                 <% end %>
               </p>
               <p>

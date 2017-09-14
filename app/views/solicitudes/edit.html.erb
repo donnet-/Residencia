@@ -5,7 +5,7 @@
   <% breadcrumb :solicitud_edit, @solicitud %>
   
   <% if current_usuario.rol == "docente" %>
-    <h3 id="align-title">Observaciones o Aprobación de Solicitud de Residencia Profesional</h3>
+    <h3 id="align-title">Agregar Docente o Aprobación de Solicitud de Residencia Profesional</h3>
   <% else %>
     <h3 id="align-title">Observaciones de Solicitud de Residencia Profesional</h3>
   <% end %>
@@ -29,88 +29,19 @@
         
         </br>
         
-        <div id="marco">
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
-            <div class="col-xs-6 col-sm-4"><b>Correo: </b><%= @solicitud.correo %></div>
-          </div>
-          <div class="row">
-              <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
-              <div class="col-xs-6 col-sm-4"><b>Extensión: </b><%= @solicitud.extension %></div>
-          </div>
-        </div>
-        
-        </br>
-        
-        <div id="marco">
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
-            <div class="col-xs-6 col-sm-4"><b>Carrera: </b><%= @solicitud.carrera %></div>
-            <div class="col-xs-6 col-sm-3"><b>Semestre: </b><%= @solicitud.semestre %></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
-          </div>
-        
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
-            <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
-          </div>
-        </div>
-        
-        </br>
-
-        <div id="marco">
-          <div class="row">
-            <div class="col-xs-6 col-sm-12" align="justify"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-sm-12" align="justify"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-sm-12" align="justify"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
-          </div>
-        </div>
-        
-        </br>
-        
-        <div id="marco">
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
-            <div class="col-xs-6 col-sm-4"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
-            <div class="col-xs-6 col-sm-4"><b>Cuenta de correo: </b><%= @solicitud.cuenta_correo %></div>
-            <div class="col-xs-6 col-sm-3"><b>Lugar: </b><%= @solicitud.lugar %></div>
-          </div>
-          <div class="row">
-              <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
-          </div>
-        </br>
-        
-        </div>
-
-        <div id="marco">
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-6 col-sm-5"><b>Estado (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
-          </div>
-        </div>
       
-        <fieldset id="poryectoestudiante">
+      
           <div id="marco">
-            <h5><strong>Agregar observaciones</strong></h5>
-            <%= solicitud.fields_for :solicitud_observaciones, validate: true do |observ| %>
+            <h5><strong>Agregar Revisor</strong></h5>
+          
               <div class="row">
-                <div class="col-md-2"><%= observ.label :Observaciones %></div>
-                <div class="col-md-10">
-                  <%= observ.text_area :observacion, class: 'form-control', validate: true %></div>                
-                <%= observ.hidden_field :rfc, :value => current_usuario.rfc, class: 'form-control' %>
+                <div class="col-md-2"><%= solicitud.label :Revisor %></div>
+                  <div class="col-md-4">
+                        <%= solicitud.select :rfc_docente_revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %></div>            
               </div>
-            <% end %>           
-            <div class="row"><%= solicitud.link_to_add :solicitud_observaciones, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+             
           </div>
-        </fieldset>
+       
           
         <div id="marco">
           <div class="row">
