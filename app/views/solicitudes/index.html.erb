@@ -62,6 +62,21 @@
                
               </td>
             <% end %>
+            <% elsif current_usuario.rol == "docente" %>
+            <% if current_usuario.rfc == solicitud.rfc_docente_revisor %>
+              <td class="active"><%= solicitud.clave_solicitud%></td>
+              <td class="active"><%= solicitud.nombrep %></td>
+              <td class="active"><%= solicitud.estado %></td>
+              <td class="active"><%= link_to "Observaciones", solicitud_observaciones_path %></p>
+              <td class="active">
+                <p>
+                  <%= link_to solicitud_path(solicitud) do %>
+                    <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                  <% end %>
+                </p>
+               
+              </td>
+            <% end %>
           <% else %>
             <td class="active"><%= solicitud.clave_solicitud %></td>
             <td class="active"><%= solicitud.nombrep %></td>

@@ -22,6 +22,12 @@
             <% else %>                            
             <% end %> 
             <li><a href="/actividades/docente_actividad_recientes">Actividades</a></li>
+            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proyectos<span class="caret"></span></a>
+              <ul class="dropdown-menu">             
+                  <li><%= link_to "Observaciones de anteproyectos", solicitudes_path %></li> 
+                 
+              </ul>
+            </li>
             <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Periodo Curso-Materias<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="/periodo_curs_materias">Periodo Curso-Materias</a></li>
