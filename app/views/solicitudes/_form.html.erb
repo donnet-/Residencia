@@ -135,7 +135,10 @@
             <%= act.label "Teléfono de escritorio:", :class => 'col-xs-4 col-md-3' %>
             <%= act.select :tel_escritorio, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
           </div>
-         
+         <div class="row">
+            <%= act.label "Cuenta de correo:", :class => 'col-xs-4 col-md-3' %>
+            <%= act.select :cuenta_correo, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+          </div>
           <div class="row">
             <%= act.label "Lugar o cubículo:", :class => 'col-xs-4 col-md-3' %>
             <%= act.select :lugar, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>

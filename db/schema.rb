@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170912060717) do
+ActiveRecord::Schema.define(version: 20170914155713) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -1234,6 +1234,7 @@ ActiveRecord::Schema.define(version: 20170912060717) do
     t.string   "rfc_docente_revisor",     limit: 255
     t.string   "estado_revision_docente", limit: 255
     t.string   "clave_solicitud",         limit: 255
+    t.string   "cuenta_correo",           limit: 255
   end
 
   create_table "tablapromedios", force: :cascade do |t|

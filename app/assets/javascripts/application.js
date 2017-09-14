@@ -63,6 +63,7 @@ function mostrar_proy_inv(opcion) {
         document.getElementById('proyectoGI').style.display = 'none';
         document.getElementById('colabooradores').style.display = 'none';    
     }
+    
 }
 
 
