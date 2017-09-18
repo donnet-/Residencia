@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
   
-
-  resources :banco_proyecto_estudiantes
-  resources :banco_proyecto_estudiantes
+  #resources :banco_proyectos
+  #resources :banco_proyecto_estudiantes
   resources :expedientes
   resources :cat_documentos
   resources :documentos
@@ -13,7 +12,16 @@ Rails.application.routes.draw do
   resources :ubicacion_egresados_empresas
   resources :datos_generales_empresas
   get 'cuestionario_empresa/index'
-
+  
+  resources :solicitudes
+  resources :solicitud_observaciones
+  resources :anteproyectos
+  resources :anteproyectos_observaciones
+  
+  resources :banco_proyectos do
+    resources :banco_proyecto_estudiantes
+  end
+  
   resources :comentario_egresados
   resources :participacion_sociales
   resources :expectativas_egresados
@@ -28,12 +36,6 @@ Rails.application.routes.draw do
   resources :estadistica_servicios
   resources :cuestionario_empresa
 
-  resources :solicitudes
-  resources :solicitud_observaciones
-  resources :banco_proyectos
-  resources :anteproyectos
-  resources :anteproyectos_observaciones
-  
   get 'estudiantes/import'
 
   get 'docentes/import'

@@ -1,34 +1,22 @@
 class BancoProyectoEstudiantesController < ApplicationController
   before_action :set_banco_proyecto_estudiante, only: [:show, :edit, :update, :destroy]
 
-  # GET /banco_proyecto_estudiantes
-  # GET /banco_proyecto_estudiantes.json
   def index
     @banco_proyecto_estudiantes = BancoProyectoEstudiante.all
   end
 
-  # GET /banco_proyecto_estudiantes/1
-  # GET /banco_proyecto_estudiantes/1.json
   def show
   end
 
-  # GET /banco_proyecto_estudiantes/new
   def new
-    @banco_proyecto_estudiante = BancoProyectoEstudiante.new
-  end
-
-  # GET /banco_proyecto_estudiantes/1/edit
-  def edit
-  end
-
-  # POST /banco_proyecto_estudiantes
-  # POST /banco_proyecto_estudiantes.json
-  def create
-    @banco_proyecto_estudiante = BancoProyectoEstudiante.new(banco_proyecto_estudiante_params)
-
+    @banco_proyecto_estudiante = BancoProyectoEstudiante.new(
+      :numControl => current_usuario.numControl, :estado => "En revisión", :banco_proyecto_id => params[:banco_proyecto_id])
+    
+    
     respond_to do |format|
       if @banco_proyecto_estudiante.save
-        format.html { redirect_to @banco_proyecto_estudiante, notice: 'Banco proyecto estudiante was successfully created.' }
+
+        format.html { redirect_to banco_proyecto_path(params[:banco_proyecto_id]), notice: 'Su solicitud fue satisfactoriamente enviada.' }
         format.json { render :show, status: :created, location: @banco_proyecto_estudiante }
       else
         format.html { render :new }
@@ -37,8 +25,12 @@ class BancoProyectoEstudiantesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /banco_proyecto_estudiantes/1
-  # PATCH/PUT /banco_proyecto_estudiantes/1.json
+  def edit
+  end
+
+  def create
+  end
+
   def update
     respond_to do |format|
       if @banco_proyecto_estudiante.update(banco_proyecto_estudiante_params)
@@ -51,25 +43,21 @@ class BancoProyectoEstudiantesController < ApplicationController
     end
   end
 
-  # DELETE /banco_proyecto_estudiantes/1
-  # DELETE /banco_proyecto_estudiantes/1.json
   def destroy
     # @banco_proyecto_estudiante.destroy
     @banco = BancoProyectoEstudiante.find(params[:id])
     execute_statement("delete from banco_proyecto_estudiantes where id = " + params[:id])
     respond_to do |format|
-      format.html { redirect_to banco_proyecto_path(@banco.banco_proyecto.id), notice: 'Su solicitud ha sido satisfactoriamente eliminada.' }
+      format.html { redirect_to banco_proyecto_path(@banco.banco_proyecto_id), notice: 'Su solicitud ha sido satisfactoriamente eliminada.' }
       format.json { head :no_content }
     end
   end
   
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_banco_proyecto_estudiante
       @banco_proyecto_estudiante = BancoProyectoEstudiante.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def banco_proyecto_estudiante_params
       params.require(:banco_proyecto_estudiante).permit(:numControl, :estado, :observacion, :banco_proyecto_id)
     end

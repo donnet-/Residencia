@@ -1,29 +1,22 @@
 <div class="container">
   <div id="align-forms">
-    <%= form_for(@banco_proyecto_estudiante) do |f| %>
-    <div id="marco">
+    <%= nested_form_for @banco_proyecto_estudiante, validate: true do |f|%>
+      <div id="marco">
 
-      <div class="field">
-        <%= f.label :numControl %><br>
-        <%= f.text_field :numControl, value => current_usuario.numControl %>
-      </div>
-      <div class="field">
-        <%= f.label :estado %><br>
-        <%= f.text_field :estado %>
-      </div>
-      <div class="field">
-        <%= f.label :observacion %><br>
-        <%= f.text_field :observacion %>
-      </div>
-      <div class="field">
-        <%= f.label :banco_proyecto_id %><br>
-        <%= f.text_field :banco_proyecto_id %>
-      </div>
-      <div class="actions">
+        <div class="row">
+          Su solicitud será revisada por el Departamento de Vinculación y Extensión
+          <%= f.hidden_field :numControl, :value => current_usuario.numControl %>
+        
+          <%= f.hidden_field :estado, :value => "En revisión" %>
+          
+          <%= f.hidden_field :observacion %>
+          
+          <%= f.text_field :banco_proyecto_id %>
+        </div>
+        
         <%= f.submit %>
+        </div>
       </div>
-      <% end %>
-      
-    </div>
+    <% end %>
   </div>
 </div>

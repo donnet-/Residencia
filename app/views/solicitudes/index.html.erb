@@ -1,11 +1,8 @@
 <div class="container">
-  <% if current_usuario.rol == 'admin' %>
-    <%= render template: "siged/menuAdmin" %>
-  <% elsif current_usuario.rol == 'docente' %>
-    <%= render template: "siged/menuDocente" %>
-  <% else %>
-    <%= render template: "siged/menuEmpresa" %>
-  <% end %>
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
+  
   <% breadcrumb :solicitudes %>
     
   <h3 id="align-title">Solicitudes de Residencia Profesional</h3>
@@ -62,8 +59,10 @@
                
               </td>
             <% end %>
-            <% elsif current_usuario.rol == "docente" %>
-            <% if current_usuario.rfc == solicitud.rfc_docente_revisor %>
+          <% elsif current_usuario.rol == "docente" %>
+            <% @id_docente = Docente.where(:email => current_usuario.email).first %>
+            <% @puesto = Puesto.where(:docente_id => @id_docente, :cat_tipo_puesto_id => 4).first %>
+            <% if current_usuario.rfc == solicitud.rfc_docente_revisor || @puesto != nil %>
               <td class="active"><%= solicitud.clave_solicitud%></td>
               <td class="active"><%= solicitud.nombrep %></td>
               <td class="active"><%= solicitud.estado %></td>
@@ -74,7 +73,6 @@
                     <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
                   <% end %>
                 </p>
-               
               </td>
             <% end %>
           <% else %>

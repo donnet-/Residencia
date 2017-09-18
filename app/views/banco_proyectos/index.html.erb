@@ -18,11 +18,19 @@
         <% @banco_proyectos.each do |banco_proyecto| %>
           <tbody>
             <% @anteproy = Anteproyecto.where(:clave => banco_proyecto.clave).first %>
-                    
+            <% @banco_estudiantes = BancoProyectoEstudiante.where(:banco_proyecto_id => banco_proyecto.id).first %>
+            
             <td class="active"><%= banco_proyecto.clave %></td>
             <td class="active"><%= banco_proyecto.nombre_proyecto_b %></td>
             <% @empresa = Empresa.where(:rfcEmpresa =>  banco_proyecto.fk_rfc_emp_inst).first %>
             <td class="active"><%= @empresa.nombreE %></td>
+            <% if @banco_estudiantes != nil %>
+              <td class="active">
+                Proyecto solicitado
+              </td>
+            <% else %>
+              <td></td>
+            <% end %>
             <td class="active">
               <% if current_usuario.rol != "estudiante" %>
                 <% if @anteproy == nil %>

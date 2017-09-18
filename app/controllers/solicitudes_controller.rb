@@ -44,14 +44,14 @@ class SolicitudesController < ApplicationController
     @solicitud = Solicitud.find(params[:id])
     estado = @solicitud.estado
     
-    if @solicitud.update(solicitud_params)
+    @solicitud.estado = params[:solicitud][:estado]
+    @solicitud.rfc_docente_revisor = params[:solicitud][:rfc_docente_revisor]
+    if @solicitud.save(:validate => false)
       if @solicitud.estado != estado && @solicitud.estado == "Aprobado"
         redirect_to new_banco_proyecto_path
       else
         redirect_to @solicitud
       end
-    else
-      :edit
     end
   end
   

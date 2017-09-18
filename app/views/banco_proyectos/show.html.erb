@@ -12,7 +12,11 @@
       <div class="col-xs-6 col-sm-2">
         <div class="btn-group-vertical" role="group" aria-label="...">
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos del Proyecto</button>
-          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Solicitar Proyecto</button>
+          <% if current_usuario.rol = 'docente' %>
+            <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Solicitudes del Proyecto</button>
+          <% else %>
+            <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Solicitar Proyecto</button>
+          <% end %>
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="docent">Observaciones</button>
         </div>
       </div>
@@ -59,32 +63,47 @@
       <div class="col-xs-6 col-sm-10">
         <div id="residentes" style="display:none;">
           <div id="marco">
+          
             <h5 id="align-title"><b>Estudiantes que solicitaron realizar este Proyecto de Residencia Profesional:</b></h5>
+            
             <% @num_solicitudes = 0 %>
+            <% @banco_estudiante = BancoProyectoEstudiante.where(:numControl => current_usuario.numControl).first %>
             <% @solicitud_realizada = false %>
+            
             <% @banco_proyecto.banco_proyecto_estudiantes.each do |est| %>
               <div class="col-xs-6 col-sm-4"><b>Número de control</b><%= est.numControl %></div>
               <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
               <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+              
               <% @num_solicitudes = @num_solicitudes + 1 %>
               <% if current_usuario.numControl == est.numControl %>
-                </br></br>Ya realizó su solicitud de este Proyecto.
+                </br></br></br>
+                Ya realizó su solicitud de este Proyecto.
                 <% @solicitud_realizada = true %>
-                <%= button_to banco_proyecto_estudiante_path(est), :method => :delete, data: { confirm: '¿Está segur@ que desa eliminar esta solicitud?' }, remote: true do %>
+                <%= button_to banco_proyecto_banco_proyecto_estudiante_path(:id => est, :banco_proyecto_id => @banco_proyecto.id), :method => :delete, data: { confirm: '¿Está segur@ que desa eliminar esta solicitud?' }, remote: true do %>
                     <span class="glyphicon glyphicon-trash green"></span>Eliminar solicitud
                     <div class="tip" id="action2">Eliminar solicitud</div>
                 <% end %>
               <% end %>
             <% end %>
             </br>
+            
             <% if @num_solicitudes >= @banco_proyecto.num_residentes %>
+              </br>
               Las solicitudes para este proyecto han alcanzado el cupo máximo.
+              </br></br>
+              <% if current_usuario.rol = 'docente' %>
+                <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
+              <% end %>
+            <% elsif @banco_estudiante != nil %>
+              Ya realizó una solicitud de otro proyecto.
             <% else %>
                 <% if @solicitud_realizada == false %>
-                  <%= button_to new_banco_proyecto_estudiante_path, :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
+                  <%= button_to new_banco_proyecto_banco_proyecto_estudiante_path(:banco_proyecto_id => @banco_proyecto.id), :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
                 <% else %>
                 <% end %>
             <% end %>
+            
           </div>
         </div>
       </div>

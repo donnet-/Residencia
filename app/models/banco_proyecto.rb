@@ -2,7 +2,8 @@ class BancoProyecto < ActiveRecord::Base
   belongs_to :empresa
   has_many :anteproyectos
   has_many :banco_proyecto_estudiantes
-  
+  accepts_nested_attributes_for :banco_proyecto_estudiantes
+    
   validates :fk_rfc_emp_inst, :presence => { :message => "no puede quedar en blanco" },
                 rfc_format: true
   
