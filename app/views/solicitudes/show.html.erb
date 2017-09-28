@@ -23,7 +23,7 @@
           <% if current_usuario.rol == "empresa" %>
             <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Realizar observ<div class="tip" id="action2">Realizar observaciones</div><% end %>
           <% else %>
-            <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Realizar observ/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
+            <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Revisiones/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
           <% end %>
         </div>
       </div>
@@ -136,9 +136,11 @@
                   <div id="marco">
                     <div class="row">
                       <% revisor = Docente.find_by(rfc: observ.rfc) %>
-                      <div class="col-xs-6 col-sm-12"><b></b>Revisor: <%= revisor.nombreD %> <%= revisor.apPaterno %> <%= revisor.apMaterno%></div>
-                      <div class="col-xs-6 col-sm-12"><b></b>Fecha y hora de revisión: <%= observ.created_at %></div>
-                      <div class="col-xs-6 col-sm-12"><b></b>Observación: <%= observ.observacion %></div>
+                      <% if observ.observacion != nil %>
+                        <div class="col-xs-6 col-sm-12"><b></b>Revisor: <%= revisor.nombreD %> <%= revisor.apPaterno %> <%= revisor.apMaterno%></div>
+                        <div class="col-xs-6 col-sm-12"><b></b>Fecha y hora de revisión: <%= observ.created_at %></div>
+                        <div class="col-xs-6 col-sm-12"><b></b>Observación: <%= observ.observacion %></div>
+                      <% end %>
                     </div>
                   </div>
                   </br>

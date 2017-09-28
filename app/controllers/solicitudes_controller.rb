@@ -47,12 +47,14 @@ class SolicitudesController < ApplicationController
     @solicitud.estado_revision_docente = params[:solicitud][:estado_revision_docente]
     @solicitud.rfc_docente_revisor = params[:solicitud][:rfc_docente_revisor]
     
-    @solicitud_observaciones = SolicitudObservacion.new
-    @solicitud_observaciones.rfc = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:rfc]
-    @solicitud_observaciones.observacion = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ]
-    @solicitud_observaciones.solicitud_id = params[:id]
-    if params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ] != ""
-      @solicitud_observaciones.save
+    if params[:solicitud][:solicitud_observaciones_attributes] != nil
+      @solicitud_observaciones = SolicitudObservacion.new
+      @solicitud_observaciones.rfc = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:rfc]
+      @solicitud_observaciones.observacion = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ]
+      @solicitud_observaciones.solicitud_id = params[:id]
+      if params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ] != ""
+        @solicitud_observaciones.save
+      end
     end
     
     if @solicitud.save(:validate => false)

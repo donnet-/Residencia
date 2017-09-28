@@ -34,19 +34,15 @@
         
       <div id="marco">
         <div class="row">
-         
+          <% if :solicitud_observaciones == nil %>
+            <% sol = SolicitudObservaciones.new %>
+            <% sol.solicitud_id = @solicitud.id %>
+            <% sol.save %>
+          <% end %>
           
           <% if current_usuario.rol == "docente" %>
-            <% solic_observ = SolicitudObservacion.find_by(:solicitud_id => @solicitud.id) %>
-            <% if solic_observ == nil %>
-              <% require 'pry'; binding.pry %>
-              <% sol = SolicitudObservacion.new %>
-              <% sol.solicitud_id = @solicitud.id %>
-              <% sol.rfc = current_usuario.rfc %>
-              <% sol.save %>
-            <% end %>
-            
             <% if @vinculacion != nil %>
+            
               <div id="marco">
                 <h5><strong>Agregar Revisor</strong></h5>
                   <div class="row">
@@ -114,7 +110,6 @@
     <% end %>
         <div class="col-xs-6 col-md-6" id="btn">
           <%= button_to "Cancelar", solicitudes_path, :class => 'btn btn-warning', :method => :get %>
-
         </div>
       </div>
   </div>
