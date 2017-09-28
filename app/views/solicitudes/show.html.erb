@@ -3,103 +3,156 @@
     <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
   </div>
   
-  <% breadcrumb :solicitudes, @solicitud%>
+  <% breadcrumb :solicitudes, @solicitud %>
     
   <h2 id="align-title">Solicitud de Proyecto de Residencia</h2>
+  
   <div id="marco">
-    <div id="marco">
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
-          <div class="col-xs-6 col-sm-4"><b>Nombre de la empresa: </b>
-              <% @empresa = Empresa.where(:rfcEmpresa => @solicitud.rfc).first %>
-              <%= @empresa.nombreE %>
-          </div>
-          <div class="col-xs-6 col-sm-3"><b>Área: </b><%= @solicitud.area %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
-          <div class="col-xs-6 col-sm-4"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
-      </div>
-    </div>
-      </br>
-    <div id="marco">
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
-          <div class="col-xs-6 col-sm-4"><b>Correo: </b><%= @solicitud.correo %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
-          <div class="col-xs-6 col-sm-4"><b>Extensión: </b><%= @solicitud.extension %></div>
-      </div>
-    </div>
-      </br>
-
-    <div id="marco">
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
-          <div class="col-xs-6 col-sm-4"><b>Carrera: </b><%= @solicitud.carrera %></div>
-          <div class="col-xs-6 col-sm-3"><b>Semestre: </b><%= @solicitud.semestre %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
+    <div class="row">
+      <div class="col-xs-6 col-sm-2">
+        <div class="btn-group-vertical" role="group" aria-label="...">
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos del Proyecto</button>
+          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Observaciones</button>
+          </br>
+          <% str = "" %>
+          <% str2 = "" %>
+          <% str = raw(str + "&nbsp;" * 6) %>
+          <% str2 = raw(str2 + "&nbsp;" * 5) %>
+          <%= button_to solicitud_url(@solicitud, :format => :pdf), :method => :get do %><%= str %>Imprimir solicitud<%= str2 %><div class="tip" id="action2">Imprimir</div><% end %>
+          </br>
+          <% if current_usuario.rol == "empresa" %>
+            <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Realizar observ<div class="tip" id="action2">Realizar observaciones</div><% end %>
+          <% else %>
+            <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Realizar observ/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
+          <% end %>
+        </div>
       </div>
     
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
-          <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
-      </div>
-    </div>
-      </br>
+      <div class="col-xs-6 col-sm-10">
+        <div id="proyectoG" style="display:block;">
+          <h5 id="align-title"><b>Datos del Proyecto</b></h5>
+          <div id="marco">
+            <div id="marco">
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Nombre del proyecto: </b><%= @solicitud.nombrep %></div>
+                <div class="col-xs-6 col-sm-4"><b>Nombre de la empresa: </b>
+                  <% @empresa = Empresa.where(:rfcEmpresa => @solicitud.rfc).first %>
+                  <%= @empresa.nombreE %>
+                </div>
+                <div class="col-xs-6 col-sm-3"><b>Área: </b><%= @solicitud.area %></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Fecha de inicio: </b><%= @solicitud.fechaini %></div>
+                <div class="col-xs-6 col-sm-4"><b>Fecha de término: </b><%= @solicitud.fechater %></div>
+              </div>
+            </div>
+            </br>
+            <div id="marco">
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Asesor externo: </b><%= @solicitud.aexterno %></div>
+                <div class="col-xs-6 col-sm-4"><b>Correo: </b><%= @solicitud.correo %></div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Teléfono: </b><%= @solicitud.telefono %></div>
+                <div class="col-xs-6 col-sm-4"><b>Extensión: </b><%= @solicitud.extension %></div>
+              </div>
+            </div>
+            </br>
+            <div id="marco">
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Número de residentes: </b><%= @solicitud.numresidentes %></div>
+                <div class="col-xs-6 col-sm-4"><b>Carrera: </b><%= @solicitud.carrera %></div>
+                <div class="col-xs-6 col-sm-3"><b>Semestre: </b><%= @solicitud.semestre %></div>
+              </div>
+              
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Inglés: </b><%= @solicitud.ingles %></div>
+              </div>
+            
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
+                <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
+              </div>
+            </div>
+            </br>
 
-    <div id="marco">
-      <div class="row">
-        <div class="col-xs-6 col-sm-12" align="justify"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
-      </div>
-      </br>
+            <div id="marco">
+              <div class="row">
+                <div class="col-xs-6 col-sm-12" align="justify"><b>Descripción del proyecto: </b><%= @solicitud.desproyecto%></div>
+              </div>
+              </br>
 
-      <div class="row">
-          <div class="col-xs-6 col-sm-12" align="justify"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
-      </div>
-      </br>
+              <div class="row">
+                <div class="col-xs-6 col-sm-12" align="justify"><b>Objetivo del proyecto: </b><%= @solicitud.objetivo %></div>
+              </div>
+              </br>
 
-      <div class="row">
-          <div class="col-xs-6 col-sm-12" align="justify"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
-      </div>
-    </div>
-      </br>
+              <div class="row">
+                <div class="col-xs-6 col-sm-12" align="justify"><b>Actividades a desempeñar: </b><%= @solicitud.actividades %></div>
+              </div>
+            </div>
+            </br>
 
-    <div id="marco">
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
-          <div class="col-xs-6 col-sm-4"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
-          <div class="col-xs-6 col-sm-3"><b>Cuenta de correo: </b><%= @solicitud.cuenta_correo %></div>
-          <div class="col-xs-6 col-sm-3"><b>Lugar: </b><%= @solicitud.lugar %></div>
-      </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
-      </div>
-      </br>
+            <div id="marco">
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>PC: </b><%= @solicitud.pc %></div>
+                <div class="col-xs-6 col-sm-4"><b>Teléfono de escritorio: </b><%= @solicitud.tel_escritorio %></div>
+                <div class="col-xs-6 col-sm-3"><b>Cuenta de correo: </b><%= @solicitud.cuenta_correo %></div>
+                <div class="col-xs-6 col-sm-3"><b>Lugar: </b><%= @solicitud.lugar %></div>
+              </div>
+              
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Beca: </b><%= @solicitud.beca %></div>
+              </div>
+              </br>
 
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Observación: </b><%= @solicitud.observacion %></div>
+              </div>
+            </div>
+            </br>
+            
+            <div id="marco">
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Estado (Vinculación) (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
+              </div>
+              
+              <div class="row">
+                <div class="col-xs-6 col-sm-5"><b>Estado (Revisor) (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado_revision_docente %></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="row">
-          <div class="col-xs-6 col-sm-5"><b>Estado (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
+  
+        
+      <div class="col-xs-6 col-sm-10">
+        <div id="residentes" style="display:none;">
+          <div id="marco">
+            <div class="row">
+              <div class="col-xs-6 col-sm-12" align="justify">
+                
+                <% @solicitud.solicitud_observaciones.each do |observ| %>
+                  <div id="marco">
+                    <div class="row">
+                      <% revisor = Docente.find_by(rfc: observ.rfc) %>
+                      <div class="col-xs-6 col-sm-12"><b></b>Revisor: <%= revisor.nombreD %> <%= revisor.apPaterno %> <%= revisor.apMaterno%></div>
+                      <div class="col-xs-6 col-sm-12"><b></b>Fecha y hora de revisión: <%= observ.created_at %></div>
+                      <div class="col-xs-6 col-sm-12"><b></b>Observación: <%= observ.observacion %></div>
+                    </div>
+                  </div>
+                  </br>
+                <% end %>
+                
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-      </br>
-
-    <div class="row">
-      <div class="col-xs-6 col-sm-6" align="right">
-      <% if current_usuario.rol == "empresa" %>
-          <%= button_to edit_solicitud_path(@solicitud), :method => :get do %><span class="glyphicon glyphicon-pencil green"></span>Observaciones<div class="tip" id="action2">Realizar observaciones</div><% end %>
-      <% else %>
-          <%= button_to edit_solicitud_path(@solicitud), :method => :get do %><span class="glyphicon glyphicon-pencil green"></span>Observaciones/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
-      <% end %>
+      
+      <div id="docentes" style="display:none;">
       </div>
-      <div class="col-xs-6 col-sm-2" align="right">
-        <%= button_to solicitud_url(@solicitud, :format => :pdf), :method => :get do %><span class="glyphicon glyphicon-print green"></span>Imprimir<div class="tip" id="action2">Imprimir</div><% end %>
-      </div>
+      
     </div>
   </div>
 </div>

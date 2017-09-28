@@ -1,86 +1,79 @@
 
 <div class="container">
-    <div>
-      <% if current_usuario.rol == 'admin' %>
-        <%= render template: "siged/menuAdmin" %>
-      <% elsif current_usuario.rol == 'docente' %>
-        <%= render template: "siged/menuDocente" %>
-      <% elsif current_usuario.rol == 'estudiante' %>
-        <%= render template: "siged/menuEstudiante" %>
-      <% end %>
-    </div>
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
     
-    <h3 id="align-title">Anteproyecto de Residencia Profesional</h3>
-    
-    <div id="marco">
+  <% breadcrumb :anteproyectos, @anteproyecto %>
+  
+  <h3 id="align-title">Anteproyecto de Residencia Profesional</h3>
+  
+  <div id="marco">
     <div class="row">
       <div class="col-xs-6 col-sm-2">
         <div class="btn-group-vertical" role="group" aria-label="...">
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos Generales</button>
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Residentes</button>
-          <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="rev">Revisor</button>
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="docent">Observaciones</button>
+          </br>
+          <% if current_usuario.rol == "docente" %>
+            <%= button_to edit_anteproyecto_path(@anteproyecto), :method => :get do %>Realizar observ/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
+          <% end %>
         </div>
       </div>
       
       <div class="col-xs-6 col-sm-10">
         <div id="proyectoG" style="display:block;">
-					<h5 id="align-title"><b>Datos generales</b></h5>
-				<div class="col-xs-6 col-sm-6"><b>Status: </b> <%= @anteproyecto.status_anteproy %></div>
-			</div>
+          <div id="marco">
+            <h5 id="align-title"><b>Datos generales</b></h5>
+            <div class="col-xs-6 col-sm-6"><b>Status: </b> <%= @anteproyecto.status_anteproy %></div>
 					
-      <div class="row">
-        <div class="col-xs-6 col-sm-6" align="justify"><b>Nombre del proyecto: </b><%= @anteproyecto.nombre_anteproy %></div>
+            <div class="row">
+              <div class="col-xs-6 col-sm-6" align="justify"><b>Nombre del proyecto: </b><%= @anteproyecto.nombre_anteproy %></div>
+            </div>
+          
+            <div class="row">
+              <div class="col-xs-6 col-sm-6" align="justify"><b>Asesor externo: </b><%= @anteproyecto.asesor_externo %></div>
+            </div>
+          </div>
+        </div>
       </div>
-			
-			<div class="row">
-        <div class="col-xs-6 col-sm-6" align="justify"><b>Asesor externo: </b><%= @anteproyecto.asesor_externo %></div>
+           
+      <div class="col-xs-6 col-sm-10">
+        <div id="residentes" style="display:none;">
+          <div id="marco">
+            <div class="row">
+            <h5 id="align-title"><b>Residentes</b></h5>
+            <% @anteproyecto.anteproyecto_estudiantes.each do |est| %>
+              <div class="col-xs-6 col-sm-4"><b>Número de control</b> <%= est.numControl %></div>
+              <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
+              <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-6 col-sm-10">
+        <div id="docentes" style="display:none;">
+          <div id="marco">
+            <h5 id="align-title"><b>Observaciones</b></h5>
+            <% @anteproyecto.anteproyecto_observaciones.each do |est| %>
+              <div class="col-xs-6 col-sm-4"><b>RFC del revisor:</b> <%= est.identificador %></div>
+              <% docente = Docente.find_by(rfc: est.identificador) %>
+              <% if docente == nil %>
+                <div class="col-xs-6 col-sm-6"><b>Revisor: </b>Jefatura de Vinculación y Extensión de Ing. en Sistemas y Comput ación</div>
+              <% else %>
+                <div class="col-xs-6 col-sm-6"><b>Nombre el revisor: </b><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></div>
+              <% end %>
+            
+              <div class="col-xs-6 col-sm-4"><b>Observación:</b> <%= est.observacion %></div>
+              <div class="col-xs-6 col-sm-4"><b>Fecha y hora:</b> <%= est.updated_at %></div>
+            <% end %>
+          <br/>
+        </div>
       </div>
       
-			<div class="row">
-				<div class="col-xs-6 col-sm-12" align="right"><%= link_to edit_proyecto_path(@anteproyecto), methos: :get do %><span class="glyphicon glyphicon-pencil green" title="Editar proyecto"></span><% end %></div>
-			</div>
-    </div>
-  </div>
-           
-  <div id="residentes" style="display:none;">
-    <div id="marco">
-      <h5 id="align-title"><b>Residentes</b></h5>
-      <% @anteproyecto.anteproyecto_estudiantes.each do |est| %>
-        <div class="col-xs-6 col-sm-4"><b>Número de control</b> <%= est.numControl %></div>
-        <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
-        <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-      <% end %>
-      <br/>
-    </div>
-  </div>
-
-  <div id="revisor" style="display:none;">
-    <div id="marco">
-      <h5 id="align-title"><b>Revisor</b></h5>
-    
-      <br/>
-    </div>
-  </div>
-
-
-  <div id="docentes" style="display:none;">
-    <div id="marco">
-      <h5 id="align-title"><b>Observaciones</b></h5>
-      <% @anteproyecto.anteproyecto_observaciones.each do |est| %>
-        <div class="col-xs-6 col-sm-4"><b>RFC del revisor:</b> <%= est.identificador %></div>
-        <% docente = Docente.find_by(rfc: est.identificador) %>
-        <% if docente == nil %>
-          <div class="col-xs-6 col-sm-6"><b>Revisor: </b>Jefatura de Vinculación y Extensión de Ing. en Sistemas y Comput ación</div>
-        <% else %>
-          <div class="col-xs-6 col-sm-6"><b>Nombre el revisor: </b><%= docente.nombreD %> <%= docente.apPaterno %> <%= docente.apMaterno %></div>
-        <% end %>
-        
-        <div class="col-xs-6 col-sm-4"><b>Observación:</b> <%= est.observacion %></div>
-        <div class="col-xs-6 col-sm-4"><b>Fecha y hora:</b> <%= est.updated_at %></div>
-      <% end %>
-      <br/>
-    </div>
     </div>
   </div>
 </div>     

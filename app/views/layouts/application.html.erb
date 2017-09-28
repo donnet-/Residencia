@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>SIDSCITO</title>
+  <%= favicon_link_tag 'LogoITO.ico' %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true%>
   <%#= javascript_include_tag "autocomplete-rails.js" %>
@@ -44,14 +45,12 @@
 <%= yield %>
     <div class="container">
 		<% if usuario_signed_in? %> 
-		  <% if request.path == "/"%> 
-			<% if current_usuario.rol == "admin" %>              
-			  <%= render "siged/notificaciones" %>          
-			<% elsif current_usuario.rol == "docente" %>        
-			  <%= render "siged/notificacionesDocente" %>
-			<% elsif current_usuario.rol == "empresa" %>        
-			  <%= render "siged/notificacionesEmpresa" %>
-			<% end %>
+		  <% if request.path == "/"%>
+        <% if current_usuario.rol == "admin" %>
+          <%= render "siged/notificaciones" %>
+        <% else %>
+          <%= render "siged/notificaciones" + current_usuario.rol.capitalize %>
+        <% end %>
 		  <% end %>
 		<% end %>
     </div>

@@ -1,14 +1,10 @@
 
 <div class="container">
   <div align="left">
-    <% if current_usuario.rol == 'admin' %>
-      <%= render template: "siged/menuAdmin" %>
-    <% elsif current_usuario.rol == 'docente' %>
-      <%= render template: "siged/menuDocente" %>
-    <% elsif current_usuario.rol == 'estudiante' %>
-      <%= render template: "siged/menuEstudiante" %>
-    <% end %>
+    <div>
+      <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
     </div>
+  </div>
     
     <h3 id="align-title">Anteproyectos de Residencia Profesional</h3>
     

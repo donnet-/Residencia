@@ -6,7 +6,7 @@
   <% breadcrumb :solicitudes %>
     
   <h3 id="align-title">Solicitudes de Residencia Profesional</h3>
-  <div class="container row"></div>
+  
   <div class="container row">
     <div class="col-xs-6 col-sm-0">
       <%= button_to new_solicitud_path, :class => "btn btn-primary", :method => :get do %>
@@ -38,18 +38,21 @@
     <table class="table table-sm">
       <thead>
         <th class="info"><%= sortable "clave_solicitud" %></th>
-        <th class="info"><%= sortable "nombrep" %></th>
-        <th class="info"><%= sortable "estado" %></th>  
-        <th class="info"><%= %></th>  
+        <th class="info"><%= sortable "nombrep", "Nombre del Proyecto"%></th>
+        <th class="info"><%= "Nombre de la Empresa/Institución" %></th>  
+        <th class="info"><%= sortable "estado", "Estado (Revisor)" %></th>  
+        <th class="info"><%= sortable "estado", "Estado (Vinculación)" %></th>  
       </thead>
       <% @solicitudes.each do |solicitud| %>
         <tbody>
           <% if current_usuario.rol == "empresa" %>
             <% if current_usuario.rfc == solicitud.rfc %>
+              <% empresa = Empresa.where(:rfcEmpresa => solicitud.rfc).first %>
               <td class="active"><%= solicitud.clave_solicitud%></td>
               <td class="active"><%= solicitud.nombrep %></td>
+              <td class="active"><%= empresa.nombreE %></td>
+              <td class="active"><%= solicitud.estado_revision_docente %></td>
               <td class="active"><%= solicitud.estado %></td>
-              <td class="active"><%= link_to "Observaciones", solicitud_observaciones_path %></p>
               <td class="active">
                 <p>
                   <%= link_to solicitud_path(solicitud) do %>
@@ -62,11 +65,13 @@
           <% elsif current_usuario.rol == "docente" %>
             <% @id_docente = Docente.where(:email => current_usuario.email).first %>
             <% @puesto = Puesto.where(:docente_id => @id_docente, :cat_tipo_puesto_id => 4).first %>
+            <% empresa = Empresa.where(:rfcEmpresa => solicitud.rfc).first %>
             <% if current_usuario.rfc == solicitud.rfc_docente_revisor || @puesto != nil %>
               <td class="active"><%= solicitud.clave_solicitud%></td>
-              <td class="active"><%= solicitud.nombrep %></td>
+              <td class="active" ><%= solicitud.nombrep %></td>
+              <td class="active"><%= empresa.nombreE %></td>
+              <td class="active"><%= solicitud.estado_revision_docente %></td>
               <td class="active"><%= solicitud.estado %></td>
-              <td class="active"><%= link_to "Observaciones", solicitud_observaciones_path %></p>
               <td class="active">
                 <p>
                   <%= link_to solicitud_path(solicitud) do %>
@@ -78,8 +83,9 @@
           <% else %>
             <td class="active"><%= solicitud.clave_solicitud %></td>
             <td class="active"><%= solicitud.nombrep %></td>
+            <td class="active"><%= empresa.nombreE %></td>
+            <td class="active"><%= solicitud.estado_revision_docente %></td>
             <td class="active"><%= solicitud.estado %></td>
-            <td class="active"><%= link_to "Observaciones", solicitud_observaciones_path %></p>
             <td class="active">
               <p>
                 <%= link_to solicitud_path(solicitud) do %>

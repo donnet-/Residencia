@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170914155713) do
+ActiveRecord::Schema.define(version: 20170927191246) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -130,14 +130,15 @@ ActiveRecord::Schema.define(version: 20170914155713) do
   add_index "anteproyecto_observaciones", ["anteproyecto_id"], name: "index_anteproyecto_observaciones_on_anteproyecto_id", using: :btree
 
   create_table "anteproyectos", force: :cascade do |t|
-    t.integer  "fk_id_proyecto_b", limit: 4
-    t.string   "nombre_anteproy",  limit: 255
-    t.string   "asesor_externo",   limit: 255
-    t.string   "status_anteproy",  limit: 255
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.string   "revisor",          limit: 255
-    t.string   "clave",            limit: 255
+    t.integer  "fk_id_proyecto_b",        limit: 4
+    t.string   "nombre_anteproy",         limit: 255
+    t.string   "asesor_externo",          limit: 255
+    t.string   "status_anteproy",         limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "revisor",                 limit: 255
+    t.string   "clave",                   limit: 255
+    t.string   "status_anteproy_revisor", limit: 255
   end
 
   create_table "aprendizaje_egresados", force: :cascade do |t|
@@ -1224,7 +1225,6 @@ ActiveRecord::Schema.define(version: 20170914155713) do
     t.string   "tel_escritorio",          limit: 255
     t.string   "lugar",                   limit: 255
     t.string   "beca",                    limit: 255
-    t.string   "observacion",             limit: 255
     t.string   "estado",                  limit: 255
     t.string   "rfc",                     limit: 255
     t.datetime "created_at",                            null: false
@@ -1234,6 +1234,7 @@ ActiveRecord::Schema.define(version: 20170914155713) do
     t.string   "estado_revision_docente", limit: 255
     t.string   "clave_solicitud",         limit: 255
     t.string   "cuenta_correo",           limit: 255
+    t.string   "observacion",             limit: 255
   end
 
   create_table "tablapromedios", force: :cascade do |t|

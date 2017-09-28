@@ -12,7 +12,7 @@
       <div class="col-xs-6 col-sm-2">
         <div class="btn-group-vertical" role="group" aria-label="...">
           <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="proyecto">Datos del Proyecto</button>
-          <% if current_usuario.rol = 'docente' %>
+          <% if current_usuario.rol == 'docente' %>
             <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Solicitudes del Proyecto</button>
           <% else %>
             <button type="button" class="btn btn-default" name="tipo_attach" onclick="mostrarProyecto(this)" value="residente">Solicitar Proyecto</button>
@@ -66,11 +66,15 @@
           
             <h5 id="align-title"><b>Estudiantes que solicitaron realizar este Proyecto de Residencia Profesional:</b></h5>
             
+            <% @numeros_control = [] %>
+            <% num_alumnos = 0 %>
             <% @num_solicitudes = 0 %>
             <% @banco_estudiante = BancoProyectoEstudiante.where(:numControl => current_usuario.numControl).first %>
             <% @solicitud_realizada = false %>
             
             <% @banco_proyecto.banco_proyecto_estudiantes.each do |est| %>
+              <% @numeros_control.insert(num_alumnos, est.numControl) %>
+              <% num_alumnos += 1 %>
               <div class="col-xs-6 col-sm-4"><b>Número de control</b><%= est.numControl %></div>
               <% estudiante = Estudiante.find_by(numControl: est.numControl) %>
               <div class="col-xs-6 col-sm-6"><b>Nombre completo: </b><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
@@ -85,6 +89,7 @@
                     <div class="tip" id="action2">Eliminar solicitud</div>
                 <% end %>
               <% end %>
+              </br>
             <% end %>
             </br>
             
@@ -92,8 +97,20 @@
               </br>
               Las solicitudes para este proyecto han alcanzado el cupo máximo.
               </br></br>
-              <% if current_usuario.rol = 'docente' %>
-                <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
+              <% if current_usuario.rol == 'docente' %>
+                
+                <%= form_tag new_anteproyecto_path, method: :get do %>
+                  <%= hidden_field_tag :aprob0, params[:aprob0], :value => @numeros_control[0] %>
+                  <%= hidden_field_tag :aprob1, params[:aprob1], :value => @numeros_control[1] %>
+                  <%= hidden_field_tag :aprob2, params[:aprob2], :value => @numeros_control[2] %>
+                  <%= hidden_field_tag :aprob3, params[:aprob3], :value => @numeros_control[3] %>
+                  <%= hidden_field_tag :aprob4, params[:aprob4], :value => @numeros_control[4] %>
+                  <%= hidden_field_tag :aprob5, params[:aprob5], :value => @numeros_control[5] %>
+                  <%= button_tag(type: 'submit', class: "btn btn-primary", title: "Aprobar estudiante(s)") do %>
+                    <i class="glyphicon glyphicon-ok"></i> Aprobar estudiante(s)
+                  <% end %>
+                <% end %>
+
               <% end %>
             <% elsif @banco_estudiante != nil %>
               Ya realizó una solicitud de otro proyecto.

@@ -1,10 +1,9 @@
 
 <div class="container">
-  <% if current_usuario.rol == 'admin' %>
-    <%= render template: "siged/menuAdmin" %>
-  <% else %>
-    <%= render template: "siged/menuEmpresa" %>
-  <% end %>
+  <div>
+    <%= render template: ("siged/menu" + current_usuario.rol.capitalize) %>
+  </div>
+  
   <% breadcrumb :solicitud_observaciones %>
     
   <h3 id="align-title">Observaciones de la Solicitud de Residencia Profesional</h3>
@@ -26,15 +25,17 @@
   <div id="table-responsive">
     <table class="table table-sm">
       <thead>
-        <th class="info"><%= sortable "clave_solicitud" %></th>
-        <th class="info"><%= sortable "nombrep" %></th>
-        <th class="info"><%= sortable "observación" %></th>
+        <th class="info"><%= sortable "clave_solicitud", "Clave de la solicitud" %></th>
+        <th class="info"><%= sortable "nombrep", "Nombre del Proyecto" %></th>
+        <th class="info"><%= "Nombre del Docente revisor" %></th>
+        <th class="info"><%= sortable ""  %></th>
       </thead>
       <% @solicitud_observaciones.each do |solicitud| %>
         <tbody>
+          <% @docente = Docente.where(:rfc => solicitud.rfc).first %>
           <td class="active"><%= solicitud.solicitud.clave_solicitud %></td>
           <td class="active"><%= solicitud.solicitud.nombrep %></td>
-          <td class="active"><%= solicitud.observacion %></td>
+          <td class="active"><%= @docente.nombreD  + " " + @docente.apPaterno + " " + @docente.apMaterno %></td>
           <td class="active">
             <p>
               <%= link_to solicitud_path(solicitud.solicitud) do %>

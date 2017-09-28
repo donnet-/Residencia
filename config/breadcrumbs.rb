@@ -161,7 +161,7 @@ crumb :solicitud_new do
 end
 #solicitudes/
 crumb :solicitudes do
-  link "Solicitudes", solicitudes_path
+  link "Solicitudes de Residencia Profesional", solicitudes_path
 end
 
 

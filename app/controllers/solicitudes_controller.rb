@@ -43,14 +43,23 @@ class SolicitudesController < ApplicationController
   def update
     @solicitud = Solicitud.find(params[:id])
     estado = @solicitud.estado
-    
     @solicitud.estado = params[:solicitud][:estado]
+    @solicitud.estado_revision_docente = params[:solicitud][:estado_revision_docente]
     @solicitud.rfc_docente_revisor = params[:solicitud][:rfc_docente_revisor]
+    
+    @solicitud_observaciones = SolicitudObservacion.new
+    @solicitud_observaciones.rfc = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:rfc]
+    @solicitud_observaciones.observacion = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ]
+    @solicitud_observaciones.solicitud_id = params[:id]
+    if params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ] != ""
+      @solicitud_observaciones.save
+    end
+    
     if @solicitud.save(:validate => false)
       if @solicitud.estado != estado && @solicitud.estado == "Aprobado"
         redirect_to new_banco_proyecto_path
       else
-        redirect_to @solicitud
+        redirect_to solicitud_path(@solicitud) 
       end
     end
   end

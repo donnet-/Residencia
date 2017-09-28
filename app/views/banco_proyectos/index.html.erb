@@ -17,7 +17,6 @@
      
         <% @banco_proyectos.each do |banco_proyecto| %>
           <tbody>
-            <% @anteproy = Anteproyecto.where(:clave => banco_proyecto.clave).first %>
             <% @banco_estudiantes = BancoProyectoEstudiante.where(:banco_proyecto_id => banco_proyecto.id).first %>
             
             <td class="active"><%= banco_proyecto.clave %></td>
@@ -33,9 +32,6 @@
             <% end %>
             <td class="active">
               <% if current_usuario.rol != "estudiante" %>
-                <% if @anteproy == nil %>
-                  <td class="active"><%= link_to "Asignar estudiante(s)", new_anteproyecto_path %></p>
-                <% end %>
                 <%= link_to edit_banco_proyecto_path(banco_proyecto) do %>
                     <span class="glyphicon glyphicon-pencil green"></span>
                     <div class="tip" id="action2">Editar</div>
