@@ -16,6 +16,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require turbolinks
+//= require highcharts
+//= require chartkick
 //= require jquery_nested_form
 //= require rails.validations
 //= require rails.validations.custom

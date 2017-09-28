@@ -36,6 +36,7 @@ gem 'puma'
 gem 'axlsx', '~> 2.0.1'
 gem "axlsx_rails"
 gem 'googlecharts'
+gem 'highcharts-rails'
 gem "chartkick"
 gem 'bootstrap-chosen-rails'
 gem 'ckeditor'

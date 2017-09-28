@@ -120,6 +120,8 @@ GEM
     googlecharts (1.6.12)
     gretel (3.0.9)
       rails (>= 3.1.0)
+    highcharts-rails (5.0.7)
+      railties (>= 3.1)
     htmlentities (4.3.4)
     i18n (0.8.6)
     identificamex (0.0.5)
@@ -289,6 +291,7 @@ DEPENDENCIES
   devise (~> 4.2)
   googlecharts
   gretel
+  highcharts-rails
   identificamex
   jbuilder (~> 2.0)
   jquery-rails
