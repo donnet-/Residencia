@@ -39,7 +39,6 @@
           <% if current_usuario.rol == "docente" %>
             <% solic_observ = SolicitudObservacion.find_by(:solicitud_id => @solicitud.id) %>
             <% if solic_observ == nil %>
-              <% require 'pry'; binding.pry %>
               <% sol = SolicitudObservacion.new %>
               <% sol.solicitud_id = @solicitud.id %>
               <% sol.rfc = current_usuario.rfc %>

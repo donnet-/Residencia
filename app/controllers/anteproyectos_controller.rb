@@ -79,8 +79,8 @@ class AnteproyectosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def anteproyecto_params
-      params.require(:anteproyecto).permit(:fk_id_proyecto_b, :nombre_anteproy, :asesor_externo, :status_anteproy,
-                                           anteproyecto_estudiantes_attributes: [:id, :numControl, :_destroy],
-                                           anteproyecto_observaciones_attributes: [:id, :identificador, :observacion, :_destroy])
+      params.require(:anteproyecto).permit(:fk_id_proyecto_b, :nombre_anteproy, :asesor_externo, :status_anteproy, :revisor, :clave, :status_anteproy_revisor,
+        anteproyecto_estudiantes_attributes: [:id, :numControl, :_destroy],
+        anteproyecto_observaciones_attributes: [:id, :identificador, :observacion, :_destroy])
     end
 end

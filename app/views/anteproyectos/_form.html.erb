@@ -9,23 +9,28 @@
       <% nombreE = Empresa.find_by(:rfcEmpresa => proy_banco.fk_rfc_emp_inst).nombreE %>
       
       <div id="marco">
-        <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id %>
-        <%= anteproyecto.hidden_field :clave, :value => proy_banco.clave %>
-        
-        <div class="row">
-          <div class="col-xs-5 col-md-12"> <%= anteproyecto.label "Nombre de Proyecto"%>:
-          <%= anteproyecto.text_area :nombre_anteproy, :value => proy_banco.nombre_proyecto_b, :class => 'col-xs-5 col-md-12', :size => "40x2", validate: true, :readonly => true %></div>
-        </div>
+        <div id="marco">
+          <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id %>
+          <%= anteproyecto.hidden_field :clave, :value => proy_banco.clave %>
           
-        <div class="row">
-          <div class="col-xs-5 col-md-12"> <%= anteproyecto.label "Nombre del Asesor Externo"%>:
-          <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-4 col-md-12', validate: true %></div>
-        </div>
+          <div class="row">
+            <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre de Proyecto" %>:
+            <%= anteproyecto.text_area :nombre_anteproy, :value => proy_banco.nombre_proyecto_b, :class => 'col-xs-6 col-md-12', :size => "40x2", validate: true, :readonly => true %></div>
+          </div>
+          </br>
           
-        <div class="row">
-          <div class="col-xs-5 col-md-12"> <%= anteproyecto.label "Nombre de la Empresa"%>:
-          <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-4 col-md-12', validate: true %></div>
+          <div class="row">
+            <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre del Asesor Externo" %>:
+            <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-6 col-md-12', validate: true %></div>
+          </div>
+          </br>
+            
+          <div class="row">
+            <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre de la Empresa" %>:
+            <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-6 col-md-12', validate: true, :readonly => true %></div>
+          </div>
         </div>
+        </br>
         
         <fieldset id="poryectoestudiante">
           <div id="marco">
@@ -93,7 +98,8 @@
               <% end %>
               <% num = 2 %>
               <div class="row">
-                <div class="col-md-2"><%= proyes.label :Núm_de_control%></div>
+                
+                <div class="col-md-2"><%= proyes.label :Nombre_del_estudiante %></div>
                   <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
                   <div class="col-xs-6 col-sm-2">
                     <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
@@ -103,43 +109,48 @@
             <div class="row"><%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
           </div>
         </fieldset>
-    
+        </br>
+        
         <div id="marco">
           <% if @vinculacion != nil %>
-            
-            <div id="marco">
-              <h5><strong>Agregar Revisor</strong></h5>
-                <div class="row">
-                  <div class="col-md-2"><%= anteproyecto.label :Revisor %></div>
-                    <div class="col-md-4">
-                      <%= anteproyecto.select :status_anteproy_revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %>
-                      <%= anteproyecto.hidden_field :status_anteproy_revisor, :value => "En revisión" %>
-                    </div>
+            <h5><strong>Agregar Revisor</strong></h5>
+            </br>
+            <div class="row">
+              <div class="col-md-2"><%= anteproyecto.label :Nombre_del_revisor %></div>
+                <div class="col-md-4">
+                  <%= anteproyecto.select :revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %>
+                  <%= anteproyecto.hidden_field :status_anteproy_revisor, :value => "En revisión" %>
                 </div>
             </div>
             
-            <div class="col-md-10">
-                <h5><strong>Observaciones</strong></h5>
-                <% num_observ = 1 %>
-                <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
-                  <% if num_observ == 1 %>
-                    <div class="col-md-10">
-                      <%= observ.text_area :observacion, :value => "", validate: true %>
-                      <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %>
-                    </div>
-                  <% end %>
-                  <% num_observ = 2 %>
-                <% end %>
-              </div>
-                
-              <%= anteproyecto.label :status_anteproy, "Estado", class: 'col-md-6' %>
-              <div class="col-md-10">
-              <%= anteproyecto.select :status_anteproy, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @anteproyecto.status_anteproy), class: 'form-control', validate: true %></div>
-              
-              
+            
           <% end %>    
         </div>
+        </br>
         
+        <div id="marco">
+          <div class="row">
+            <div class="col-md-10">
+              <h5><strong>Observaciones</strong></h5>
+              <% num_observ = 1 %>
+              <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
+                <% if num_observ == 1 %>
+                  <div class="col-md-10">
+                    <%= observ.text_area :observacion, :value => "", validate: true %>
+                    <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %>
+                  </div>
+                <% end %>
+                <% num_observ = 2 %>
+              <% end %>
+            </div>
+            </br>
+            
+            <%= anteproyecto.label :status_anteproy, "Estado", class: 'col-md-6' %>
+            <div class="col-md-10">
+              <%= anteproyecto.select :status_anteproy, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @anteproyecto.status_anteproy), class: 'form-control', validate: true %></div>
+          </div>
+        </div>
+              
         <% if current_usuario.rol == "admin" %>
           <fieldset id="observaciones">
             <div id="marco">

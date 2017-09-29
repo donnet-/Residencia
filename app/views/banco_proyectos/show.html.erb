@@ -62,10 +62,8 @@
             
       <div class="col-xs-6 col-sm-10">
         <div id="residentes" style="display:none;">
+          <h5 id="align-title"><b>Estudiantes que solicitaron realizar este Proyecto de Residencia Profesional:</b></h5>
           <div id="marco">
-          
-            <h5 id="align-title"><b>Estudiantes que solicitaron realizar este Proyecto de Residencia Profesional:</b></h5>
-            
             <% @numeros_control = [] %>
             <% num_alumnos = 0 %>
             <% @num_solicitudes = 0 %>
@@ -98,18 +96,19 @@
               Las solicitudes para este proyecto han alcanzado el cupo máximo.
               </br></br>
               <% if current_usuario.rol == 'docente' %>
+                <% anteproy = Anteproyecto.find_by(:clave => @banco_proyecto.clave) %>
                 
-                <%= form_tag new_anteproyecto_path, method: :get do %>
-                  <%= hidden_field_tag :aprob0, params[:aprob0], :value => @numeros_control[0] %>
-                  <%= hidden_field_tag :aprob1, params[:aprob1], :value => @numeros_control[1] %>
-                  <%= hidden_field_tag :aprob2, params[:aprob2], :value => @numeros_control[2] %>
-                  <%= hidden_field_tag :aprob3, params[:aprob3], :value => @numeros_control[3] %>
-                  <%= hidden_field_tag :aprob4, params[:aprob4], :value => @numeros_control[4] %>
-                  <%= hidden_field_tag :aprob5, params[:aprob5], :value => @numeros_control[5] %>
-                  <%= button_tag(type: 'submit', class: "btn btn-primary", title: "Aprobar estudiante(s)") do %>
-                    <i class="glyphicon glyphicon-ok"></i> Aprobar estudiante(s)
+                  <%= form_tag new_anteproyecto_path, method: :get do %>
+                    <%= hidden_field_tag :aprob0, params[:aprob0], :value => @numeros_control[0] %>
+                    <%= hidden_field_tag :aprob1, params[:aprob1], :value => @numeros_control[1] %>
+                    <%= hidden_field_tag :aprob2, params[:aprob2], :value => @numeros_control[2] %>
+                    <%= hidden_field_tag :aprob3, params[:aprob3], :value => @numeros_control[3] %>
+                    <%= hidden_field_tag :aprob4, params[:aprob4], :value => @numeros_control[4] %>
+                    <%= hidden_field_tag :aprob5, params[:aprob5], :value => @numeros_control[5] %>
+                    <%= button_tag(type: 'submit', class: "btn btn-primary", title: "Aprobar estudiante(s)") do %>
+                      <i class="glyphicon glyphicon-ok"></i> Aprobar estudiante(s)
+                    <% end %>
                   <% end %>
-                <% end %>
 
               <% end %>
             <% elsif @banco_estudiante != nil %>
