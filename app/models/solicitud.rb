@@ -1,10 +1,11 @@
 class Solicitud < ActiveRecord::Base
   belongs_to :empresa
-  
+  has_many :solicitud_horarios
   has_many :banco_proyectos
   has_many :solicitud_observaciones
   
   accepts_nested_attributes_for :solicitud_observaciones, allow_destroy: true
+  accepts_nested_attributes_for :solicitud_horarios, allow_destroy: true
   
   validates_uniqueness_of :nombrep
   
@@ -41,9 +42,9 @@ class Solicitud < ActiveRecord::Base
   
   validates :ingles, :presence => { :message => "No puede quedar en blanco" }
   
-  validates :horaentrada, presence: {message: "No puede quedar en blanco"}, format: {with: /\A([0-1][0-9]|2[0-4]):[0-5][0-9]\z/, message: "No cumple con el formato (HH:MM) o no es una hora posible"}
+  #validates :horaentrada, presence: {message: "No puede quedar en blanco"}, format: {with: /\A([0-1][0-9]|2[0-4]):[0-5][0-9]\z/, message: "No cumple con el formato (HH:MM) o no es una hora posible"}
   
-  validates :horasalida, presence: {message: "No puede quedar en blanco"}, format: {with: /\A([0-1][0-9]|2[0-4]):[0-5][0-9]\z/, message: "No cumple con el formato (HH:MM) o no es una hora posible"}
+  #validates :horasalida, presence: {message: "No puede quedar en blanco"}, format: {with: /\A([0-1][0-9]|2[0-4]):[0-5][0-9]\z/, message: "No cumple con el formato (HH:MM) o no es una hora posible"}
   
   validates :desproyecto, :presence => { :message => "No puede quedar en blanco" },
                 length: { maximum: 500, message: "no debe contener más de 500 caracteres" }

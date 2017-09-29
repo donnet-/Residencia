@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dia_inicio: MyString
+  dia_termino: MyString
+  hora_inicio: MyString
+  hora_termino: MyString
+  solicitud_id: 
+
+two:
+  dia_inicio: MyString
+  dia_termino: MyString
+  hora_inicio: MyString
+  hora_termino: MyString
+  solicitud_id: 

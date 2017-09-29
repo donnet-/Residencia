@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :solicitud_horarios
   #resources :banco_proyectos
   #resources :banco_proyecto_estudiantes
   resources :expedientes

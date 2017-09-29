@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Solicitud Horarios</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dia inicio</th>
+      <th>Dia termino</th>
+      <th>Hora inicio</th>
+      <th>Hora termino</th>
+      <th>Solicitud</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @solicitud_horarios.each do |solicitud_horario| %>
+      <tr>
+        <td><%= solicitud_horario.dia_inicio %></td>
+        <td><%= solicitud_horario.dia_termino %></td>
+        <td><%= solicitud_horario.hora_inicio %></td>
+        <td><%= solicitud_horario.hora_termino %></td>
+        <td><%= solicitud_horario.solicitud %></td>
+        <td><%= link_to 'Show', solicitud_horario %></td>
+        <td><%= link_to 'Edit', edit_solicitud_horario_path(solicitud_horario) %></td>
+        <td><%= link_to 'Destroy', solicitud_horario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Solicitud horario', new_solicitud_horario_path %>
