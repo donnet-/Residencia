@@ -70,9 +70,15 @@
               </div>
             
               <div class="row">
-                <div class="col-xs-6 col-sm-5"><b>Hora de entrada: </b><%= @solicitud.horaentrada %></div>
-                <div class="col-xs-6 col-sm-4"><b>Hora de salida: </b><%= @solicitud.horasalida %></div>
+                <div class="col-xs-6 col-sm-8"><b>Horario de Labores:(Residentes) </b> De: 
+                <% @solicitud.solicitud_horarios.each do |hora| %>
+                <% if hora.dia_inicio != hora.dia_termino%>
+                 <%= hora.dia_inicio %> a <%= hora.dia_termino %> de: <%= hora.hora_inicio%> a <%= hora.hora_termino%> hr.    
+                  <% else %>
+                <%= hora.dia_inicio %> de: <%= hora.hora_inicio%> a <%= hora.hora_termino%> hr.
+                <%end%>
               </div>
+              <% end %>
             </div>
             </br>
 

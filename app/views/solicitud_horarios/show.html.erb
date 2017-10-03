@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dia inicio:</strong>
+  <%= @solicitud_horario.dia_inicio %>
+</p>
+
+<p>
+  <strong>Dia termino:</strong>
+  <%= @solicitud_horario.dia_termino %>
+</p>
+
+<p>
+  <strong>Hora inicio:</strong>
+  <%= @solicitud_horario.hora_inicio %>
+</p>
+
+<p>
+  <strong>Hora termino:</strong>
+  <%= @solicitud_horario.hora_termino %>
+</p>
+
+<p>
+  <strong>Solicitud:</strong>
+  <%= @solicitud_horario.solicitud %>
+</p>
+
+<%= link_to 'Edit', edit_solicitud_horario_path(@solicitud_horario) %> |
+<%= link_to 'Back', solicitud_horarios_path %>

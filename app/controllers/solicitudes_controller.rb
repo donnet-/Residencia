@@ -1,4 +1,6 @@
 class SolicitudesController < ApplicationController
+  helper_method :sort_column, :sort_direction
+   
   def show
   	@date = params[:date] ? Date.parse(params[:date]) : Date.today
   	@solicitud = Solicitud.find(params[:id])
@@ -34,6 +36,9 @@ class SolicitudesController < ApplicationController
   def new
   	@solicitud = Solicitud.new
       1.times { @solicitud.solicitud_observaciones.build }
+      1.times do
+            horario = @solicitud.solicitud_horarios.build 
+        end
   end
 
   def edit
@@ -106,7 +111,10 @@ class SolicitudesController < ApplicationController
   private
   def solicitud_params
     params.require(:solicitud).permit(:nombrep, :fechaini, :fechater, :aexterno, :telefono, :extension, :correo, :area,
-    	:numresidentes, :carrera, :semestre, :ingles, :horaentrada, :horasalida, :desproyecto, :objetivo, :actividades, :pc, :tel_escritorio,:cuenta_correo, :lugar, :beca, :observacion, :estado, :rfc, :periodo, :rfc_docente_revisor, :estado_revision_docente, :clave_solicitud, solicitud_observaciones_attributes: [:id, :rfc, :observacion, :_destroy])
+    	:numresidentes, :carrera, :semestre, :ingles, :horaentrada, :horasalida, :desproyecto, :objetivo, :actividades, :pc,
+       :tel_escritorio,:cuenta_correo, :lugar, :beca, :observacion, :estado, :rfc, :periodo, :rfc_docente_revisor,
+       :estado_revision_docente, :clave_solicitud, solicitud_observaciones_attributes: [:id, :rfc, :observacion, :_destroy],
+       solicitud_horarios_attributes:[:id,:dia_inicio,:dia_termino, :hora_inicio, :hora_termino, :_destroy])
   end
 
   def sort_column
