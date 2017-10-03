@@ -39,7 +39,8 @@
       <thead>
         <th class="info"><%= sortable "clave_solicitud" %></th>
         <th class="info"><%= sortable "nombrep", "Nombre del Proyecto"%></th>
-        <th class="info"><%= "Nombre de la Empresa/Institución" %></th>  
+        <th class="info"><%= "Nombre de la Empresa/Institución" %></th>
+        <th class="info"><%= "Fecha de la solicitud" %></th>    
         <th class="info"><%= sortable "estado", "Estado (Revisor)" %></th>  
         <th class="info"><%= sortable "estado", "Estado (Vinculación)" %></th>  
       </thead>
@@ -51,12 +52,16 @@
               <td class="active"><%= solicitud.clave_solicitud%></td>
               <td class="active"><%= solicitud.nombrep %></td>
               <td class="active"><%= empresa.nombreE %></td>
+              <td class="active"><%= solicitud.created_at.strftime("%d/%m/%Y") %></td>
               <td class="active"><%= solicitud.estado_revision_docente %></td>
               <td class="active"><%= solicitud.estado %></td>
               <td class="active">
                 <p>
                   <%= link_to solicitud_path(solicitud) do %>
                     <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                  <% end %>
+                  <%= link_to edit_solicitud_path(solicitud) do %>
+                    <span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div>
                   <% end %>
                 </p>
                
@@ -70,6 +75,7 @@
               <td class="active"><%= solicitud.clave_solicitud%></td>
               <td class="active" ><%= solicitud.nombrep %></td>
               <td class="active"><%= empresa.nombreE %></td>
+              <td class="active"><%= solicitud.created_at.strftime("%d/%m/%Y") %></td>
               <td class="active"><%= solicitud.estado_revision_docente %></td>
               <td class="active"><%= solicitud.estado %></td>
               <td class="active">
@@ -84,6 +90,7 @@
             <td class="active"><%= solicitud.clave_solicitud %></td>
             <td class="active"><%= solicitud.nombrep %></td>
             <td class="active"><%= empresa.nombreE %></td>
+            <td class="active"><%= solicitud.created_at.strftime("%d/%m/%Y") %></td>
             <td class="active"><%= solicitud.estado_revision_docente %></td>
             <td class="active"><%= solicitud.estado %></td>
             <td class="active">
