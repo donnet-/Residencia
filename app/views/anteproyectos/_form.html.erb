@@ -5,187 +5,197 @@
 <div class="container">
   <div id="align-anteproyecto.rms">
     <%= nested_form_for @anteproyecto, validate: true do |anteproyecto| %>
-      <% proy_banco = BancoProyecto.order("updated_at DESC").first %>
-      <% nombreE = Empresa.find_by(:rfcEmpresa => proy_banco.fk_rfc_emp_inst).nombreE %>
-      
-      <div id="marco">
-        <div id="marco">
-          <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id %>
-          <%= anteproyecto.hidden_field :clave, :value => proy_banco.clave %>
-          
-          <div class="row">
-            <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre de Proyecto" %>:
-            <%= anteproyecto.text_area :nombre_anteproy, :value => proy_banco.nombre_proyecto_b, :class => 'col-xs-6 col-md-12', :size => "40x2", validate: true, :readonly => true %></div>
-          </div>
-          </br>
-          
-          <div class="row">
-            <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre del Asesor Externo" %>:
-            <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-6 col-md-12', validate: true %></div>
-          </div>
-          </br>
-            
-          <div class="row">
-            <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre de la Empresa" %>:
-            <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-6 col-md-12', validate: true, :readonly => true %></div>
-          </div>
-        </div>
-        </br>
-        
-        <fieldset id="poryectoestudiante">
-          <div id="marco">
-            <h5><strong>Agregar estudiantes</strong></h5>
-            </br>
-            <% num = 1 %>
-            <%= anteproyecto.fields_for :anteproyecto_estudiantes, validate: true do |proyes| %>
-              <% if num == 1 %>
-                <div class="row">
-                  <% if params[:aprob0] != "" && params[:aprob0] != nil %>
-                    <div class="col-md-8"><%= proyes.label "Estudiante(s) que solicitaron realizar este proyecto"%>:</div>
-                    </br></br>
-                    <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob0] %></div>
-                    <% estudiante = Estudiante.find_by(:numControl => params[:aprob0]) %>
-                    <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-                    </br></br>
-                  <% end %>
-                </div>
-                
-                <div class="row">
-                  <% if params[:aprob1] != "" && params[:aprob1] != nil %>
-                    <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob1] %></div>
-                    <% estudiante = Estudiante.find_by(:numControl => params[:aprob1]) %>
-                    <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-                    </br></br>
-                  <% end %>
-                </div>
-                
-                <div class="row">
-                  <% if params[:aprob2] != "" && params[:aprob2] != nil %>
-                    <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob2] %></div>
-                    <% estudiante = Estudiante.find_by(:numControl => params[:aprob2]) %>
-                    <% require 'pry'; binding.pry %>
-                    <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-                    </br></br>
-                  <% end %>
-                </div>
-                
-                <div class="row">
-                  <% if params[:aprob3] != "" && params[:aprob3] != nil %>
-                    <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob3] %></div>
-                    <% estudiante = Estudiante.find_by(:numControl => params[:aprob3]) %>
-                    <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-                    </br></br>
-                  <% end %>
-                </div>
-                
-                <div class="row">
-                  <% if params[:aprob4] != "" && params[:aprob4] != nil %>
-                    <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob4] %></div>
-                    <% estudiante = Estudiante.find_by(:numControl => params[:aprob4]) %>
-                    <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-                    </br></br>
-                  <% end %>
-                </div>
-                
-                <div class="row">
-                  <% if params[:aprob5] != "" && params[:aprob5] != nil %>
-                    <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob5] %></div>
-                    <% estudiante = Estudiante.find_by(:numControl => params[:aprob5]) %>
-                    <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
-                    </br></br>
-                  <% end %>
-                </div>
-              <% end %>
-              <% num = 2 %>
-              <div class="row">
-                
-                <div class="col-md-2"><%= proyes.label :Nombre_del_estudiante %></div>
-                  <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
-                  <div class="col-xs-6 col-sm-2">
-                    <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
-                </div>
-              </div>
-            <% end %>           
-            <div class="row"><%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
-          </div>
-        </fieldset>
-        </br>
-        
-        <div id="marco">
-          <% if @vinculacion != nil %>
-            <h5><strong>Agregar Revisor</strong></h5>
-            </br>
-            <div class="row">
-              <div class="col-md-2"><%= anteproyecto.label :Nombre_del_revisor %></div>
-                <div class="col-md-4">
-                  <%= anteproyecto.select :revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %>
-                  <%= anteproyecto.hidden_field :status_anteproy_revisor, :value => "En revisión" %>
-                </div>
-            </div>
-            
-            
-          <% end %>    
-        </div>
-        </br>
-        
-        <div id="marco">
-          <div class="row">
-            <div class="col-md-10">
-              <h5><strong>Observaciones</strong></h5>
-              <% num_observ = 1 %>
-              <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
-                <% if num_observ == 1 %>
-                  <div class="col-md-10">
-                    <%= observ.text_area :observacion, :value => "", validate: true %>
-                    <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %>
-                  </div>
-                <% end %>
-                <% num_observ = 2 %>
-              <% end %>
-            </div>
-            </br>
-            
-            <%= anteproyecto.label :status_anteproy, "Estado", class: 'col-md-6' %>
-            <div class="col-md-10">
-              <%= anteproyecto.select :status_anteproy, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @anteproyecto.status_anteproy), class: 'form-control', validate: true %></div>
-          </div>
-        </div>
-              
-        <% if current_usuario.rol == "admin" %>
-          <fieldset id="observaciones">
-            <div id="marco">
-              <h5><strong>Realizar Observación</strong></h5>
-              <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
-                <div class="row">
-                  <div class="col-md-2"><%= observ.label :Observaciones%></div>
-                  <div class="col-md-10">
-                    <%= observ.text_area :observacion, :placeholder => "Observaciones ...", class: 'form-control' %></div>
-                    <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %></div>
-                  <div class="col-xs-6 col-sm-1">
-                    <%= observ.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
-                </div>
-              <% end %>           
-              <div class="row"><%= anteproyecto.link_to_add :anteproyecto_observaciones, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
-            </div>
-          </fieldset>
-        <% end %>
-        
+      <% if current_usuario.rol == 'estudiante' %>
         <div class="row">
-          <%= anteproyecto.hidden_field :status_anteproy, :value => "En revisión",:class => 'col-xs-4 col-md-4', validate: true %>
+          <div class="col-xs-6 col-sm-4"><p><%= anteproyecto.label :Pdf,"Subir PDF del Anteproyecto" %>: <%= anteproyecto.file_field :pdf_anteproy , validate: true, accept: 'application/pdf'%></p></div>
         </div>
-          
+        
         <div class="row" id="btn-cancelar">
           <div class="col-xs-6 col-md-4" id="btn">
             <%= anteproyecto.submit :Guardar, :class => 'btn btn-success' %>
           </div>
         </div>
+      <% else %>
+        <% proy_banco = BancoProyecto.order("updated_at DESC").first %>
+        <% nombreE = Empresa.find_by(:rfcEmpresa => proy_banco.fk_rfc_emp_inst).nombreE %>
         
-      </div>
+        <div id="marco">
+          <div id="marco">
+            <%= anteproyecto.hidden_field :fk_id_proyecto_b, :value => proy_banco.id %>
+            <%= anteproyecto.hidden_field :clave, :value => proy_banco.clave %>
+            
+            <div class="row">
+              <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre de Proyecto" %>:
+              <%= anteproyecto.text_area :nombre_anteproy, :value => proy_banco.nombre_proyecto_b, :class => 'col-xs-6 col-md-12', :size => "40x2", validate: true, :readonly => true %></div>
+            </div>
+            </br>
+            
+            <div class="row">
+              <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre del Asesor Externo" %>:
+              <%= anteproyecto.text_field :asesor_externo, :value => proy_banco.asesor_externo, :class => 'col-xs-6 col-md-12', validate: true %></div>
+            </div>
+            </br>
+              
+            <div class="row">
+              <div class="col-xs-6 col-md-12"> <%= anteproyecto.label "Nombre de la Empresa" %>:
+              <%= anteproyecto.text_field :nombreE, :value => nombreE, :class => 'col-xs-6 col-md-12', validate: true, :readonly => true %></div>
+            </div>
+          </div>
+          </br>
+          
+          <fieldset id="poryectoestudiante">
+            <div id="marco">
+              <h5><strong>Agregar estudiantes</strong></h5>
+              </br>
+              <% num = 1 %>
+              <%= anteproyecto.fields_for :anteproyecto_estudiantes, validate: true do |proyes| %>
+                <% if num == 1 %>
+                  <div class="row">
+                    <% if params[:aprob0] != "" && params[:aprob0] != nil %>
+                      <div class="col-md-8"><%= proyes.label "Estudiante(s) que solicitaron realizar este proyecto"%>:</div>
+                      </br></br>
+                      <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob0] %></div>
+                      <% estudiante = Estudiante.find_by(:numControl => params[:aprob0]) %>
+                      <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+                      </br></br>
+                    <% end %>
+                  </div>
+                  
+                  <div class="row">
+                    <% if params[:aprob1] != "" && params[:aprob1] != nil %>
+                      <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob1] %></div>
+                      <% estudiante = Estudiante.find_by(:numControl => params[:aprob1]) %>
+                      <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+                      </br></br>
+                    <% end %>
+                  </div>
+                  
+                  <div class="row">
+                    <% if params[:aprob2] != "" && params[:aprob2] != nil %>
+                      <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob2] %></div>
+                      <% estudiante = Estudiante.find_by(:numControl => params[:aprob2]) %>
+                      <% require 'pry'; binding.pry %>
+                      <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+                      </br></br>
+                    <% end %>
+                  </div>
+                  
+                  <div class="row">
+                    <% if params[:aprob3] != "" && params[:aprob3] != nil %>
+                      <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob3] %></div>
+                      <% estudiante = Estudiante.find_by(:numControl => params[:aprob3]) %>
+                      <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+                      </br></br>
+                    <% end %>
+                  </div>
+                  
+                  <div class="row">
+                    <% if params[:aprob4] != "" && params[:aprob4] != nil %>
+                      <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob4] %></div>
+                      <% estudiante = Estudiante.find_by(:numControl => params[:aprob4]) %>
+                      <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+                      </br></br>
+                    <% end %>
+                  </div>
+                  
+                  <div class="row">
+                    <% if params[:aprob5] != "" && params[:aprob5] != nil %>
+                      <div class="col-md-3"><%= proyes.label :Núm_de_control%>: <%= proyes.label :numControl, params[:aprob5] %></div>
+                      <% estudiante = Estudiante.find_by(:numControl => params[:aprob5]) %>
+                      <div class="col-md-6"><%= proyes.label "Nombre"%>: <%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></div>
+                      </br></br>
+                    <% end %>
+                  </div>
+                <% end %>
+                <% num = 2 %>
+                <div class="row">
+                  
+                  <div class="col-md-2"><%= proyes.label :Nombre_del_estudiante %></div>
+                    <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
+                    <div class="col-xs-6 col-sm-2">
+                      <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
+                  </div>
+                </div>
+              <% end %>           
+              <div class="row"><%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+            </div>
+          </fieldset>
+          </br>
+          
+          <div id="marco">
+            <% if @vinculacion != nil %>
+              <h5><strong>Agregar Revisor</strong></h5>
+              </br>
+              <div class="row">
+                <div class="col-md-2"><%= anteproyecto.label :Nombre_del_revisor %></div>
+                  <div class="col-md-4">
+                    <%= anteproyecto.select :revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %>
+                    <%= anteproyecto.hidden_field :status_anteproy_revisor, :value => "En revisión" %>
+                  </div>
+              </div>
+            <% end %>    
+          </div>
+          </br>
+          
+          <div id="marco">
+            <div class="row">
+              <div class="col-md-10">
+                <h5><strong>Observaciones</strong></h5>
+                <% num_observ = 1 %>
+                <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
+                  <% if num_observ == 1 %>
+                    <div class="col-md-10">
+                      <%= observ.text_area :observacion, :value => "", validate: true %>
+                      <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %>
+                    </div>
+                  <% end %>
+                  <% num_observ = 2 %>
+                <% end %>
+              </div>
+              </br>
+              
+              <%= anteproyecto.label :status_anteproy, "Estado", class: 'col-md-6' %>
+              <div class="col-md-10">
+                <%= anteproyecto.select :status_anteproy, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @anteproyecto.status_anteproy), class: 'form-control', validate: true %></div>
+            </div>
+          </div>
+                
+          <% if current_usuario.rol == "admin" %>
+            <fieldset id="observaciones">
+              <div id="marco">
+                <h5><strong>Realizar Observación</strong></h5>
+                <%= anteproyecto.fields_for :anteproyecto_observaciones, validate: true do |observ| %>
+                  <div class="row">
+                    <div class="col-md-2"><%= observ.label :Observaciones%></div>
+                    <div class="col-md-10">
+                      <%= observ.text_area :observacion, :placeholder => "Observaciones ...", class: 'form-control' %></div>
+                      <%= observ.hidden_field :identificador, :value => current_usuario.rfc, class: 'form-control' %></div>
+                    <div class="col-xs-6 col-sm-1">
+                      <%= observ.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
+                  </div>
+                <% end %>           
+                <div class="row"><%= anteproyecto.link_to_add :anteproyecto_observaciones, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
+              </div>
+            </fieldset>
+          <% end %>
+          
+          <div class="row">
+            <%= anteproyecto.hidden_field :status_anteproy, :value => "En revisión",:class => 'col-xs-4 col-md-4', validate: true %>
+          </div>
+            
+          <div class="row" id="btn-cancelar">
+            <div class="col-xs-6 col-md-4" id="btn">
+              <%= anteproyecto.submit :Guardar, :class => 'btn btn-success' %>
+            </div>
+          </div>
+          
+        </div>
+      <% end %>
     <% end %>
     
-        <div class="col-xs-6 col-md-4">
-          <%= button_to "Cancelar", anteproyectos_path, :class => 'btn btn-warning', :method => :get %>
-        </div>
+    <div class="col-xs-6 col-md-4">
+      <%= button_to "Cancelar", anteproyectos_path, :class => 'btn btn-warning', :method => :get %>
+    </div>
      
   </div>
 </div>

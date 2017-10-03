@@ -136,7 +136,7 @@
                   <div id="marco">
                     <div class="row">
                       <% revisor = Docente.find_by(rfc: observ.rfc) %>
-                      <% if observ.observacion != nil %>
+                      <% if observ.observacion != "" %>
                         <div class="col-xs-6 col-sm-12"><b></b>Revisor: <%= revisor.nombreD %> <%= revisor.apPaterno %> <%= revisor.apMaterno%></div>
                         <div class="col-xs-6 col-sm-12"><b></b>Fecha y hora de revisión: <%= observ.created_at %></div>
                         <div class="col-xs-6 col-sm-12"><b></b>Observación: <%= observ.observacion %></div>
