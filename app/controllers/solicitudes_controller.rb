@@ -83,18 +83,18 @@ class SolicitudesController < ApplicationController
     else
       id_nueva = '01'
     end
-    
+  
     t = @solicitud.fechaini
-    @anio = t.strftime("%Y")
+    @anio = t.strftime("%Y").to_i
     @mes = t.strftime("%m").to_i
+    #binding.pry
     if @mes <= 7
       @solicitud.periodo = 'FEBRERO-JUNIO/' + @anio.to_s
-      @solicitud.clave_solicitud = 'FEJU' + @anio.to_s + id_nueva
+      @solicitud.clave_solicitud = 'FEJU' + @anio.to_s + id_nueva.to_s
     else
       @solicitud.periodo = 'AGOSTO-DICIEMBRE/' + @anio.to_s
-      @solicitud.clave_solicitud = 'AGDI' + @anio.to_s + id_nueva
+      @solicitud.clave_solicitud = 'AGDI' + @anio.to_s + id_nueva.to_s
     end
-    
     respond_to do |format|
       if @solicitud.save
         format.html { redirect_to solicitudes_path, notice: 'La solicitud fue satisfactoriamente almacenada.' }

@@ -45,9 +45,9 @@
     <td class="tg-yw4l" colspan="3">
     <% @solicitud.solicitud_horarios.each do |hora| %>
     <% if hora.dia_inicio != hora.dia_termino%>
-                 <%= hora.dia_inicio %> a </b><%= hora.dia_termino %> en horario de: <%= hora.hora_inicio%> a <%= hora.hora_termino%> hr.</div>       
+                 <%= hora.dia_inicio %> a </b><%= hora.dia_termino %> de: <%= hora.hora_inicio%> a <%= hora.hora_termino%> hr.</div>       
                   <% else %>
-                <%= hora.dia_inicio %> en horario de: <%= hora.hora_inicio%> a <%= hora.hora_termino%> hr.
+                <%= hora.dia_inicio %> de: <%= hora.hora_inicio%> a <%= hora.hora_termino%> hr.
                 <%end%> 
     <%end%>
     </td>

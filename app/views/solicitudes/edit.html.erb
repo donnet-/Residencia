@@ -15,7 +15,8 @@
   <% else %>
     <h3 id="align-title">Observaciones de Solicitud de Residencia Profesional</h3>
   <% end %>
- 
+
+  <%if current_usuario.rol == "docente"%>
   <div id="marco">
     <%= nested_form_for @solicitud, validate: true do |solicitud| %>
       <div id="marco">
@@ -104,7 +105,10 @@
             <% end %>
           <% end %>
         </div>
+
+
       </div>
+
       
       </br>
       <div class="row" id="btn-guardar">
@@ -117,5 +121,12 @@
 
         </div>
       </div>
+
+  </div>
+  <%end%>
+  <div class="row">
+  <% if current_usuario.rol == "empresa" %>
+        <%= render 'form' %>
+        <%end%>
   </div>
 </div>
