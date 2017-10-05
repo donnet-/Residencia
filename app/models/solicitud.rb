@@ -42,10 +42,6 @@ class Solicitud < ActiveRecord::Base
   
   validates :ingles, :presence => { :message => "No puede quedar en blanco" }
   
-  #validates :horaentrada, presence: {message: "No puede quedar en blanco"}, format: {with: /\A([0-1][0-9]|2[0-4]):[0-5][0-9]\z/, message: "No cumple con el formato (HH:MM) o no es una hora posible"}
-  
-  #validates :horasalida, presence: {message: "No puede quedar en blanco"}, format: {with: /\A([0-1][0-9]|2[0-4]):[0-5][0-9]\z/, message: "No cumple con el formato (HH:MM) o no es una hora posible"}
-  
   validates :desproyecto, :presence => { :message => "No puede quedar en blanco" },
                 length: { maximum: 500, message: "no debe contener más de 500 caracteres" }
   
@@ -61,8 +57,6 @@ class Solicitud < ActiveRecord::Base
   
   validates :lugar, :presence => { :message => "No puede quedar en blanco" }
   
-  validates :beca, presence: {message: "El número de criterio es requerido"},
+  validates :beca, presence: {message: "No puede quedar en blanco"},
                     numericality: { only_integer: true, message: "Debe ser un número" }
-
-  
 end

@@ -75,26 +75,29 @@
           </div>
 
           <fieldset id="horarios">
-          <div id="marco">
-          <div class="row">
-         <%= act.fields_for :solicitud_horarios, validate: true do |horario| %>
-           <div class="col-xs-5 col-sm-4"> <%= horario.label "De " %>:
-          <% dia= [["Lunes", "Lunes"], ["Martes", "Martes"], ["Miercoles", "Miercoles"], ["Jueves", "Jueves"], ["Viernes", "Viernes"], ["Sabado", "Sabado"], ["Domingo", "Domingo"]] %>
-          <%= horario.select :dia_inicio, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true%> a: 
-          <%= horario.select :dia_termino, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true%>
-           </div>
-           <div class="col-xs-5 col-sm-4"> <%= horario.label "Hora de entrada" %>:
-            <%= horario.time_field :hora_inicio, :placeholder => "HH:MM", validate: true %>
-            </div>            
-            <div class="col-xs-5 col-sm-4"> <%= horario.label "Hora de salida" %>:
-            <%= horario.time_field :hora_termino, :placeholder => "HH:MM", validate: true %></div>
-            <div class="col-xs-6 col-sm-1">
-                        <%= horario.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %></div>
-          </div>          
-        
-          <% end %>
-            <div class="row"><%= act.link_to_add :solicitud_horarios, title: "Agregar " do %><span class="glyphicon glyphicon-plus blue"></span><% end %></div>
-             </div>
+            <div id="marco">
+              <div class="row">
+                <%= act.fields_for :solicitud_horarios, validate: true do |horario| %>
+                  <div class="col-xs-5 col-sm-4">De:
+                    <% dia= [["Lunes", "Lunes"], ["Martes", "Martes"], ["Miércoles", "Miercoles"], ["Jueves", "Jueves"], ["Viernes", "Viernes"], ["Sábado", "Sabado"], ["Domingo", "Domingo"]] %>
+                    <%= horario.select :dia_inicio, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true%> a: 
+                    <%= horario.select :dia_termino, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true%>
+                  </div>
+                  <div class="col-xs-5 col-sm-4"> <%= horario.label "Hora de entrada" %>:
+                    <%= horario.time_field :hora_inicio, :placeholder => "HH:MM", validate: true %>
+                  </div>            
+                  <div class="col-xs-5 col-sm-3"> <%= horario.label "Hora de salida" %>:
+                    <%= horario.time_field :hora_termino, :placeholder => "HH:MM", validate: true %>
+                  </div>
+                  <div class="col-xs-5 col-sm-1">
+                    <%= horario.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
+                  </div>
+                <% end %>
+              </div>          
+              <div class="row">
+                <%= act.link_to_add :solicitud_horarios, :class => 'col-xs-5 col-sm-2',title: "Agregar horario" do %><span class="glyphicon glyphicon-plus blue"></span><% end %>
+              </div>
+            </div>
           </fieldset>
         </div>
        

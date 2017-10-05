@@ -9,9 +9,7 @@
   <% @vinculacion = Puesto.where(:docente_id => @id_docente, :cat_tipo_puesto_id => 4).first %>
   
   <% if current_usuario.rol == "docente" %>
-    <h3 id="align-title">Aprobación y Observaciones de Solicitud de Residencia Profesional</h3>
-  <% elsif @vinculacion != nil %>
-    <h3 id="align-title">Agregar Docente o Aprobación de Solicitud de Residencia Profesional</h3>
+    <h3 id="align-title">Aprobación y Revisiones de Solicitud de Residencia Profesional</h3>
   <% else %>
     <h3 id="align-title">Observaciones de Solicitud de Residencia Profesional</h3>
   <% end %>
@@ -32,11 +30,8 @@
       </div>
       
       </br>
-        
-      <div id="marco">
-        <div class="row">
-         
           
+<<<<<<< HEAD
           <% if current_usuario.rol == "docente" %>
             <% solic_observ = SolicitudObservacion.find_by(:solicitud_id => @solicitud.id) %>
             <% if solic_observ == nil %>
@@ -56,8 +51,30 @@
                         <%= solicitud.hidden_field :estado_revision_docente, :value => "En revisión" %>
                       </div>
                   </div>
+=======
+      <% if current_usuario.rol == "docente" %>
+        <% solic_observ = SolicitudObservacion.find_by(:solicitud_id => @solicitud.id) %>
+        <% if solic_observ == nil %>
+          <% sol = SolicitudObservacion.new %>
+          <% sol.solicitud_id = @solicitud.id %>
+          <% sol.rfc = current_usuario.rfc %>
+          <% sol.save %>
+        <% end %>
+        
+        <% if @vinculacion != nil %>
+          <div id="marco">
+            <h5><strong>Agregar Revisor</strong></h5>
+            <div class="row">
+              <div class="col-md-4">
+                <%= solicitud.select :rfc_docente_revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %>
+                <%= solicitud.hidden_field :estado_revision_docente, :value => "En revisión" %>
+>>>>>>> 7c2790ed33ce6e8e9c014ce3541f6020afa467d6
               </div>
-              
+            </div>
+          </div>
+          </br>
+          <div id="marco">
+            <div class="row">
               <div class="col-md-10">
                 <h5><strong>Observaciones</strong></h5>
                 <% num_observ = 1 %>
@@ -104,25 +121,21 @@
             <% end %>
           <% end %>
         </div>
-
-
       </div>
-
       
       </br>
       <div class="row" id="btn-guardar">
         <div class="col-xs-6 col-md-1" id="btn">
           <%= solicitud.submit :Guardar, :class => 'btn btn-success' %>
-        </div>   
+        </div>  
     <% end %>
         <div class="col-xs-6 col-md-6" id="btn">
           <%= button_to "Cancelar", solicitudes_path, :class => 'btn btn-warning', :method => :get %>
-
         </div>
       </div>
-
-  </div>
+    </div>
   <%end%>
+  
   <div class="row">
   <% if current_usuario.rol == "empresa" %>
         <%= render 'form' %>

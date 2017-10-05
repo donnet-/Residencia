@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
     
   rescue_from CanCan::AccessDenied do |exception|
+    exception.default_message = "No está autorizado para acceder a esta página."
     redirect_to root_url, :alert => exception.message
   end
     

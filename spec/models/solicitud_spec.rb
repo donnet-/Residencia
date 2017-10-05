@@ -15,8 +15,6 @@ RSpec.describe Solicitud, type: :model do
                    carrera: 'Ing. en Sistemas Computacionales',
                    semestre: 8,
                    ingles: 'no',
-                   horaentrada: '08:00',
-                   horasalida: '14:00',
                    desproyecto: 'Descripción del proyecto',
                    objetivo: 'Objetivo del proyecto',
                    actividades: 'Actividades del proyecto',
@@ -29,6 +27,7 @@ RSpec.describe Solicitud, type: :model do
                    rfc: 'CBI981002976'
                    }
   }
+    
     context 'model' do
       it 'exist' do
         solicitud = Solicitud.new

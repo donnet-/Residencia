@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171005180120) do
+ActiveRecord::Schema.define(version: 20171002164611) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -1194,18 +1194,6 @@ ActiveRecord::Schema.define(version: 20171005180120) do
   add_index "servicio_sociales", ["empresa_id"], name: "index_servicio_sociales_on_empresa_id", using: :btree
   add_index "servicio_sociales", ["estudiante_id"], name: "index_servicio_sociales_on_estudiante_id", using: :btree
 
-  create_table "solicitud_horarios", force: :cascade do |t|
-    t.string   "dia_inicio",   limit: 255
-    t.string   "dia_termino",  limit: 255
-    t.string   "hora_inicio",  limit: 255
-    t.string   "hora_termino", limit: 255
-    t.integer  "solicitud_id", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "solicitud_horarios", ["solicitud_id"], name: "index_solicitud_horarios_on_solicitud_id", using: :btree
-
   create_table "solicitud_observaciones", force: :cascade do |t|
     t.string   "rfc",          limit: 255
     t.text     "observacion",  limit: 65535
@@ -1229,6 +1217,8 @@ ActiveRecord::Schema.define(version: 20171005180120) do
     t.string   "carrera",                 limit: 255
     t.string   "semestre",                limit: 255
     t.string   "ingles",                  limit: 255
+    t.string   "horaentrada",             limit: 255
+    t.string   "horasalida",              limit: 255
     t.text     "desproyecto",             limit: 65535
     t.text     "objetivo",                limit: 65535
     t.text     "actividades",             limit: 65535
@@ -1431,7 +1421,6 @@ ActiveRecord::Schema.define(version: 20171005180120) do
   add_foreign_key "puestos", "docentes"
   add_foreign_key "requisito_evidencias", "cat_evidencias"
   add_foreign_key "servicio_sociales", "estudiantes"
-  add_foreign_key "solicitud_horarios", "solicitudes"
   add_foreign_key "solicitud_observaciones", "solicitudes"
   add_foreign_key "viaje_grupos", "actividades"
   add_foreign_key "viaje_grupos", "curso_materias"
