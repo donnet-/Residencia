@@ -43,6 +43,24 @@
               <% end %>
               </ul>
             </li>
+            
+            <% if @p != [] %>
+              <% for puesto in @p %>
+                <% @tipoP = CatTipoPuesto.find(puesto.cat_tipo_puesto_id) %>
+              <% end %>
+            <% end %>
+            
+            <% revisor = Solicitud.find_by(:rfc_docente_revisor => current_usuario.rfc) %>
+            <% if revisor != nil or @tipoP.nombrePuesto != 'Jefe de la Oficina de Vinculación de Sistemas' or @tipoP == nil %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Proyectos <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/solicitudes">Revisión de Solicitudes de Residencia Profesional</a></li>
+                  <li><a href="/anteproyectos">Anteproyectos</a></li>
+                  <li><a href="/proyectos">Proyectos de residencia</a></li>
+                </ul>
+              </li>
+            <% end %>
           <% end %>
           
           <% if @p != [] %>
