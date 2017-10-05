@@ -52,7 +52,7 @@
               <td class="active"><%= solicitud.clave_solicitud%></td>
               <td class="active"><%= solicitud.nombrep %></td>
               <td class="active"><%= empresa.nombreE %></td>
-              <td class="active"><%= solicitud.created_at.strftime("%d/%m/%Y") %></td>
+              <td class="active"><%= solicitud.created_at.strftime("%d/%m/%Y") %></td>0
               <td class="active"><%= solicitud.estado_revision_docente %></td>
               <td class="active"><%= solicitud.estado %></td>
               <td class="active">
@@ -73,7 +73,7 @@
             <% empresa = Empresa.where(:rfcEmpresa => solicitud.rfc).first %>
             <% if current_usuario.rfc == solicitud.rfc_docente_revisor || @puesto != nil %>
               <td class="active"><%= solicitud.clave_solicitud%></td>
-              <td class="active" ><%= solicitud.nombrep %></td>
+              <td class="active"><%= solicitud.nombrep %></td>
               <td class="active"><%= empresa.nombreE %></td>
               <td class="active"><%= solicitud.created_at.strftime("%d/%m/%Y") %></td>
               <td class="active"><%= solicitud.estado_revision_docente %></td>

@@ -106,6 +106,12 @@ RSpec.describe SolicitudHorario, type: :model do
           solicitud = SolicitudHorario.new @attributes
           expect(solicitud).to be_invalid
         end
+        
+        it 'refuses hora_termino (igual a la hora de inicio)' do
+          @attributes.merge!(hora_termino: '08:00')
+          solicitud = SolicitudHorario.new @attributes
+          expect(solicitud).to be_invalid
+        end
       end # invalid hora_termino
     end # hora_termino description
     

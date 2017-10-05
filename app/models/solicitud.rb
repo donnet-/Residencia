@@ -61,5 +61,6 @@ class Solicitud < ActiveRecord::Base
   
   validates :lugar, :presence => { :message => "No puede quedar en blanco" }
   
-  validates :beca, numericality: { only_integer: true, message: "Debe ser un número" }
+  validates :beca, presence: {message: "No puede quedar en blanco"},
+                    numericality: { only_integer: true, message: "Debe ser un número" }
 end
