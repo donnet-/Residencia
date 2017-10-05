@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171002164611) do
+ActiveRecord::Schema.define(version: 20171005180120) do
 
   create_table "act_individual_docentes", force: :cascade do |t|
     t.string   "pdfEvidencia",         limit: 255
@@ -1229,8 +1229,6 @@ ActiveRecord::Schema.define(version: 20171002164611) do
     t.string   "carrera",                 limit: 255
     t.string   "semestre",                limit: 255
     t.string   "ingles",                  limit: 255
-    t.string   "horaentrada",             limit: 255
-    t.string   "horasalida",              limit: 255
     t.text     "desproyecto",             limit: 65535
     t.text     "objetivo",                limit: 65535
     t.text     "actividades",             limit: 65535
