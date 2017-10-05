@@ -431,12 +431,11 @@ ActiveRecord::Schema.define(version: 20171002164611) do
   add_index "convenio_honorarios", ["docente_id"], name: "index_convenio_honorarios_on_docente_id", using: :btree
 
   create_table "criterio_evaluacion_residencias", force: :cascade do |t|
-    t.integer  "id_evaluacion",            limit: 4
-    t.integer  "id_cat_criterio_eva",      limit: 4
-    t.integer  "califiacion_criterio",     limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "evaluacion_residencia_id", limit: 4
+    t.integer  "id_evaluacion",        limit: 4
+    t.integer  "id_cat_criterio_eva",  limit: 4
+    t.integer  "califiacion_criterio", limit: 4
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "criterio_evaluacion_servicios", force: :cascade do |t|
@@ -760,18 +759,6 @@ ActiveRecord::Schema.define(version: 20171002164611) do
   end
 
   add_index "horarios", ["actualizacion_docente_profesional_id"], name: "index_horarios_on_actualizacion_docente_profesional_id", using: :btree
-
-  create_table "horarios_solicitudes", force: :cascade do |t|
-    t.string   "dia_inicio",   limit: 255
-    t.string   "dia_termino",  limit: 255
-    t.string   "hora_inicio",  limit: 255
-    t.string   "hora_termino", limit: 255
-    t.integer  "solicitud_id", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-  end
-
-  add_index "horarios_solicitudes", ["solicitud_id"], name: "index_horarios_solicitudes_on_solicitud_id", using: :btree
 
   create_table "lib_actividad_docentes", force: :cascade do |t|
     t.integer  "periodo_actividad_academica_id", limit: 4
@@ -1207,18 +1194,6 @@ ActiveRecord::Schema.define(version: 20171002164611) do
   add_index "servicio_sociales", ["empresa_id"], name: "index_servicio_sociales_on_empresa_id", using: :btree
   add_index "servicio_sociales", ["estudiante_id"], name: "index_servicio_sociales_on_estudiante_id", using: :btree
 
-  create_table "sol_horarios", force: :cascade do |t|
-    t.string   "dia_inicio",   limit: 255
-    t.string   "dia_termino",  limit: 255
-    t.string   "hora_inicio",  limit: 255
-    t.string   "hora_termino", limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "solicitud_id", limit: 4
-  end
-
-  add_index "sol_horarios", ["solicitud_id"], name: "index_sol_horarios_on_solicitud_id", using: :btree
-
   create_table "solicitud_horarios", force: :cascade do |t|
     t.string   "dia_inicio",   limit: 255
     t.string   "dia_termino",  limit: 255
@@ -1433,7 +1408,6 @@ ActiveRecord::Schema.define(version: 20171002164611) do
   add_foreign_key "grupo_act_complementarias", "actividad_complementarias"
   add_foreign_key "horario_actualizaciones", "actualizaciones"
   add_foreign_key "horarios", "actualizacion_docente_profesionales"
-  add_foreign_key "horarios_solicitudes", "solicitudes"
   add_foreign_key "lib_actividad_docentes", "periodo_actividad_academicas"
   add_foreign_key "lib_curso_docentes", "periodo_liberacion_cursos"
   add_foreign_key "lib_doc_act_criterios", "lib_actividad_docentes"
@@ -1459,7 +1433,6 @@ ActiveRecord::Schema.define(version: 20171002164611) do
   add_foreign_key "puestos", "docentes"
   add_foreign_key "requisito_evidencias", "cat_evidencias"
   add_foreign_key "servicio_sociales", "estudiantes"
-  add_foreign_key "sol_horarios", "solicitudes"
   add_foreign_key "solicitud_horarios", "solicitudes"
   add_foreign_key "solicitud_observaciones", "solicitudes"
   add_foreign_key "viaje_grupos", "actividades"

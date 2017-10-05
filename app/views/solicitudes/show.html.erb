@@ -20,8 +20,12 @@
           <% str2 = raw(str2 + "&nbsp;" * 5) %>
           <%= button_to solicitud_url(@solicitud, :format => :pdf), :method => :get do %><%= str %>Imprimir solicitud<%= str2 %><div class="tip" id="action2">Imprimir</div><% end %>
           </br>
-          <% if current_usuario.rol != "empresa" 
-            <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Revisiones/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
+          <% if current_usuario.rol != "empresa" %>
+            <% str3 = "" %>
+            <% str4 = "" %>
+            <% str3 = raw(str3 + "&nbsp;" * 4) %>
+            <% str4 = raw(str4 + "&nbsp;" * 3) %>
+            <%= button_to edit_solicitud_path(@solicitud), :method => :get do %><%= str3 %>Revisiones/Aprobar<%= str4 %><div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
           <% end %>
         </div>
       </div>

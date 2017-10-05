@@ -40,7 +40,7 @@
         <th class="info"><%= sortable "clave_solicitud" %></th>
         <th class="info"><%= sortable "nombrep", "Nombre del Proyecto"%></th>
         <th class="info"><%= "Nombre de la Empresa/Institución" %></th>
-        <th class="info"><%= "Fecha de la solicitud" %></th>    
+        <th class="info"><%= sortable "created_at", "Fecha de la solicitud" %></th>    
         <th class="info"><%= sortable "estado", "Estado (Revisor)" %></th>  
         <th class="info"><%= sortable "estado", "Estado (Vinculación)" %></th>  
       </thead>
@@ -57,11 +57,11 @@
               <td class="active"><%= solicitud.estado %></td>
               <td class="active">
                 <p>
-                  <%= link_to solicitud_path(solicitud) do %>
-                    <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                  <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+                    <span class="glyphicon glyphicon-eye-open blue"></span></div>
                   <% end %>
-                  <%= link_to edit_solicitud_path(solicitud) do %>
-                    <span class="glyphicon glyphicon-pencil green"></span><div class="tip" id="action2">Editar</div>
+                  <%= link_to edit_solicitud_path(solicitud), :title => "Editar" do %>
+                    <span class="glyphicon glyphicon-pencil green"></span></div>
                   <% end %>
                 </p>
                
@@ -80,8 +80,8 @@
               <td class="active"><%= solicitud.estado %></td>
               <td class="active">
                 <p>
-                  <%= link_to solicitud_path(solicitud) do %>
-                    <span class="glyphicon glyphicon-eye-open blue"></span><div class="tip" id="action1">Ver</div>
+                  <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+                    <span class="glyphicon glyphicon-eye-open blue"></span></div>
                   <% end %>
                 </p>
               </td>

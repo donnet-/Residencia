@@ -29,6 +29,7 @@ RSpec.describe Solicitud, type: :model do
                    rfc: 'CBI981002976'
                    }
   }
+    
     context 'model' do
       it 'exist' do
         solicitud = Solicitud.new
