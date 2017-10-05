@@ -20,7 +20,7 @@
           <% str2 = raw(str2 + "&nbsp;" * 5) %>
           <%= button_to solicitud_url(@solicitud, :format => :pdf), :method => :get do %><%= str %>Imprimir solicitud<%= str2 %><div class="tip" id="action2">Imprimir</div><% end %>
           </br>
-          <% if current_usuario.rol != "empresa" 
+          <% if current_usuario.rol != "empresa" %>
             <%= button_to edit_solicitud_path(@solicitud), :method => :get do %>Revisiones/Aprobar<div class="tip" id="action2">Realizar observaciones/Aprobar</div><% end %>
           <% end %>
         </div>
@@ -118,11 +118,11 @@
             
             <div id="marco">
               <div class="row">
-                <div class="col-xs-6 col-sm-5"><b>Estado (Vinculación) (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
+                <div class="col-xs-6 col-sm-12"><b>Estado (Vinculación) (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado %></div>
               </div>
               
               <div class="row">
-                <div class="col-xs-6 col-sm-5"><b>Estado (Revisor) (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado_revision_docente %></div>
+                <div class="col-xs-6 col-sm-12"><b>Estado (Revisor) (Aprobado/No aprobado/En revisión): </b><%= @solicitud.estado_revision_docente %></div>
               </div>
             </div>
           </div>

@@ -61,17 +61,8 @@ class Solicitud < ActiveRecord::Base
   
   validates :lugar, :presence => { :message => "No puede quedar en blanco" }
   
-  validates :beca, numericality: { only_integer: true, message: "Debe ser un número" }
+  validates :beca, presence: {message: "El número de criterio es requerido"},
+                    numericality: { only_integer: true, message: "Debe ser un número" }
 
-   #validate :valid_horario
-#    def valid_horario
-#       
-#        if hora_inicio == hora_fin
-#                errors.add(:hora_fin, "No puede ser a la misma hora" )
-#        else
-#            if hora_inicio > hora_fin
-#                errors.add(:hora_inicio, "La hora de inicio debe ser mayor a la de fin")
-#            end
-#        end
-#    end
+  
 end
