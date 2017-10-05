@@ -50,6 +50,10 @@
               <% end %>
             <% end %>
             
+            <% if @tipoP == nil %>
+              <% @tipoP = CatTipoPuesto.find(4) %>
+            <% end %>
+            
             <% revisor = Solicitud.find_by(:rfc_docente_revisor => current_usuario.rfc) %>
             <% if revisor != nil or @tipoP.nombrePuesto != 'Jefe de la Oficina de Vinculación de Sistemas' or @tipoP == nil %>
               <li class="dropdown">
