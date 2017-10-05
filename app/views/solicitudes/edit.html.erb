@@ -40,7 +40,6 @@
           <% if current_usuario.rol == "docente" %>
             <% solic_observ = SolicitudObservacion.find_by(:solicitud_id => @solicitud.id) %>
             <% if solic_observ == nil %>
-              <% require 'pry'; binding.pry %>
               <% sol = SolicitudObservacion.new %>
               <% sol.solicitud_id = @solicitud.id %>
               <% sol.rfc = current_usuario.rfc %>
@@ -53,7 +52,7 @@
                   <div class="row">
                     <div class="col-md-2"><%= solicitud.label :Revisor %></div>
                       <div class="col-md-4">
-                        <%= solicitud.select :rfc_docente_revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank: true },{ class: ' chosen-select'} %>
+                        <%= solicitud.select :rfc_docente_revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank:'Seleccione un Docente' },{ class: ' chosen-select'} %>
                         <%= solicitud.hidden_field :estado_revision_docente, :value => "En revisión" %>
                       </div>
                   </div>
