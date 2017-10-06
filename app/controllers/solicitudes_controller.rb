@@ -49,7 +49,6 @@ class SolicitudesController < ApplicationController
   
   def update
     @solicitud = Solicitud.find(params[:id])
-    binding.pry
     
     estado = @solicitud.estado
     @solicitud.update(solicitud_params)

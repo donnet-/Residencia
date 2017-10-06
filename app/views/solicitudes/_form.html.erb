@@ -166,25 +166,29 @@
           
           <div class="row">
             <%= act.label "Desktop top:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :pc, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.pc), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :pc, options_for_select([[str2 + "Sí", "sí"], [str2 + "No", "no"]], :selected => @solicitud.pc), :class => 'col-xs-4 col-md-2', validate: true%>
           </div>
          
           <div class="row">
             <%= act.label "Teléfono de escritorio:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :tel_escritorio, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.tel_escritorio), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :tel_escritorio, options_for_select([[str2 + "Sí", "sí"], [str2 + "No", "no"]], :selected => @solicitud.tel_escritorio), :class => 'col-xs-4 col-md-2', validate: true%>
           </div>
          <div class="row">
             <%= act.label "Cuenta de correo:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :cuenta_correo, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.cuenta_correo), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :cuenta_correo, options_for_select([[str2 + "Sí", "sí"], [str2 + "No", "no"]], :selected => @solicitud.cuenta_correo), :class => 'col-xs-4 col-md-2', validate: true%>
           </div>
           <div class="row">
             <%= act.label "Lugar o cubículo:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :lugar, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.lugar), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :lugar, options_for_select([[str2 + "Sí", "sí"], [str2 + "No", "no"]], :selected => @solicitud.lugar), :class => 'col-xs-4 col-md-2', validate: true%>
           </div>
          
           <div class="row">
             <%= act.label "Beca:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.number_field :beca, :class => 'col-xs-4 col-md-4', validate: true%>
+            <% if @solicitud.beca == "" or @solicitud.beca == nil %>
+              <%= act.number_field :beca, min: 0, :value => "0", :class => 'col-xs-4 col-md-2', validate: true%>
+            <% else %>
+              <%= act.number_field :beca, min: 0, :value => @solicitud.beca.to_s, :class => 'col-xs-4 col-md-2', validate: true%>
+            <% end %>
           </div>
           
           <div class="row"></div>
