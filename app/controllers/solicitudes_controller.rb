@@ -49,13 +49,11 @@ class SolicitudesController < ApplicationController
   
   def update
     @solicitud = Solicitud.find(params[:id])
-    @solicitud.update(solicitud_params)
-  
+    binding.pry
+    
     estado = @solicitud.estado
-    @solicitud.estado = params[:solicitud][:estado]
-    @solicitud.estado_revision_docente = params[:solicitud][:estado_revision_docente]
-    @solicitud.rfc_docente_revisor = params[:solicitud][:rfc_docente_revisor]
-  
+    @solicitud.update(solicitud_params)
+    
     if params[:solicitud][:solicitud_observaciones_attributes] != nil
       @solicitud_observaciones = SolicitudObservacion.new
       @solicitud_observaciones.rfc = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:rfc]

@@ -58,19 +58,19 @@
             <% str2 = "" %>
             <% str = raw(str + "&nbsp;" * 60) %>
             <% str2 = raw(str2 + "&nbsp;" * 3) %>
-            <%= act.select :numresidentes, options_for_select([[str2 + "1" + str, 1], [str2 + "2" + str, 2], [str2 + "3" + str, 3], [str2 + "4" + str, 4], [str2 + "5" + str, 5]]), :class => 'col-xs-4 col-md-12', validate: true%></div>
+            <%= act.select :numresidentes, options_for_select([[str2 + "1" + str, 1], [str2 + "2" + str, 2], [str2 + "3" + str, 3], [str2 + "4" + str, 4], [str2 + "5" + str, 5]], :selected => @solicitud.numresidentes), :class => 'col-xs-4 col-md-12', validate: true%></div>
             
             <div class="col-xs-5 col-sm-4"> <%= act.label "Carrera" %>:
             <% carr = [["Ingeniería en Sistemas Computacionales", "Ingeniería en Sistemas Computacionales"], ["Ingeniería en Electrónica", "Ingeniería en Electrónica"], ["Ingeniería Eléctrica", "Ingeniería Eléctrica"], ["Ingeniería Civil", "Ingeniería Civil"], ["Ingeniería Mecánica", "Ingeniería Mecánica"], ["Ingeniería Industrial", "Ingeniería Industrial"], ["Ingeniería Química", "Ingeniería Química"], ["Ingeniería en Gestión Empresarial", "Ingeniería en Gestión Empresarial"], ["Licenciatura en Administración", "Licenciatura en Administración"]] %>
-            <%= act.select :carrera, options_for_select(carr), :class => 'col-xs-4 col-md-12', validate: true%></div>
+            <%= act.select :carrera, options_for_select(carr, :selected => @solicitud.carrera), :class => 'col-xs-4 col-md-12', validate: true%></div>
           </div>
         
           <div class="row">
             <div class="col-xs-5 col-sm-4"><%= act.label "Semestre" %>:
-            <%= act.select :semestre, options_for_select([[str2 + "8" + str, 8], [str2 + "9" + str, 9], [str2 + "10" + str, 10], [str2 + "11" + str, 11], [str2 + "12" + str, 12]]), :class => 'col-xs-4 col-md-12', validate: true%></div>
+            <%= act.select :semestre, options_for_select([[str2 + "8" + str, 8], [str2 + "9" + str, 9], [str2 + "10" + str, 10], [str2 + "11" + str, 11], [str2 + "12" + str, 12]], :selected => @solicitud.semestre), :class => 'col-xs-4 col-md-12', validate: true%></div>
             
             <div class="col-xs-5 col-sm-4"><%= act.label "Inglés requerido" %>:
-            <%= act.select :ingles, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-12', validate: true%></div>
+            <%= act.select :ingles, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], @solicitud.ingles), :class => 'col-xs-4 col-md-12', validate: true%></div>
           </div>
           </div>
 
@@ -78,20 +78,39 @@
             <div id="marco">
               <div class="row">
                 <%= act.fields_for :solicitud_horarios, validate: true do |horario| %>
-                  <div class="col-xs-5 col-sm-4">De:
-                    <% dia= [["Lunes", "Lunes"], ["Martes", "Martes"], ["Miércoles", "Miercoles"], ["Jueves", "Jueves"], ["Viernes", "Viernes"], ["Sábado", "Sabado"], ["Domingo", "Domingo"]] %>
-                    <%= horario.select :dia_inicio, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true%> a: 
-                    <%= horario.select :dia_termino, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true%>
-                  </div>
-                  <div class="col-xs-5 col-sm-4"> <%= horario.label "Hora de entrada" %>:
-                    <%= horario.time_field :hora_inicio, :placeholder => "HH:MM", validate: true %>
-                  </div>            
-                  <div class="col-xs-5 col-sm-3"> <%= horario.label "Hora de salida" %>:
-                    <%= horario.time_field :hora_termino, :placeholder => "HH:MM", validate: true %>
-                  </div>
-                  <div class="col-xs-5 col-sm-1">
-                    <%= horario.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
-                  </div>
+                  <% horario_registrado = SolicitudHorario.find_by(:solicitud_id => @solicitud.id) %>
+                  <% dia= [["Lunes", "Lunes"], ["Martes", "Martes"], ["Miércoles", "Miercoles"], ["Jueves", "Jueves"], ["Viernes", "Viernes"], ["Sábado", "Sabado"], ["Domingo", "Domingo"]] %>
+                  
+                  <% if horario_registrado != nil %>
+                    <div class="col-xs-5 col-sm-4">De:
+                      <%= horario.select :dia_inicio, options_for_select(dia, :selected => horario_registrado.dia_inicio), :class => 'col-xs-4 col-md-12', validate: true %> a:
+                      <%= horario.select :dia_termino, options_for_select(dia, :selected => horario_registrado.dia_termino), :class => 'col-xs-4 col-md-12', validate: true %>
+                    </div>
+                    <div class="col-xs-5 col-sm-4"> <%= horario.label "Hora de entrada" %>:
+                      <%= horario.time_field :hora_inicio, :value => horario_registrado.hora_inicio, validate: true %>
+                    </div>            
+                    <div class="col-xs-5 col-sm-3"> <%= horario.label "Hora de salida" %>:
+                      <%= horario.time_field :hora_termino, :value => horario_registrado.hora_termino, validate: true %>
+                    </div>
+                    <div class="col-xs-5 col-sm-1">
+                      <%= horario.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
+                    </div>
+                  <% else %>
+                    <div class="col-xs-5 col-sm-4">De:
+                      <%= horario.select :dia_inicio, options_for_select(dia), :class => 'col-xs-4 col-md-12', validate: true %> a:
+                      <%= horario.select :dia_termino, options_for_select(dia, :selected => "Viernes"), :class => 'col-xs-4 col-md-12', validate: true %>
+                    </div>
+                    <div class="col-xs-5 col-sm-4"> <%= horario.label "Hora de entrada" %>:
+                      <%= horario.time_field :hora_inicio, validate: true %>
+                    </div>            
+                    <div class="col-xs-5 col-sm-3"> <%= horario.label "Hora de salida" %>:
+                      <%= horario.time_field :hora_termino, validate: true %>
+                    </div>
+                    <div class="col-xs-5 col-sm-1">
+                      <%= horario.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
+                    </div>
+                  <% end %>
+                  
                 <% end %>
               </div>          
               <div class="row">
@@ -147,20 +166,20 @@
           
           <div class="row">
             <%= act.label "Desktop top:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :pc, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :pc, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.pc), :class => 'col-xs-4 col-md-4', validate: true%>
           </div>
          
           <div class="row">
             <%= act.label "Teléfono de escritorio:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :tel_escritorio, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :tel_escritorio, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.tel_escritorio), :class => 'col-xs-4 col-md-4', validate: true%>
           </div>
          <div class="row">
             <%= act.label "Cuenta de correo:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :cuenta_correo, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :cuenta_correo, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.cuenta_correo), :class => 'col-xs-4 col-md-4', validate: true%>
           </div>
           <div class="row">
             <%= act.label "Lugar o cubículo:", :class => 'col-xs-4 col-md-3' %>
-            <%= act.select :lugar, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]]), :class => 'col-xs-4 col-md-4', validate: true%>
+            <%= act.select :lugar, options_for_select([[str2 + "Sí" + str, "sí"], [str2 + "No" + str, "no"]], :selected => @solicitud.lugar), :class => 'col-xs-4 col-md-4', validate: true%>
           </div>
          
           <div class="row">

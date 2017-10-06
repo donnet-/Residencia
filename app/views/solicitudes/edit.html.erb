@@ -11,7 +11,7 @@
   <% if current_usuario.rol == "docente" %>
     <h3 id="align-title">Aprobación y Revisiones de Solicitud de Residencia Profesional</h3>
   <% else %>
-    <h3 id="align-title">Observaciones de Solicitud de Residencia Profesional</h3>
+    <h3 id="align-title">Edición de Solicitud de Residencia Profesional</h3>
   <% end %>
 
   <%if current_usuario.rol == "docente"%>
@@ -116,8 +116,8 @@
   <%end%>
   
   <div class="row">
-  <% if current_usuario.rol == "empresa" %>
-        <%= render 'form' %>
-        <%end%>
+    <% if current_usuario.rol == "empresa" %>
+      <%= render 'form' %>
+    <%end%>
   </div>
 </div>

@@ -111,7 +111,7 @@
                 <div class="row">
                   
                   <div class="col-md-2"><%= proyes.label :Nombre_del_estudiante %></div>
-                    <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'}  %></div>
+                    <div class="col-md-4"> <%= proyes.select :numControl, Estudiante.all.map { |u| [u.nombre + " " + u.apPaterno + " " + u.apMaterno, u.numControl] }, { include_blank: true },{ class: ' chosen-select'} %></div>
                     <div class="col-xs-6 col-sm-2">
                       <%= proyes.link_to_remove do %><span class="glyphicon glyphicon-trash red"></span><% end %>
                   </div>
