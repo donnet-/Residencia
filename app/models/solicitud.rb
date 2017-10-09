@@ -7,7 +7,7 @@ class Solicitud < ActiveRecord::Base
   accepts_nested_attributes_for :solicitud_observaciones, allow_destroy: true
   accepts_nested_attributes_for :solicitud_horarios, allow_destroy: true
   
-  validates_uniqueness_of :nombrep
+  validates_uniqueness_of :nombrep, :message => 'Ya existe una solicitud con ese nombre de proyecto'
   
   validates :nombrep, :presence => { :message => "No puede quedar en blanco" },
       format: {with: /\A[[a-z[á,é,í,ó,ú,Á,É,Í,Ó,Ú]A-Z]+][a-z[á,é,í,ó,ú,Á,É,Í,Ó,Ú][0-9][\.,\,,\:,\;,\-,\_,\/,\\,\(,\),\",\',\¿,\?,\¡,\!]A-Z\s]+\z/, message: "Sólo se aceptan letras, números, diagonales y signos de puntuación. Debe comenzar con letra"},

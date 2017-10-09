@@ -5,7 +5,7 @@ class SolicitudHorario < ActiveRecord::Base
   
   validates_time :hora_termino, :presence => { :message => "No puede quedar en blanco" },
       :after => :hora_inicio,
-      :after_message => "Debe ser después de la hora de inicio"
+      :after_message => "Debe ser después de la hora de inicio (en formato de 24 horas)"
   
   validates :dia_inicio, :presence => { :message => "No puede quedar en blanco" }
   

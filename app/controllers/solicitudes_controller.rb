@@ -39,8 +39,8 @@ class SolicitudesController < ApplicationController
   	@solicitud = Solicitud.new
       1.times { @solicitud.solicitud_observaciones.build }
       1.times do
-            horario = @solicitud.solicitud_horarios.build 
-        end
+        horario = @solicitud.solicitud_horarios.build 
+      end
   end
 
   def edit
@@ -84,11 +84,26 @@ class SolicitudesController < ApplicationController
     else
       id_nueva = '01'
     end
-  
-    t = @solicitud.fechaini
-    @anio = t.strftime("%Y").to_i
-    @mes = t.strftime("%m").to_i
-    #binding.pry
+    
+    if @solicitud.fechaini != nil
+      t = @solicitud.fechaini
+      @anio = t.strftime("%Y").to_i
+      @mes = t.strftime("%m").to_i
+    elsif @solicitud.fechater != nil
+      t = @solicitud.fechater
+      @anio = t.strftime("%Y").to_i
+      @mes = t.strftime("%m").to_i
+    else
+      @anio = Date.current.year.to_i
+      @mes = Date.current.month.to_i
+      if @mes <= 7
+        @mes = 8
+      else
+        @mes = 2
+        @anio += 1
+      end
+    end
+    
     if @mes <= 7
       @solicitud.periodo = 'FEBRERO-JUNIO/' + @anio.to_s
       @solicitud.clave_solicitud = 'FEJU' + @anio.to_s + id_nueva.to_s
@@ -96,6 +111,9 @@ class SolicitudesController < ApplicationController
       @solicitud.periodo = 'AGOSTO-DICIEMBRE/' + @anio.to_s
       @solicitud.clave_solicitud = 'AGDI' + @anio.to_s + id_nueva.to_s
     end
+    
+    @solicitud.estado_secundario = "recién solicitado"
+    
     respond_to do |format|
       if @solicitud.save
         format.html { redirect_to solicitudes_path, notice: 'La solicitud fue satisfactoriamente almacenada.' }
