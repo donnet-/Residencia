@@ -1,3 +1,4 @@
+
 <div class="container">    
     <% if current_usuario.rol == 'admin' %>
         <%= render template: "siged/menuAdmin" %>
@@ -43,9 +44,11 @@
     </div>
     
     <div id="table-responsive">
+    <%= form_tag edita_multiple_estudiantes_path do%>
+   
         <table class="table table-sm" data-click-to-select="true">
             <thead>
-                <th class="info" data-checkbox="true"></th>
+                <th class="info"></th>
                 <th class="info"><%= sortable "numControl" %></th>
                 <th class="info"><%= sortable "curpEstudiante" %></th>
                 <th class="info"><%= sortable "nombre" %></th>
@@ -54,6 +57,7 @@
             </thead>
             <% @estudiantes.each do |estudiante| %>
                 <tbody>
+                <td class="active"><%= check_box_tag "estudiantes_ids[]", estudiante.id %></td>
                     <td class="active"><%= estudiante.numControl %></td>
                     <td class="active"><%= estudiante.curpEstudiante %></td>
                     <td class="active"><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></td>
@@ -72,6 +76,8 @@
                 </tbody>
             <% end %>
         </table>
+        <%= submit_tag "Editar" %>
+         <%end%>
        <%= will_paginate @estudiantes %>
     </div>
 </div>

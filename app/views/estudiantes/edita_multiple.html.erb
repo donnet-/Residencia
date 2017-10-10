@@ -1,0 +1,24 @@
+<% form_for :estudiante, :url => update_multiple_estudiantes_path, :html => { :method => :put } do |form| %>
+  <ul>
+  <% for estudiante in @estudiantes %>
+  <li>
+    <%= h estudiante.nombre %>
+    <%= hidden_field_tag "estudiantes_ids[]", estudiante.id%>
+  </li>
+  <% end %>
+</ul>
+<%binding.pry%>
+<ol class="container">
+  <li>
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre %>
+  </li>
+  <li>
+    <%= form.label :estado %>
+    <%= form.select :estado, [["Yes", true], ["No", false]], :include_blank => true %>
+  </li>
+  <li>
+    <%= form.submit "Submit" %>
+  </li>
+</ol>
+<%end%>

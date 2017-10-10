@@ -39,6 +39,8 @@ Rails.application.routes.draw do
 
   get 'estudiantes/import'
 
+  get 'estudiantes/edita_multiple'
+
   get 'docentes/import'
 
   get 'curso_materia_estudiantes/index'
@@ -103,6 +105,18 @@ Rails.application.routes.draw do
     
     resources :estudiantes do
         collection { post :import }
+    end
+
+    resources :estudiantes do
+     collection { post :edita_multiple}
+    end
+
+    resources :estudiantes do
+     get :edita_multiple, :on => :member
+    end
+
+    resources :estudiantes do
+     collection { put :update_multiple}
     end
     
     resources :curso_materias do
