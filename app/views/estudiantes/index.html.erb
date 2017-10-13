@@ -44,16 +44,18 @@
     </div>
     
     <div id="table-responsive">
+    
     <%= form_tag edita_multiple_estudiantes_path do%>
    
-        <table class="table table-sm" data-click-to-select="true">
+        <table class="table table-sm">
             <thead>
                 <th class="info"></th>
                 <th class="info"><%= sortable "numControl" %></th>
                 <th class="info"><%= sortable "curpEstudiante" %></th>
                 <th class="info"><%= sortable "nombre" %></th>
                 <th class="info"><%= sortable "genero" %></th>
-                <th class="info"><%= sortable "email" %></th>               
+                <th class="info"><%= sortable "email" %></th>
+                <th class="info"><%= sortable "estado" %></th>                
             </thead>
             <% @estudiantes.each do |estudiante| %>
                 <tbody>
@@ -62,7 +64,20 @@
                     <td class="active"><%= estudiante.curpEstudiante %></td>
                     <td class="active"><%= estudiante.nombre %> <%= estudiante.apPaterno %> <%= estudiante.apMaterno %></td>
                     <td class="active"><%= estudiante.genero %></td>
-                    <td class="active"><%= estudiante.email %><br/><%= estudiante.email_adicional %></td>               
+                    <td class="active"><%= estudiante.email %><br/><%= estudiante.email_adicional %></td>
+                    <td class="active">
+                    <% if estudiante.estado !=nil%>
+                        <% if estudiante.estado == "EGR" %>
+                            Egresado
+                        <% elsif estudiante.estado == "ACT"%>
+                          Activo
+                        <% elsif estudiante.estado == "BT"%>
+                           Baja Temporal
+                        <%elsif estudiante.estado =="BD"%>
+                           Baja Definitiva
+                        <% end %>
+                    <%end%>
+                    </td>               
                     <td class="active">
                         <p><% if can? :read, estudiante %>
                             <%= link_to estudiante_path(estudiante), title: "Ver" do %>
@@ -76,7 +91,7 @@
                 </tbody>
             <% end %>
         </table>
-        <%= submit_tag "Editar" %>
+        <%= submit_tag "Editar estado"%>
          <%end%>
        <%= will_paginate @estudiantes %>
     </div>

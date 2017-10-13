@@ -75,18 +75,20 @@ class EstudiantesController < ApplicationController
     end
     
     def  edita_multiple
-        #bindiing.pry
-    @estudiantes = Estudiante.find(params[:estudiantes_ids])    
+      if params[:estudiantes_ids] != nil
+        @estudiantes = Estudiante.find(params[:estudiantes_ids])
+      else
+        redirect_to estudiantes_path   
+      end
     end
       
     def  update_multiple
-        @estudiantes = Estudiante.find(params[:estudiantes_ids])
-        @estudinates.each do |est|
+      @estudiantes = Estudiante.find(params[:estudiantes_ids])
+      @estudinates.each do |est|
         est.update_attributes!(params[:estudiante].reject { |k,v| v.blank? })
-       end
-        flash[:notice] = "Updated products!"
-        redirect_to estudiantes_path
-       
+      end
+      flash[:notice] = "Updated products!"
+      redirect_to estudiantes_path
     end
 
     private

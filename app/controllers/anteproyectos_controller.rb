@@ -55,7 +55,7 @@ class AnteproyectosController < ApplicationController
         format.html { redirect_to @anteproyecto, notice: 'El Anteproyecto fue satisfactoriamente actualizado.' }
         format.json { render :show, status: :ok, location: @anteproyecto }
       else
-        binding.pry
+        #binding.pry
         format.html { render :show }
         format.json { render json: @anteproyecto.errors, status: :unprocessable_entity }
       end
