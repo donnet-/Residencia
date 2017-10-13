@@ -9,17 +9,16 @@ class Ability
       can :read, CursoMateriaEstudiante
       can :read, ServicioSocial
       can :read, :create, Docente
-      can :read, :create, Estudiante
+      can [:read,:create,:update,:import,:destroy,:update_multiple], Estudiante
       can [:read], PeriodoCursMateria
       can [:read], PeriodoLiberacionCurso
       cannot [:destroy], CatCriterioEvaluacionDocente
       cannot [:update], Docente
-      cannot [:update], Estudiante
+      #cannot [:update], Estudiante
       cannot [:create, :update], CursoMateria
       cannot [:create, :update, :destroy], PeriodoCursMateria
       cannot [:create, :update], CursoMateriaEstudiante
       cannot [:create, :update], ServicioSocial
-      cannot [:update, :destroy], Estudiante
       cannot [:create, :destroy, :update], CatCriterioAcademia
       cannot [:create, :update, :destroy], PeriodoActividadAcademica
       cannot [:create, :update, :destroy], ActividadEvidencia

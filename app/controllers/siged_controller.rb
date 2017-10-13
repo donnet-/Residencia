@@ -15,11 +15,15 @@ class SigedController < ApplicationController
       elsif current_usuario.rol == "estudiante"
         x = Estudiante.find_by(email: current_usuario.email)
         if x != nil
-         if x.usuario_id == nil                    
+        if x.estado !="BD" && x.estado != "BT"  
+        #binding.pry
+          if x.usuario_id == nil                    
           redirect_to edit_estudiante_path(x)
-         else
+          else
           render template: 'siged/menuEstudiante'
-        end
+         end
+         redirect_to destroy_usuario_session_path
+       end
       end
       elsif current_usuario.rol == "empresa"
         emp = Empresa.find_by(email: current_usuario.email)
