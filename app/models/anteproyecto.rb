@@ -21,8 +21,7 @@ class Anteproyecto < ActiveRecord::Base
   validates :status_anteproy, :presence => { :message => "no se puede quedar en blanco"},
       length: { maximum: 30, message: "debe tener máximo 30 caracteres" }
   validate :image_size_validation3, :if => "pdf_anteproy"
-  validates :pdf_anteproy, presence: {menssage: "Debe subir su anteproyecto"}
-  
+      
   def image_size_validation3
     binding.pry
     if pdf_anteproy.size > 1.megabytes 

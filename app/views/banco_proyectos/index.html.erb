@@ -28,9 +28,9 @@
                 <% anteproy = Anteproyecto.find_by(:clave => banco_proyecto.clave) %>
                 
                 <% if anteproy != nil %>
-                  Proyecto solicitado
+                  Anteproyecto en curso
                 <% else %>
-                  Proyecto aprobado
+                  Proyecto solicitado
                 <% end %>
               </td>
             <% else %>

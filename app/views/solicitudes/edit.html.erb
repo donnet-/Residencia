@@ -47,57 +47,44 @@
               <div class="col-md-2"><%= solicitud.label :Revisor %></div>
               <div class="col-md-4">
                 <%= solicitud.select :rfc_docente_revisor, Docente.all.map { |u| [u.nombreD + " " + u.apPaterno + " " + u.apMaterno, u.rfc] }, { include_blank:'Seleccione un Docente' },{ class: ' chosen-select'} %>
-                <%= solicitud.hidden_field :estado_revision_docente, :value => "En revisión" %>
               </div>
             </div>
           </div>
-          </br>
-          <div id="marco">
-            <div class="row">
-              <div class="col-md-10">
-                <h5><strong>Observaciones</strong></h5>
-                <% num_observ = 1 %>
-                <%= solicitud.fields_for :solicitud_observaciones, validate: true do |observ| %>
-                  <% if num_observ == 1 %>
-                    <div class="col-md-10">
-                      <%= observ.text_area :observacion, :value => "", validate: true %>
-                      <%= observ.hidden_field :rfc, :value => current_usuario.rfc, class: 'form-control' %>
-                    </div>
-                  <% end %>
-                  <% num_observ = 2 %>
+        <% end %>
+        
+        <div id="marco">
+          <div class="row">
+            <div class="col-md-10">
+              <h5><strong>Observaciones</strong></h5>
+              <% num_observ = 1 %>
+              <%= solicitud.fields_for :solicitud_observaciones, validate: true do |observ| %>
+                <% if num_observ == 1 %>
+                  <div class="col-md-10">
+                    <%= observ.text_area :observacion, :value => "", validate: true %>
+                    <%= observ.hidden_field :rfc, :value => current_usuario.rfc, class: 'form-control' %>
+                  </div>
                 <% end %>
-              </div>
+                <% num_observ = 2 %>
+              <% end %>
+            </div>
+              
+            <div class="col-md-10">
+              <div class="row">
                 
-              <%= solicitud.label :estado, "Estado", class: 'col-md-6' %>
-              <div class="col-md-10">
-              <%= solicitud.select :estado, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @solicitud.estado), class: 'form-control', validate: true %></div>
-              
-        <% else %>
-              <div class="col-md-10">
-                <h5><strong>Observaciones</strong></h5>
-                <% num_observ = 1 %>
-                <%= solicitud.fields_for :solicitud_observaciones, validate: true do |observ| %>
-                  <% if num_observ == 1 %>
-                    <div class="col-md-10">
-                      <%= observ.text_area :observacion, :value => "", class: 'form-control', validate: true %>
-                      <%= observ.hidden_field :rfc, :value => current_usuario.rfc, class: 'form-control' %>
-                    </div>
-                  <% end %>
-                  <% num_observ = 2 %>
-                <% end %>
-              </div>
-              
-              <div class="col-md-10">
-                <div class="row">
-                  </br>
+                <% if @vinculacion != nil %>
+                  <%= solicitud.label :estado, "Estado", class: 'col-md-6' %>
+                  <div class="col-md-10">
+                  <%= solicitud.select :estado, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @solicitud.estado), class: 'form-control', validate: true %></div>
+                <% else %>
                   <%= solicitud.label :estado_revision_docente, "Estado", class: 'col-md-6' %>
                   <div class="col-md-10">
                   <%= solicitud.select :estado_revision_docente, options_for_select([["En revisión", "En revisión"], ["Aprobado", "Aprobado"], ["No aprobado", "No aprobado"]], :selected => @solicitud.estado_revision_docente), class: 'form-control', validate: true %></div>
                   <%= solicitud.hidden_field :estado, :value => @solicitud.estado %>
                   <%= solicitud.hidden_field :rfc_docente_revisor, :value => @solicitud.rfc_docente_revisor %>
-                </div>
+                <% end %>
+                
               </div>
-        <% end %>
+            </div>
           <% end %>
         </div>
       </div>
@@ -117,7 +104,11 @@
   
   <div class="row">
     <% if current_usuario.rol == "empresa" %>
-      <%= render 'form' %>
+      <% if @solicitud.estado != "Aprobado" %>
+        <%= render 'form' %>
+      <% else %>
+        Esta solicitud ya se encuentra aprobada.
+      <% end %>
     <%end%>
   </div>
 </div>

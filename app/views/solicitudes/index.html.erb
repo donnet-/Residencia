@@ -8,11 +8,13 @@
   <h3 id="align-title">Solicitudes de Residencia Profesional</h3>
   
   <div class="container row">
-    <div class="col-xs-6 col-sm-0">
-      <%= button_to new_solicitud_path, :class => "btn btn-primary", :method => :get do %>
-        <span class="glyphicon glyphicon-plus"></span>
-      <% end %>
-    </div>
+    <% if can? :create, Solicitud %>
+      <div class="col-xs-6 col-sm-0">
+        <%= button_to new_solicitud_path, :class => "btn btn-primary", title: "Nueva solicitud", :method => :get do %>
+          <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+      </div>
+    <% end %>
     
     <div class="col-xs-6 col-sm-11">
       <%= form_tag solicitudes_path, method: :get do %>
@@ -41,7 +43,7 @@
         <th class="info"><%= sortable "nombrep", "Nombre del Proyecto"%></th>
         <th class="info"><%= "Nombre de la Empresa/Institución" %></th>
         <th class="info"><%= sortable "created_at", "Fecha de la solicitud" %></th>    
-        <th class="info"><%= sortable "estado", "Estado (Revisor)" %></th>  
+        <th class="info"><%= sortable "estado_revision_docente", "Estado (Revisor)" %></th>  
         <th class="info"><%= sortable "estado", "Estado (Vinculación)" %></th>  
       </thead>
       <% @solicitudes.each do |solicitud| %>

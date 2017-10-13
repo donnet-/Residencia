@@ -83,5 +83,4 @@ class BancoProyectosController < ApplicationController
       params.require(:banco_proyecto).permit(:clave, :fk_rfc_emp_inst, :nombre_proyecto_b, :descrip_proyecto_b, :tipo_proyecto_b, :tipo_proyecto_b, :fecha_inicio_proyecto_b, :fecha_termino_proyecto_b, :num_residentes, :objetivo_esperado, :pdf_solicitud, :asesor_externo,
         banco_proyecto_estudiantes_attributes: [:id, :numControl, :estado, :observacion, :_destroy])
     end
-    
 end

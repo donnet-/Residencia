@@ -114,9 +114,15 @@
             <% elsif @banco_estudiante != nil %>
               Ya realizó una solicitud de otro proyecto.
             <% else %>
+            
                 <% if @solicitud_realizada == false %>
-                  <%= button_to new_banco_proyecto_banco_proyecto_estudiante_path(:banco_proyecto_id => @banco_proyecto.id), :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
-                <% else %>
+                  <% if current_usuario.rol != "docente" %>
+                    <%= button_to new_banco_proyecto_banco_proyecto_estudiante_path(:banco_proyecto_id => @banco_proyecto.id), :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Solicitar Proyecto<div class="tip" id="action2">Solicitar realizar este proyecto de Residencia Profesional</div><% end %>
+                  <% else %>
+                    No se han realizado solicitudes de este proyecto
+                    
+                    <%= button_to new_anteproyecto_path(:banco_proyecto_id => @banco_proyecto.id), :method => :get do %><span class="glyphicon glyphicons-user-add green"></span>Asignar estudiantes<div class="tip" id="action2">Asignar estudiantes a este Proyecto de Residencia en Banco</div><% end %>
+                  <% end %>
                 <% end %>
             <% end %>
             

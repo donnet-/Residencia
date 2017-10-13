@@ -112,12 +112,60 @@
   
   <div class="row">
     <div class="col-xs-6">
-      <% @solicitud_revision = Solicitud.where(estado: "En revisión") %>
-      <% if @solicitud_revision != nil %>
+      <% @doc_vinculacion = Puesto.find_by(docente_id: @doc, cat_tipo_puesto: 4) %>
+      <% @solicitud_revision = Solicitud.where(estado_revision_docente: "Revisor no asignado") %>
+      <% if @solicitud_revision != nil and @solicitud_revision != [] and @doc_vinculacion != nil %>
         <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">Asignaciones para revisores de Solicitudes de Residencia Profesional pendientes</button>
         <div class="panel" id="1">
           <% @solicitud_revision.each do |solicitud| %>
-            <% if solicitud.rfc_docente_revisor == nil %>
+            <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+              <%= solicitud.nombrep %></br></br>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <% @solicitud_asignacion = Solicitud.where(rfc_docente_revisor: current_usuario.rfc, estado_secundario_revisor: "(recién asignado)") %>
+      <% if @solicitud_asignacion != nil and @solicitud_asignacion != [] %>
+        <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">Ha sido asignado como revisor de Solicitud de Residencia Profesional</button>
+        <div class="panel" id="1">
+          <% @solicitud_asignacion.each do |solicitud| %>
+            <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+              <%= solicitud.nombrep %></br></br>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <% @solicitud_con_observ1 = Solicitud.where(rfc_docente_revisor: current_usuario.rfc, estado_secundario_revisor: "(con correcciones)") %>
+      <% @solicitud_con_observ2 = Solicitud.where(estado_secundario: "(con correcciones)") %>
+      
+      <% if @solicitud_con_observ2 != nil and @solicitud_con_observ2 != [] and @doc_vinculacion != nil%>
+        <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">Revisar Solicitudes de Residencia Prof. con correcciones por parte de la empresa</button>
+        <div class="panel" id="1">
+          <% @solicitud_con_observ2.each do |solicitud| %>
+            <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+              <%= solicitud.nombrep %></br></br>
+            <% end %>
+          <% end %>
+        </div>
+      <% elsif @solicitud_con_observ1 != nil and @solicitud_con_observ1 != [] %>
+        <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">Revisar Solicitudes de Residencia Prof. con correcciones por parte de la empresa</button>
+        <div class="panel" id="1">
+          <% @solicitud_con_observ1.each do |solicitud| %>
+            <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+              <%= solicitud.nombrep %></br></br>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      
+      <% @solicitud_aprobada = Solicitud.where(estado_revision_docente: "Aprobado") %>
+      <% if @solicitud_aprobada != nil and @solicitud_aprobada != [] and @doc_vinculacion != nil %>
+        <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">Solicitudes de Proyecto de Residencia Profesional aprobadas por Docente Revisor</button>
+        <div class="panel" id="1">
+          <% @solicitud_aprobada.each do |solicitud| %>
+            <% if solicitud.estado != "Aprobado" %>
               <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
                 <%= solicitud.nombrep %></br></br>
               <% end %>
@@ -125,8 +173,7 @@
           <% end %>
         </div>
       <% end %>
+      
     </div>
   </div>
 </div>
-  
-  

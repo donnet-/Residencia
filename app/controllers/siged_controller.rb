@@ -7,6 +7,7 @@ class SigedController < ApplicationController
       elsif current_usuario.rol == "docente"
         doc = Docente.find_by(email: current_usuario.email)
         if  doc.usuario_id == nil
+          execute_statement("UPDATE docentes SET usuario_id = " + doc.id.to_s + " where email = '"  + current_usuario.email + "'")
           redirect_to edit_docente_path(doc)
         else
           render template: "siged/menuDocente"
@@ -14,7 +15,6 @@ class SigedController < ApplicationController
       elsif current_usuario.rol == "estudiante"
         x = Estudiante.find_by(email: current_usuario.email)
         if x != nil
-        #binding.pry
          if x.usuario_id == nil                    
           redirect_to edit_estudiante_path(x)
          else

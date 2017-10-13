@@ -123,7 +123,8 @@ class Ability
                 cannot [:create, :update, :destroy], CursoMateria
 
               elsif @tipoP.nombrePuesto == 'Jefe de la Oficina de Vinculación de Sistemas'
-              can [:read], ServicioSocial 
+                can [:read], ServicioSocial
+                can [:create, :read, :update], Solicitud
                 cannot [:create, :update, :destroy], CursoMateriaEstudiante
                 cannot [:create, :update, :destroy], CursoMateria
 

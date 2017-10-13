@@ -50,12 +50,22 @@ class AnteproyectosController < ApplicationController
   # PATCH/PUT /anteproyectos/1
   # PATCH/PUT /anteproyectos/1.json
   def update
+    if params[:anteproyecto][:anteproyecto_observaciones_attributes] != nil
+      @anteproyecto_observaciones = AnteproyectoObservacion.new
+      @anteproyecto_observaciones.identificador = params[:anteproyecto][:anteproyecto_observaciones_attributes][:"0"][:identificador]
+      @anteproyecto_observaciones.observacion = params[:anteproyecto][:anteproyecto_observaciones_attributes][:"0"][:observacion ]
+      @anteproyecto_observaciones.anteproyecto_id = params[:id]
+      params[:anteproyecto][:anteproyecto_observaciones_attributes][:"0"][:observacion ] = nil
+      if params[:anteproyecto][:anteproyecto_observaciones_attributes][:"0"][:observacion ] != ""
+        @anteproyecto_observaciones.save
+      end
+    end
+    
     respond_to do |format|
       if @anteproyecto.update(anteproyecto_params)
         format.html { redirect_to @anteproyecto, notice: 'El Anteproyecto fue satisfactoriamente actualizado.' }
         format.json { render :show, status: :ok, location: @anteproyecto }
       else
-        binding.pry
         format.html { render :show }
         format.json { render json: @anteproyecto.errors, status: :unprocessable_entity }
       end

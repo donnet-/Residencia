@@ -4,6 +4,24 @@ class SolicitudesController < ApplicationController
   load_and_authorize_resource :except => :create
    
   def show
+    @solicitud = Solicitud.find(params[:id])
+    if @solicitud.estado_secundario_revisor == "(recién asignado)" and @solicitud.rfc_docente_revisor == current_usuario.rfc
+      @solicitud.estado_secundario_revisor = "()"
+      @solicitud.save
+    elsif @solicitud.estado_secundario == "(recién solicitado)"
+      @solicitud.estado_secundario = "()"
+      @solicitud.save
+    end
+    
+    if current_usuario.rol == "docente"
+      if @solicitud.estado_secundario_revisor == "(con correcciones)" and @solicitud.rfc_docente_revisor == current_usuario.rfc
+        @solicitud.estado_secundario_revisor = "()"
+      elsif @solicitud.estado_secundario == "(con correcciones)"
+        @solicitud.estado_secundario = "()"
+      end
+      @solicitud.save
+    end
+    
   	@date = params[:date] ? Date.parse(params[:date]) : Date.today
   	@solicitud = Solicitud.find(params[:id])
   	  respond_to do |format|
@@ -51,19 +69,43 @@ class SolicitudesController < ApplicationController
     @solicitud = Solicitud.find(params[:id])
     
     estado = @solicitud.estado
-    @solicitud.update(solicitud_params)
+    revisor = @solicitud.rfc_docente_revisor
     
     if params[:solicitud][:solicitud_observaciones_attributes] != nil
       @solicitud_observaciones = SolicitudObservacion.new
       @solicitud_observaciones.rfc = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:rfc]
       @solicitud_observaciones.observacion = params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ]
       @solicitud_observaciones.solicitud_id = params[:id]
-      if params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ] != ""
+      params[:solicitud][:solicitud_observaciones_attributes][:"0"][:observacion ] = nil
+      if @solicitud_observaciones.observacion != ""
         @solicitud_observaciones.save
+        if @solicitud_observaciones.rfc == @solicitud.rfc_docente_revisor
+          @solicitud.estado_secundario_revisor = "(con observaciones)"
+        else
+          @solicitud.estado = "(con observaciones)"
+        end
       end
     end
     
+    @solicitud.update(solicitud_params)
+    
     if @solicitud.save(:validate => false)
+      if @solicitud.rfc_docente_revisor != revisor
+        @solicitud.estado_secundario = "()"
+        @solicitud.estado_secundario_revisor = "(recién asignado)"
+        @solicitud.estado_revision_docente = "En revisión"
+      end
+      
+      if @solicitud.estado_secundario == "(con observaciones)" and @solicitud.rfc == current_usuario.rfc
+        @solicitud.estado_secundario = "(con correcciones)"
+      end
+      
+      if @solicitud.estado_secundario_revisor == "(con observaciones)" and @solicitud.rfc == current_usuario.rfc
+        @solicitud.estado_secundario_revisor = "(con correcciones)"
+      end
+    
+      @solicitud.save
+      
       if @solicitud.estado != estado && @solicitud.estado == "Aprobado"
         redirect_to new_banco_proyecto_path
       else
@@ -112,7 +154,10 @@ class SolicitudesController < ApplicationController
       @solicitud.clave_solicitud = 'AGDI' + @anio.to_s + id_nueva.to_s
     end
     
-    @solicitud.estado_secundario = "recién solicitado"
+    @solicitud.estado_secundario = "(recién solicitado)"
+    @solicitud.estado_secundario_revisor = "()"
+    @solicitud.estado = "En revisión"
+    @solicitud.estado_revision_docente = "Revisor no asignado"
     
     respond_to do |format|
       if @solicitud.save
@@ -123,8 +168,6 @@ class SolicitudesController < ApplicationController
         format.json { render json: @solicitud.errors, status: :unprocessable_entity }
       end
     end
-    #@solicitud.save
-    #redirect_to @solicitud 
   end
   
   private
@@ -132,8 +175,9 @@ class SolicitudesController < ApplicationController
     params.require(:solicitud).permit(:nombrep, :fechaini, :fechater, :aexterno, :telefono, :extension, :correo, :area,
     	:numresidentes, :carrera, :semestre, :ingles, :horaentrada, :horasalida, :desproyecto, :objetivo, :actividades, :pc,
        :tel_escritorio,:cuenta_correo, :lugar, :beca, :observacion, :estado, :rfc, :periodo, :rfc_docente_revisor,
-       :estado_revision_docente, :clave_solicitud, solicitud_observaciones_attributes: [:id, :rfc, :observacion, :_destroy],
-       solicitud_horarios_attributes:[:id,:dia_inicio,:dia_termino, :hora_inicio, :hora_termino, :_destroy])
+       :estado_revision_docente, :clave_solicitud, :observacion, :estado_secundario, :estado_secundario_revisor,
+        solicitud_observaciones_attributes: [:id, :rfc, :observacion, :_destroy],
+        solicitud_horarios_attributes: [:id,:dia_inicio,:dia_termino, :hora_inicio, :hora_termino, :_destroy])
   end
 
   def sort_column
