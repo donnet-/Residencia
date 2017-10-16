@@ -5,18 +5,10 @@ class SolicitudesController < ApplicationController
    
   def show
     @solicitud = Solicitud.find(params[:id])
-    if @solicitud.estado_secundario_revisor == "(recién asignado)" and @solicitud.rfc_docente_revisor == current_usuario.rfc
-      @solicitud.estado_secundario_revisor = "()"
-      @solicitud.save
-    elsif @solicitud.estado_secundario == "(recién solicitado)"
-      @solicitud.estado_secundario = "()"
-      @solicitud.save
-    end
-    
     if current_usuario.rol == "docente"
-      if @solicitud.estado_secundario_revisor == "(con correcciones)" and @solicitud.rfc_docente_revisor == current_usuario.rfc
+      if (@solicitud.estado_secundario_revisor == "(recién asignado)" or @solicitud.estado_secundario_revisor == "(con correcciones)") and @solicitud.rfc_docente_revisor == current_usuario.rfc
         @solicitud.estado_secundario_revisor = "()"
-      elsif @solicitud.estado_secundario == "(con correcciones)"
+      elsif @solicitud.estado_secundario == "(con correcciones)" or @solicitud.estado_secundario == "(recién solicitado)"
         @solicitud.estado_secundario = "()"
       end
       @solicitud.save
@@ -154,10 +146,10 @@ class SolicitudesController < ApplicationController
       @solicitud.clave_solicitud = 'AGDI' + @anio.to_s + id_nueva.to_s
     end
     
-    @solicitud.estado_secundario = "(recién solicitado)"
-    @solicitud.estado_secundario_revisor = "()"
     @solicitud.estado = "En revisión"
     @solicitud.estado_revision_docente = "Revisor no asignado"
+    @solicitud.estado_secundario = "(recién solicitado)"
+    @solicitud.estado_secundario_revisor = "()"
     
     respond_to do |format|
       if @solicitud.save

@@ -28,7 +28,7 @@ class UbicacionEgresadosEmpresasController < ApplicationController
 
     respond_to do |format|
       if @ubicacion_egresados_empresa.save
-        format.html { redirect_to @ubicacion_egresados_empresa, notice: 'Ubicacion egresados empresa was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Encuesta finalizada' }
         format.json { render :show, status: :created, location: @ubicacion_egresados_empresa }
       else
         format.html { render :new }

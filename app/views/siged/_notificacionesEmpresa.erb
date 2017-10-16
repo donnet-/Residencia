@@ -4,29 +4,33 @@
 	}
 </style>
 <div class="container">
-  <div class="col-xs-6">	
-    <% @empresa = Empresa.find_by(email: current_usuario.email) %>
-    <% if @empresa.pdfConvenio.file == nil %>
-      <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">No se encuentra registrado su convenio.</button>
-      <div class="panel" id="1">
-        Acuda con el administrador del sistema para completar su registro.
-      </div>
-    <% end %>
-    
-    <% @solicitud_con_observ1 = Solicitud.where(rfc: current_usuario.rfc, estado_secundario_revisor: "(con observaciones)") %>
-    <% @solicitud_con_observ2 = Solicitud.where(rfc: current_usuario.rfc, estado_secundario: "(con observaciones)") %>
-    
-    <% @solicitud_con_observ1.merge(@solicitud_con_observ2) %>
-    
-    <% if @solicitud_con_observ1 != nil and @solicitud_con_observ1 != [] %>
-      <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">Tiene solicitud(es) con observaciones</button>
-      <div class="panel" id="1">
-        <% @solicitud_con_observ1.each do |solicitud| %>
-          <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
-            <%= solicitud.nombrep %></br></br>
+  <div class="row">
+    <div class="col-xs-6">	
+      <% @empresa = Empresa.find_by(email: current_usuario.email) %>
+      <% if @empresa.pdfConvenio.file == nil %>
+        <button class="btn btn-danger btn-block button" onclick="muestraPanel('1')">No se encuentra registrado su convenio</button>
+        <div class="panel" id="1">
+          Acuda con el administrador del sistema para completar su registro.
+        </div>
+        </br>
+      <% end %>
+      
+      <% @solicitud_con_observ1 = Solicitud.where(rfc: current_usuario.rfc, estado_secundario_revisor: "(con observaciones)") %>
+      <% @solicitud_con_observ2 = Solicitud.where(rfc: current_usuario.rfc, estado_secundario: "(con observaciones)") %>
+      
+      <% @solicitud_con_observ1.merge(@solicitud_con_observ2) %>
+      
+      <% if @solicitud_con_observ1 != nil and @solicitud_con_observ1 != [] %>
+        <button class="btn btn-danger btn-block button" onclick="muestraPanel('2')">Tiene solicitud(es) con observaciones</button>
+        <div class="panel" id="2">
+          <% @solicitud_con_observ1.each do |solicitud| %>
+            <%= link_to solicitud_path(solicitud), :title => "Ver" do %>
+              <%= solicitud.nombrep %></br></br>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
+        </div>
+        </br>
+      <% end %>
+    </div>
   </div>
 </div>

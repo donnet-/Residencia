@@ -28,7 +28,7 @@ class DatosGeneralesEmpresasController < ApplicationController
 
     respond_to do |format|
       if @datos_generales_empresa.save
-        format.html { redirect_to @datos_generales_empresa, notice: 'Datos generales empresa was successfully created.' }
+        format.html { redirect_to new_ubicacion_egresados_empresa_path, notice: 'Datos generales empresa de la empresa, guardados.' }
         format.json { render :show, status: :created, location: @datos_generales_empresa }
       else
         format.html { render :new }

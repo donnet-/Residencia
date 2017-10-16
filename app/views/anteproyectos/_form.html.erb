@@ -112,11 +112,14 @@
                       </div>
                     </div>
                 <% end %>
-                  <div class="row">
-                    <%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %>
-                      <span class="glyphicon glyphicon-plus blue"></span>
-                    <% end %>
-                  </div>
+                <div class="row">
+                  <% if @num_residentes >= 0 %>
+                  <%= anteproyecto.link_to_add :anteproyecto_estudiantes, title: "Agregar " do %>
+                    <span class="glyphicon glyphicon-plus blue"></span>
+                    <% @num_residentes -= 1 %>
+                  <% end %>
+                  <% end %>
+                </div>
               </div>
             </fieldset>
             </br>
